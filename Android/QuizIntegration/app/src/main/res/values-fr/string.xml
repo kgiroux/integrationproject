@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Serais-je le plus fort !!!!</string>
+    <string name="logo">logo</string>
+    <string name="drawer_open">Ouverture du menu</string>
+    <string name="drawer_close">Fermeture du menu</string>
+    <string name="bye">Au revoir! Merci de votre visite</string>
+    <string name="connexion">Connexion</string>
+    <string name="inscription">Inscription</string>
+    <string name="about">A propos de </string>
+    <string name="mentionlegales">Mentions legales</string>
+    <string-array name="listMenu">
+        <item>Connexion</item>
+        <item>Inscription</item>
+        <item>A propos de </item>
+        <item>Mentions legales</item>
+        <item>Quitter</item>
+    </string-array>
+</resources>

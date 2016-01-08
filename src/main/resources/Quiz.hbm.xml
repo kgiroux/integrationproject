@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/HibernateMappingDTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="fr.esigelec.quizz.dto">
+	<class name="Quizz" table="quizz">
+	
+		<id name="id" column="id">
+			<generator class="native"/>
+		</id>
+		
+		<property name="libelle" column="libelle" type="string"/>
+		<property name="dateDebutQuizz" column="dateDebutQuizz" type="timestamp"/>
+		<property name="dateFinQuizz" column="dateFinQuizz" type="timestamp"/>
+		<property name="noQuestionCourante" column="noQuestionCourante" type="integer"/>
+		<property name="dateDebutQuestion" column="dateDebutQuestion" type="timestamp"/>
+		<property name="etape" column="etape" type="integer"/>
+		
+	</class>
+</hibernate-mapping>

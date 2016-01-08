@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!--Databaseconnectionsettings -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost/bdd_geographie</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
+		
+		<!--JDBC connectionpool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+		
+		<!--SQL dialect-->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!--EnableHibernate'sautomaticsession contextmanagement -->
+		<property name="current_session_context_class">thread</property>
+		
+		<!--Disablethe second-levelcache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		
+		<!--Echo all executedSQL to stdout-->
+		<property name="show_sql">true</property>
+		
+		<mapping resource="Quizz.hbm.xml"/>
+		<mapping resource="Proposition.hbm.xml"/>
+		<mapping resource="Question.hbm.xml"/>
+		<mapping resource="Personne.hbm.xml"/>
+		
+	</session-factory>
+</hibernate-configuration>

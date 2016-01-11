@@ -28,7 +28,7 @@ public interface IPropositionDAO {
 	 * @return the proposition
 	 */
 
-	public Question getProposition(int id_proposition); 
+	public Proposition getProposition(int id_proposition); 
 
 	/**
 	 * méthode : listProposition

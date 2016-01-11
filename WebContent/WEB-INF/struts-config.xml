@@ -6,6 +6,7 @@
 <struts-config>
 <form-beans>
 <form-bean name="inscrireForm" type="fr.esigelec.projetStruts.forms.InscrireForm"/>
+<form-bean name="connexionForm" type="fr.esigelec.projetStruts.forms.ConnexionForm"/>
 </form-beans>
 
 <action-mappings>
@@ -22,6 +23,11 @@ REMARQUE : les attributs forward,include et type sont mutuellement exclusifs
 <action scope="request" path="/Inscrire"  name="inscrireForm" type="fr.esigelec.quiz.controleur.InscrireAction" input="/">
 <forward name="succes" path="/WEB-INF/jsp/index.jsp"></forward>
 <forward name="erreur" path="/WEB-INF/jsp/inscription.jsp"></forward>
+</action>
+
+<action scope="request" path="/ConnexionPersonne"  name="connexionForm" type="fr.esigelec.quiz.controleur.ConnexionPersonneAction" input="/">
+<forward name="succes" path="/WEB-INF/jsp/quiz.jsp"></forward>
+<forward name="erreur" path="/WEB-INF/jsp/index.jsp"></forward>
 </action>
 
 

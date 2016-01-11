@@ -20,7 +20,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 
-import fr.esigelec.gsi.quizintegration.MainActivity;
+import fr.esigelec.gsi.quizintegration.Activity.MainActivity;
 import fr.esigelec.gsi.quizintegration.R;
 
 

@@ -1,4 +1,4 @@
-package fr.esigelec.gsi.quizintegration;
+package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -12,15 +12,21 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
+
+import java.security.MessageDigest;
+
 
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
 {
@@ -80,18 +86,18 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 						Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
 						break;
 					case 1:
-						t = new Intent(getApplicationContext (),Inscription.class);
+						t = new Intent(getApplicationContext (),InscriptionActivity.class);
 						startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
 						Toast.makeText (getApplicationContext (), R.string.inscription, Toast.LENGTH_LONG).show ();
 						break;
 
 					case 2:
-						t = new Intent(getApplicationContext (),About.class);
+						t = new Intent(getApplicationContext (),AboutActivity.class);
 						Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
 						startActivity (t);
 						break;
 					case 3:
-						t = new Intent (getApplicationContext (),LegalNotice.class);
+						t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
 						Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
 						startActivity (t);
 						break;
@@ -199,7 +205,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 			@Override
 			public void onClick (View v)
 			{
-				Intent t = new Intent (getApplicationContext (), Inscription.class);
+				Intent t = new Intent (getApplicationContext (), InscriptionActivity.class);
 				startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
 			}
 		});
@@ -210,7 +216,37 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 			@Override
 			public void onClick (View v)
 			{
-				Toast.makeText (getApplicationContext (), getString (R.string.connexion),Toast.LENGTH_LONG).show ();
+				boolean isEmailValid = true;
+				boolean isMdpValid = true;
+				EditText emailOrPseudo = (EditText)dialog.findViewById (R.id.login);
+				String loginValue = emailOrPseudo.getText ().toString ();
+				if("".equals (loginValue)){
+					emailOrPseudo.setError (getString (R.string.error_invalid_email));
+					isEmailValid = false;
+				}
+
+				EditText password = (EditText) dialog.findViewById (R.id.password);
+				String passwordValue = password.getText ().toString ();
+
+				if("".equals (passwordValue)){
+					password.setError (getString (R.string.error_invalid_password));
+					isMdpValid = false;
+				}
+				MessageDigest digest = null;
+				String test = "";
+				try{
+					 digest = MessageDigest.getInstance ("MD5");
+					 byte[] arrayreturn = digest.digest (passwordValue.getBytes ());
+					 test = String.format("%032X",new BigInteger (1,arrayreturn));
+				}catch(Exception e){
+					Log.e("Error ", e.getMessage ());
+				}
+
+				Toast.makeText (getApplicationContext (), getString (R.string.connexion) + " SHA3 MDP : " + test ,Toast.LENGTH_LONG).show ();
+				if(isEmailValid && isMdpValid){
+					Intent t = new Intent (getApplicationContext (), MenuActivity.class);
+					startActivity (t);
+				}
 			}
 		});
 

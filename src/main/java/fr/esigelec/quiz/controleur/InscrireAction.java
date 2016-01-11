@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.controleur;
 
-public class InscrireAction {
+import org.apache.struts.action.Action;
+
+public class InscrireAction extends Action {
 
 }

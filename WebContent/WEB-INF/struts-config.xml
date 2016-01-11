@@ -4,6 +4,9 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
 
 <struts-config>
+<form-beans>
+<form-bean name="inscrireForm" type="fr.esigelec.projetStruts.forms.InscrireForm"/>
+</form-beans>
 
 <action-mappings>
 <!-- 

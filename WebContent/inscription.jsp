@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Inscription</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
@@ -50,7 +50,7 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-xs-6">
-		      <button type="submit" class="btn btn-primary">Connexion</button>
+		      <button type="submit" class="btn btn-primary">S'inscrire</button>
 		      <button type="Reset" class="btn btn-primary">Annuler</button>
 		    </div>
 		  </div>

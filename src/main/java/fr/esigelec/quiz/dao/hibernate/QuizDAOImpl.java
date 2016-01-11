@@ -39,10 +39,10 @@ public class QuizDAOImpl implements IQuizDAO{
 	 * @return the quiz
 	 */
 	@Override
-	public Quiz getQuiz(int id_quiz) {
+	public Quiz getQuiz(int id) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Quiz quiz=(Quiz)session.get(Quiz.class,id_quiz);
+		Quiz quiz=(Quiz)session.get(Quiz.class,id);
 		session.getTransaction().commit();
 		session.close();
 		return quiz;
@@ -58,10 +58,10 @@ public class QuizDAOImpl implements IQuizDAO{
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query=session.createQuery("from Quiz");
-		List<Quiz> liste_quiz=query.list();
+		List<Quiz> listeQuizs=query.list();
 		session.getTransaction().commit();
 		session.close();
-		return liste_quiz;
+		return listeQuizs;
 	}
 
 	

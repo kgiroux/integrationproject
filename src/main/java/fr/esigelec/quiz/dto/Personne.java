@@ -173,4 +173,10 @@ public class Personne {
 		this.droits = droits;
 	}
 
+	@Override
+	public String toString() {
+		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom
+				+ ", mail=" + mail + ", mdp=" + mdp + ", droits=" + droits
+				+ "]";
+	}
 }

@@ -1,42 +1,34 @@
 <?xml version="1.0" encoding="ISO-8859-15" ?>
 <!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
-
+   "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+   "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
 <struts-config>
-<form-beans>
-<form-bean name="inscrireForm" type="fr.esigelec.projetStruts.forms.InscrireForm"/>
-<form-bean name="connexionForm" type="fr.esigelec.projetStruts.forms.ConnexionForm"/>
-</form-beans>
-
-<action-mappings>
-<!-- 
-input : page ou on revient si erreur de validation 
-name : nom du form-bean
-type : nom de la classe Action
-scope : portée du form-bean (request ou session)
-path : Url de l'action
-validate : permet de preciser si la methode validate doit etre executée (true par defaut)
-REMARQUE : les attributs forward,include et type sont mutuellement exclusifs
- -->
- <!--  scope=session permettra de retrouver le formulaire rempli si affichage de celui ci -->
-<action scope="request" path="/Inscrire"  name="inscrireForm" type="fr.esigelec.quiz.controleur.InscrireAction" input="/">
-<forward name="succes" path="/index.jsp"></forward>
-<forward name="erreur" path="/inscription.jsp"></forward>
-</action>
-
-<action scope="request" path="/ConnexionPersonne" type="fr.esigelec.quiz.controleur.ConnexionPersonneAction" input="/">
-<forward name="succes" path="/quiz.jsp"></forward>
-<forward name="erreur" path="/index.jsp"></forward>
-</action>
-
-
-
-</action-mappings>
-
-<message-resources parameter="mesMessages"></message-resources>
-
-
-
-
+   <form-beans>
+      <form-bean name="inscrireForm" type="fr.esigelec.quiz.forms.InscrireForm"/>
+      <form-bean name="connexionForm" type="fr.esigelec.quiz.forms.ConnexionForm"/>
+   </form-beans>
+   <action-mappings>
+      <!-- 
+         input : page ou on revient si erreur de validation 
+         name : nom du form-bean
+         type : nom de la classe Action
+         scope : portée du form-bean (request ou session)
+         path : Url de l'action
+         validate : permet de preciser si la methode validate doit etre executée (true par defaut)
+         REMARQUE : les attributs forward,include et type sont mutuellement exclusifs
+          -->
+      <!--  scope=session permettra de retrouver le formulaire rempli si affichage de celui ci -->
+      <action scope="request" path="/Inscrire"  name="inscrireForm" type="fr.esigelec.quiz.controleur.InscrireAction" input="/">
+         <forward name="succes" path="/index.jsp"></forward>
+         <forward name="erreur" path="/inscription.jsp"></forward>
+      </action>
+      <action scope="request" path="/ConnexionPersonne" name="connexionForm" type="fr.esigelec.quiz.controleur.ConnexionPersonneAction" input="/">
+         <forward name="succes" path="/quiz.jsp"></forward>
+         <forward name="erreur" path="/index.jsp"></forward>
+      </action>
+      <action scope="request" path="/VueInscription"  type="fr.esigelec.quiz.controleur.VueInscriptionAction">
+        <forward name="succes" path="/inscription.jsp"/>
+      </action>
+   </action-mappings>
+   <message-resources parameter="mesMessages"></message-resources>
 </struts-config>

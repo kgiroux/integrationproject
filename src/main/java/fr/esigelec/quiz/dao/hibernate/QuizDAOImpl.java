@@ -70,7 +70,7 @@ public class QuizDAOImpl implements IQuizDAO{
 	 * @param  q the quiz which should be updated
 	 */
 	@Override
-	public void updateQuiz(Quiz q) {
+	public void updateQuiz(Quiz q) { 
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(q);

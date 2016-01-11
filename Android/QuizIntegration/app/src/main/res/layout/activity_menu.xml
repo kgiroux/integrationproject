@@ -6,33 +6,119 @@
     android:layout_height="match_parent"
     android:weightSum="100">
 
-    <RelativeLayout
-        android:id="@+id/container"
-        style="@style/NoActionBar"
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="50"
-        >
-        <ImageView
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/container"
+            style="@style/NoActionBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/logo"
-            />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/logo"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hello World!"/>
+
+            <include
+                android:id="@+id/tool_bar"
+                layout="@layout/tool_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </RelativeLayout>
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/current"
+            android:id="@+id/current" />
+
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"/>
+            android:background="#37ce32"
+            android:weightSum="1"
+            android:baselineAligned="false"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
 
-        <include
-            android:id="@+id/tool_bar"
-            layout="@layout/tool_bar"
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/loading"
+                android:src="@drawable/current_logo"
+                android:layout_weight="0.2" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.6" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Large Text"
+                    android:id="@+id/title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/date" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Text"
+                    android:id="@+id/question" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/play"
+                android:src="@drawable/play"
+                android:layout_weight="0.2"
+                android:contentDescription="" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/old"
+            android:id="@+id/old" />
+
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </RelativeLayout>
+            android:id="@+id/old_quiz"
+            android:smoothScrollbar="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="5dp" />
 
-
-
+    </LinearLayout>
 
     <ExpandableListView
         android:id="@+id/drawer_list"

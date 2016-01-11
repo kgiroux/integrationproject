@@ -16,7 +16,7 @@
 <div class="container">
 	<h1>Inscription</h1>
 	<hr>
-  <form class="form-horizontal">
+  <form class="form-horizontal" method="post" action="InscriptionPersonne.do">
 	  <div class="form-center">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>

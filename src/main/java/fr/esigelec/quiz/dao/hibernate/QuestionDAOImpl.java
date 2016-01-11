@@ -11,8 +11,12 @@ package fr.esigelec.quiz.dao.hibernate;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+
 import fr.esigelec.quiz.dao.IQuestionDAO;
 import fr.esigelec.quiz.dto.Question;
+import fr.esigelec.quiz.dto.Quiz;
 
 
 public class QuestionDAOImpl implements IQuestionDAO{
@@ -23,8 +27,11 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 */ 
 	@Override
 	public void createQuestion(Question q) {
-		// TODO Auto-generated method stub
-		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
@@ -34,9 +41,13 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 * @return the question
 	 */
 	@Override
-	public Question getQuestion(int id_question) {
-		// TODO Auto-generated method stub
-		return null;
+	public Question getQuestion(int id) {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Question question=(Question)session.get(Question.class,id);
+		session.getTransaction().commit();
+		session.close();
+		return question;
 	}
 
 	
@@ -46,8 +57,13 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 */
 	@Override
 	public List<Question> listQuestion() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Question");
+		List<Question> listeQuestions=query.list();
+		session.getTransaction().commit();
+		session.close();
+		return listeQuestions;
 	}
 
 	
@@ -57,8 +73,11 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 */
 	@Override
 	public void updateQuestion(Question q) {
-		// TODO Auto-generated method stub
-		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
@@ -68,8 +87,11 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 */
 	@Override
 	public void deleteQuestion(Question q) {
-		// TODO Auto-generated method stub
-		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

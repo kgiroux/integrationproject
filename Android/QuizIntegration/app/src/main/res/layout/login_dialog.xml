@@ -16,7 +16,7 @@
         android:text="@string/prompt_email_pseudo"/>
 
     <EditText
-        android:inputType="textEmailAddress|text"
+        android:inputType="textEmailAddress"
         android:id="@+id/login"
         android:hint="@string/prompt_email_pseudo"
         android:layout_below="@id/loginText"

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.esigelec.gsi.quizintegration.R;
+import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 
 import java.security.MessageDigest;
@@ -31,8 +32,8 @@ import java.security.MessageDigest;
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
 {
 	public static boolean DEBUG = true;
+	public static boolean DEV = true;
 	private DrawerLayout mDrawerLayout;
-
 	private ActionBarDrawerToggle mDrawerToggle;
 	List<String> groupList;
 	private final int REQUEST_CODE_INSCRIPTION = 42;
@@ -56,7 +57,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	public void create_drawer ()
 	{
 		mDrawerLayout = (DrawerLayout) findViewById (R.id.drawer_layout);
-		mDrawerToggle = new CustomActionBarDrawerToggle (this, mDrawerLayout);
+		mDrawerToggle = new CustomActionBarDrawerToggle (this, mDrawerLayout,toolbar);
 	}
 
 	public void create_expandable_list ()
@@ -171,28 +172,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	}
 
 
-	private class CustomActionBarDrawerToggle extends ActionBarDrawerToggle
-	{
-
-		public CustomActionBarDrawerToggle (Activity mActivity, DrawerLayout mDrawerLayout)
-		{
-			super (mActivity, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
-		}
-
-		@Override
-		public void onDrawerClosed (View view)
-		{
-			toolbar.setTitle (R.string.app_name);
-			invalidateOptionsMenu (); // creates call to onPrepareOptionsMenu()
-		}
-
-		@Override
-		public void onDrawerOpened (View drawerView)
-		{
-			toolbar.setTitle (R.string.app_name);
-			invalidateOptionsMenu (); // creates call to onPrepareOptionsMenu()
-		}
-	}
 
 
 	private Dialog createAndManageDialog(){
@@ -241,7 +220,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					Log.e("Error ", e.getMessage ());
 				}
 
-				Toast.makeText (getApplicationContext (), getString (R.string.connexion) + " MD5 MDP : " + test ,Toast.LENGTH_LONG).show ();
+
+				if(DEV){
+					isMdpValid = true;
+					isEmailValid = true;
+					Toast.makeText (getApplicationContext (), getString (R.string.connexion) + " MD5 MDP : " + test ,Toast.LENGTH_LONG).show ();
+				}
+
 				if(isEmailValid && isMdpValid){
 					Intent t = new Intent (getApplicationContext (), MenuActivity.class);
 					startActivity (t);

@@ -12,6 +12,9 @@ body
 	box-shadow: 0 0 20px #555;
 	border-radius: 10px;
 }
+table{
+	width:"80%";
+}
 .form-center
 {
 	margin-top:2%;

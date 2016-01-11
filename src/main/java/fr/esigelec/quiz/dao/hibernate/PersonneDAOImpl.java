@@ -12,6 +12,9 @@ package fr.esigelec.quiz.dao.hibernate;
 
 import java.util.List;
 
+import org.hibernate.Session;
+
+import fr.esigelec.garage.HibernateUtil;
 import fr.esigelec.quiz.dao.IPersonneDAO;
 import fr.esigelec.quiz.dto.Personne; 
 
@@ -24,8 +27,11 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 */
 	@Override
 	public void createPersonne(Personne p) {
-		// TODO Auto-generated method stub
-		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(p);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	

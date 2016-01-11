@@ -16,4 +16,30 @@
         <item>Mentions legales</item>
         <item>Quitter</item>
     </string-array>
+
+    <string-array name="listMenuActivity">
+        <item>""</item>
+        <item>Liste Quiz</item>
+        <item>Déconnexion</item>
+        <item>Quitter</item>
+        <item>Legal Notice</item>
+    </string-array>
+
+
+    <string name="title_activity_login">Connexion</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_email_pseudo">Email ou pseudo : </string>
+    <string name="prompt_password">Password</string>
+    <string name="password">Password :</string>
+    <string name="action_sign_in">Connexion ou Inscription</string>
+    <string name="register">Inscription</string>
+    <string name="action_sign_in_short">Connexion </string>
+    <string name="error_invalid_email">Cet email n\'est pas valid</string>
+    <string name="error_invalid_password">Le mot de passe est trop court</string>
+    <string name="error_incorrect_password">Le mot de passe est incorrect</string>
+    <string name="error_field_required">Champs requis</string>
+
+
 </resources>

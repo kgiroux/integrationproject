@@ -1,9 +1,12 @@
-package fr.esigelec.gsi.quizintegration;
+package fr.esigelec.gsi.quizintegration.Activity;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class About extends AppCompatActivity
+import fr.esigelec.gsi.quizintegration.R;
+
+public class AboutActivity extends Activity
 {
 
 	@Override

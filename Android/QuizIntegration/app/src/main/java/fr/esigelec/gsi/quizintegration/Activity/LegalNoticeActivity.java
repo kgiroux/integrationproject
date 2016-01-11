@@ -1,9 +1,11 @@
-package fr.esigelec.gsi.quizintegration;
+package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class LegalNotice extends AppCompatActivity
+import fr.esigelec.gsi.quizintegration.R;
+
+public class LegalNoticeActivity extends AppCompatActivity
 {
 
 	@Override

@@ -11,11 +11,10 @@ package fr.esigelec.quiz.dao.hibernate;
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuizDAO;
-import fr.esigelec.quiz.dto.Proposition;
-import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
-
  
 public class QuizDAOImpl implements IQuizDAO{
 
@@ -25,9 +24,12 @@ public class QuizDAOImpl implements IQuizDAO{
 	 * @param  q the quiz to create
 	 */
 	@Override
-	public void createQuiz(Proposition q) {
-		// TODO Auto-generated method stub
-		
+	public void createQuiz(Quiz q) {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
@@ -37,9 +39,13 @@ public class QuizDAOImpl implements IQuizDAO{
 	 * @return the quiz
 	 */
 	@Override
-	public Question getQuiz(int id_quiz) {
-		// TODO Auto-generated method stub
-		return null;
+	public Quiz getQuiz(int id_quiz) {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Quiz quiz=(Quiz)session.get(Quiz.class,id_quiz);
+		session.getTransaction().commit();
+		session.close();
+		return quiz;
 	}
 
 	
@@ -49,8 +55,13 @@ public class QuizDAOImpl implements IQuizDAO{
 	 */
 	@Override
 	public List<Quiz> listQuiz() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Quiz");
+		List<Quiz> liste_quiz=query.list();
+		session.getTransaction().commit();
+		session.close();
+		return liste_quiz;
 	}
 
 	
@@ -60,8 +71,11 @@ public class QuizDAOImpl implements IQuizDAO{
 	 */
 	@Override
 	public void updateQuiz(Quiz q) {
-		// TODO Auto-generated method stub
-		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
@@ -71,8 +85,11 @@ public class QuizDAOImpl implements IQuizDAO{
 	 */
 	@Override
 	public void deleteQuiz(Quiz q) {
-		// TODO Auto-generated method stub
-		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

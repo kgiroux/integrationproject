@@ -23,7 +23,7 @@ public class Quiz {
 		 * libelle du quiz;
 		 */
 		private String libelle; 
-		 
+		
 		/**
 		 * Date et heure de d�but du quiz
 		*/

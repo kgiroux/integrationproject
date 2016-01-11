@@ -54,7 +54,7 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	/**
 	 * m�thode : listQuestion
 	 * @return all the questions
-	 */ 
+	 */  
 	@Override
 	public List<Question> listQuestion() {
 		Session session= HibernateUtil.getSessionFactory().openSession();

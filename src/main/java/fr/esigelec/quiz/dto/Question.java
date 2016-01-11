@@ -20,7 +20,7 @@ public class Question {
 	private int id; 
 
 	/**
-	 * intitul� de la question 
+	 * intitul� de la question
 	 */
 	private String libelle; 
 	

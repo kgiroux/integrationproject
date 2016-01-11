@@ -209,7 +209,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 				startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
 			}
 		});
-
 		Button signIn = (Button) dialog.findViewById (R.id.SignIn);
 		signIn.setOnClickListener (new View.OnClickListener ()
 		{

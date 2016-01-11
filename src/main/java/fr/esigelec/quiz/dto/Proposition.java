@@ -39,9 +39,8 @@ public class Proposition {
 	 * @param id
 	 * @param libelle
 	 */
-	public Proposition(int id, String libelle) {
+	public Proposition( String libelle) {
 		super();
-		this.id = id;
 		this.libelle = libelle;
 	}
 

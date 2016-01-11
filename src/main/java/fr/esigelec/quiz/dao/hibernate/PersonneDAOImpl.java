@@ -13,6 +13,7 @@ package fr.esigelec.quiz.dao.hibernate;
 import java.util.List;
 
 import org.hibernate.Session;
+
 import fr.esigelec.quiz.dao.IPersonneDAO;
 import fr.esigelec.quiz.dto.Personne; 
 
@@ -29,8 +30,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		session.beginTransaction();
 		session.save(p);
 		session.getTransaction().commit();
-		session.close();
-		
+		session.close();	
 	}
 
 	
@@ -41,8 +41,12 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 */
 	@Override
 	public Personne getPersonne(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Personne retour = (Personne) session.get(Personne.class, id);
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 
 	
@@ -51,9 +55,14 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 * @return la liste de toutes les personnes enregistr�es dans la base de donn�es
 	 */
 	@Override
-	public List<Personne> listPersonne() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Personne> listPersonnes() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Personne";
+		List<Personne> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 
 	
@@ -65,8 +74,11 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 */
 	@Override
 	public void updatePersonne(Personne p) {
-		// TODO Auto-generated method stub
-		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(p);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
@@ -78,8 +90,11 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 */
 	@Override
 	public void deletePersonne(Personne p) {
-		// TODO Auto-generated method stub
-		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(p);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

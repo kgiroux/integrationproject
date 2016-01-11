@@ -19,7 +19,7 @@ public interface IPropositionDAO {
 	 * @param  q the proposition to create
 	 */
 	
-	public void createProposition(Proposition q);
+	public void createProposition(Proposition p);
 	
 	/**
 	 * m�thode : getProposition
@@ -27,14 +27,14 @@ public interface IPropositionDAO {
 	 * @return the proposition
 	 */
 	
-	public Question getProposition(int id_proposition); 
+	public Proposition getProposition(int id); 
 	
 	/**
 	 * m�thode : listProposition
 	 * @return all the propositions
 	 */
 	
-	public List<Proposition> listProposition(); 
+	public List<Proposition> listPropositions(); 
 	
 	/**
 	 * m�thode : getPropositionParQuestion
@@ -42,20 +42,20 @@ public interface IPropositionDAO {
 	 * @return the list of proposition
 	 */
 	
-	public List<Proposition> getPropositionParQuestion( Question q);
+	public List<Proposition> getPropositionsParQuestion(Question q);
 	
 	/**
 	 * m�thode : updateProposition
 	 * @param  q the proposition which should be updated
 	 */
 	
-	public void updateProposition(Proposition q); 
+	public void updateProposition(Proposition p); 
 	
 	/**
 	 * m�thode : deleteProposition
 	 * @param  q the proposition which should be deleted
 	 */
 	
-	public void deleteProposition(Proposition q); 
+	public void deleteProposition(Proposition p); 
 
 }

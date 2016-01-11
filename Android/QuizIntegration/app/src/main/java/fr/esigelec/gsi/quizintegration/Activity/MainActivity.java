@@ -232,7 +232,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					password.setError (getString (R.string.error_invalid_password));
 					isMdpValid = false;
 				}
-				MessageDigest digest = null;
+				MessageDigest digest;
 				String test = "";
 				try{
 					 digest = MessageDigest.getInstance ("MD5");
@@ -242,7 +242,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					Log.e("Error ", e.getMessage ());
 				}
 
-				Toast.makeText (getApplicationContext (), getString (R.string.connexion) + " SHA3 MDP : " + test ,Toast.LENGTH_LONG).show ();
+				Toast.makeText (getApplicationContext (), getString (R.string.connexion) + " MD5 MDP : " + test ,Toast.LENGTH_LONG).show ();
 				if(isEmailValid && isMdpValid){
 					Intent t = new Intent (getApplicationContext (), MenuActivity.class);
 					startActivity (t);

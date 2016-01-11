@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Would I be the strongest</string>
     <string name="logo">logo</string>
+    <string name="start">Start</string>
+    <string name="quit">Quit</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="bye">Bye Bye. See you soon</string>
@@ -37,4 +39,18 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
+
+    <!-- Strings related to subscribe -->
+    <string name="subscribe">Subscribe</string>
+    <string name="name">Name : </string>
+    <string name="surname">Surname : </string>
+    <string name="mail">Email : </string>
+    <string name="pwd">Password : </string>
+    <string name="confirm">Confirm password : </string>
+    <string name="valid">Validate</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Strings related to menu -->
+    <string name="current">Current Test</string>
+    <string name="old">Old Test</string>
 </resources>

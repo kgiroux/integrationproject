@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-15" ?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+<action-mappings>
+<!-- 
+input : page ou on revient si erreur de validation 
+name : nom du form-bean
+type : nom de la classe Action
+scope : portée du form-bean (request ou session)
+path : Url de l'action
+validate : permet de preciser si la methode validate doit etre executée (true par defaut)
+REMARQUE : les attributs forward,include et type sont mutuellement exclusifs
+ -->
+ <!--  scope=session permettra de retrouver le formulaire rempli si affichage de celui ci -->
+<action scope="request" path="/Inscrire"  name="inscrireForm" type="fr.esigelec.quiz.controleur.InscrireAction" input="/">
+<forward name="succes" path="/WEB-INF/jsp/index.jsp"></forward>
+<forward name="erreur" path="/WEB-INF/jsp/inscription.jsp"></forward>
+</action>
+
+
+
+</action-mappings>
+
+<message-resources parameter="mesMessages"></message-resources>
+
+
+
+
+</struts-config>

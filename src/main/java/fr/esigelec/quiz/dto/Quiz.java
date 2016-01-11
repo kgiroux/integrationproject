@@ -59,9 +59,7 @@ public class Quiz {
 	 * Constructeur sans paramètres
 	 */
 
-	public Quiz() {
-		super();
-	}
+	public Quiz() {}
 
 	/**
 	 * Constructeur avec paramètres
@@ -73,10 +71,8 @@ public class Quiz {
 	 * @param etape
 	 */
 
-	public Quiz(int id, String libelle, Timestamp dateDebutQuiz,
+	public Quiz(String libelle, Timestamp dateDebutQuiz,
 			Timestamp dateFinQuiz,Timestamp dateDebutQuestion, int noQuestionCourante, int etape) {
-		super();
-		this.id = id;
 		this.libelle = libelle;
 		this.dateDebutQuiz = dateDebutQuiz;
 		this.dateFinQuiz = dateFinQuiz;
@@ -91,7 +87,6 @@ public class Quiz {
 	 */
 
 	public Quiz(Quiz q) {
-		super();
 		this.id = q.id;
 		this.libelle = q.libelle;
 		this.dateDebutQuiz = q.dateDebutQuiz;

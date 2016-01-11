@@ -13,7 +13,6 @@ import java.util.List;
 
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Proposition;
-import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 public class QuizDAOImpl implements IQuizDAO{
@@ -35,7 +34,7 @@ public class QuizDAOImpl implements IQuizDAO{
 	 * @return the quiz
 	 */
 	@Override
-	public Question getQuiz(int id_quiz) {
+	public Quiz getQuiz(int id_quiz) {
 		// TODO Auto-generated method stub
 		return null;
 	}

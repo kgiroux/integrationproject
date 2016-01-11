@@ -43,9 +43,7 @@ public class Question {
 	 * Constructeur sans paramètres
 	 */
 
-	public Question() {
-		super();
-	}
+	public Question() {}
 
 
 	/**
@@ -56,10 +54,7 @@ public class Question {
 	 * @param list
 	 */
 
-	public Question(int id, String libelle, Proposition bonneReponse,
-			List<Proposition> list) {
-		super();
-		this.id = id;
+	public Question(String libelle, Proposition bonneReponse, List<Proposition> list) {
 		this.libelle = libelle;
 		this.bonneReponse = bonneReponse;
 		this.list = list;
@@ -71,7 +66,6 @@ public class Question {
 	 * @param Question q
 	 */
 	public Question(Question q) {
-		super();
 		this.id = q.id;
 		this.libelle = q.libelle;
 		this.bonneReponse = q.bonneReponse;

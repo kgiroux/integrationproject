@@ -13,8 +13,6 @@ package fr.esigelec.quiz.dao.hibernate;
 import java.util.List;
 
 import org.hibernate.Session;
-
-import fr.esigelec.garage.HibernateUtil;
 import fr.esigelec.quiz.dao.IPersonneDAO;
 import fr.esigelec.quiz.dto.Personne; 
 
@@ -32,6 +30,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		session.save(p);
 		session.getTransaction().commit();
 		session.close();
+		
 	}
 
 	

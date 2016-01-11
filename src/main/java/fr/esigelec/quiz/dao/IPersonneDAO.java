@@ -33,7 +33,7 @@ public interface IPersonneDAO {
 	 * M�thode : listPersonne
 	 * @return la liste de toutes les personnes enregistr�es dans la base de donn�es
 	 */
-	public List<Personne> listPersonne();
+	public List<Personne> listPersonnes();
 	
 	/**
 	 * M�thode : updatePersonne

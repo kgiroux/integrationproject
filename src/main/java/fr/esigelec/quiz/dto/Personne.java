@@ -32,22 +32,22 @@ public class Personne {
 	 */
 	private String mdp;
 	/**
-	 * droits d'accès de la personne
+	 * droits d'accï¿½s de la personne
 	 * 0 --> Joueur
 	 * 1000 --> Admin
 	 */
 	private int droits;
 
 
-	//Méthodes de la classe Personne
+	//Mï¿½thodes de la classe Personne
 
 	/**
-	 * Constructeur sans paramètres
+	 * Constructeur sans paramï¿½tres
 	 */
 	public Personne() {}
 
 	/**
-	 * Constructeur avec paramètres
+	 * Constructeur avec paramï¿½tres
 	 * @param id
 	 * @param nom
 	 * @param prenom
@@ -158,7 +158,7 @@ public class Personne {
 
 	/**
 	 * getter de droits
-	 * @return les droits d'accès pour cet utilisateur
+	 * @return les droits d'accï¿½s pour cet utilisateur
 	 */
 	public int getDroits() {
 		return droits;
@@ -171,5 +171,11 @@ public class Personne {
 	public void setDroits(int droits) {
 		this.droits = droits;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom
+				+ ", mail=" + mail + ", mdp=" + mdp + ", droits=" + droits
+				+ "]";
+	}
 }

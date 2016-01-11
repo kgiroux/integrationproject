@@ -11,18 +11,17 @@ import fr.esigelec.quiz.dto.Question;
  * BOSSO BOSSO Ghyslaine and NGANE Pascale
  * Interface IQuestionDAO
  */
-
 public interface IQuestionDAO {
 
 	/**
-	 * méthode : createQuestion
+	 * mï¿½thode : createQuestion
 	 * @param  q the question to create
 	 */
 
 	public void createQuestion(Question q);
 
 	/**
-	 * méthode : getQuestion
+	 * mï¿½thode : getQuestion
 	 * @param  id the id of the question we want
 	 * @return the question
 	 */
@@ -30,25 +29,24 @@ public interface IQuestionDAO {
 	public Question getQuestion(int id_question); 
 
 	/**
-	 * méthode : listQuestion
+	 * mï¿½thode : listQuestion
 	 * @return all the questions
 	 */
 
 	public List<Question> listQuestion(); 
 
 	/**
-	 * méthode : updateQuestion
+	 * mï¿½thode : updateQuestion
 	 * @param  q the question which should be updated
 	 */
 
 	public void updateQuestion(Question q); 
 
 	/**
-	 * méthode : deleteQuestion
+	 * mï¿½thode : deleteQuestion
 	 * @param  q the question to delete
 	 */
 
 	public void deleteQuestion(Question q); 
-
 
 }

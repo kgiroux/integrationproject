@@ -16,14 +16,14 @@ import fr.esigelec.quiz.dto.Question;
 public interface IPropositionDAO {
 
 	/**
-	 * méthode : createProposition
+	 * mï¿½thode : createProposition
 	 * @param  q the proposition to create
 	 */
 
 	public void createProposition(Proposition q);
 
 	/**
-	 * méthode : getProposition
+	 * mï¿½thode : getProposition
 	 * @param  id the id of the proposition we want
 	 * @return the proposition
 	 */
@@ -31,14 +31,14 @@ public interface IPropositionDAO {
 	public Proposition getProposition(int id_proposition); 
 
 	/**
-	 * méthode : listProposition
+	 * mï¿½thode : listProposition
 	 * @return all the propositions
 	 */
 
 	public List<Proposition> listProposition(); 
 
 	/**
-	 * méthode : getPropositionParQuestion
+	 * mï¿½thode : getPropositionParQuestion
 	 * @param  q the Question 
 	 * @return the list of proposition
 	 */
@@ -46,18 +46,17 @@ public interface IPropositionDAO {
 	public List<Proposition> getPropositionParQuestion(Question q);
 
 	/**
-	 * méthode : updateProposition
+	 * mï¿½thode : updateProposition
 	 * @param  q the proposition which should be updated
 	 */
 
 	public void updateProposition(Proposition p); 
 
 	/**
-	 * méthode : deleteProposition
+	 * mï¿½thode : deleteProposition
 	 * @param  q the proposition which should be deleted
 	 */
 
 	public void deleteProposition(Proposition p); 
 
 }
-

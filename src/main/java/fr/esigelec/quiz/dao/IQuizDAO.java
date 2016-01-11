@@ -15,14 +15,14 @@ import fr.esigelec.quiz.dto.Quiz;
 public interface IQuizDAO {
 	
 	/**
-	 * méthode : createQuiz
+	 * mï¿½thode : createQuiz
 	 * @param  q the quiz to create
 	 */
 	
 	public void createQuiz(Quiz q);
 	
 	/**
-	 * méthode : getQuiz
+	 * mï¿½thode : getQuiz
 	 * @param  id the id of the quiz we want
 	 * @return the quiz
 	 */
@@ -30,24 +30,23 @@ public interface IQuizDAO {
 	public Quiz getQuiz(int id_quiz); 
 	
 	/**
-	 * méthode : listQuiz
+	 * mï¿½thode : listQuiz
 	 * @return all the quizs
 	 */
 	
 	public List<Quiz> listQuiz(); 
 	
 	/**
-	 * méthode : updateQuiz
+	 * mï¿½thode : updateQuiz
 	 * @param  q the quiz which should be updated
 	 */
 	
 	public void updateQuiz(Quiz q); 
 	
 	/**
-	 * méthode : deleteQuiz
+	 * mï¿½thode : deleteQuiz
 	 * @param  q the quiz to delete
 	 */
 	
 	public void deleteQuiz(Quiz q); 
-
 }

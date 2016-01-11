@@ -5,83 +5,75 @@ package fr.esigelec.quiz.dao.hibernate;
  * @author GSI-IR
  * Farid CHOUAKRIA et DELAUNAY BRICE
  * Classe PropositionDAOImpl
- * Implémentation des méthodes de l'interface IPropositionDAO
- * pour les liens avec la base de données
- */
+ * Implï¿½mentation des mï¿½thodes de l'interface PropositionDAO
+ * pour les liens avec la base de donnï¿½es
+ * */
+
 
 import java.util.List;
+
+import org.hibernate.Session;
 
 import fr.esigelec.quiz.dao.IPropositionDAO;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 
-public class PropositionDAOImpl implements IPropositionDAO{
+public class PropositionDAOImpl implements IPropositionDAO {
 
-	/**
-	 * méthode : createProposition
-	 * @param  q the proposition to create
-	 */
 	@Override
-	public void createProposition(Proposition q) {
-		// TODO Auto-generated method stub
-		
+	public void createProposition(Proposition p) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(p);
+		session.getTransaction().commit();
+		session.close();
 	}
 
-	
-	/**
-	 * méthode : getProposition
-	 * @param  id the id of the proposition we want
-	 * @return the proposition
-	 */
 	@Override
-	public Proposition getProposition(int id_proposition) {
-		// TODO Auto-generated method stub
-		return null;
+	public Proposition getProposition(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Proposition retour = (Proposition) session.get(Proposition.class, id);
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 
-	
-	/**
-	 * méthode : listProposition
-	 * @return all the propositions
-	 */
-	@Override
 	public List<Proposition> listProposition() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Proposition";
+		List<Proposition> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 
-	
-	/**
-	 * méthode : getPropositionParQuestion
-	 * @param  q the Question 
-	 * @return the list of proposition
-	 */
-	@Override
 	public List<Proposition> getPropositionParQuestion(Question q) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Proposition where question.id = " + q.getId();
+		List<Proposition> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 
-	
-	/**
-	 * méthode : updateProposition
-	 * @param  q the proposition which should be updated
-	 */
 	@Override
-	public void updateProposition(Proposition q) {
-		// TODO Auto-generated method stub
-		
+	public void updateProposition(Proposition p) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(p);
+		session.getTransaction().commit();
+		session.close();
 	}
 
-	
-	/**
-	 * méthode : deleteProposition
-	 * @param  q the proposition which should be deleted
-	 */
 	@Override
-	public void deleteProposition(Proposition q) {
-		// TODO Auto-generated method stub
-		
+	public void deleteProposition(Proposition p) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(p);
+		session.getTransaction().commit();
+		session.close();
 	}
-
 }

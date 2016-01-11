@@ -24,7 +24,7 @@ public class Quiz {
 	private String libelle; 
 
 	/**
-	 * Date et heure de début du quiz
+	 * Date et heure de dï¿½but du quiz
 	 */
 	private Timestamp dateDebutQuiz; 
 
@@ -39,15 +39,15 @@ public class Quiz {
 	private int noQuestionCourante; 
 
 	/**
-	 * date et heure de début de la question
+	 * date et heure de dï¿½but de la question
 	 */
 	private Timestamp dateDebutQuestion;
 
 	/**
-	 * étape 
+	 * ï¿½tape 
 	 * 1 : en cours
 	 *  2 : affichage de statistiques
-	 *   3 : affichage réponse + classement
+	 *   3 : affichage rï¿½ponse + classement
 	 */
 	private int etape;
 
@@ -56,13 +56,13 @@ public class Quiz {
 	/*Constructeurs*/
 
 	/**
-	 * Constructeur sans paramètres
+	 * Constructeur sans paramï¿½tres
 	 */
 
 	public Quiz() {}
 
 	/**
-	 * Constructeur avec paramètres
+	 * Constructeur avec paramï¿½tres
 	 * @param id
 	 * @param libelle
 	 * @param dateDebutQuiz
@@ -100,7 +100,7 @@ public class Quiz {
 	/*Getters et setters*/
 
 	/**
-	 * méthode getId()
+	 * mï¿½thode getId()
 	 * @return the id
 	 */
 	public int getId() {
@@ -108,7 +108,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: setId()
+	 * mï¿½thode: setId()
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
@@ -116,7 +116,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: getLibelle()
+	 * mï¿½thode: getLibelle()
 	 * @return the libelle
 	 */
 	public String getLibelle() {
@@ -124,7 +124,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: setLibelle()
+	 * mï¿½thode: setLibelle()
 	 * @param libelle the libelle to set
 	 */
 	public void setLibelle(String libelle) {
@@ -132,7 +132,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode:getDateDebutQuiz()
+	 * mï¿½thode:getDateDebutQuiz()
 	 * @return the dateDebutQuiz
 	 */
 	public Timestamp getDateDebutQuiz() {
@@ -140,7 +140,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: setDateDebutQuiz()
+	 * mï¿½thode: setDateDebutQuiz()
 	 * @param dateDebutQuiz the dateDebutQuiz to set
 	 */
 	public void setDateDebutQuiz(Timestamp dateDebutQuiz) {
@@ -148,7 +148,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode:getDateFinQuiz()
+	 * mï¿½thode:getDateFinQuiz()
 	 * @return the dateFinQuiz
 	 */
 	public Timestamp getDateFinQuiz() {
@@ -156,7 +156,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: setDateFinQuiz
+	 * mï¿½thode: setDateFinQuiz
 	 * @param dateFinQuiz the dateFinQuiz to set
 	 */
 	public void setDateFinQuiz(Timestamp dateFinQuiz) {
@@ -164,7 +164,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: getNoQuestionCourante
+	 * mï¿½thode: getNoQuestionCourante
 	 * @return the noQuestionCourante
 	 */
 	public int getNoQuestionCourante() {
@@ -172,7 +172,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: setNoQuestionCourante
+	 * mï¿½thode: setNoQuestionCourante
 	 * @param noQuestionCourante the noQuestionCourante to set
 	 */
 	public void setNoQuestionCourante(int noQuestionCourante) {
@@ -180,7 +180,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: getDateDebutQuestion()
+	 * mï¿½thode: getDateDebutQuestion()
 	 * @return the dateDebutQuestion
 	 */
 	public Timestamp getDateDebutQuestion() {
@@ -188,7 +188,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: setDateDebutQuestion()
+	 * mï¿½thode: setDateDebutQuestion()
 	 * @param dateDebutQuestion the dateDebutQuestion to set
 	 */
 	public void setDateDebutQuestion(Timestamp dateDebutQuestion) {
@@ -196,7 +196,7 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: getEtape()
+	 * mï¿½thode: getEtape()
 	 * @return the etape
 	 */
 	public int getEtape() {
@@ -204,12 +204,11 @@ public class Quiz {
 	}
 
 	/**
-	 * méthode: setEtape()
+	 * mï¿½thode: setEtape()
 	 * @param etape the etape to set
 	 */
 	public void setEtape(int etape) {
 		this.etape = etape;
 	}
-
 }
 

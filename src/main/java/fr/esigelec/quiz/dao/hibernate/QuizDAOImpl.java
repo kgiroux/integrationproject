@@ -5,70 +5,91 @@ package fr.esigelec.quiz.dao.hibernate;
  * @author GSI-IR
  * Farid CHOUAKRIA et DELAUNAY BRICE
  * Classe QuizDAOImpl
- * Implémentation des méthodes de l'interface IQuizDAO
- * pour les liens avec la base de données
- */
+ * Implï¿½mentation des mï¿½thodes de l'interface QuizDAO
+ * pour les liens avec la base de donnï¿½es
+ * */
 
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Quiz;
-
+ 
 public class QuizDAOImpl implements IQuizDAO{
 
+	
 	/**
-	 * méthode : createQuiz
+	 * mï¿½thode : createQuiz
 	 * @param  q the quiz to create
 	 */
 	@Override
 	public void createQuiz(Quiz q) {
-		// TODO Auto-generated method stub
-		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
 	/**
-	 * méthode : getQuiz
+	 * mï¿½thode : getQuiz
 	 * @param  id the id of the quiz we want
 	 * @return the quiz
 	 */
 	@Override
-	public Quiz getQuiz(int id_quiz) {
-		// TODO Auto-generated method stub
-		return null;
+	public Quiz getQuiz(int id) {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Quiz quiz=(Quiz)session.get(Quiz.class,id);
+		session.getTransaction().commit();
+		session.close();
+		return quiz;
 	}
 
 	
 	/**
-	 * méthode : listQuiz
+	 * mï¿½thode : listQuiz
 	 * @return all the quizs
 	 */
 	@Override
 	public List<Quiz> listQuiz() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Quiz");
+		List<Quiz> listeQuizs=query.list();
+		session.getTransaction().commit();
+		session.close();
+		return listeQuizs;
 	}
 
 	
 	/**
-	 * méthode : updateQuiz
+	 * mï¿½thode : updateQuiz
 	 * @param  q the quiz which should be updated
 	 */
 	@Override
-	public void updateQuiz(Quiz q) {
-		// TODO Auto-generated method stub
-		
+	public void updateQuiz(Quiz q) {  
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
 	/**
-	 * méthode : deleteQuiz
+	 * mï¿½thode : deleteQuiz
 	 * @param  q the quiz to delete
 	 */
 	@Override
 	public void deleteQuiz(Quiz q) {
-		// TODO Auto-generated method stub
-		
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(q);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

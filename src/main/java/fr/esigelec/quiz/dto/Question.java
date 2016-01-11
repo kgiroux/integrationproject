@@ -21,17 +21,17 @@ public class Question {
 	private int id; 
 
 	/**
-	 * intitulé de la question
+	 * intitulï¿½ de la question
 	 */
 	private String libelle; 
 
 	/**
-	 *Proposition Bonne réponse
+	 *Proposition Bonne rï¿½ponse
 	 */
 	private Proposition bonneReponse; 
 
 	/**
-	 * liste des propositions de réponse à la question
+	 * liste des propositions de rï¿½ponse ï¿½ la question
 	 */
 	private List<Proposition> list;
 
@@ -40,14 +40,15 @@ public class Question {
 	/*Constructeurs*/
 
 	/**
-	 * Constructeur sans paramètres
+	 * Constructeur sans paramï¿½tres
 	 */
 
-	public Question() {}
+	public Question() {
+	}
 
 
 	/**
-	 * Constructeur avec paramètres
+	 * Constructeur avec paramï¿½tres
 	 * @param id
 	 * @param libelle
 	 * @param bonneReponse
@@ -75,7 +76,7 @@ public class Question {
 	/*Getters et setters*/
 
 	/**
-	 * méthode getId()
+	 * mï¿½thode getId()
 	 * @return the id
 	 */
 	public int getId() {
@@ -83,7 +84,7 @@ public class Question {
 	}
 
 	/**
-	 * méthode: setId()
+	 * mï¿½thode: setId()
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
@@ -91,7 +92,7 @@ public class Question {
 	}
 
 	/**
-	 * méthode: getLibelle()
+	 * mï¿½thode: getLibelle()
 	 * @return the libelle
 	 */
 	public String getLibelle() {
@@ -99,7 +100,7 @@ public class Question {
 	}
 
 	/**
-	 * méthode: setLibelle()
+	 * mï¿½thode: setLibelle()
 	 * @param libelle : the libelle to set
 	 */
 	public void setLibelle(String libelle) {
@@ -107,7 +108,7 @@ public class Question {
 	}
 
 	/**
-	 * méthode:getBonneReponse()
+	 * mï¿½thode:getBonneReponse()
 	 * @return the bonneReponse
 	 */
 	public Proposition getBonneReponse(){
@@ -115,7 +116,7 @@ public class Question {
 	}
 
 	/**
-	 * méthode: setBonneReponse()
+	 * mï¿½thode: setBonneReponse()
 	 * @param reponse the bonneReponse to set
 	 */
 	public void setBonneReponse(Proposition p) {
@@ -123,14 +124,14 @@ public class Question {
 	}
 
 	/**
-	 * méthode:getList()
+	 * mï¿½thode:getList()
 	 * @return the list
 	 */
 	public List<Proposition> getList() {
 		return list;
 	}
 
-	/** méthode: setList()
+	/** mï¿½thode: setList()
 	 * @param l: the list of proposition to set
 	 */
 	public void setList(List<Proposition> l) {

@@ -1,4 +1,6 @@
 package fr.esigelec.quiz.dao;
+
+
 import java.util.List;
 
 import fr.esigelec.quiz.dto.Personne;
@@ -7,46 +9,47 @@ import fr.esigelec.quiz.dto.Personne;
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
- * BOSSO BOSSO Ghyslaine and NGANE Pascale
- * Interface IPersonneDAO
+ * BOSSO BOSSO Ghyslaine and NGANE Pascale 
+ * Interface PersonneDAO
  */
 
 public interface IPersonneDAO {
-
+	
 	/**
-	 * Méthode : createPersonne
-	 * Crée une personne dans la base de données
+	 * Mï¿½thode : createPersonne
+	 * Crï¿½e une personne dans la base de donnï¿½es
 	 * @param p
 	 */
 	public void createPersonne(Personne p);
-
+	
 	/**
-	 * Méthode : getPersonne
+	 * Mï¿½thode : getPersonne
 	 * @param id
-	 * @return une personne à partir d'un id
+	 * @return une personne ï¿½ partir d'un id
 	 */
 	public Personne getPersonne(int id);
-
+	
 	/**
-	 * Méthode : listPersonne
-	 * @return la liste de toutes les personnes enregistrées dans la base de données
+	 * Mï¿½thode : listPersonne
+	 * @return la liste de toutes les personnes enregistrï¿½es dans la base de donnï¿½es
 	 */
-	public List<Personne> listPersonne();
-
+	public List<Personne> listPersonnes();
+	
 	/**
-	 * Méthode : updatePersonne
-	 * Met à jour une personne placée en entrée dans la bdd
-	 * si elle a été enregistrée avant
+	 * Mï¿½thode : updatePersonne
+	 * Met ï¿½ jour une personne placï¿½e en entrï¿½e dans la bdd
+	 * si elle a ï¿½tï¿½ enregistrï¿½e avant
 	 * @param p
 	 */
 	public void updatePersonne(Personne p);
-
+	
 	/**
-	 * Méthode : deletePersonne
-	 * Supprime une personne placée en entrée dans la bdd
-	 * si elle est enregistrée
+	 * Mï¿½thode : deletePersonne
+	 * Supprime une personne placï¿½e en entrï¿½e dans la bdd
+	 * si elle est enregistrï¿½e
 	 * @param p
 	 */
 	public void deletePersonne(Personne p);
 
 }
+

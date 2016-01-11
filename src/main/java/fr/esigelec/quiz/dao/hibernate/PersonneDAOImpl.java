@@ -5,75 +5,96 @@ package fr.esigelec.quiz.dao.hibernate;
  * @author GSI-IR
  * Farid CHOUAKRIA et DELAUNAY BRICE
  * Classe PersonneDAOImpl
- * Implémentation des méthodes de l'interface IPersonneDAO
- * pour les liens avec la base de données
- */
+ * Implï¿½mentation des mï¿½thodes de l'interface PersonneDAO
+ * pour les liens avec la base de donnï¿½es
+ * */
+
 
 import java.util.List;
 
+import org.hibernate.Session;
+
 import fr.esigelec.quiz.dao.IPersonneDAO;
-import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Personne; 
 
 public class PersonneDAOImpl implements IPersonneDAO{
 
 	/**
-	 * Méthode : createPersonne
-	 * Crée une personne dans la base de données
+	 * Mï¿½thode : createPersonne
+	 * Crï¿½e une personne dans la base de donnï¿½es
 	 * @param p
 	 */
 	@Override
 	public void createPersonne(Personne p) {
-		// TODO Auto-generated method stub
-		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.save(p);
+		session.getTransaction().commit();
+		session.close();	
 	}
 
 	
 	/**
-	 * Méthode : getPersonne
+	 * Mï¿½thode : getPersonne
 	 * @param id
-	 * @return une personne à partir d'un id
+	 * @return une personne ï¿½ partir d'un id
 	 */
 	@Override
 	public Personne getPersonne(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Personne retour = (Personne) session.get(Personne.class, id);
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 
 	
 	/**
-	 * Méthode : listPersonne
-	 * @return la liste de toutes les personnes enregistrées dans la base de données
+	 * Mï¿½thode : listPersonne
+	 * @return la liste de toutes les personnes enregistrï¿½es dans la base de donnï¿½es
 	 */
 	@Override
-	public List<Personne> listPersonne() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Personne> listPersonnes() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Personne";
+		List<Personne> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 
 	
 	/**
-	 * Méthode : updatePersonne
-	 * Met à jour une personne placée en entrée dans la bdd
-	 * si elle a été enregistrée avant
+	 * Mï¿½thode : updatePersonne
+	 * Met ï¿½ jour une personne placï¿½e en entrï¿½e dans la bdd
+	 * si elle a ï¿½tï¿½ enregistrï¿½e avant
 	 * @param p
 	 */
 	@Override
 	public void updatePersonne(Personne p) {
-		// TODO Auto-generated method stub
-		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.update(p);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 	
 	/**
-	 * Méthode : deletePersonne
-	 * Supprime une personne placée en entrée dans la bdd
-	 * si elle est enregistrée
+	 * Mï¿½thode : deletePersonne
+	 * Supprime une personne placï¿½e en entrï¿½e dans la bdd
+	 * si elle est enregistrï¿½e
 	 * @param p
 	 */
 	@Override
 	public void deletePersonne(Personne p) {
-		// TODO Auto-generated method stub
-		
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		session.delete(p);
+		session.getTransaction().commit();
+		session.close();
 	}
 
 }

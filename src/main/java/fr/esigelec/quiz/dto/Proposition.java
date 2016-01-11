@@ -27,7 +27,7 @@ public class Proposition {
 	/*Constructeurs*/
 
 	/**
-	 * Constructeur sans paramètres
+	 * Constructeur sans paramï¿½tres
 	 */
 	public Proposition() {
 		super();
@@ -35,7 +35,7 @@ public class Proposition {
 
 
 	/**
-	 * Constructeur avec paramètres
+	 * Constructeur avec paramï¿½tres
 	 * @param id
 	 * @param libelle
 	 */
@@ -59,7 +59,7 @@ public class Proposition {
 	/*Getters et setters*/
 
 	/**
-	 * méthode: getId()
+	 * mï¿½thode: getId()
 	 * @return the id
 	 */
 	public int getId() {
@@ -68,7 +68,7 @@ public class Proposition {
 
 
 	/**
-	 * méthode: setId()
+	 * mï¿½thode: setId()
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
@@ -77,7 +77,7 @@ public class Proposition {
 
 
 	/**
-	 * méthode: getLibelle()
+	 * mï¿½thode: getLibelle()
 	 * @return the libelle
 	 */
 	public String getLibelle() {
@@ -86,11 +86,12 @@ public class Proposition {
 
 
 	/**
-	 * méthode: setLibelle()
+	 * mï¿½thode: setLibelle()
 	 * @param libelle the libelle to set
 	 */
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
+
 
 }

@@ -22,3 +22,12 @@ table{
 	margin-right:15%;
 	
 }
+.glyphicon-remove {
+	color:red;
+}
+.glyphicon-plus{
+	color:green;
+}
+.glyphicon-play{
+	color:blue;
+}

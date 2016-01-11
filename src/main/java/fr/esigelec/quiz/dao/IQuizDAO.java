@@ -2,7 +2,6 @@ package fr.esigelec.quiz.dao;
 
 import java.util.List;
 
-import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -20,7 +19,7 @@ public interface IQuizDAO {
 	 * @param  q the quiz to create
 	 */
 	
-	public void createQuiz(Proposition p);
+	public void createQuiz(Quiz q);
 	
 	/**
 	 * méthode : getQuiz

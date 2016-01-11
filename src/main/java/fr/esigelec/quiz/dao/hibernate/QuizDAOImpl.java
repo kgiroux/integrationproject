@@ -12,7 +12,6 @@ package fr.esigelec.quiz.dao.hibernate;
 import java.util.List;
 
 import fr.esigelec.quiz.dao.IQuizDAO;
-import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Quiz;
 
 public class QuizDAOImpl implements IQuizDAO{
@@ -22,7 +21,7 @@ public class QuizDAOImpl implements IQuizDAO{
 	 * @param  q the quiz to create
 	 */
 	@Override
-	public void createQuiz(Proposition q) {
+	public void createQuiz(Quiz q) {
 		// TODO Auto-generated method stub
 		
 	}

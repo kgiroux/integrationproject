@@ -1,0 +1,21 @@
+/*
+*QUIZ  GSI IR 
+*/
+body
+{
+	background-color:#E0F8F7;
+}
+.container 
+{
+	margin-top:10%;
+	background-color:#e0e0e0;
+	box-shadow: 0 0 20px #555;
+	border-radius: 10px;
+}
+.form-center
+{
+	margin-top:2%;
+	margin-left:15%;
+	margin-right:15%;
+	
+}

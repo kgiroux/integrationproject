@@ -22,6 +22,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.esigelec.gsi.quizintegration.Objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
@@ -210,21 +211,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					password.setError (getString (R.string.error_invalid_password));
 					isMdpValid = false;
 				}
-				MessageDigest digest;
-				String test = "";
-				try{
-					 digest = MessageDigest.getInstance ("MD5");
-					 byte[] arrayreturn = digest.digest (passwordValue.getBytes ());
-					 test = String.format("%032X",new BigInteger (1,arrayreturn));
-				}catch(Exception e){
-					Log.e("Error ", e.getMessage ());
-				}
 
+				Personne p = new Personne ();
+				p.setMail(loginValue);
+				p.setMdp (passwordValue);
 
 				if(DEV){
 					isMdpValid = true;
 					isEmailValid = true;
-					Toast.makeText (getApplicationContext (), getString (R.string.connexion) + " MD5 MDP : " + test ,Toast.LENGTH_LONG).show ();
 				}
 
 				if(isEmailValid && isMdpValid){

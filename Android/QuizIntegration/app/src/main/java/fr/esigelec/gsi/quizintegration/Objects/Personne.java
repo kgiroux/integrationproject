@@ -1,17 +1,33 @@
 package fr.esigelec.gsi.quizintegration.Objects;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.util.HashMap;
+
 /**
  * Created by Kevin PACE
  */
 public class Personne
 {
+    public Personne ()
+    {
+        nom = "";
+        prenom = "";
+        mail ="";
+        mdp = "";
+    }
+
     /* Attribute */
     private int id;
     private String nom;
     private String prenom;
     private String mail;
     private String mdp;
-    private int droits;
 
     /* Getters & Setters */
     public String getNom() {
@@ -51,16 +67,49 @@ public class Personne
     }
 
     public void setMdp(String mdp) {
-        this.mdp = mdp;
+
+        MessageDigest digest;
+        String encryptMdp = "";
+        try{
+            digest = MessageDigest.getInstance ("MD5");
+            byte[] arrayreturn = digest.digest (mdp.getBytes ());
+            encryptMdp = String.format("%032X",new BigInteger (1,arrayreturn));
+        }catch(Exception e){
+            Log.e("Error ", e.getMessage ());
+        }
+        this.mdp = encryptMdp;
+
     }
 
-    public int getDroits() {
-        return droits;
+    public void JSONObjectToPersonne(JSONObject obj){
+        if(null != obj){
+            try{
+
+                this.id = obj.getInt ("id");
+                this.prenom = obj.getString ("prenom");
+                this.mdp = obj.getString ("mdp");
+                this.nom = obj.getString ("nom");
+            }catch(JSONException jsonE){
+                Log.e ("ERREUR",jsonE.getMessage ());
+            }
+        }
     }
 
-    public void setDroits(int droits) {
-        this.droits = droits;
+
+    public HashMap<String,String> PersonneToHashMap(){
+        HashMap<String, String> returnHashMap = new HashMap<> ();
+        if(!"".equals (nom)){
+            returnHashMap.put ("nom",nom);
+        }
+        if(!"".equals (prenom)){
+            returnHashMap.put ("prenom",prenom);
+        }
+        if(!"".equals (mail)){
+            returnHashMap.put ("mail",mail);
+        }
+        if(!"".equals (mdp)){
+            returnHashMap.put("mdp",mdp);
+        }
+        return returnHashMap;
     }
-
-
 }

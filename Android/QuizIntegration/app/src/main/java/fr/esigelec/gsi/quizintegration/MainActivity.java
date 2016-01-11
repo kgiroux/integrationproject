@@ -1,6 +1,7 @@
 package fr.esigelec.gsi.quizintegration;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
@@ -29,7 +31,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	List<String> groupList;
 	private final int REQUEST_CODE_INSCRIPTION = 42;
 	Map<String, List<String>> ItemCollection;
+	private Dialog dialog;
 	private Toolbar toolbar;
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
@@ -40,6 +44,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		toolbar.setTitle (R.string.app_name);
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
+		dialog = createAndManageDialog();
 	}
 
 	public void create_drawer ()
@@ -70,6 +75,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 				switch (groupPosition)
 				{
 					case 0:
+						mDrawerLayout.closeDrawer (mDrawerExpandableList);
+						dialog.show ();
 						Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
 						break;
 					case 1:
@@ -179,5 +186,35 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 			toolbar.setTitle (R.string.app_name);
 			invalidateOptionsMenu (); // creates call to onPrepareOptionsMenu()
 		}
+	}
+
+
+	private Dialog createAndManageDialog(){
+		final Dialog dialog = new Dialog (MainActivity.this);
+		dialog.setContentView (R.layout.login_dialog);
+		dialog.setTitle (getString (R.string.action_sign_in));
+		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
+		subscribeButton.setOnClickListener (new View.OnClickListener ()
+		{
+			@Override
+			public void onClick (View v)
+			{
+				Intent t = new Intent (getApplicationContext (), Inscription.class);
+				startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
+			}
+		});
+
+		Button signIn = (Button) dialog.findViewById (R.id.SignIn);
+		signIn.setOnClickListener (new View.OnClickListener ()
+		{
+			@Override
+			public void onClick (View v)
+			{
+				Toast.makeText (getApplicationContext (), getString (R.string.connexion),Toast.LENGTH_LONG).show ();
+			}
+		});
+
+
+		return dialog;
 	}
 }

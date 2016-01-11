@@ -41,10 +41,10 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 * @return the question
 	 */
 	@Override
-	public Question getQuestion(int id_question) {
+	public Question getQuestion(int id) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Question question=(Question)session.get(Question.class,id_question);
+		Question question=(Question)session.get(Question.class,id);
 		session.getTransaction().commit();
 		session.close();
 		return question;
@@ -60,10 +60,10 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query=session.createQuery("from Question");
-		List<Question> liste_question=query.list();
+		List<Question> listeQuestions=query.list();
 		session.getTransaction().commit();
 		session.close();
-		return liste_question;
+		return listeQuestions;
 	}
 
 	

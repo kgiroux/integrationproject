@@ -27,7 +27,7 @@ public interface IQuizDAO {
 	 * @return the quiz
 	 */
 	
-	public Quiz getQuiz(int id_quiz); 
+	public Quiz getQuiz(int id); 
 	
 	/**
 	 * m�thode : listQuiz

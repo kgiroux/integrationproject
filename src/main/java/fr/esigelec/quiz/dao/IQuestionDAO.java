@@ -26,7 +26,7 @@ public interface IQuestionDAO {
 	 * @return the question
 	 */
 	
-	public Question getQuestion(int id_question); 
+	public Question getQuestion(int id); 
 	
 	/**
 	 * m�thode : listQuestion

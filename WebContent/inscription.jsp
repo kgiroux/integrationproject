@@ -50,7 +50,7 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-xs-6">
-		      <button type="submit" class="btn btn-primary">Connexion</button>
+		      <button type="submit" class="btn btn-primary">S'inscrire</button>
 		      <button type="Reset" class="btn btn-primary">Annuler</button>
 		    </div>
 		  </div>

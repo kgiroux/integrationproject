@@ -18,6 +18,10 @@ public class Quiz
     private int etape;
     private List<Question> listeQuestions;
 
+    /* Constructor */
+    public Quiz() {
+    }
+
     /* Getters & Setters */
     public int getId() {
         return id;

@@ -4,10 +4,12 @@ package fr.esigelec.gsi.quizintegration.Objects;
  * Created by Kevin PACE
  */
 public class Proposition {
+
+	/* Attribute */
 	private int id;
 	private String libelle;
 
-
+	/* Getters & Setters */
 	public Proposition (int id, String libelle)
 	{
 		this.id = id;

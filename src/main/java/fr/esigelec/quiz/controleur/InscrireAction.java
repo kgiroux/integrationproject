@@ -15,7 +15,7 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.forms.InscrireForm;
 
 /*
- * There'e several errors now, because no TDO and DAO.
+ * There'e several errors now, because no DTO and DAO.
  */
 public class InscrireAction extends Action {
 	private static final Logger inscrireActionLogger = Logger.getLogger(InscrireAction.class);
@@ -33,6 +33,7 @@ public class InscrireAction extends Action {
 			p.setNom(inscrireForm.getNom());
 			p.setPrenom(inscrireForm.getPrenom());
 			p.setMdp(inscrireForm.getMdp());
+			p.setMail(inscrireForm.getMail());
 			IPersonneDAO personneDAO = new PersonneDAOImpl();
 			// Maybe we should add a check to verify if the person is already in db.
 			personneDAO.createPersonne(p);

@@ -11,14 +11,14 @@ import org.json.JSONObject;
 
 import fr.esigelec.quiz.dto.Personne;
 
-public class AndroidConnexionPersonneAction extends Action {
+public class AndroidInscriptionPersonneAction extends Action{
+	
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
 			if("GET".equals(request.getMethod())){
-				// REMOVE WHEN DAO OK
 				Personne p = new Personne("Serais", "Sebastien", "serais@esigelec.com", "1234567890", 1);
 				p.setId(42);
 				JSONObject json = new JSONObject(p);
@@ -29,7 +29,23 @@ public class AndroidConnexionPersonneAction extends Action {
 				Personne p = new Personne();
 				p.setMail(request.getParameter("mail"));
 				p.setMdp(request.getParameter("mdp"));
+				// Only a simple user
+				p.setDroits(0);
+				p.setNom(request.getParameter("nom"));
+				p.setPrenom(request.getParameter("prenom"));
+				
+				
+				// Need DAO ACtion for subscription
+				//TODO
+				
+				// Only for testing
+				
+				p.setMail("");
+				p.setMdp("");
+				
 				JSONObject json = new JSONObject(p);
+				
+				
 				request.setAttribute("json",json.toString());
 				return mapping.findForward("succes");
 			}else{

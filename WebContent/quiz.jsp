@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Consulter Quiz</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
@@ -21,7 +21,7 @@
   <table class="table table-bordered table-hover ">
     <thead>
       <tr style="background-color:#D8D8D8">
-        <th>Libell&eacute;</th>
+        <th>Libellé</th>
         <th>Questions</th>
         <th>Date</th>
 		<th>Jouer</th>

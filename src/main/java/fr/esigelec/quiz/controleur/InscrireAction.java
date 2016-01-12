@@ -8,7 +8,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import fr.esigelec.quiz.dao.hibernate.PersonneDAO;
+import fr.esigelec.quiz.dao.IPersonneDAO;
+import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
+import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.forms.InscrireForm;
 
 /*
@@ -22,13 +24,13 @@ public class InscrireAction extends Action {
 		
 		try {
 			InscrireForm inscrireForm = (InscrireForm) form;
-			Personne p = new Personne(inscrireForm.getNom(),
-										inscrireForm.getPrenom(),
-										inscrireForm.getMail(),
-										inscrireForm.getMdp());
-			PersonneDAO personneDAO = PersonneDAOFctory.getPersonneDAO();
-			// We should add a check to verify if the person is already in db.
-			personneDAO.ajouter(p);
+			Personne p = new Personne();
+			p.setNom(inscrireForm.getNom());
+			p.setPrenom(inscrireForm.getPrenom());
+			p.setMdp(inscrireForm.getMdp());
+			IPersonneDAO personneDAO = new PersonneDAOImpl();
+			// Maybe we should add a check to verify if the person is already in db.
+			personneDAO.createPersonne(p);
 			// Maybe set some attributes on the request.
 			return mapping.findForward("succes");
 		} catch (Exception e) {
@@ -36,6 +38,4 @@ public class InscrireAction extends Action {
 			return mapping.findForward("erreur");
 		}
 	}
-	
-
 }

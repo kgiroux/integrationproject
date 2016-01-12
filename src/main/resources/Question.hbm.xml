@@ -9,5 +9,12 @@
 		
 		<property name="libelle" column="libelle" type="string"/>
 		
+		<set name="listePropositions" table="proposition">
+            <key> <column name="idQuestion" not-null="true" /> </key>
+            <one-to-many class="fr.esigelec.quiz.dto.Question" />
+        </set>
+        
+		<many-to-one name="bonneReponse" column="idBonneReponse" unique="true" not-null="true"/>
+		
 	</class>
 </hibernate-mapping>

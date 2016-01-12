@@ -1,17 +1,17 @@
 package fr.esigelec.quiz.dto;
 
+
 /**Projet d'integration
-  * Le jeu de TF8
-  * @author GSI-IR
-  * BOSSO BOSSO Ghyslaine and NGANE Pascale
-  * Classe Personne
-  * */
+ * Le jeu de TF8
+ * @author GSI-IR
+ * BOSSO BOSSO Ghyslaine and NGANE Pascale
+ * Classe Personne
+ * */
 
 public class Personne {
-	
-	/**Attributs de la classe Personne */
-	
-	/** 
+
+	//Attributs de la classe Personne
+	/**
 	 * id de la personne
 	 */
 	private int id;
@@ -38,14 +38,14 @@ public class Personne {
 	 */
 	private int droits;
 
-	
-	/** M�thodes de la classe Personne */
-	
+
+	//M�thodes de la classe Personne
+
 	/**
 	 * Constructeur sans param�tres
 	 */
 	public Personne() {}
-	
+
 	/**
 	 * Constructeur avec param�tres
 	 * @param id
@@ -55,15 +55,14 @@ public class Personne {
 	 * @param mdp
 	 * @param droits
 	 */
-	public Personne(int id, String nom, String prenom, String mail, String mdp, int droits) {
-		this.id = id;
+	public Personne( String nom, String prenom, String mail, String mdp, int droits) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;
 		this.mdp = mdp;
 		this.droits = droits;
 	}
-	
+
 	/**
 	 * Constructeur par recopie
 	 * @param p
@@ -172,5 +171,11 @@ public class Personne {
 	public void setDroits(int droits) {
 		this.droits = droits;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom
+				+ ", mail=" + mail + ", mdp=" + mdp + ", droits=" + droits
+				+ "]";
+	}
 }

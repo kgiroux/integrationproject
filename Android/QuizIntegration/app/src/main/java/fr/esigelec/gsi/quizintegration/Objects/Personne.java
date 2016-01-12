@@ -54,17 +54,10 @@ public class Personne
         this.prenom = prenom;
     }
 
-    public String getMail() {
-        return mail;
-    }
-
     public void setMail(String mail) {
         this.mail = mail;
     }
 
-    public String getMdp() {
-        return mdp;
-    }
 
     public void setMdp(String mdp) {
 
@@ -86,11 +79,11 @@ public class Personne
         if(null != obj){
             try{
 
-                this.id = obj.getInt ("id");
-                this.prenom = obj.getString ("prenom");
-                this.mdp = obj.getString ("mdp");
-                this.nom = obj.getString ("nom");
-                this.mail = obj.getString ("mail");
+                this.setId( obj.getInt ("id"));
+                this.setPrenom(obj.getString ("prenom"));
+                this.setMdp(obj.getString ("mdp"));
+                this.setNom(obj.getString ("nom"));
+                this.setMail(obj.getString ("mail"));
             }catch(JSONException jsonE){
                 Log.e ("ERREUR",jsonE.getMessage ());
             }

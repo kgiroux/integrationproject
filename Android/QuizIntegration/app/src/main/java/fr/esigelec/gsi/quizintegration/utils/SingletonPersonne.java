@@ -20,12 +20,7 @@ public class SingletonPersonne
 		return personne;
 	}
 
-	public void setPersonne (Personne personne)
-	{
-		this.personne = personne;
-	}
-
-	public final static SingletonPersonne getInstance(){
+	public static SingletonPersonne getInstance(){
 		if(SingletonPersonne.instance == null){
 			synchronized (SingletonPersonne.class){
 				if(SingletonPersonne.instance == null){

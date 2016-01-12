@@ -6,21 +6,16 @@ package fr.esigelec.gsi.quizintegration.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 import java.util.Map;
 
-import fr.esigelec.gsi.quizintegration.Activity.MainActivity;
 import fr.esigelec.gsi.quizintegration.R;
 
 
@@ -29,17 +24,6 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Activity context;
     private Map<String, List<String>> ClassCollection;
     private List<String> ClassList;
-    private ExpandableListView mExpandableListView;
-    private DrawerLayout mDrawerLayout;
-    private EditText input;
-    private ViewGroup parent_;
-    private List<String> child;
-    private String namefile;
-    private String name;
-    private String temp_name;
-    private int position_change_name;
-    private boolean check = false;
-    private boolean DEBUG = MainActivity.DEBUG;
 
     public ExpandableListAdapter(Activity context, List<String> character, Map<String, List<String>> Collections) {
         this.context = context;
@@ -56,15 +40,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, final ViewGroup parent) {
-        final String personnage = (String) getChild(groupPosition, childPosition);
-        LayoutInflater inflater = context.getLayoutInflater();
-        if (DEBUG)
-            Log.e("Passage View Group", "changement null, => parent");
-        parent_ = parent;
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.child_item, parent_,false);
-        }
-        return convertView;
+        return null;
     }
 
     public int getChildrenCount(int groupPosition) {
@@ -92,12 +68,10 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
-        ImageView image;
         String classPosition = (String) getGroup(groupPosition);
-        mExpandableListView = (ExpandableListView) parent;
+        ExpandableListView mExpandableListView = (ExpandableListView) parent;
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            //convertView = infalInflater.inflate(R.layout.group_item, null);
             convertView = infalInflater.inflate (R.layout.group_item,parent,false);
         }
         TextView item = (TextView) convertView.findViewById(R.id.name_character_xml);

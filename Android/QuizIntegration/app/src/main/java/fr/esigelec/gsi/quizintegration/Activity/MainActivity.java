@@ -30,6 +30,7 @@ import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
+import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 import java.security.MessageDigest;
 
@@ -45,13 +46,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	Map<String, List<String>> ItemCollection;
 	private Dialog dialog;
 	private Toolbar toolbar;
-
+	private Personne pers;
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate (savedInstanceState);
 		setContentView (R.layout.activity_main);
-
+		pers = SingletonPersonne.getInstance ().getPersonne ();
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
 		toolbar.setOnMenuItemClickListener (this);
@@ -216,9 +217,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					isMdpValid = false;
 				}
 
-				Personne p = new Personne ();
-				p.setMail(loginValue);
-				p.setMdp(passwordValue);
+
+				pers.setMail(loginValue);
+				pers.setMdp(passwordValue);
 
 				if(DEV){
 					isMdpValid = true;
@@ -227,11 +228,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 				try
 				{
-					JSONObject perJson = new AndroidHTTPRequest().execute("http://176.31.114.109/quiz/AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(p.PersonneToHashMap())).get();
+					JSONObject perJson = new AndroidHTTPRequest().execute("http://176.31.114.109/quiz/AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
 					Toast.makeText(getApplicationContext(),perJson.toString(),Toast.LENGTH_LONG).show();
-					Personne p2 = new Personne();
-					p2.JSONObjectToPersonne(perJson);
-					Toast.makeText(getApplicationContext(),p2.toString(),Toast.LENGTH_LONG).show();
+					pers.JSONObjectToPersonne(perJson);
+					Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
 
 				}catch(Exception ex)
 				{

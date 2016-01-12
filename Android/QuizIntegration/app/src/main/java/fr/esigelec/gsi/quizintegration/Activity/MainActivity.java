@@ -168,7 +168,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	@Override
 	public void onClick (View v)
 	{
-
+		switch(v.getId ()){
+			case R.id.start :
+				dialog.show ();
+				break;
+			case R.id.quit :
+				finish();
+				break;
+		}
 	}
 
 	@Override

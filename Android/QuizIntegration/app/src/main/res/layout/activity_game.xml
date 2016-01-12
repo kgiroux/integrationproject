@@ -22,34 +22,34 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="10%"
-            android:layout_weight="0.1"
-            android:weight_sum = "1">
+            android:layout_height="match_parent"
+            android:layout_weight="0.45"
+            android:weightSum="1" >
 
             <TextView
-                android:layout_width="85%"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
                 android:id="@+id/quest_number"
-                android:layout_weight="0.85"
+                android:layout_weight="0.2"
                 android:gravity="center_vertical" />
 
             <ImageButton
-                android:layout_width="15%"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/quit"
-                android:layout_weight="0.15"
+                android:layout_weight="0.8"
                 android:background="@drawable/leave" />
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="45%"
+            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/question"
-            android:layout_weight="0.45"
+            android:layout_weight="0.25"
             android:gravity="center"
             android:textSize="30sp"
             android:layout_marginTop="8dp"
@@ -58,8 +58,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45%"
-            android:layout_weight="0.45">
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
 
             <TableLayout
                 android:layout_width="match_parent"
@@ -124,15 +124,16 @@
             </TableLayout>
 
             <Chronometer
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:id="@+id/timer"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerInParent="true"
                 android:textAlignment="center"
                 android:textSize="36sp"
                 android:background="@drawable/timer"
-                android:gravity="center" />
+                android:gravity="center"
+                android:format="00" />
 
         </RelativeLayout>
 

@@ -37,6 +37,9 @@ public class Personne {
 	 * 1000 --> Admin
 	 */
 	private int droits;
+	
+	public static final int ADMIN = 1000;
+	public static final int JOUEUR = 0;
 
 
 	//M�thodes de la classe Personne
@@ -45,17 +48,18 @@ public class Personne {
 	 * Constructeur sans param�tres
 	 */
 	public Personne() {}
-
+	
 	/**
 	 * Constructeur avec param�tres
-	 * @param id
+	 * @param id 
 	 * @param nom
 	 * @param prenom
 	 * @param mail
 	 * @param mdp
 	 * @param droits
 	 */
-	public Personne( String nom, String prenom, String mail, String mdp, int droits) {
+	public Personne(int id, String nom, String prenom, String mail, String mdp, int droits) {
+		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;

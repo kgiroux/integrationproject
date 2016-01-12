@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -16,38 +17,41 @@
 <div class="container">
 	<h1>Inscription</h1>
 	<hr>
-  <!-- <form class="form-horizontal" method="post" action="InscriptionPersonne.do"> -->
-  <form class="form-horizontal" method="post" action="Inscrire.do">
+  <form class="form-horizontal" method="post" action="/Inscrire.do">
 	  <div class="form-center">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="email" class="form-control" name="mail" placeholder="nom@domain.com">
+		      <input type="email" class="form-control" name="mail" placeholder="nom@domain.com" value="<c:out value=""/>" required>
 		    </div>
+		    <span class="col-xs-6 col-sm-4"></span>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="mdp" placeholder="Password">
+		      <input type="password" class="form-control" name="mdp" placeholder="Password" value="<c:out value=""/>" required>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		  	<label for="inputPassword3" class="col-xs-6 col-sm-4 control-label"></label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="reMdp" placeholder="Re-Password">
+		      <input type="password" class="form-control" name="reMdp" placeholder="Re-Password" value="<c:out value=""/>"required>
 		    </div>
+		     <span class="col-xs-6 col-sm-4"></span>
 		  </div>
 		  <div class="form-group">
 		    <label for="nom" class="col-xs-6 col-sm-4 control-label">Nom</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="text" class="form-control" name="nom" placeholder="Nom">
+		      <input type="text" class="form-control" name="nom" placeholder="Nom" value="<c:out value=""/>"required>
 		    </div>
+		     <span class="col-xs-6 col-sm-4"></span>
 		  </div>
 		  <div class="form-group">
 		    <label for="prenom" class="col-xs-6 col-sm-4 control-label">Prenom</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="text" class="form-control" name="prenom" placeholder="Prenom">
+		      <input type="text" class="form-control" name="prenom" placeholder="Prenom" value="<c:out value=""/>"required>
 		    </div>
+		     <span class="col-xs-6 col-sm-4"></span>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-xs-6">

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/choice_selected"
+        android:drawable="@drawable/choice_flip_selected"
         android:state_pressed="true" />
     <item
-        android:drawable="@drawable/choice_selected"
+        android:drawable="@drawable/choice_flip_selected"
         android:state_focused="true" />
     <item>
-        <scale>
-            android:scaleHeight="0.5"
-            android:scaleWidth="0.5"
-            android:drawable="@drawable/choice_unselected"
-        </scale>
+        <rotate
+            android:fromDegrees="180"
+            android:toDegrees="180"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:drawable="@drawable/choice_flip_unselected" />
     </item>
 </selector>

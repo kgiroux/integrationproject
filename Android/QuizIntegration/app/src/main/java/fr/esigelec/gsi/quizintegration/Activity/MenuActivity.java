@@ -18,9 +18,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import fr.esigelec.gsi.quizintegration.Objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
+import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickListener
 {
@@ -29,11 +31,13 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 	List<String> groupList;
 	Map<String, List<String>> ItemCollection;
 	private Toolbar toolbar;
+	private Personne pers;
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate (savedInstanceState);
 		setContentView (R.layout.activity_menu);
+		pers = SingletonPersonne.getInstance ().getPersonne ();
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
 		toolbar.setOnMenuItemClickListener (this);
@@ -106,11 +110,12 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 		String listItem[] = getResources ().getStringArray (R.array.listMenuActivity);
 		groupList = new ArrayList<> ();
 
-		for (int i = 0; i != listItem.length; i++)
+		groupList.add (pers.getNom () + " " + pers.getPrenom () );
+		for (int i = 1; i != listItem.length; i++)
 		{
-			Log.e ("DEBUG",listItem[i]);
 			groupList.add (listItem[i]);
 		}
+
 	}
 
 	@Override

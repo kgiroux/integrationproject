@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
+<<<<<<< HEAD
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+=======
     pageEncoding="utf-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+>>>>>>> 97540ab18b5c8739459bda7a9de5ddf79f9dead5
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">

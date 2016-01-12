@@ -32,6 +32,18 @@ h1, th, td, button {
 .glyphicon-play{
 	color:blue;
 }
+<<<<<<< HEAD
+.question{
+	text-align:center;
+}
+th{
+background-color:#D8D8D8;	
+}
+tr{
+
+	text-align:center;
+}
+=======
 .table-bordered>tbody>tr>td, 
 .table-bordered>tbody>tr>th, 
 .table-bordered>tfoot>tr>td, 
@@ -55,3 +67,4 @@ hr {
 .contform{
 	margin:auto;
 }
+>>>>>>> 97540ab18b5c8739459bda7a9de5ddf79f9dead5

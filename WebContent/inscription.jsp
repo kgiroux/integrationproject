@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -16,7 +16,8 @@
 <div class="container">
 	<h1>Inscription</h1>
 	<hr>
-  <form class="form-horizontal" method="post" action="InscriptionPersonne.do">
+  <!-- <form class="form-horizontal" method="post" action="InscriptionPersonne.do"> -->
+  <form class="form-horizontal" method="post" action="Inscrire.do">
 	  <div class="form-center">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
@@ -39,13 +40,13 @@
 		  <div class="form-group">
 		    <label for="nom" class="col-xs-6 col-sm-4 control-label">Nom</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="nom" placeholder="Nom">
+		      <input type="text" class="form-control" name="nom" placeholder="Nom">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="prenom" class="col-xs-6 col-sm-4 control-label">Prenom</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="prenom" placeholder="Prenom">
+		      <input type="text" class="form-control" name="prenom" placeholder="Prenom">
 		    </div>
 		  </div>
 		  <div class="form-group">

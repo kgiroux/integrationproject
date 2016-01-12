@@ -2,15 +2,15 @@ package fr.esigelec.quiz.dao;
 
 import java.util.List;
 
-import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
+
 
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
- * BOSSO BOSSO Ghyslaine and NGANE Pascale 
- * Interface QuizDAO
- * */
+ * BOSSO BOSSO Ghyslaine and NGANE Pascale
+ * Interface IQuizDAO
+ */
 
 public interface IQuizDAO {
 	
@@ -27,7 +27,7 @@ public interface IQuizDAO {
 	 * @return the quiz
 	 */
 	
-	public Quiz getQuiz(int id);  
+	public Quiz getQuiz(int id_quiz); 
 	
 	/**
 	 * m�thode : listQuiz
@@ -49,5 +49,4 @@ public interface IQuizDAO {
 	 */
 	
 	public void deleteQuiz(Quiz q); 
-
 }

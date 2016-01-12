@@ -18,7 +18,7 @@ import fr.esigelec.quiz.dao.IPropositionDAO;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 
-public class PropositionDAOImpl implements IPropositionDAO{
+public class PropositionDAOImpl implements IPropositionDAO {
 
 	@Override
 	public void createProposition(Proposition p) {
@@ -39,8 +39,7 @@ public class PropositionDAOImpl implements IPropositionDAO{
 		return retour;
 	}
 
-	@Override
-	public List<Proposition> listPropositions() {
+	public List<Proposition> listProposition() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Proposition";
@@ -50,8 +49,7 @@ public class PropositionDAOImpl implements IPropositionDAO{
 		return retour;
 	}
 
-	@Override
-	public List<Proposition> getPropositionsParQuestion(Question q) {
+	public List<Proposition> getPropositionParQuestion(Question q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Proposition where question.id = " + q.getId();

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,7 +25,7 @@
 		</div> 
 		   
 	</div>
-<button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button>		    
+ <a href="/quiz/questionAdmin.jsp"><button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
 <div class="form-center">
 			<table class="table table-bordered table-hover">
 				<thead>
@@ -36,12 +37,15 @@
 					</tr>
 				</thead>
 				<tbody>
+				<% List<Question> q=(List<Question>)request.getAttribute("listeQuestions");
+						for(Question q1:q){ %>
 					<tr>
-						<td><input type="checkbox" name="check" id="checkbox"></td>
-						<td>Question 1</td>
+						<td><input type="checkbox" name="check" id="checkbox" value="<%=q1.getId()%>"></td>
+						<td><%=q1.getLibelle()%></td>
 						<td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
 						<td><a href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
 					</tr>
+						<%} %>
 					<tr>
 						<td><input type="checkbox" name="check" id="checkbox"></td>
 						<td>Question 2</td>

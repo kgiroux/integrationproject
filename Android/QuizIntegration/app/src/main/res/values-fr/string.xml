@@ -40,6 +40,7 @@
     <string name="error_invalid_password">Le mot de passe est trop court</string>
     <string name="error_incorrect_password">Le mot de passe est incorrect</string>
     <string name="error_field_required">Champs requis</string>
+    <string name="error_connection">Impossible de se connecter au serveur de quiz</string>
 
 
     <!-- Strings related to subscribe -->

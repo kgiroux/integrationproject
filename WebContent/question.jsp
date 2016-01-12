@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ <%@ page import="fr.esigelec.quiz.dto.*" %>   
+ 
+   <%@ page import="java.util.*" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,30 +18,46 @@
 </head>
 <body>
 <div >
-  <h2 style="text-align:center">CONSULTER LES QUIZ</h2>
-  <p style="color:#D8D8D8">_________________________________________________________________________________________________________________________________________________________</p>
- <br> 
- <p style="text-align:center"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
- <p style="text-align:center"><strong>Reste</strong> : 0 secondes</p>
+  <h2 class="question">CONSULTER LES QUIZ</h2>
+ <hr><br> 
+ <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
+ <p class="question"><strong>Reste</strong> : 0 secondes</p>
  <br>
-  <table class="table table-bordered table-hover ">
-    <thead>
-      <tr style="background-color:#D8D8D8;">
- <th style="text-align:center">De quelle classe doit hériter une servlet ?</th>
-      </tr>
-    </thead>
-    <tbody>
 	
 	<%
-	for(int i=0; i<4; i++){
+	
+	Proposition p1 = new Proposition("javax.http.servlet.HttpServlet");
+	Proposition p2 = new Proposition("javax.servlet.HttpServlet");
+	Proposition p3 = new Proposition("java.http.servlet.ServletHttp");
+	Proposition p4 = new Proposition("javax.http.servlet.ServletHttp");
+
+	List<Proposition> l=new ArrayList<Proposition>();
+	l.add(p1);
+	l.add(p2);
+	l.add(p3);
+	l.add(p4);
+	Question q = new Question();
+	q.setLibelle("De quelle classe doit heriter une servlet ?");
+	q.setId(1);
+	q.setBonneReponse(p1);
+	q.setList(l);
 	%>
-      <tr style="text-align:center">
-        <td><a href="#">javax.http.servlet.httpServlet</a></td>
+		<center><table class="table table-bordered table-hover " style="width:70%">
+	    <thead>
+	      <tr >
+	 <th class="question"><%=q.getLibelle() %></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    <% for(int i=0; i<q.getList().size(); i++){%>
+
+      <tr class="question">
+        <td><a href="#"><%=q.getList().get(i).getLibelle().toString()%></a></td>
 
       </tr>
 	<%  }%>
     </tbody>
-  </table>
+  </table></center>
 </div>
 </body>
 </html>

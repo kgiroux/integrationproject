@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+ <%@ page import="fr.esigelec.quiz.dto.*" %>   
+    <%@ page import ="java.sql.Timestamp" %>  
+   <%@ page import="java.util.*" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +18,30 @@
 </head>
 <body>
 <div >
-  <h2 style="text-align:center">CONSULTER LES QUIZ</h2>
+  <h2 class="question">CONSULTER LES QUIZ</h2>
   <p style="color:#D8D8D8">_________________________________________________________________________________________________________________________________________________________</p>
- <br>           
+ <br> 
+ 
+ <% 
+
+ Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis()/1000);
+ 
+ Quiz q1 = new Quiz("JEE",currentTimestamp,currentTimestamp,currentTimestamp,20,20);
+ Quiz q2= new Quiz("HTML",currentTimestamp,currentTimestamp,currentTimestamp,15,20);
+ Quiz q3 = new Quiz("ANDROID",currentTimestamp,currentTimestamp,currentTimestamp,10,30);
+
+ List<Quiz> qu = new ArrayList<Quiz>();
+ qu.add(q1);
+ qu.add(q2);
+ qu.add(q3);
+ 
+ 
+ 
+ %>          
   <table class="table table-bordered table-hover ">
     <thead>
       <tr style="background-color:#D8D8D8">
-        <th>LibellÃ©</th>
+        <th>Libellé</th>
         <th>Questions</th>
         <th>Date</th>
 		<th>Jouer</th>
@@ -30,12 +50,13 @@
     </thead>
     <tbody>
 	
-	<% for(int i=0; i<4; i++){ %>
+	
+      <% for(int i=0; i<qu.size(); i++){%>
 
-      <tr style="text-align:center">
-        <td>JEE</td>
-        <td>20</td>
-        <td>04/01/16 20:30</td>
+      <tr class="question">
+        <td><%=qu.get(i).getLibelle() %></td>
+        <td><%=qu.get(i).getEtape() %></td>
+        <td><%=qu.get(i).getDateDebutQuiz() %></td>
 		<td><a href="#"><img src="Ressources/images/jouer.png" width="8%"/></a></td>
 		<td><a href="#"><img src="Ressources/images/stats.png" width="8%"/></a></td>
       </tr>

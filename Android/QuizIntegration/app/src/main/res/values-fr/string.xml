@@ -42,4 +42,18 @@
     <string name="error_field_required">Champs requis</string>
 
 
+    <!-- Strings related to subscribe -->
+    <string name="subscribe">Inscription</string>
+    <string name="name">Nom : </string>
+    <string name="surname">Prénom : </string>
+    <string name="mail">Email : </string>
+    <string name="pwd">Password : </string>
+    <string name="confirm">Confirmation du password : </string>
+    <string name="valid">Validatation</string>
+    <string name="cancel">Annuler</string>
+
+    <!-- Strings related to menu -->
+    <string name="current">Test en cours</string>
+    <string name="old">Ancien Test</string>
+
 </resources>

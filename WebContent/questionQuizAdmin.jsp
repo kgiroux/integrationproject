@@ -1,12 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-<<<<<<< HEAD
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-=======
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
->>>>>>> 97540ab18b5c8739459bda7a9de5ddf79f9dead5
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -19,12 +13,12 @@
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Créer un nouveau quiz</h1>
+<h1>CrÃ©er un nouveau quiz</h1>
 	<hr>
 <div class="container">
 	<hr>
 	<div class="form-group">
-		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
+		<label for="libelle" class="col-xs-6 col-sm-2 control-label">LibellÃ© :</label>
 		<div class="col-xs-2 col-sm-4">
 			<input type="text" class="form-control" name="libelle" id="libelleQuiz" placeholder="JEE,Android,etc">
 		</div> 
@@ -65,7 +59,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<button class="btn btn-primary">Créer</button>
+			<button class="btn btn-primary">CrÃ©er</button>
    
    <button class="btn btn-primary">Annuler</button>
    <hr>

@@ -39,7 +39,7 @@
 	q.setLibelle("De quelle classe doit heriter une servlet ?");
 	q.setId(1);
 	q.setBonneReponse(p1);
-	q.setList(l);
+	q.setListePropositions(l);
 	%>
   <center><table class="table table-bordered table-hover " style="width:70%">
     <thead>
@@ -50,9 +50,9 @@
     </thead>
     <tbody>
 	
-	  <% for(int i=0; i<q.getList().size(); i++){%>
+	  <% for(int i=0; i<q.getListePropositions().size(); i++){%>
       <tr style="text-align:center">
-        <td ><a href="#">j<%=q.getList().get(i).getLibelle().toString()%></a></td>
+        <td ><a href="#">j<%=q.getListePropositions().get(i).getLibelle().toString()%></a></td>
 		<td>30 %</td>
 
       </tr>

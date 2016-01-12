@@ -40,20 +40,20 @@
 	q.setLibelle("De quelle classe doit heriter une servlet ?");
 	q.setId(1);
 	q.setBonneReponse(p1);
-	q.setList(l);
+	q.setListePropositions(l);
 	
 	Personne p = new Personne();
-	Personne pe1 = new Personne("TIONO","Kevin","tionokevin@live.fr","kev87dc",0);
+	Personne pe1 = new Personne(-1, "TIONO","Kevin","tionokevin@live.fr","kev87dc",0);
 	pe1.setId(1);
-	Personne pe2 = new Personne("TIONO","Sandra","tionosady@live.fr","sand08",0);
+	Personne pe2 = new Personne(-1, "TIONO","Sandra","tionosady@live.fr","sand08",0);
 	pe2.setId(2);
-	Personne pe3 = new Personne("JACKSON","Michael","mj.thebest@live.fr","mjforever",0);
+	Personne pe3 = new Personne(-1, "JACKSON","Michael","mj.thebest@live.fr","mjforever",0);
 	pe3.setId(3);
-	Personne pe4 = new Personne("HOLLANDE","François","f.hollande@live.fr","cuculolo",0);
+	Personne pe4 = new Personne(-1, "HOLLANDE","François","f.hollande@live.fr","cuculolo",0);
 	pe4.setId(4);
-	Personne pe5 = new Personne("KOUBOURA","Anastasie","anaskoub@live.fr","tatiouf",0);
+	Personne pe5 = new Personne(-1, "KOUBOURA","Anastasie","anaskoub@live.fr","tatiouf",0);
 	pe5.setId(5);
-	Personne pe6 = new Personne("LI","Jet","jet.li@live.fr","hongfeihung",0);
+	Personne pe6 = new Personne(-1, "LI","Jet","jet.li@live.fr","hongfeihung",0);
 	pe6.setId(6);
 	
 	List<Personne> le = new ArrayList<Personne>();
@@ -76,10 +76,10 @@
     <tbody>
 	
 	
-      <% for(int i=0; i<q.getList().size(); i++){%>
+      <% for(int i=0; i<q.getListePropositions().size(); i++){%>
 
       <tr class="question">
-        <td><a href="#"><%=q.getList().get(i).getLibelle().toString()%></a></td><td>30%</td><td style="background-color:red"></td>
+        <td><a href="#"><%=q.getListePropositions().get(i).getLibelle().toString()%></a></td><td>30%</td><td style="background-color:red"></td>
 
       </tr>
 	<%  }%>

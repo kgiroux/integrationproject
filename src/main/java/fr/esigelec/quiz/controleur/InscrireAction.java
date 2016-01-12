@@ -35,6 +35,7 @@ public class InscrireAction extends Action {
 			p.setMdp(inscrireForm.getMdp());
 			p.setMail(inscrireForm.getMail());
 			IPersonneDAO personneDAO = new PersonneDAOImpl();
+			inscrireActionLogger.info("p=" + p);
 			// Maybe we should add a check to verify if the person is already in db.
 			personneDAO.createPersonne(p);
 			// Maybe set some attributes on the request.

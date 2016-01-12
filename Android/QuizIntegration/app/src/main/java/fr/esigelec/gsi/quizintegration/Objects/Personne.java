@@ -81,6 +81,7 @@ public class Personne
 
     }
 
+    /* Convertion methods */
     public void JSONObjectToPersonne(JSONObject obj){
         if(null != obj){
             try{

@@ -8,17 +8,18 @@ import java.util.HashMap;
  */
 public class Choisir
 {
+    /* Attributes */
+    private int id_personne;
+    private int id_proposition;
+    private int id_quiz;
+
+    /* Constructor */
     public Choisir ()
     {
         id_proposition = -1;
         id_quiz = -1;
         id_personne = -1;
     }
-
-    /* Attributes */
-    private int id_personne;
-    private int id_proposition;
-    private int id_quiz;
 
     /* Getters & Setters */
     public int getPersonne() {
@@ -46,16 +47,17 @@ public class Choisir
     }
 
 
+    /* Convertion methods */
     public HashMap<String,String> ChoiceToHashMap(){
         HashMap<String, String> returnHashMap = new HashMap<> ();
         if(id_personne != -1){
             returnHashMap.put ("idPersonne",String.valueOf (id_personne));
         }
         if(id_quiz !=-1){
-            returnHashMap.put ("idProposition",String.valueOf (id_proposition));
+            returnHashMap.put ("idQuiz",String.valueOf (id_quiz));
         }
         if(id_proposition !=-1){
-            returnHashMap.put ("idQuiz",String.valueOf (id_quiz));
+            returnHashMap.put ("idProposition",String.valueOf (id_proposition));
         }
         return returnHashMap;
     }

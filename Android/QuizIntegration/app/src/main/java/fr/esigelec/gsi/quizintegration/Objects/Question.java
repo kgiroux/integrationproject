@@ -53,6 +53,7 @@ public class Question
         this.id = id;
     }
 
+    /* Convertion methods */
     public void JSONObjectToQuestion(JSONObject obj){
         if(null != obj){
             try{

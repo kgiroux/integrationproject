@@ -29,6 +29,13 @@
       <action scope="request" path="/VueInscription"  type="fr.esigelec.quiz.controleur.VueInscriptionAction">
         <forward name="succes" path="/inscription.jsp"/>
       </action>
+      <!--
+          Android actions
+          
+       -->
+       <action scope="request" path="/AndroidConnexionPersonne" type="fr.esigelec.quiz.controleur.android.AndroidConnexionPersonneAction" input="/">
+         <forward name="succes" path="/json.jsp"/>
+       </action>
    </action-mappings>
    <message-resources parameter="mesMessages"></message-resources>
 </struts-config>

@@ -14,7 +14,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ import fr.esigelec.gsi.quizintegration.Objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
+import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 
 import java.security.MessageDigest;
 
@@ -177,7 +181,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 	private Dialog createAndManageDialog(){
 		final Dialog dialog = new Dialog (MainActivity.this);
-		dialog.setContentView (R.layout.login_dialog);
+		dialog.setContentView(R.layout.login_dialog);
 		dialog.setTitle (getString (R.string.action_sign_in));
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
 		subscribeButton.setOnClickListener (new View.OnClickListener ()
@@ -214,11 +218,26 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 				Personne p = new Personne ();
 				p.setMail(loginValue);
-				p.setMdp (passwordValue);
+				p.setMdp(passwordValue);
 
 				if(DEV){
 					isMdpValid = true;
 					isEmailValid = true;
+				}
+
+				try
+				{
+					JSONObject perJson = new AndroidHTTPRequest().execute("http://176.31.114.109/quiz/AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(p.PersonneToHashMap())).get();
+					Toast.makeText(getApplicationContext(),perJson.toString(),Toast.LENGTH_LONG).show();
+					Personne p2 = new Personne();
+					p2.JSONObjectToPersonne(perJson);
+					Toast.makeText(getApplicationContext(),p2.toString(),Toast.LENGTH_LONG).show();
+
+				}catch(Exception ex)
+				{
+					Log.e("ERROR",ex.getMessage());
+					TextView tv = (TextView) dialog.findViewById(R.id.errorText);
+					tv.setText(getString(R.string.error_connection));
 				}
 
 				if(isEmailValid && isMdpValid){

@@ -15,8 +15,8 @@
 <body>
 	<h1>Ajouter une question</h1>
 	<hr>
-	<div class="jumbotron jumboqA">
-		<form class="form-horizontal" method="post" action="/EnregistrerQuestion">
+		<form class="container form-horizontal contform" method="post" action="/EnregistrerQuestion">
+			<br>
 			<fieldset>
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="libelleQuestion">Question : </label>  
@@ -86,9 +86,10 @@
 				    <a href="/quiz/questionQuizAdmin.jsp"><button type="button" class="btn btn-primary">Annuler</button></a>
 				  </div>
 				</div>
+				<hr>
 			</fieldset>
 		</form>
-	</div>
-
+	
+	<br>
 </body>
 </html>

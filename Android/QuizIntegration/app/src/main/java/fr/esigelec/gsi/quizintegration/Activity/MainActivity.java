@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,8 +30,6 @@ import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
-
-import java.security.MessageDigest;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener

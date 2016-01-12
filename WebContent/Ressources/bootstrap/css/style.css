@@ -49,9 +49,9 @@ hr {
 	height: 1px;
 	background-color:#CFD8D7;
 }
-.paraanimateur{
+.paraanimateur, .animateur{
 	text-align:center;	
 }
-.animateur{
-	text-align:center;	
+.contform{
+	margin:auto;
 }

@@ -196,7 +196,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	private Dialog createAndManageDialog(){
 		final Dialog dialog = new Dialog (MainActivity.this);
 		dialog.setContentView(R.layout.login_dialog);
-		dialog.setTitle (getString (R.string.action_sign_in));
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
 		subscribeButton.setOnClickListener (new View.OnClickListener ()
 		{

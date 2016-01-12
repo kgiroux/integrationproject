@@ -17,8 +17,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-
 /**
  * Created by Kevin PACE
  */
@@ -27,9 +25,9 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
 {
     public JSONObject executeRequest(String url, String method, String paramsStr)
     {
-        URL uri = null;
+        URL uri;
         HttpURLConnection urlConnection = null;
-        String str = "";
+        String str;
         JSONObject json = null;
 
         try
@@ -44,7 +42,7 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
             urlConnection.setDoInput(true);
 
             //Send parameters to the request
-            if(method == "POST")
+            if("POST".equals(method))
             {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoOutput(true);
@@ -70,29 +68,30 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
 
         }catch(Exception ex){ex.printStackTrace();}
         finally {
-            urlConnection.disconnect();
+
+            if(urlConnection != null)
+                urlConnection.disconnect();
         }
         return json;
     }
 
-    static private String createParamString(Map<String,String> params) throws UnsupportedEncodingException
+    public static String createParamString(Map<String,String> params)
     {
         StringBuilder result = new StringBuilder();
+        boolean isFirst = true;
 
         for(Map.Entry<String, String> entry : params.entrySet())
         {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            boolean isFirst = false;
-
             if(!isFirst)
                 result.append("&");
             else
-                isFirst = true;
+                isFirst = false;
 
-            result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            try {
+                result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }catch(Exception ex){ex.printStackTrace();}
         }
         return result.toString();
     }

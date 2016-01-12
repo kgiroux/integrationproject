@@ -89,6 +89,7 @@ public class Personne
                 this.prenom = obj.getString ("prenom");
                 this.mdp = obj.getString ("mdp");
                 this.nom = obj.getString ("nom");
+                this.mail = obj.getString ("mail");
             }catch(JSONException jsonE){
                 Log.e ("ERREUR",jsonE.getMessage ());
             }
@@ -111,5 +112,16 @@ public class Personne
             returnHashMap.put("mdp",mdp);
         }
         return returnHashMap;
+    }
+
+    @Override
+    public String toString() {
+        return "Personne{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", mail='" + mail + '\'' +
+                ", mdp='" + mdp + '\'' +
+                '}';
     }
 }

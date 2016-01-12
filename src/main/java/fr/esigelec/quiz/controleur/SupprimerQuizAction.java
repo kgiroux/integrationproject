@@ -30,7 +30,7 @@ public class SupprimerQuizAction extends Action {
 				quizDAO.deleteQuiz(quizDAO.getQuiz(idQuiz));
 				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {
-				return mapping.findForward("erreur");	/* If user is not admin, map to somewhere */
+				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
 			}
 			
 		} catch (Exception e) {

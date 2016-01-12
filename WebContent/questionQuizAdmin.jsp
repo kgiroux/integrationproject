@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,10 +13,55 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1 style="text-align:center">Cr�er un nouveau quiz </h1>
+<h1 >Créer un nouveau quiz</h1>
 	<hr>
 <div class="container">
-	
+	<hr>
+		  <div class="form-group">
+		    <label for="libelle" class="col-xs-6 col-sm-4 control-label">Libellé :</label>
+		    <div class="col-xs-6 col-sm-4">
+		      <input type="string" class="form-control" name="libelle" id="libelleQuestion" placeholder="JEE,Android,etc">
+		      </div>
+		    <button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button>
+		    </div>
+		    
+		    <div class="form-center">
+		     <table class="table table-bordered table-hover tableqqa">
+    <thead>
+      <tr style="background-color:#D8D8D8;">
+ 	<th >Cocher</th>
+ 	<th >Question</th>
+ 	<th >Supprimer</th>
+ 	<th >Editer</th>
+ 	  </tr>
+    </thead>
+    <tbody>
+    <tr >
+        <td><input type="checkbox"  name="check" id="checkbox"></td>
+        <td>Question 1</td>
+        <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <td><a href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
+	</tr>
+	 <tr >
+        <td><input type="checkbox"  name="check" id="checkbox"></td>
+		<td>Question 2</td>
+		<td><a href="#"><span class ="glyphicon glyphicon-remove"></span></a></td>
+		<td><a href="#"><span class ="glyphicon glyphicon-edit"></span></a></td>
+   </tr>
+      <tr >
+        <td><input type="checkbox"  name="check" id="checkbox"></td>
+		<td>Question 3</td>
+		<td><a href="#"><span class ="glyphicon glyphicon-remove"></span></a></td>
+		<td><a href="#"><span class ="glyphicon glyphicon-edit"></span></a></td>
+		</tr>
+    </tbody>
+  </table>	
+   <button  class="btn btn-primary">Créer</button>
+   
+   <button  class="btn btn-primary">Annuler</button>
+   
+  </div>
+		  
 </div>
 </body>
 </html>

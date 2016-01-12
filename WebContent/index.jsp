@@ -10,8 +10,37 @@
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#InscriptionForm').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            mail: {
+                validators: {
+                    notEmpty: {
+                        message: 'le champ email ne doit pas être vide'
+                    },
+                    emailAddress: {
+                        message: 'votre email n est pas valide '
+                    }
+                }
+            },
+            mdp: {
+                validators: {
+                    notEmpty: {
+                        message: 'le mot de passe est obligatoire'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
 </head>
 <body>
 <div class="container">
@@ -22,13 +51,13 @@
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="email" class="form-control" name="mail" id="inputEmail3" placeholder="nom@domain.com" value="<c:out value="${param.mail}"/>" required>
+		      <input type="email" class="form-control" name="mail" id="inputEmail3" placeholder="nom@domain.com" value="<c:out value=""/>" required>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="mdp" id="inputPassword3" placeholder="Password" value="<c:out value="${param.mdp}"/>" required>
+		      <input type="password" class="form-control" name="mdp" id="inputPassword3" placeholder="Password" value="<c:out value=""/>" required>
 		    </div>
 		  </div>
 		  <span class="col-xs-6 col-sm-4"></span>

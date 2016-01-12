@@ -15,11 +15,6 @@ public class ChoisirAction extends Action {
 			throws Exception {
 
 		//TODO : Action Choose  implementation 
-		
-		
-		
-		
-		
 		return null;
 		
 	}

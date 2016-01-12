@@ -4,7 +4,7 @@
 
 # Integration Project
 
-Integration Project is an online quiz developped by 21 students of CS major in ESIGELEC. There're 2 parts for this project,
+Integration Project is an online quiz developed by 21 students of CS major in ESIGELEC. There're 2 parts for this project,
 
 * __JEE__ http://176.31.114.109/quiz/
 * __Android__

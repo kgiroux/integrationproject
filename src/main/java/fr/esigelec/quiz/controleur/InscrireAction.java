@@ -3,6 +3,7 @@ package fr.esigelec.quiz.controleur;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -17,12 +18,16 @@ import fr.esigelec.quiz.forms.InscrireForm;
  * There'e several errors now, because no TDO and DAO.
  */
 public class InscrireAction extends Action {
+	private static final Logger inscrireActionLogger = Logger.getLogger(InscrireAction.class);
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
 		try {
+			
+			inscrireActionLogger.info("start InscrireAction");
+			
 			InscrireForm inscrireForm = (InscrireForm) form;
 			Personne p = new Personne();
 			p.setNom(inscrireForm.getNom());
@@ -38,4 +43,5 @@ public class InscrireAction extends Action {
 			return mapping.findForward("erreur");
 		}
 	}
+	
 }

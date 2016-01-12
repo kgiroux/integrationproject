@@ -19,7 +19,7 @@ public class AndroidConnexionPersonneAction extends Action {
 		
 			if("GET".equals(request.getMethod())){
 				// REMOVE WHEN DAO OK
-				Personne p = new Personne("Serais", "Sebastien", "serais@esigelec.com", "1234567890", 1);
+				Personne p = new Personne(0, "Serais", "Sebastien", "serais@esigelec.com", "1234567890", 1);
 				p.setId(42);
 				JSONObject json = new JSONObject(p);
 				request.setAttribute("json", json.toString());

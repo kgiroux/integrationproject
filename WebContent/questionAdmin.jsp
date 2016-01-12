@@ -10,49 +10,85 @@
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>Administrer les quiz</h1>
+	<h1>Ajouter une question</h1>
 	<hr>
-	<button class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button>
-	<hr>
- <table class="table table-bordered table-hover ">
-    <thead>
-      <tr style="background-color:#D8D8D8;">
- 	<th>Libellé</th>
- 	<th>Date</th>
- 	<th>Supprimer</th>
- 	<th>Editer</th>
- 	<th>(Re)Lancer</th>
-      </tr>
-    
-    </thead>
-    <tbody>
-    <tr>
-        <td>JEE</td>
-        <td>javax.http.servlet.httpServlet</td>
-        <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
-        <td><a href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
-		<td><a href="#"><span class="glyphicon glyphicon-play"></span></a></td>
-      </tr>
-	 <tr>
-        <td>HTML</td>
-		<td>javax.http.servlet.httpServlet</td>
-		<td><a href="#"><span class ="glyphicon glyphicon-remove"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-edit"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-play"></span></a></td>
-      </tr>
-      <tr>
-        <td>Android</td>
-		<td>javax.http.servlet.httpServlet</td>
-		<td><a href="#"><span class ="glyphicon glyphicon-remove"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-edit"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-play"></span></a></td>
-      </tr>
-    </tbody>
-  </table>	
-  
+	<div class="jumbotron jumboqA">
+		<form class="form-horizontal" method="post" action="/EnregistrerQuestion">
+			<fieldset>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="libelleQuestion">Question : </label>  
+				  <div class="col-md-8">
+				  <input id="libelleQuestion" name="libelleQuestion" placeholder="question" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="bonneReponse">Bonne Réponse : </label>  
+				  <div class="col-md-8">
+				  <input id="bonneReponse" name="bonneReponse" placeholder="la bonne réponse" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p1">Proposition 1 : </label>  
+				  <div class="col-md-8">
+				  <input id="p1" name="p1" placeholder="proposition 1" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p2">Proposition 2 : </label>  
+				  <div class="col-md-8">
+				  <input id="p2" name="p2" placeholder="propostion 2" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p3">Proposition 3 : </label>  
+				  <div class="col-md-8">
+				  <input id="p3" name="p3" placeholder="proposition 3" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p4">Proposition 4 : </label>  
+				  <div class="col-md-8">
+				  <input id="p4" name="p4" placeholder="proposition 4" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p5">Proposition 5 : </label>  
+				  <div class="col-md-8">
+				  <input id="p5" name="p5" placeholder="proposition 5" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p6">Proposition 6 : </label>  
+				  <div class="col-md-8">
+				  <input id="p6" name="p6" placeholder="proposition 6" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p7">Proposition 7 : </label>  
+				  <div class="col-md-8">
+				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for="p7">Proposition 8 : </label>  
+				  <div class="col-md-8">
+				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" required="" type="text">    
+				  </div>
+				</div>
+				<div class="form-group">
+				  <label class="col-md-2 control-label" for=""></label>
+				  <div class="col-md-6">
+				    <button type="submit" class="btn btn-primary">Ajouter</button>
+				    <button type="reset" class="btn btn-primary">Rétablir</button>
+				    <a href="/quiz/questionQuizAdmin.jsp"><button type="button" class="btn btn-primary">Annuler</button></a>
+				  </div>
+				</div>
+			</fieldset>
+		</form>
+	</div>
 
 </body>
 </html>

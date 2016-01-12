@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.dto;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**Projet d'integration
@@ -50,7 +52,8 @@ public class Quiz {
 	 *   3 : affichage r�ponse + classement
 	 */
 	private int etape;
-
+	
+	private List<Question> listeQuestions = new ArrayList<Question>();
 
 
 	/*Constructeurs*/
@@ -209,6 +212,14 @@ public class Quiz {
 	 */
 	public void setEtape(int etape) {
 		this.etape = etape;
+	}
+
+	public List<Question> getListeQuestions() {
+		return listeQuestions;
+	}
+
+	public void setListeQuestions(List<Question> listeQuestions) {
+		this.listeQuestions = listeQuestions;
 	}
 }
 

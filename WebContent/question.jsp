@@ -1,39 +1,58 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="fr.esigelec.quiz.dto.*" %>   
+<%@ page import="java.util.*" %>  
+    <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Question</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
+<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
 <div >
-  <h2 style="text-align:center">CONSULTER LES QUIZ</h2>
-  <p style="color:#D8D8D8">_________________________________________________________________________________________________________________________________________________________</p>
- <br> 
- <p style="text-align:center"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
- <p style="text-align:center"><strong>Reste</strong> : 0 secondes</p>
+  <h2 class="question">CONSULTER LES QUIZ</h2>
+ <hr><br> 
+ <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
+ <p class="question"><strong>Reste</strong> : 0 secondes</p>
  <br>
-  <table class="table table-bordered table-hover ">
-    <thead>
-      <tr style="background-color:#D8D8D8;">
- <th style="text-align:center">De quelle classe doit hériter une servlet ?</th>
-      </tr>
-    </thead>
-    <tbody>
 	
 	<%
-	for(int i=0; i<4; i++){
+	
+	Proposition p1 = new Proposition("javax.http.servlet.HttpServlet");
+	Proposition p2 = new Proposition("javax.servlet.HttpServlet");
+	Proposition p3 = new Proposition("java.http.servlet.ServletHttp");
+	Proposition p4 = new Proposition("javax.http.servlet.ServletHttp");
+
+	List<Proposition> l=new ArrayList<Proposition>();
+	l.add(p1);
+	l.add(p2);
+	l.add(p3);
+	l.add(p4);
+	Question q = new Question();
+	q.setLibelle("De quelle classe doit heriter une servlet ?");
+	q.setId(1);
+	q.setBonneReponse(p1);
+	q.setListePropositions(l);
 	%>
-      <tr style="text-align:center">
-        <td><a href="#">javax.http.servlet.httpServlet</a></td>
+		<table class="table table-bordered table-hover " style="width:70%">
+	    <thead>
+	      <tr >
+	 <th class="question"><%=q.getLibelle() %></th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    <% for(int i=0; i<q.getListePropositions().size(); i++){%>
+
+      <tr class="question">
+        <td><a href="#"><%=q.getListePropositions().get(i).getLibelle().toString()%></a></td>
 
       </tr>
 	<%  }%>

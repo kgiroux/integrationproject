@@ -23,7 +23,8 @@ public class Proposition {
 	 */
 	private String libelle; 
 
-
+	private Question idQuestion;
+	
 	/*Constructeurs*/
 
 	/**
@@ -33,17 +34,19 @@ public class Proposition {
 		super();
 	}
 
-
 	/**
 	 * Constructeur avec param�tres
 	 * @param id
 	 * @param libelle
 	 */
-	public Proposition( String libelle) {
+	public Proposition( String libelle, int idQuestion) {
 		super();
 		this.libelle = libelle;
 	}
-
+	
+	public Proposition(String libelle) {
+		this.libelle = libelle;
+	}
 
 	/**
 	 * Constructeur par recopie
@@ -55,7 +58,6 @@ public class Proposition {
 		this.libelle = p.libelle;
 	}
 
-
 	/*Getters et setters*/
 
 	/**
@@ -66,7 +68,6 @@ public class Proposition {
 		return id;
 	}
 
-
 	/**
 	 * m�thode: setId()
 	 * @param id the id to set
@@ -74,7 +75,6 @@ public class Proposition {
 	public void setId(int id) {
 		this.id = id;
 	}
-
 
 	/**
 	 * m�thode: getLibelle()
@@ -84,7 +84,6 @@ public class Proposition {
 		return libelle;
 	}
 
-
 	/**
 	 * m�thode: setLibelle()
 	 * @param libelle the libelle to set
@@ -93,5 +92,12 @@ public class Proposition {
 		this.libelle = libelle;
 	}
 
+	public Question getIdQuestion() {
+		return idQuestion;
+	}
+
+	public void setIdQuestion(Question idQuestion) {
+		this.idQuestion = idQuestion;
+	}
 
 }

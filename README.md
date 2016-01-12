@@ -1,5 +1,4 @@
-[![JEE status](https://img.shields.io/badge/JEE-building-yellow.svg)][1]
-[![Android status](https://img.shields.io/badge/Android-building-yellow.svg)][2]
+[![JEE status](https://img.shields.io/badge/JEE-pass-green.svg)][1] [![Android status](https://img.shields.io/badge/Android-pass-green.svg)][2]
 
 
 # Integration Project

@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -34,13 +35,21 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
-		super.onCreate (savedInstanceState);
-		setContentView (R.layout.activity_menu);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_menu);
 		pers = SingletonPersonne.getInstance ().getPersonne ();
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
-		toolbar.setTitle (R.string.app_name);
-		toolbar.setOnMenuItemClickListener (this);
-		create_expandable_list ();
+		toolbar.setTitle(R.string.app_name);
+		toolbar.setOnMenuItemClickListener(this);
+		create_expandable_list();
+
+		LinearLayout currentQuiz = (LinearLayout) findViewById(R.id.current_quiz);
+		currentQuiz.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent(v.getContext(),GameActivity.class));
+			}
+		});
 	}
 
 

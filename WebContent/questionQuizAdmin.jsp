@@ -20,7 +20,7 @@
 	<div class="form-group">
 		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
 		<div class="col-xs-2 col-sm-4">
-			<input type="string" class="form-control" name="libelle" id="libelleQuestion" placeholder="JEE,Android,etc">
+			<input type="text" class="form-control" name="libelle" id="libelleQuiz" placeholder="JEE,Android,etc">
 		</div> 
 		   
 	</div>

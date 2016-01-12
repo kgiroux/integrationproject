@@ -45,3 +45,13 @@ h1, th, td, button {
 tr {
 	background-color:#D8D8D8;
 }
+hr {
+	height: 1px;
+	background-color:#CFD8D7;
+}
+.paraanimateur{
+	text-align:center;	
+}
+.animateur{
+	text-align:center;	
+}

@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import fr.esigelec.quiz.dao.hibernate.PropositionDAOImpl;
 import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 
 
 public class PropositionDAOTest {
@@ -25,39 +26,39 @@ public class PropositionDAOTest {
 	/**
 	 * m�thode : testCreateProposition
 	 */
-	
+	/*@Test
 	public void testCreateProposition(){
-	
+		
 		Proposition p=new Proposition( "jee");
 		propDao.createProposition(p);
 		Proposition q=propDao.getProposition(1);
 		assertEquals(p.getLibelle(), q.getLibelle());
-	}
+	}*/
 	
 	/**
 	 * m�thode : testGetProposition
 	 */
-	
+	/*@Test
 	public void testGetProposition(){
 		Proposition q=propDao.getProposition(1);
 		assertEquals("jee", q.getLibelle());
 		
-	}
+	}*/
 	
 	/**
 	 * m�thode : testListProposition
 	 */
-	
+	/*@Test
 	public void testListProposition(){
 		Proposition p= new Proposition("java");
 		propDao.createProposition(p);
 		assertEquals(propDao.listProposition().size(),2);
-	}
+	}*/
 	
 	/**
 	 * m�thode : testGetPropositionParQuestion
 	 */
-	
+	/*
 	public void testGetPropositionParQuestion(){
 		assertEquals(propDao.getPropositionParQuestion(null).size(), 0);
 		}
@@ -65,7 +66,7 @@ public class PropositionDAOTest {
 	/**
 	 * m�thode : testUpdateProposition
 	 */
-	
+	/*
 	public void testUpdateProposition(){
 		Proposition q=propDao.getProposition(1);
 		q.setLibelle("jee1");
@@ -73,16 +74,17 @@ public class PropositionDAOTest {
 		q=propDao.getProposition(1);
 		assertEquals(q.getLibelle(), "jee1");
 		
-	}
+	}*/
 	
 	/**
 	 * m�thode : testDeleteProposition
 	 */
-	
+	/*
+	@Test
 	public void testDeleteProposition(){
 		Proposition q=propDao.getProposition(1);
 		propDao.deleteProposition(q);
 		assertEquals(propDao.listProposition().size(),1);
-	}
+	}*/
 
 }

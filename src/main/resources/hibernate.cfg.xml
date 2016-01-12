@@ -23,7 +23,7 @@
 		<!--Echo all executedSQL to stdout-->
 		<property name="show_sql">true</property>
 		
-		<mapping resource="Quizz.hbm.xml"/>
+		<mapping resource="Quiz.hbm.xml"/>
 		<mapping resource="Proposition.hbm.xml"/>
 		<mapping resource="Question.hbm.xml"/>
 		<mapping resource="Personne.hbm.xml"/>

@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,8 +30,6 @@ import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
-
-import java.security.MessageDigest;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
@@ -58,6 +55,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
 		dialog = createAndManageDialog();
+
+		Button button = (Button) findViewById (R.id.start);
+		button.setOnClickListener (this);
+
+		Button quit = (Button) findViewById (R.id.quit);
+		quit.setOnClickListener (this);
 	}
 
 	public void create_drawer ()
@@ -168,7 +171,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	@Override
 	public void onClick (View v)
 	{
-
+		switch(v.getId ()){
+			case R.id.start :
+				dialog.show ();
+				break;
+			case R.id.quit :
+				finish();
+				break;
+		}
 	}
 
 	@Override
@@ -183,7 +193,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	private Dialog createAndManageDialog(){
 		final Dialog dialog = new Dialog (MainActivity.this);
 		dialog.setContentView(R.layout.login_dialog);
-		dialog.setTitle (getString (R.string.action_sign_in));
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
 		subscribeButton.setOnClickListener (new View.OnClickListener ()
 		{

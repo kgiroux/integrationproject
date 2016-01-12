@@ -37,6 +37,9 @@ public class Personne {
 	 * 1000 --> Admin
 	 */
 	private int droits;
+	
+	public static final int ADMIN = 1000;
+	public static final int JOUEUR = 0;
 
 
 	//M�thodes de la classe Personne

@@ -1,5 +1,12 @@
 package fr.esigelec.gsi.quizintegration.Objects;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,4 +52,27 @@ public class Question
     public void setId(int id) {
         this.id = id;
     }
+
+    public void JSONObjectToQuestion(JSONObject obj){
+        if(null != obj){
+            try{
+
+                this.id = obj.getInt ("id");
+                this.libelle = obj.getString ("libelle");
+                this.listePropositions = new ArrayList<> ();
+                Proposition p = new Proposition ();
+                JSONArray array = obj.getJSONArray ("propositions");
+                for (int i = 0; i<array.length (); i++){
+                    JSONObject item = array.getJSONObject (i);
+                    p.setId (item.getInt ("id"));
+                    p.setLibelle (item.getString ("libelle"));
+                    listePropositions.add (p);
+                    p = new Proposition ();
+                }
+            }catch(JSONException jsonE){
+                Log.e ("ERREUR",jsonE.getMessage ());
+            }
+        }
+    }
+
 }

@@ -16,8 +16,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/data"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/valid"
-        android:layout_alignEnd="@+id/valid"
         android:layout_alignParentBottom="true">
 
         <TextView

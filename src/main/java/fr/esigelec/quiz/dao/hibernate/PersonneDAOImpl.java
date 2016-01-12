@@ -33,7 +33,6 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		session.close();	
 	}
 
-	
 	/**
 	 * M�thode : getPersonne
 	 * @param id

@@ -38,8 +38,30 @@
           
        -->
        <action scope="request" path="/AndroidConnexionPersonne" type="fr.esigelec.quiz.controleur.android.AndroidConnexionPersonneAction" input="/">
+         <forward name="error" path="/json.jsp"/>
          <forward name="succes" path="/json.jsp"/>
        </action>
+       <action scope="request" path="/AndroidInscriptionPersonne" type="fr.esigelec.quiz.controleur.android.AndroidInscriptionPersonneAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidJouer" type="fr.esigelec.quiz.controleur.android.AndroidJouerAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidQuizList" type="fr.esigelec.quiz.controleur.android.AndroidQuizListAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidChoisir" type="fr.esigelec.quiz.controleur.android.AndroidChoisirAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidStatistiques" type="fr.esigelec.quiz.controleur.android.AndroidStatistiqueAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       
    </action-mappings>
    <message-resources parameter="mesMessages"></message-resources>
 </struts-config>

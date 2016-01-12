@@ -33,7 +33,7 @@ public class Question {
 	/**
 	 * liste des propositions de r�ponse � la question
 	 */
-	private List<Proposition> list;
+	private List<Proposition> listePropositions;
 
 
 
@@ -58,7 +58,7 @@ public class Question {
 	public Question(String libelle, Proposition bonneReponse, List<Proposition> list) {
 		this.libelle = libelle;
 		this.bonneReponse = bonneReponse;
-		this.list = list;
+		this.listePropositions = listePropositions;
 	}
 
 
@@ -70,7 +70,7 @@ public class Question {
 		this.id = q.id;
 		this.libelle = q.libelle;
 		this.bonneReponse = q.bonneReponse;
-		this.list = q.list;
+		this.listePropositions = q.listePropositions;
 	}
 
 	/*Getters et setters*/
@@ -123,21 +123,12 @@ public class Question {
 		this.bonneReponse =p;
 	}
 
-	/**
-	 * m�thode:getList()
-	 * @return the list
-	 */
-	public List<Proposition> getList() {
-		return list;
+	public List<Proposition> getListePropositions() {
+		return listePropositions;
 	}
 
-	/** m�thode: setList()
-	 * @param l: the list of proposition to set
-	 */
-	public void setList(List<Proposition> l) {
-		this.list=l;
+	public void setListePropositions(List<Proposition> listePropositions) {
+		this.listePropositions = listePropositions;
 	}
-
-
 }
 

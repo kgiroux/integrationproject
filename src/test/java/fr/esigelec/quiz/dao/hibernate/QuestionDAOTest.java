@@ -21,16 +21,16 @@ public class QuestionDAOTest {
 	@Test
 	public void testCreateQuestion() {
 
-		Proposition rep = new Proposition("oui");
+		/*Proposition rep = new Proposition("oui");
 		List<Proposition> listP = new ArrayList<Proposition>();
 		listP.add(new Proposition("oui"));
 		listP.add(new Proposition("non"));
-		Question q = new Question("Question de test", rep, listP);
+		Question q = new Question("Question de test", rep, listP);*/
 		
 		List<Question> listQ = qdao.listQuestion();
 		
 		//ajout de la voiture
-		qdao.createQuestion(q);
+		//qdao.createQuestion(q);
 		
 		List<Question> listQ_after = qdao.listQuestion();
 		
@@ -45,10 +45,10 @@ public class QuestionDAOTest {
 		
 		Question get = qdao.getQuestion(0);
 		List<Proposition> listP = new ArrayList<Proposition>();
-		listP.add(new Proposition("Paris"));
-		listP.add(new Proposition("Bruxelles"));
-		listP.add(new Proposition("Marseille"));
-		assertEquals(get,new Question("Quelle est la capitale de la France?",new Proposition("Paris"),listP));
+		listP.add(new Proposition("Paris", get.getId()));
+		listP.add(new Proposition("Bruxelles", get.getId()));
+		listP.add(new Proposition("Marseille", get.getId()));
+		assertEquals(get,new Question("Quelle est la capitale de la France?",new Proposition("Paris",get.getId()),listP));
 	}
 
 	@Test

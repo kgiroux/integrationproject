@@ -10,8 +10,6 @@ package fr.esigelec.quiz.dao.hibernate;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import org.junit.Test;
 
 import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
@@ -24,16 +22,18 @@ public class PersonneDAOTest {
 	/**
 	 * M�thode : testCreatePersonne
 	 */
+	@Test
 	public void testCreatePersonne(){
-		Personne p= new Personne("kevin", "charles", "test@mail.com", "12345", 1000);
+		Personne p = new Personne("kevin", "charles", "test@mail.com", "12345", 1000);
 		persDao.createPersonne(p);
-		Personne pers=persDao.getPersonne(1);
+		Personne pers = persDao.getPersonne(p.getId());
 		assertEquals(pers.getNom(), p.getNom());	
 	}
 	
 	/**
 	 * M�thode :testGetPersonne
 	 */
+	@Test
 	public void testGetPersonne(){
 		Personne pers=persDao.getPersonne(1);
 		assertEquals(pers.getNom(), "kevin");
@@ -52,6 +52,7 @@ public class PersonneDAOTest {
 	/**
 	 * M�thode : testUpdatePersonne
 	 */
+	@Test
 	public void testUpdatePersonne(){
 		Personne pers=persDao.getPersonne(2);
 		pers.setPrenom("charlia2");
@@ -63,6 +64,7 @@ public class PersonneDAOTest {
 	/**
 	 * M�thode : testDeletePersonne
 	 */
+	@Test
 	public void testDeletePersonne(){
 		Personne pers=persDao.getPersonne(2);
 		persDao.deletePersonne(pers);

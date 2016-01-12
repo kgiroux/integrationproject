@@ -25,7 +25,7 @@ public class PropositionDAOTest {
 	/**
 	 * m�thode : testCreateProposition
 	 */
-	
+	@Test
 	public void testCreateProposition(){
 	
 		Proposition p=new Proposition( "jee");
@@ -37,7 +37,7 @@ public class PropositionDAOTest {
 	/**
 	 * m�thode : testGetProposition
 	 */
-	
+	@Test
 	public void testGetProposition(){
 		Proposition q=propDao.getProposition(1);
 		assertEquals("jee", q.getLibelle());
@@ -47,7 +47,7 @@ public class PropositionDAOTest {
 	/**
 	 * m�thode : testListProposition
 	 */
-	
+	@Test
 	public void testListProposition(){
 		Proposition p= new Proposition("java");
 		propDao.createProposition(p);
@@ -78,7 +78,7 @@ public class PropositionDAOTest {
 	/**
 	 * m�thode : testDeleteProposition
 	 */
-	
+	@Test
 	public void testDeleteProposition(){
 		Proposition q=propDao.getProposition(1);
 		propDao.deleteProposition(q);

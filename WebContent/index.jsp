@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+ <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,15 +22,16 @@
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="email" class="form-control" name="mail" id="inputEmail3" placeholder="nom@domain.com">
+		      <input type="email" class="form-control" name="mail" id="inputEmail3" placeholder="nom@domain.com" value="<c:out value="${param.mail}"/>" required>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="mdp" id="inputPassword3" placeholder="Password">
+		      <input type="password" class="form-control" name="mdp" id="inputPassword3" placeholder="Password" value="<c:out value="${param.mdp}"/>" required>
 		    </div>
 		  </div>
+		  <span class="col-xs-6 col-sm-4"></span>
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-xs-6">
 		      <div class="checkbox">

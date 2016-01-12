@@ -4,6 +4,10 @@
 body
 {
 	background-color:#E0F8F7;
+	text-align::center;
+}
+h1, th, td, button {
+	text-align:center;
 }
 .container 
 {

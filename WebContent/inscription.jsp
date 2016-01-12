@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -9,6 +9,8 @@
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
+<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
@@ -46,7 +48,7 @@
 		     <span class="col-xs-6 col-sm-4"></span>
 		  </div>
 		  <div class="form-group">
-		    <label for="prenom" class="col-xs-6 col-sm-4 control-label">Prenom</label>
+		    <label for="prenom" class="col-xs-6 col-sm-4 control-label">Prénom</label>
 		    <div class="col-xs-6 col-sm-4">
 		      <input type="text" class="form-control" name="prenom" placeholder="Prenom" value="<c:out value=""/>">
 		    </div>
@@ -101,7 +103,7 @@ $(document).ready(function() {
                     },
                     regexp: {
                         regexp: /^[a-zA-Z0-9_\.]+$/,
-                        message: 'le prénom ne doit pas contenir des  chiffres, points et des underscore et $'
+                        message: 'le prénom ne doit pas contenir des chiffres, points et des underscore et $'
                     }
                 }
             },
@@ -112,7 +114,7 @@ $(document).ready(function() {
                         message: 'le champ email ne doit pas être vide'
                     },
                     emailAddress: {
-                        message: 'votre email n est pas valide '
+                        message: 'votre email n\'est pas valide '
                     }
                 }
             },

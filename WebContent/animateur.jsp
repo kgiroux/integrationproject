@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Animateur</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -31,16 +31,16 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><a href="#">reponse 1</a></td>
+						<td><a href="#">réponse 1</a></td>
 					</tr>
 					<tr>
-						<td><a href="#">reponse 2</a></td>
+						<td><a href="#">réponse 2</a></td>
 					</tr>
 					<tr>
-						<td><a href="#">reponse 3</a></td>
+						<td><a href="#">réponse 3</a></td>
 					</tr>
 					<tr>
-						<td><a href="#">reponse 4</a></td>
+						<td><a href="#">réponse 4</a></td>
 					</tr>
 				</tbody>
 			</table>

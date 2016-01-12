@@ -46,7 +46,7 @@ $(document).ready(function() {
 <div class="container">
 	<h1>Bienvenue</h1>
 	<hr>
-  <form class="form-horizontal" action="/ConnexionPersonne.do" method="post">
+  <form class="form-horizontal" action="<%=request.getContextPath()%>/ConnexionPersonne.do" method="post">
 	  <div class="form-center">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
@@ -73,7 +73,7 @@ $(document).ready(function() {
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-xs-6">
 		      <button type="submit" class="btn btn-primary">Connexion </button> Ou
-			  <a href ="inscription.jsp">Inscription</a>
+			  <a href ="<%=request.getContextPath()%>/VueInscription.do">Inscription</a>
 		    </div>
 		  </div>
 	  </div>

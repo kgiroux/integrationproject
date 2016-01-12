@@ -10,8 +10,10 @@ import org.apache.struts.action.ActionMapping;
 import org.json.JSONObject;
 
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.exception.AndroidHelper;
 
 public class AndroidChoisirAction extends Action{
+	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -28,8 +30,11 @@ public class AndroidChoisirAction extends Action{
 				//FIND ALL the object with the previous id;
 				
 				return mapping.findForward("succes");
+			} else {
+				JSONObject json = AndroidHelper.DoGetForbiddenException();
+				request.setAttribute("json", json.toString());
+				return mapping.findForward("error");
 			}
-			return mapping.findForward("error");
 	}
 
 }

@@ -42,14 +42,14 @@
 		  <div class="form-group">
 		    <label for="nom" class="col-xs-6 col-sm-4 control-label">Nom</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="nom" placeholder="Nom" value="<c:out value=""/>"required>
+		      <input type="text" class="form-control" name="nom" placeholder="Nom" value="<c:out value=""/>"required>
 		    </div>
 		     <span class="col-xs-6 col-sm-4"></span>
 		  </div>
 		  <div class="form-group">
 		    <label for="prenom" class="col-xs-6 col-sm-4 control-label">Prenom</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="prenom" placeholder="Prenom" value="<c:out value=""/>"required>
+		      <input type="text" class="form-control" name="prenom" placeholder="Prenom" value="<c:out value=""/>"required>
 		    </div>
 		     <span class="col-xs-6 col-sm-4"></span>
 		  </div>

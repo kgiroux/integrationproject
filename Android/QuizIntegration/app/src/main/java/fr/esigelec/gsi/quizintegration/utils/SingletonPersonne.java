@@ -26,7 +26,7 @@ public class SingletonPersonne
 	}
 
 	public final static SingletonPersonne getInstance(){
-		if(SingletonPersonne.instance != null){
+		if(SingletonPersonne.instance == null){
 			synchronized (SingletonPersonne.class){
 				if(SingletonPersonne.instance == null){
 					SingletonPersonne.instance = new SingletonPersonne ();

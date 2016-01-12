@@ -10,7 +10,7 @@ import org.apache.struts.action.ActionMapping;
 import org.json.JSONObject;
 
 import fr.esigelec.quiz.dto.Personne;
-import fr.esigelec.quiz.exception.AndroidHelper;
+import fr.esigelec.quiz.util.AndroidHelper;
 
 public class AndroidChoisirAction extends Action{
 	

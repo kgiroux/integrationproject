@@ -1,4 +1,4 @@
-package fr.esigelec.quiz.exception;
+package fr.esigelec.quiz.util;
 
 import org.json.JSONObject;
 

@@ -12,7 +12,7 @@ import org.json.JSONObject;
 import fr.esigelec.quiz.dao.IPersonneDAO;
 import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
-import fr.esigelec.quiz.exception.AndroidHelper;
+import fr.esigelec.quiz.util.AndroidHelper;
 
 public class AndroidInscriptionPersonneAction extends Action{
 	

@@ -13,6 +13,7 @@ import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.SecurityHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +25,7 @@ public class ConnexionPersonneAction extends Action {
 			throws Exception {
 
 		String mail = request.getParameter("mail");
-		String mdp = request.getParameter("mdp");
+		String mdp = SecurityHelper.MD5(request.getParameter("mdp"));
 		
 		//FAIRE TRANSFORMATION EN MD5
 		

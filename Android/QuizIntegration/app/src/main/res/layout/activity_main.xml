@@ -21,7 +21,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"/>
+            android:text="Hello World!"
+            android:id="@+id/textView" />
 
         <include
             android:id="@+id/tool_bar"
@@ -29,6 +30,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:id="@+id/start"
+            android:layout_marginBottom="47dp"
+            android:layout_above="@+id/quit"
+            android:layout_alignLeft="@+id/quit"
+            android:layout_alignStart="@+id/quit" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quit"
+            android:id="@+id/quit"
+            android:layout_marginBottom="89dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 
     <ExpandableListView

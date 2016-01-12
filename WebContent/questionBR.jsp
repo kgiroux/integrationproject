@@ -1,20 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
- <%@ page import="fr.esigelec.quiz.dto.*" %>   
- 
-   <%@ page import="java.util.*" %>  
-
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="fr.esigelec.quiz.dto.*" %>   
+<%@ page import="java.util.*" %> 
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>QuestionBR</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
+<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -37,7 +35,7 @@
 	l.add(p3);
 	l.add(p4);
 	Question q = new Question();
-	q.setLibelle("De quelle classe doit heriter une servlet ?");
+	q.setLibelle("De quelle classe doit hériter une servlet ?");
 	q.setId(1);
 	q.setBonneReponse(p1);
 	q.setListePropositions(l);
@@ -49,7 +47,7 @@
 	pe2.setId(2);
 	Personne pe3 = new Personne(-1, "JACKSON","Michael","mj.thebest@live.fr","mjforever",0);
 	pe3.setId(3);
-	Personne pe4 = new Personne(-1, "HOLLANDE","Fran�ois","f.hollande@live.fr","cuculolo",0);
+	Personne pe4 = new Personne(-1, "HOLLANDE","François","f.hollande@live.fr","cuculolo",0);
 	pe4.setId(4);
 	Personne pe5 = new Personne(-1, "KOUBOURA","Anastasie","anaskoub@live.fr","tatiouf",0);
 	pe5.setId(5);
@@ -68,9 +66,9 @@
   <center><table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr >
- <th class="question">De quelle classe doit h�riter une servlet ?</th>
+ <th class="question">De quelle classe doit hériter une servlet ?</th>
  <th class="question">%</th>
- <th class="question">R&eacute;sultat</th>
+ <th class="question">Résultat</th>
       </tr>
     </thead>
     <tbody>
@@ -86,14 +84,14 @@
     </tbody>
   </table></cennter><br>
   <h2 class="question">RESULTATS</h2>
-  <p style="color:#D8D8D8">_________________________________________________________________________________________________________________________________________________________</p>
+  <hr>
  <br>
  <center><table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr style="background-color:#D8D8D8">
-        <th class="question">N�</th>
+        <th class="question">N°</th>
         <th class="question">Nom</th>
-        <th class="question">Prenom</th>
+        <th class="question">Prénom</th>
 		<th class="question">Score</th>
 	
       </tr>

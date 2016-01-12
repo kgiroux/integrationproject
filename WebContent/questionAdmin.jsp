@@ -8,14 +8,14 @@
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<h1>Ajouter une question</h1>
 	<hr>
-		<form class="container form-horizontal contform" method="post" action="/EnregistrerQuestion">
+		<form class="container form-horizontal contform" method="post" action="<%=request.getContextPath()%>/EnregistrerQuestion.do">
 			<br>
 			<fieldset>
 				<div class="form-group">

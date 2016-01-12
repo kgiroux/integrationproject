@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
- <%@ page import="fr.esigelec.quiz.dto.*" %>   
- 
-   <%@ page import="java.util.*" %>   
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="fr.esigelec.quiz.dto.*" %>   
+<%@ page import="java.util.*" %>   
+    <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>QuestionStat</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
+<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -36,7 +36,7 @@
 	l.add(p3);
 	l.add(p4);
 	Question q = new Question();
-	q.setLibelle("De quelle classe doit heriter une servlet ?");
+	q.setLibelle("De quelle classe doit hériter une servlet ?");
 	q.setId(1);
 	q.setBonneReponse(p1);
 	q.setListePropositions(l);
@@ -51,7 +51,7 @@
     <tbody>
 	
 	  <% for(int i=0; i<q.getListePropositions().size(); i++){%>
-      <tr style="text-align:center">
+      <tr>
         <td ><a href="#">j<%=q.getListePropositions().get(i).getLibelle().toString()%></a></td>
 		<td>30 %</td>
 

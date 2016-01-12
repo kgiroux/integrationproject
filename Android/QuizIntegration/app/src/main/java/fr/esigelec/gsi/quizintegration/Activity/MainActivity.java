@@ -58,6 +58,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
 		dialog = createAndManageDialog();
+
+		Button button = (Button) findViewById (R.id.start);
+		button.setOnClickListener (this);
+
+		Button quit = (Button) findViewById (R.id.quit);
+		quit.setOnClickListener (this);
 	}
 
 	public void create_drawer ()

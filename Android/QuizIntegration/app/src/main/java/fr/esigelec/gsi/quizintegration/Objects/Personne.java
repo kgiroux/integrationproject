@@ -125,4 +125,46 @@ public class Personne
                 ", mdp='" + mdp + '\'' +
                 '}';
     }
+
+    public int fillPersonneByIndex(int index, String value){
+        switch(index){
+            case 1 :
+                if("".equals(value)){
+                    return -1;
+                }else{
+                    this.nom = value;
+                }
+
+                break;
+            case 2 :
+                if("".equals(value)){
+                    return -1;
+                }else{
+                    this.prenom = value;
+                }
+
+
+                break;
+            case 3 :
+                if("".equals(value)){
+                    return -1;
+                }else{
+                    this.mail = value;
+                }
+                break;
+            case 4 :
+            case 5 :
+                if("".equals(mdp))
+                    this.mdp = value;
+                else{
+                    if(!value.equals(this.mdp)){
+                        return -1;
+                    }else{
+                        this.setMdp(this.mdp);
+                    }
+                }
+                break;
+        }
+        return 0;
+    }
 }

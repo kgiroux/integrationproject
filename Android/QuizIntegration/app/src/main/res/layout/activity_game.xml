@@ -36,11 +36,13 @@
                 android:gravity="center_vertical" />
 
             <ImageButton
+                android:contentDescription="@string/leaveActivity"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/quit"
                 android:layout_weight="0.8"
                 android:background="@drawable/leave" />
+
         </LinearLayout>
 
         <TextView
@@ -65,7 +67,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:weightSum="1"
-                android:contextClickable="false"
                 android:clickable="false">
 
                 <TableRow
@@ -73,7 +74,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
                     android:weightSum="1"
-                    android:contextClickable="false"
                     android:paddingBottom="2dp">
 
                     <Button
@@ -83,7 +83,8 @@
                         android:id="@+id/choice_one"
                         android:layout_weight="0.5"
                         android:background="@drawable/choice_button_up_left"
-                        android:layout_marginRight="2dp" />
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginRight="2dp"/>
 
                     <Button
                         android:layout_width="match_parent"
@@ -92,7 +93,8 @@
                         android:id="@+id/choice_two"
                         android:layout_weight="0.5"
                         android:background="@drawable/choice_button_up_right"
-                        android:layout_marginLeft="2dp" />
+                        android:layout_marginStart="2dp"
+                        android:layout_marginLeft="2dp"/>
 
                 </TableRow>
 
@@ -110,7 +112,8 @@
                         android:id="@+id/choice_three"
                         android:layout_weight="0.5"
                         android:background="@drawable/choice_button_down_left"
-                        android:layout_marginRight="2dp" />
+                        android:layout_marginRight="2dp"
+                        android:layout_marginEnd="2dp"/>
 
                     <Button
                         android:layout_width="wrap_content"
@@ -119,7 +122,8 @@
                         android:id="@+id/choice_four"
                         android:layout_weight="0.5"
                         android:background="@drawable/choice_button_down_right"
-                        android:layout_marginLeft="2dp" />
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginStart="2dp"/>
                 </TableRow>
             </TableLayout>
 
@@ -129,7 +133,6 @@
                 android:id="@+id/timer"
                 android:layout_gravity="center_horizontal"
                 android:layout_centerInParent="true"
-                android:textAlignment="center"
                 android:textSize="36sp"
                 android:background="@drawable/timer"
                 android:gravity="center"

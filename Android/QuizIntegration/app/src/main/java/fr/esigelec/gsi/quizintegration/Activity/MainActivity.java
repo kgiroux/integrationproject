@@ -34,6 +34,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
 {
+	public static String IPSERVER = "http://176.31.114.109/quiz/";
 	public static boolean DEBUG = true;
 	public static boolean DEV = true;
 	private DrawerLayout mDrawerLayout;
@@ -96,17 +97,20 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 						Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
 						break;
 					case 1:
+						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),InscriptionActivity.class);
 						startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
 						Toast.makeText (getApplicationContext (), R.string.inscription, Toast.LENGTH_LONG).show ();
 						break;
 
 					case 2:
+						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),AboutActivity.class);
 						Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
 						startActivity (t);
 						break;
 					case 3:
+						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
 						Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
 						startActivity (t);
@@ -144,7 +148,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		if(resultCode != RESULT_CANCELED){
 			switch (requestCode){
 				case REQUEST_CODE_INSCRIPTION :
-
+					dialog.show();
 					break;
 			}
 		}
@@ -237,7 +241,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 				try
 				{
-					JSONObject perJson = new AndroidHTTPRequest().execute("http://176.31.114.109/quiz/AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
+					JSONObject perJson = new AndroidHTTPRequest().execute(IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
 					Toast.makeText(getApplicationContext(),perJson.toString(),Toast.LENGTH_LONG).show();
 					pers.JSONObjectToPersonne(perJson);
 					Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();

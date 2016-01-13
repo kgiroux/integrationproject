@@ -7,6 +7,15 @@
       <form-bean name="inscrireForm" type="fr.esigelec.quiz.forms.InscrireForm"/>
       <form-bean name="connexionForm" type="fr.esigelec.quiz.forms.ConnexionForm"/>
    </form-beans>
+   
+   <!-- configuration globale des erreurs -->
+   <global-exceptions>
+    <exception
+      key="erreur.globale.message"
+      type="java.lang.Exceptions"
+      path="/WEB-INF/jsp/erreur.jsp" />
+  </global-exceptions>
+   
    <action-mappings>
       <!-- 
          input : page ou on revient si erreur de validation 

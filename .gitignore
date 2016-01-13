@@ -10,5 +10,5 @@
 hs_err_pid*
 /build
 
-# ignore class path
+# JDT-specific (Eclipse Java Development Tools)
 .classpath

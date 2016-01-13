@@ -11,7 +11,7 @@ import org.apache.struts.action.ActionMapping;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 
 /**
- * @author KÃ©vin Giroux;
+ * @author Kévin Giroux;
  * 
  */
 

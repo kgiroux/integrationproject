@@ -33,6 +33,9 @@
       <action scope="request" path="/VueInscription"  type="fr.esigelec.quiz.controleur.VueInscriptionAction">
         <forward name="succes" path="/inscription.jsp"/>
       </action>
+      <action scope="request" path="/SupprimerQuestion" type="fr.esigelec.quiz.controleur.SupprimerQuestionAction">
+          <forward name="succes" path="/questionsQuizAdmin.jsp"></forward>
+      </action>
       <!--
           Android actions
           

@@ -32,6 +32,18 @@ h1, th, td, button {
 .glyphicon-play{
 	color:blue;
 }
+<<<<<<< HEAD
+.question{
+	text-align:center;
+}
+th{
+background-color:#D8D8D8;	
+}
+tr{
+
+	text-align:center;
+}
+=======
 .table-bordered>tbody>tr>td, 
 .table-bordered>tbody>tr>th, 
 .table-bordered>tfoot>tr>td, 
@@ -42,9 +54,7 @@ h1, th, td, button {
 	border-color:black;
 	border:1px solid black;
 }
-tr {
-	background-color:#D8D8D8;
-}
+
 hr {
 	height: 1px;
 	background-color:#CFD8D7;
@@ -55,3 +65,4 @@ hr {
 .contform{
 	margin:auto;
 }
+>>>>>>> 97540ab18b5c8739459bda7a9de5ddf79f9dead5

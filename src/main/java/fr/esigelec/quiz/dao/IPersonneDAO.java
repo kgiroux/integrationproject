@@ -30,6 +30,13 @@ public interface IPersonneDAO {
 	public Personne getPersonne(int id);
 	
 	/**
+	 * M�thode : getPersonne
+	 * @param email
+	 * @return une personne � partir de son mail
+	 */
+	public Personne getPersonne(String mail);
+	
+	/**
 	 * M�thode : listPersonne
 	 * @return la liste de toutes les personnes enregistr�es dans la base de donn�es
 	 */

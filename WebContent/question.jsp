@@ -1,4 +1,4 @@
-<!-- @author : TIONO KEVIN  -->
+<!-- @author : TIONO KEVIN & TIDJANI ENRIFATH -->
 
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
@@ -25,8 +25,8 @@
  <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p>
  <div> 
  <p class="question"><strong>Reste</strong> : &nbsp;
- <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/5.gif">
-		<IMG HSPACE=0 NAME="unite" SRC="Ressources/images/9.gif">
+ <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
+		<IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
  &nbsp;secondes
  </div>
  <br>

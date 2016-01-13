@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %>  
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import ="java.sql.Timestamp" %>  
-    <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,21 +25,27 @@
  <br> 
  
  <% 
+ //Simulation de données
+Timestamp t = new Timestamp(System.currentTimeMillis());
 
- Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis()/1000);
+ Quiz q1 = new Quiz("JEE",20,20);
+ Quiz q2= new Quiz("HTML",15,20);
+ Quiz q3 = new Quiz("ANDROID",10,30);
+ q1.setId(1);
+q1.setDateDebutQuiz(t);
+q2.setDateDebutQuiz(t);
+q3.setDateDebutQuiz(t);
+ List<Quiz> listeQuiz_de = new ArrayList<Quiz>();
+ listeQuiz_de.add(q1);
+ listeQuiz_de.add(q2);
+ listeQuiz_de.add(q3);
+ session.setAttribute("listeQuiz",listeQuiz_de);
  
- Quiz q1 = new Quiz("JEE",currentTimestamp,currentTimestamp,currentTimestamp,20,20);
- Quiz q2= new Quiz("HTML",currentTimestamp,currentTimestamp,currentTimestamp,15,20);
- Quiz q3 = new Quiz("ANDROID",currentTimestamp,currentTimestamp,currentTimestamp,10,30);
-
- List<Quiz> qu = new ArrayList<Quiz>();
- qu.add(q1);
- qu.add(q2);
- qu.add(q3);
  
  
+ %>   
  
- %>          
+      
   <table class="table table-bordered table-hover ">
     <thead>
       <tr style="background-color:#D8D8D8">
@@ -53,16 +59,18 @@
     <tbody>
 	
 	
-      <% for(int i=0; i<qu.size(); i++){%>
+
+ <c:forEach var="quiz" items="${listeQuiz}">
 
       <tr class="question">
-        <td><%=qu.get(i).getLibelle() %></td>
-        <td><%=qu.get(i).getEtape() %></td>
-        <td><%=qu.get(i).getDateDebutQuiz() %></td>
-		<td><a href="#"><img src="Ressources/images/jouer.png" width="8%"/></a></td>
-		<td><a href="#"><img src="Ressources/images/stats.png" width="8%"/></a></td>
+        <td><c:out value="${quiz.libelle}" /></td>
+        <td><c:out value="${quiz.listeQuestions.size()}" /></td>
+        <td><c:out value="${quiz.dateDebutQuiz}" /></td>
+		<td><a href="<%=request.getContextPath()%>/Jouer.do?idQuiz=${quiz.id}"><img src="Ressources/images/jouer.png" width="8%"/></a></td>
+		<td><a href="<%=request.getContextPath()%>/Stats.do?idQuiz=${quiz.id}"><img src="Ressources/images/stats.png" width="8%"/></a></td>
       </tr>
-	<% }%>
+      </c:forEach> 
+	
     </tbody>
   </table>
 </div>

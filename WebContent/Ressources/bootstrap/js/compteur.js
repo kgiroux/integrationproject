@@ -4,7 +4,7 @@
 
 // Declaration des variables
 
-        var reste=59
+        var reste=30
 	var interval=null
 	// Chargement des images representant les chiffre
 	Chiffres = new Array(10)	
@@ -23,7 +23,7 @@
 			clearInterval(interval)
 			alert('Trop tard !!!')
 			interval=null
-			reste=59
+			reste=30
 		}
 		reste--
 	}

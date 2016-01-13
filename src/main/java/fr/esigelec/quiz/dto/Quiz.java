@@ -1,7 +1,9 @@
 package fr.esigelec.quiz.dto;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**Projet d'integration
@@ -53,7 +55,7 @@ public class Quiz {
 	 */
 	private int etape;
 	
-	private List<Question> listeQuestions = new ArrayList<Question>();
+	private Set<Question> listeQuestions = new HashSet<Question>();
 
 
 	/*Constructeurs*/
@@ -210,14 +212,14 @@ public class Quiz {
 	public void setEtape(int etape) {
 		this.etape = etape;
 	}
-
+	/**
 	public List<Question> getListeQuestions() {
 		return listeQuestions;
-	}
+	}*/
 
-	public void setListeQuestions(List<Question> listeQuestions) {
+	/**public void setListeQuestions(List<Question> listeQuestions) {
 		this.listeQuestions = listeQuestions;
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {
@@ -260,6 +262,14 @@ public class Quiz {
 		if (noQuestionCourante != other.noQuestionCourante)
 			return false;
 		return true;
+	}
+
+	public Set<Question> getListeQuestions() {
+		return listeQuestions;
+	}
+
+	public void setListeQuestions(Set<Question> listeQuestions) {
+		this.listeQuestions = listeQuestions;
 	}
 }
 

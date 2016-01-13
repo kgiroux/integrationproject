@@ -20,6 +20,13 @@ public class Question
     private int idBonneReponse;
     private List<Proposition> listePropositions;
 
+    //Constructeur pour test
+    public Question(int id, String libelle, int idBonneReponse) {
+        this.id = id;
+        this.libelle = libelle;
+        this.idBonneReponse = idBonneReponse;
+    }
+
     /* Getters & Setters */
     public List<Proposition> getListePropositions() {
         return listePropositions;

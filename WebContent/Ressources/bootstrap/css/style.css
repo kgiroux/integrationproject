@@ -19,6 +19,10 @@ margin : 10px auto auto auto;
 h1, th, td, button {
 	text-align:center;
 }
+.btn-center
+{
+	text-align:center;
+}
 .container 
 {
 	margin-top:10%;
@@ -26,6 +30,10 @@ h1, th, td, button {
 	box-shadow: 0 0 20px #555;
 	border-radius: 10px;
 }
+.contform{
+	margin:auto;
+}
+
 .form-center
 {
 	margin-top:2%;
@@ -42,9 +50,12 @@ h1, th, td, button {
 .glyphicon-play{
 	color:blue;
 }
+<<<<<<< HEAD
 /*
 *@author : TIONO KEVIN 
 */
+=======
+>>>>>>> 6fa0d48818d5c8b465ec853e7b7ba4212c2e8411
 .question{
 	text-align:center;
 }
@@ -61,7 +72,6 @@ tr{
 
 	text-align:center;
 }
-=======
 .table-bordered>tbody>tr>td, 
 .table-bordered>tbody>tr>th, 
 .table-bordered>tfoot>tr>td, 
@@ -80,7 +90,4 @@ hr {
 .paraanimateur, .animateur{
 	text-align:center;	
 }
-.contform{
-	margin:auto;
-}
->>>>>>> 97540ab18b5c8739459bda7a9de5ddf79f9dead5
+

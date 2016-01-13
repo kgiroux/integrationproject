@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
+ <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 <body>
 	<h1>Administrer les quiz</h1>
 	<hr>
-	<button class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button>
+	 <a href="VueQuestionQuizAdmin.do"><button class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button></a>
 	<hr>
  <table class="table table-bordered table-hover ">
     <thead>
@@ -29,28 +30,21 @@
     
     </thead>
     <tbody>
+    <% List<Quiz> quiz=(List<Quiz>)request.getAttribute("listeQuiz");
+						for(Quiz quiz1:quiz){ %>
     <tr>
-        <td>JEE</td>
-        <td>javax.http.servlet.httpServlet</td>
-        <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
-        <td><a href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
-		<td><a href="#"><span class="glyphicon glyphicon-play"></span></a></td>
+        <td><%=quiz1.getLibelle()%></td>
+        <td><%=quiz1.getDateDebutQuiz()%></td>
+        <td><a href="SupprimerQuiz.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <%if(quiz1.getDateFinQuiz() == null) {%> 
+        <td><a href="EditerQuiz.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-edit"></span></a></td>
+        <%} else {%>
+        <td></td>
+        <%} %>
+		<td><a href="Jouer.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-play"></span></a></td>
       </tr>
-	 <tr>
-        <td>HTML</td>
-		<td>javax.http.servlet.httpServlet</td>
-		<td><a href="#"><span class ="glyphicon glyphicon-remove"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-edit"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-play"></span></a></td>
-      </tr>
-      <tr>
-        <td>Android</td>
-		<td>javax.http.servlet.httpServlet</td>
-		<td><a href="#"><span class ="glyphicon glyphicon-remove"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-edit"></span></a></td>
-		<td><a href="#"><span class ="glyphicon glyphicon-play"></span></a></td>
-      </tr>
-    </tbody>
+      <%} %>
+	 </tbody>
   </table>	
   
 

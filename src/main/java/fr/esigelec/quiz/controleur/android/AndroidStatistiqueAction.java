@@ -18,7 +18,7 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.AndroidHelper;
 /**
- * @author Kévin Giroux;
+ * @author Kï¿½vin Giroux;
  * 
  */
 public class AndroidStatistiqueAction extends Action{
@@ -32,7 +32,7 @@ public class AndroidStatistiqueAction extends Action{
 				int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 				
 				
-				ArrayList<Quiz> quizList = new ArrayList<Quiz>();
+				List<Quiz> quizList
 				
 				
 				QuizDAOImpl daoQuiz = new QuizDAOImpl();

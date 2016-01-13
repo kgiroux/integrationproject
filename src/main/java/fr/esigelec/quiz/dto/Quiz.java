@@ -6,14 +6,17 @@ import java.util.List;
 
 /**Projet d'integration
  * Le jeu de TF8
- * @author GSI-IR
- * BOSSO BOSSO Ghyslaine and NGANE Pascale
+ * GSI-IR
+ * @author BOSSO BOSSO Ghyslaine
+ * @author  CHOUAKRIA Farid
+ * @author DELAUNAY Brice
+ * @author NGANE Pascale
  * Classe Quiz
  * */
 
 public class Quiz {
 
-	/*Attributs de la classe Quiz*/
+	/**Attributs de la classe Quiz*/
 
 	/**
 	 * identifiant du quiz

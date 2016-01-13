@@ -43,9 +43,12 @@
       </action>
       <action scope="request" path="/SupprimerQuestion" name="" type="fr.esigelec.quiz.controleur.SupprimerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EditerQuestion" name="" type="fr.esigelec.quiz.controleur.EditerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="erreur" path="/questionQuizAdmin.jsp"/>
+         <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EnregistrerQuestion" name="" type="fr.esigelec.quiz.controleur.EnregistrerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>

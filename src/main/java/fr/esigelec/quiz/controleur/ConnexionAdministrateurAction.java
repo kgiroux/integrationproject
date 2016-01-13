@@ -14,6 +14,7 @@ import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.forms.ConnexionForm;
 import fr.esigelec.quiz.util.SecurityHelper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +28,9 @@ public class ConnexionAdministrateurAction extends Action {
 
 		final Logger logger = Logger.getLogger(ConnexionAdministrateurAction.class);
 		
-		String mail = request.getParameter("mail");
-		String mdp = SecurityHelper.MD5(request.getParameter("mdp"));
+		ConnexionForm f= (ConnexionForm) form;
+		String mail = f.getMail();
+		String mdp = SecurityHelper.MD5(f.getPassword());
 		
 		IPersonneDAO personneDAO = new PersonneDAOImpl();
 		IQuizDAO quizDAO = new QuizDAOImpl();

@@ -32,7 +32,7 @@ public class AndroidStatistiqueAction extends Action{
 				int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 				
 				
-				List<Quiz> quizList
+				//List<Quiz> quizList
 				
 				
 				QuizDAOImpl daoQuiz = new QuizDAOImpl();

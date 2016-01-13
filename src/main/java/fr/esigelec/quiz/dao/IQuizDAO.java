@@ -2,6 +2,7 @@ package fr.esigelec.quiz.dao;
 
 import java.util.List;
 
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -19,7 +20,7 @@ public interface IQuizDAO {
 	 * @param  q the quiz to create
 	 */
 	
-	public void createQuiz(Quiz q);
+	public boolean createQuiz(Quiz q);
 	
 	/**
 	 * m�thode : getQuiz
@@ -27,7 +28,7 @@ public interface IQuizDAO {
 	 * @return the quiz
 	 */
 	
-	public Quiz getQuiz(int id_quiz); 
+	public Quiz getQuiz(int id); 
 	
 	/**
 	 * m�thode : listQuiz
@@ -37,16 +38,41 @@ public interface IQuizDAO {
 	public List<Quiz> listQuiz(); 
 	
 	/**
+	 * m�thode : getListQuizPublie
+	 * @return all the quizs publicated
+	 */
+	public List<Quiz> getListQuizPublie(int status);
+	
+	/**
+	 * m�thode : getListQuizFinish
+	 * @return all the quizs finished
+	 */
+	public List<Quiz> getListQuizFinish();
+	
+	/**
+	 * m�thode : listQuestion
+	 * @return all the questions
+	 */
+	public List<Question> listQuestionQuiz(int idQuiz);
+	
+	/**
+	 * m�thode : getNbQuestionParQuiz
+	 * @param idQuiz
+	 * @return the size of the list
+	 */
+	public int getNbQuestionParQuiz(int idQuiz);
+	
+	/**
 	 * m�thode : updateQuiz
 	 * @param  q the quiz which should be updated
 	 */
 	
-	public void updateQuiz(Quiz q); 
+	public boolean updateQuiz(Quiz q); 
 	
 	/**
 	 * m�thode : deleteQuiz
 	 * @param  q the quiz to delete
 	 */
 	
-	public void deleteQuiz(Quiz q); 
+	public boolean deleteQuiz(Quiz q); 
 }

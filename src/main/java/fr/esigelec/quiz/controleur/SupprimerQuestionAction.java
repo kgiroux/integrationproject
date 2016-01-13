@@ -1,7 +1,5 @@
 package fr.esigelec.quiz.controleur;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,12 +12,9 @@ import org.apache.struts.action.ActionMapping;
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
-import fr.esigelec.quiz.dto.Question;
-import fr.esigelec.quiz.dto.Quiz;
 
-public class SupprimerQuestionAction {
-
-private static final Logger supprimerQuizActionLogger = Logger.getLogger(SupprimerQuizAction.class);
+public class SupprimerQuestionAction extends Action {
+	private static final Logger supprimerQuestionActionLogger = Logger.getLogger(SupprimerQuestionAction.class);
 	
 
 	@Override
@@ -31,9 +26,9 @@ private static final Logger supprimerQuizActionLogger = Logger.getLogger(Supprim
 			int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
 			
 			if (p.getDroits() == Personne.ADMIN) {
-				IQuizDAO quizDAO = new QuizDAOImpl();
-				quizDAO.deleteQuestion(quizDAO.getQuiz(idQuestion));
-				return mapping.findForward("succes");
+				IQuizDAO questionDAO = new QuestionDAOImpl();
+				questionDAO.deleteQuestion(questionDAO.getQuestion(idQuestion));
+				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {
 				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
 			}
@@ -44,6 +39,4 @@ private static final Logger supprimerQuizActionLogger = Logger.getLogger(Supprim
 			return mapping.findForward("erreur");
 		}
 	}
-}
-
 }

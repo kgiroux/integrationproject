@@ -54,7 +54,7 @@ public interface IQuizDAO {
 	 * m�thode : listQuestion
 	 * @return all the questions
 	 */
-	public Set<Question> listQuestionQuiz(int idQuiz);
+	public List<Question> listQuestionQuiz(int idQuiz);
 	
 	/**
 	 * m�thode : getNbQuestionParQuiz

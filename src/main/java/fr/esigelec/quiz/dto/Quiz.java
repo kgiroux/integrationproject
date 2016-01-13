@@ -78,6 +78,7 @@ public class Quiz {
 	 */
 
 	public Quiz(String libelle, int noQuestionCourante, int etape) {
+		this.id = 0;
 		this.libelle = libelle;
 		this.dateDebutQuiz = null;
 		this.dateFinQuiz = null;

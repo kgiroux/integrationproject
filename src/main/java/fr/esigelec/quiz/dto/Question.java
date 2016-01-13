@@ -41,7 +41,9 @@ public class Question {
 	 * Constructeur sans param�tres
 	 */
 
-	public Question() {}
+	public Question() {
+		this.id = 0;
+	}
 
 
 	/**
@@ -55,7 +57,7 @@ public class Question {
 	public Question(String libelle, Proposition bonneReponse, List<Proposition> list) {
 		this.libelle = libelle;
 		this.bonneReponse = bonneReponse;
-		this.listePropositions = listePropositions;
+		this.listePropositions = list;
 	}
 
 

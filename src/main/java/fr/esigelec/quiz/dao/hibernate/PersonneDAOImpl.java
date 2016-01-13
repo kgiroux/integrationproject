@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+import java.util.LinkedList;
+
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
@@ -10,6 +12,7 @@ package fr.esigelec.quiz.dao.hibernate;
  * */
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -76,7 +79,8 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Personne";
-		List<Personne> retour = session.createQuery(hql).list();
+		Set<Personne> recup = (Set<Personne>) session.createQuery(hql).list();
+		List<Personne> retour = new LinkedList<Personne>(recup);
 		session.getTransaction().commit();
 		session.close();
 		return retour;

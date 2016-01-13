@@ -1,7 +1,5 @@
 package fr.esigelec.quiz.dto;
 
-import org.junit.experimental.theories.Theories;
-
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
@@ -40,8 +38,10 @@ public class Proposition {
 	 * @param id
 	 * @param libelle
 	 */
-	public Proposition( String libelle, int idQuestion) {
+	public Proposition(String libelle, int idQuestion) {
 		super();
+		this.id = 0;
+		
 		this.libelle = libelle;
 	}
 	

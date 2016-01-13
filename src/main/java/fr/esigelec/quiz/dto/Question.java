@@ -35,16 +35,13 @@ public class Question {
 	 */
 	private List<Proposition> listePropositions;
 
-
-
 	/*Constructeurs*/
 
 	/**
 	 * Constructeur sans param�tres
 	 */
 
-	public Question() {
-	}
+	public Question() {}
 
 
 	/**
@@ -129,6 +126,35 @@ public class Question {
 
 	public void setListePropositions(List<Proposition> listePropositions) {
 		this.listePropositions = listePropositions;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (bonneReponse == null) {
+			if (other.bonneReponse != null)
+				return false;
+		} else if (!bonneReponse.equals(other.bonneReponse))
+			return false;
+		if (id != other.id)
+			return false;
+		if (libelle == null) {
+			if (other.libelle != null)
+				return false;
+		} else if (!libelle.equals(other.libelle))
+			return false;
+		if (listePropositions == null) {
+			if (other.listePropositions != null)
+				return false;
+		} else if (!listePropositions.equals(other.listePropositions))
+			return false;
+		return true;
 	}
 }
 

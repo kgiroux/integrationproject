@@ -9,7 +9,6 @@ package fr.esigelec.quiz.dao.hibernate;
  * pour les liens avec la base de donn�es
  * */
 
-
 import java.util.List;
 
 import org.hibernate.Session;

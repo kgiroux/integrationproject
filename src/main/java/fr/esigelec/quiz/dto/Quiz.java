@@ -68,19 +68,16 @@ public class Quiz {
 	 * Constructeur avec param�tres
 	 * @param id
 	 * @param libelle
-	 * @param dateDebutQuiz
-	 * @param dateFinQuiz
 	 * @param noQuestionCourante
 	 * @param etape
 	 */
 
-	public Quiz(String libelle, Timestamp dateDebutQuiz,
-			Timestamp dateFinQuiz,Timestamp dateDebutQuestion, int noQuestionCourante, int etape) {
+	public Quiz(String libelle, int noQuestionCourante, int etape) {
 		this.libelle = libelle;
-		this.dateDebutQuiz = dateDebutQuiz;
-		this.dateFinQuiz = dateFinQuiz;
+		this.dateDebutQuiz = null;
+		this.dateFinQuiz = null;
 		this.noQuestionCourante = noQuestionCourante;
-		this.dateDebutQuestion=dateDebutQuestion;
+		this.dateDebutQuestion=null;
 		this.etape = etape;
 	}
 
@@ -220,6 +217,49 @@ public class Quiz {
 
 	public void setListeQuestions(List<Question> listeQuestions) {
 		this.listeQuestions = listeQuestions;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Quiz other = (Quiz) obj;
+		if (dateDebutQuestion == null) {
+			if (other.dateDebutQuestion != null)
+				return false;
+		} else if (!dateDebutQuestion.equals(other.dateDebutQuestion))
+			return false;
+		if (dateDebutQuiz == null) {
+			if (other.dateDebutQuiz != null)
+				return false;
+		} else if (!dateDebutQuiz.equals(other.dateDebutQuiz))
+			return false;
+		if (dateFinQuiz == null) {
+			if (other.dateFinQuiz != null)
+				return false;
+		} else if (!dateFinQuiz.equals(other.dateFinQuiz))
+			return false;
+		if (etape != other.etape)
+			return false;
+		if (id != other.id)
+			return false;
+		if (libelle == null) {
+			if (other.libelle != null)
+				return false;
+		} else if (!libelle.equals(other.libelle))
+			return false;
+		if (listeQuestions == null) {
+			if (other.listeQuestions != null)
+				return false;
+		} else if (!listeQuestions.equals(other.listeQuestions))
+			return false;
+		if (noQuestionCourante != other.noQuestionCourante)
+			return false;
+		return true;
 	}
 }
 

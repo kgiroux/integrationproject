@@ -41,14 +41,14 @@ public class EditerQuestionAction extends Action {
 					questionDAO.updateQuestion(question);
 					return mapping.findForward("succes"); // questionsQuizzAdmin.jsp 
 				}
-				else return mapping.findForward("erreur"); // questionsQuizzAdmin.jsp
-			} else return mapping.findForward("login");	// index.jsp
+				else editerQuestionActionLogger.INFO("erreur: libelle vide");
+			} else editerQuestionActionLogger.INFO("erreur: droit d'admin requis");
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Add attributes of error message
-			return mapping.findForward("erreur");
+			editerQuestionActionLogger.INFO("erreur: "+e);
 		}
 	}
 }

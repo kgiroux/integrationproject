@@ -10,17 +10,16 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
 import fr.esigelec.quiz.business.ActionService;
-import fr.esigelec.quiz.dao.IPersonneDAO;
-import fr.esigelec.quiz.dao.IQuestionDAO;
-import fr.esigelec.quiz.dao.IQuizDAO;
-import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
-import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
-import fr.esigelec.quiz.forms.InscrireForm;
+
+import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
+import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Question;
+import fr.esigelec.quiz.dto.Quiz;
 
 public class JouerAction extends Action {
-	int id_quiz;
-	Quiz quiz;
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -30,7 +29,7 @@ public class JouerAction extends Action {
 		//UTILS
 		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
 		HttpSession session = request.getSession();
-		
+
 		//IN 
 		Personne personne = (Personne) session.getAttribute("personne");
 		int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));

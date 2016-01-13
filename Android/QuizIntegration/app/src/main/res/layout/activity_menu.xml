@@ -10,7 +10,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
         <RelativeLayout
             android:id="@+id/container"
@@ -41,7 +42,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#37ce32"
+                android:background="@drawable/current_test"
                 android:weightSum="1"
                 android:baselineAligned="false"
                 style="@style/Base.Widget.AppCompat.Button.Colored"

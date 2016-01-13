@@ -1,3 +1,4 @@
+<!-- @author : TIONO KEVIN  -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
@@ -63,7 +64,7 @@
 	le.add(pe6);
 	
 	%>
-  <center><table class="table table-bordered table-hover " style="width:70%">
+  <table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr >
  <th class="question">De quelle classe doit hériter une servlet ?</th>
@@ -82,11 +83,11 @@
       </tr>
 	<%  }%>
     </tbody>
-  </table></cennter><br>
+  </table><br>
   <h2 class="question">RESULTATS</h2>
   <hr>
  <br>
- <center><table class="table table-bordered table-hover " style="width:70%">
+<table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr style="background-color:#D8D8D8">
         <th class="question">N°</th>
@@ -109,7 +110,7 @@
       </tr>
 	<%  }%>
     </tbody>
-  </table></center>
+  </table>
 </div>
 
 </body>

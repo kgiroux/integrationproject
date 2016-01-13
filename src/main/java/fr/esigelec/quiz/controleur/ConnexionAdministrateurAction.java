@@ -20,13 +20,13 @@ import fr.esigelec.quiz.util.SecurityHelper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ConnexionPersonneAction extends Action {
+public class ConnexionAdministrateurAction extends Action {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		final Logger logger = Logger.getLogger(ConnexionPersonneAction.class);
+		final Logger logger = Logger.getLogger(ConnexionAdministrateurAction.class);
 		
 		ConnexionForm f= (ConnexionForm) form;
 		String mail = f.getMail();
@@ -38,15 +38,15 @@ public class ConnexionPersonneAction extends Action {
 		Personne personne = personneDAO.getPersonne(mail);
 		
 		if( personne == null ) {
-			logger.error("Utilisateur inexistant");
+			logger.error("Administrateur inexistant");
 			return mapping.findForward("erreur");
 		}
 		else if(!mdp.equals(personne.getMdp())) {
-			logger.error("Utilisateur existant mais mot de passe incorrect");
+			logger.error("Administrateur existant mais mot de passe incorrect");
 			return mapping.findForward("erreur");
 		}
 		else {
-			logger.info("Connexion réussie");
+			logger.info("Connexion administrateur réussie");
 			request.setAttribute("listeQuiz", listeQuiz);
 			request.setAttribute("personne", personne);
 			return mapping.findForward("succes");

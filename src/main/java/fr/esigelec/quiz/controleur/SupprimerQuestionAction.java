@@ -30,15 +30,17 @@ public class SupprimerQuestionAction extends Action {
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuestionDAO questionDAO = new QuestionDAOImpl();
 				questionDAO.deleteQuestion(questionDAO.getQuestion(idQuestion));
+				request.setAttribute("listeQuestions", questionDAO.listQuestion());
 				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {
-				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
+				supprimerQuestionActionLogger.info("erreur: droit d'admin requis");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Add attributes of error message
-			return mapping.findForward("erreur");
+			supprimerQuestionActionLogger.info("erreur: "+e);
 		}
+		return mapping.findForward("succes");
 	}
 }

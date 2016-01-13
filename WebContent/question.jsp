@@ -1,3 +1,5 @@
+<!-- @author : TIONO KEVIN  -->
+
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
@@ -14,15 +16,24 @@
 <link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
 <script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
-
+<script src="Ressources/bootstrap/js/compteur.js"></script>
 </head>
-<body>
+<body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
 <div >
   <h2 class="question">CONSULTER LES QUIZ</h2>
  <hr><br> 
- <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
- <p class="question"><strong>Reste</strong> : 0 secondes</p>
+ <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p>
+ <div> 
+ <p class="question"><strong>Reste</strong> : &nbsp;
+ <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/5.gif">
+		<IMG HSPACE=0 NAME="unite" SRC="Ressources/images/9.gif">
+ &nbsp;secondes
+ </div>
  <br>
+ 
+
+		
+		
 	
 	<%
 	

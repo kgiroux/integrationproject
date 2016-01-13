@@ -8,6 +8,8 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
+
 /**
  * @author Kévin Giroux;
  * 
@@ -21,8 +23,8 @@ public class AndroidQuizListAction extends Action{
 		
 			if("GET".equals(request.getMethod()))
 			{
-				//TODO
-				// REturn all the close quizz
+				QuizDAOImpl dao = new QuizDAOImpl();
+				ArrayList<Quiz> listQuiz = 
 				return mapping.findForward("succes");
 			}
 			return mapping.findForward("error");

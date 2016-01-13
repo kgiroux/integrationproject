@@ -12,11 +12,15 @@ import org.apache.struts.action.ActionMapping;
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
+/**
+ * 
+ * @author Vincent Marion & Damien Bellenger
+ *
+ */
 
-public class SupprimerQuestionAction extends Action {
-	private static final Logger supprimerQuestionActionLogger = Logger.getLogger(SupprimerQuestionAction.class);
+public class EditerQuestionAction extends Action {
+	private static final Logger editerQuestionActionLogger = Logger.getLogger(EditerQuestionAction.class);
 	
-
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -24,14 +28,19 @@ public class SupprimerQuestionAction extends Action {
 			// Get parameters and sessions
 			Personne p = (Personne) request.getSession().getAttribute("personne");
 			int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
+			String libelle = request.getSession().getParameter("libelle");
 			
 			if (p.getDroits() == Personne.ADMIN) {
-				IQuestionDAO questionDAO = new QuestionDAOImpl();
-				questionDAO.deleteQuestion(questionDAO.getQuestion(idQuestion));
-				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
-			} else {
-				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
-			}
+				if(!libelle.equals("")){
+					IQuestionDAO questionDAO = new QuestionDAOImpl();
+					Question question = questionDAO.getQuestion(idQuestion);
+					question.setLibelle(libelle);
+					questionDAO.update(question);
+					return mapping.findForward("succes"); // questionsQuizzAdmin.jsp 
+				}
+				else return mapping.findForward("erreur"); // questionsQuizzAdmin.jsp
+			} else return mapping.findForward("login");	// index.jsp
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

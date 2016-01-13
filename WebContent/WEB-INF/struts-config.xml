@@ -52,16 +52,19 @@
          <forward name="succes" path="/quizAdmin.jsp"/>
       </action>
       <action scope="request" path="/AjouterQuiz" name="" type="fr.esigelec.quiz.controleur.AjouterQuizAction" input="/">
-         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="succes" path="/quizAdmin.jsp"/>
       </action>
       <action scope="request" path="/EditerQuiz" name="" type="fr.esigelec.quiz.controleur.EditerQuizAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
       </action>
       <action scope="request" path="/SupprimerQuestion" name="" type="fr.esigelec.quiz.controleur.SupprimerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EditerQuestion" name="" type="fr.esigelec.quiz.controleur.EditerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="erreur" path="/questionQuizAdmin.jsp"/>
+         <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EnregistrerQuestion" name="" type="fr.esigelec.quiz.controleur.EnregistrerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
@@ -81,6 +84,9 @@
       </action>
       <action scope="request" path="/VueQuestionsQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/VueQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
+        <forward name="succes" path="/quizAdmin.jsp"/>
       </action>
       <action scope="request" path="/VueAnimateur"  type="fr.esigelec.quiz.controleur.VueAnimateurAction">
         <forward name="succes" path="/animateur.jsp"/>

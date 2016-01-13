@@ -13,6 +13,7 @@ package fr.esigelec.quiz.dao.hibernate;
  * */
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -103,10 +104,10 @@ public class QuizDAOImpl implements IQuizDAO{
 	 * @param  id the id of the quiz
 	 * @return the list of the questions
 	 */
-	public List<Question> listQuestionQuiz(int idQuiz){
+	public Set<Question> listQuestionQuiz(int idQuiz){
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		List<Question> listeQuestionsQuiz=getQuiz(idQuiz).getListeQuestions();
+		Set<Question> listeQuestionsQuiz=getQuiz(idQuiz).getListeQuestions();
 		session.getTransaction().commit();
 		session.close();
 		return listeQuestionsQuiz;
@@ -121,7 +122,7 @@ public class QuizDAOImpl implements IQuizDAO{
 		
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		List<Question> listeQuestions=listQuestionQuiz(idQuiz);
+		Set<Question> listeQuestions=listQuestionQuiz(idQuiz);
 		session.getTransaction().commit();
 		session.close();
 		return listeQuestions.size();

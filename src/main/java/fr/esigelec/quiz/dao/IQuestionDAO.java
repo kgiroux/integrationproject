@@ -1,6 +1,7 @@
 package fr.esigelec.quiz.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import fr.esigelec.quiz.dto.Question;
 
@@ -30,7 +31,7 @@ public interface IQuestionDAO {
 	 * m�thode : listQuestion
 	 * @return all the questions
 	 */
-	public List<Question> listQuestion(); 
+	public Set<Question> listQuestion(); 
 	
 	/**
 	 * m�thode : updateQuestion

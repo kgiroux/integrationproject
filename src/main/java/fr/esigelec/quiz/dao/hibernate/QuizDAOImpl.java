@@ -70,14 +70,28 @@ public class QuizDAOImpl implements IQuizDAO{
 	}
 
 	/**
-	 * methode : getListQuizFinish
+	 * methode : getListQuizPublie
 	 * @param status
-	 * @return all the quizs
+	 * @return all the quizs publicated
 	 */
 	public List<Quiz> getListQuizPublie(int status){
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query=session.createQuery("from Quiz WHERE dateDebutQuiz is not null");
+		List<Quiz> listeQuizs=query.list();
+		session.getTransaction().commit();
+		session.close();
+		return listeQuizs;
+	}
+	
+	/**
+	 * methode : getListQuizFinish
+	 * @return all the quizs finished
+	 */
+	public List<Quiz> getListQuizFinish(){
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Quiz WHERE dateFinQuiz is not null");
 		List<Quiz> listeQuizs=query.list();
 		session.getTransaction().commit();
 		session.close();

@@ -36,7 +36,7 @@
         <td><%=quiz1.getLibelle()%></td>
         <td><%=quiz1.getDateDebutQuiz()%></td>
         <td><a href="SupprimerQuiz.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-remove"></span></a></td>
-        <%if(quiz1.getDateDebutQuiz() == null & quiz1.getDateFinQuiz() == null) {%> 
+        <%if(quiz1.getDateFinQuiz() == null) {%> 
         <td><a href="EditerQuiz.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-edit"></span></a></td>
         <%} else {%>
         <td></td>

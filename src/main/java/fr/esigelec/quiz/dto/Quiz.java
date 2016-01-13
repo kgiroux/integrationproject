@@ -1,19 +1,24 @@
 package fr.esigelec.quiz.dto;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**Projet d'integration
  * Le jeu de TF8
- * @author GSI-IR
- * BOSSO BOSSO Ghyslaine and NGANE Pascale
+ * GSI-IR
+ * @author BOSSO BOSSO Ghyslaine
+ * @author  CHOUAKRIA Farid
+ * @author DELAUNAY Brice
+ * @author NGANE Pascale
  * Classe Quiz
  * */
 
 public class Quiz {
 
-	/*Attributs de la classe Quiz*/
+	/**Attributs de la classe Quiz*/
 
 	/**
 	 * identifiant du quiz
@@ -53,7 +58,7 @@ public class Quiz {
 	 */
 	private int etape;
 	
-	private List<Question> listeQuestions = new ArrayList<Question>();
+	private Set<Question> listeQuestions = new HashSet<Question>();
 
 
 	/*Constructeurs*/
@@ -210,14 +215,14 @@ public class Quiz {
 	public void setEtape(int etape) {
 		this.etape = etape;
 	}
-
+	/**
 	public List<Question> getListeQuestions() {
 		return listeQuestions;
-	}
+	}*/
 
-	public void setListeQuestions(List<Question> listeQuestions) {
+	/**public void setListeQuestions(List<Question> listeQuestions) {
 		this.listeQuestions = listeQuestions;
-	}
+	}*/
 
 	@Override
 	public boolean equals(Object obj) {
@@ -260,6 +265,14 @@ public class Quiz {
 		if (noQuestionCourante != other.noQuestionCourante)
 			return false;
 		return true;
+	}
+
+	public Set<Question> getListeQuestions() {
+		return listeQuestions;
+	}
+
+	public void setListeQuestions(Set<Question> listeQuestions) {
+		this.listeQuestions = listeQuestions;
 	}
 }
 

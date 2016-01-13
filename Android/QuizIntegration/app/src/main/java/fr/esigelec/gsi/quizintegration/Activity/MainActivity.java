@@ -51,10 +51,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate (savedInstanceState);
-		setContentView (R.layout.activity_main);
+		setContentView(R.layout.activity_main);
 		pers = SingletonPersonne.getInstance ().getPersonne ();
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
+        toolbar.setTitleTextColor(R.color.white);
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
 		dialog = createAndManageDialog();
@@ -258,6 +259,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
                     isEmailValid = false;
                     isMdpValid = false;
 				}
+
+				isEmailValid = true;
+				isMdpValid = true;
 
 				if(isEmailValid && isMdpValid){
 					Intent t = new Intent (getApplicationContext (), MenuActivity.class);

@@ -27,6 +27,19 @@ public class Quiz
         return id;
     }
 
+    //Constructor de test
+
+
+    public Quiz(int id, String libelle, Timestamp dateDebutQuiz, Timestamp dateFinQuiz, int noQuestionCourante, Timestamp dateDebutQuestion, int etape) {
+        this.id = id;
+        this.libelle = libelle;
+        this.dateDebutQuiz = dateDebutQuiz;
+        this.dateFinQuiz = dateFinQuiz;
+        this.noQuestionCourante = noQuestionCourante;
+        this.dateDebutQuestion = dateDebutQuestion;
+        this.etape = etape;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

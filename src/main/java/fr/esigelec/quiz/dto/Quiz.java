@@ -1,9 +1,7 @@
 package fr.esigelec.quiz.dto;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 
 /**Projet d'integration
@@ -58,7 +56,7 @@ public class Quiz {
 	 */
 	private int etape;
 	
-	private Set<Question> listeQuestions = new HashSet<Question>();
+	private List<Question> listeQuestions = new LinkedList<Question>();
 
 
 	/*Constructeurs*/
@@ -67,7 +65,15 @@ public class Quiz {
 	 * Constructeur sans param�tres
 	 */
 
-	public Quiz() {}
+	public Quiz() {
+		this.id = 0;
+		this.libelle = "";
+		this.dateDebutQuiz = null;
+		this.dateFinQuiz = null;
+		this.noQuestionCourante = 0;
+		this.dateDebutQuestion = null;
+		this.etape = 0;
+	}
 
 	/**
 	 * Constructeur avec param�tres
@@ -268,11 +274,11 @@ public class Quiz {
 		return true;
 	}
 
-	public Set<Question> getListeQuestions() {
+	public List<Question> getListeQuestions() {
 		return listeQuestions;
 	}
 
-	public void setListeQuestions(Set<Question> listeQuestions) {
+	public void setListeQuestions(List<Question> listeQuestions) {
 		this.listeQuestions = listeQuestions;
 	}
 }

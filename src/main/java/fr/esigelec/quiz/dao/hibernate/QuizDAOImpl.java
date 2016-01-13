@@ -78,8 +78,7 @@ public class QuizDAOImpl implements IQuizDAO{
 	public List<Question> listQuestionQuiz(int idQuiz){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Set<Question> listeQuestionsQuiz = getQuiz(idQuiz).getListeQuestions();
-		List<Question> retour = new LinkedList(listeQuestionsQuiz);
+		List<Question> retour  = getQuiz(idQuiz).getListeQuestions();
 		session.getTransaction().commit();
 		session.close();
 		return retour;

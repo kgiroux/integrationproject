@@ -22,7 +22,7 @@ public class Proposition {
 	 */
 	private String libelle; 
 
-	private Question idQuestion;
+	private Question question;
 	
 	/*Constructeurs*/
 
@@ -31,6 +31,8 @@ public class Proposition {
 	 */
 	public Proposition() {
 		super();
+		this.id = 0;
+		this.libelle = "";
 	}
 
 	/**
@@ -38,16 +40,14 @@ public class Proposition {
 	 * @param id
 	 * @param libelle
 	 */
-	public Proposition(String libelle, int idQuestion) {
+	public Proposition(String libelle, Question question) {
 		super();
 		this.id = 0;
-		
+		this.question = question;
 		this.libelle = libelle;
 	}
 	
-	public Proposition(String libelle) {
-		this.libelle = libelle;
-	}
+	
 
 	/**
 	 * Constructeur par recopie
@@ -98,47 +98,16 @@ public class Proposition {
 	 * @return the id of the question
 	 */
 	
-	public Question getIdQuestion() {
-		return idQuestion;
+	public Question getquestion() {
+		return question;
 	}
 	
 	/**
 	 * methode setIdQuestion
 	 * @param the id to set
 	 */
-	public void setIdQuestion(Question idQuestion) {
-		this.idQuestion = idQuestion;
+	public void setIdQuestion(Question question) {
+		this.question = question;
 	}
 
-	/**
-	 * methode equals
-	 * to compare two Proposition's objects
-	 * @return true if the two objetcs are equals
-	 * @return false if not.
-	 */
-	
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Proposition other = (Proposition) obj;
-		if (id != other.id)
-			return false;
-		if (idQuestion == null) {
-			if (other.idQuestion != null)
-				return false;
-		} else if (!idQuestion.equals(other.idQuestion))
-			return false;
-		if (libelle == null) {
-			if (other.libelle != null)
-				return false;
-		} else if (!libelle.equals(other.libelle))
-			return false;
-		return true;
-	}
 }

@@ -43,6 +43,8 @@ public class Question {
 
 	public Question() {
 		this.id = 0;
+		this.libelle = "";
+		this.listePropositions = null;
 	}
 
 
@@ -119,7 +121,7 @@ public class Question {
 	 * @param reponse the bonneReponse to set
 	 */
 	public void setBonneReponse(Proposition p) {
-		this.bonneReponse =p;
+		this.bonneReponse = p;
 	}
 
 	public List<Proposition> getListePropositions() {

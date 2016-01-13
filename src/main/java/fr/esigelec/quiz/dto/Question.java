@@ -55,7 +55,7 @@ public class Question {
 	public Question(String libelle, Proposition bonneReponse, List<Proposition> list) {
 		this.libelle = libelle;
 		this.bonneReponse = bonneReponse;
-		this.listePropositions = listePropositions;
+		this.listePropositions = list;
 	}
 
 

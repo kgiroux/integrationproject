@@ -13,7 +13,7 @@
 		<property name="noQuestionCourante" column="noQuestionCourante" type="integer"/>
 		<property name="dateDebutQuestion" column="dateDebutQuestion" type="timestamp"/>
 		<property name="etape" column="etape" type="integer"/>
-		
+	
 		<set name="listeQuestions" table="quiz_question">
 			<key column="id_quiz"/>
 			<many-to-many column="id_question" class="Question"/>

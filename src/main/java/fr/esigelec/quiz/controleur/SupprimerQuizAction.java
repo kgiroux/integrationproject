@@ -28,9 +28,9 @@ public class SupprimerQuizAction extends Action {
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuizDAO quizDAO = new QuizDAOImpl();
 				quizDAO.deleteQuiz(quizDAO.getQuiz(idQuiz));
-				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
+				return mapping.findForward("succes");	/* questionQuizAdmin.jsp */
 			} else {
-				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
+				return mapping.findForward("login");	/* index.jsp */
 			}
 			
 		} catch (Exception e) {

@@ -8,6 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/background"
     tools:context=".Activity.InscriptionActivity">
 
     <TextView
@@ -26,7 +27,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/name"
-        android:id="@+id/nameLabel" />
+        android:id="@+id/nameLabel"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_below="@id/nameLabel"
@@ -34,7 +36,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/name" />
+        android:id="@+id/name"
+        android:background="@drawable/editext"
+        android:textSize="30dp"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_below="@id/name"
@@ -50,7 +55,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/surname" />
+        android:id="@+id/surname"
+        android:background="@drawable/editext"
+        android:textSize="30dp"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_below="@id/surname"
@@ -66,7 +74,10 @@
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
         android:ems="10"
-        android:id="@+id/mail" />
+        android:id="@+id/mail"
+        android:background="@drawable/editext"
+        android:textSize="30dp"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_below="@id/mail"
@@ -82,7 +93,10 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/pwd" />
+        android:id="@+id/pwd"
+        android:background="@drawable/editext"
+        android:textSize="30dp"
+        android:layout_marginTop="5dp"/>
 
     <TextView
         android:layout_below="@id/pwd"
@@ -98,32 +112,42 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/confirm" />
+        android:id="@+id/confirm"
+        android:background="@drawable/editext"
+        android:textSize="30dp"
+        android:layout_marginTop="5dp"/>
 
-    <LinearLayout
-        android:layout_below="@id/confirm"
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/confirm"
         android:id="@+id/action"
-        android:weightSum="1">
+        android:layout_marginTop="10dp">
 
         <Button
             style="?android:attr/negativeButtonText"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:id="@+id/cancel"
-            android:layout_weight="0.5" />
+            android:layout_weight="0.45"
+            android:background="@drawable/button_quit"
+            android:layout_gravity="right"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Button
             style="?android:attr/positiveButtonText"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="@string/valid"
             android:id="@+id/valid"
-            android:layout_weight="0.5" />
-
-    </LinearLayout>
+            android:layout_weight="0.45"
+            android:background="@drawable/button_start"
+            android:layout_gravity="left"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
 
 </RelativeLayout>

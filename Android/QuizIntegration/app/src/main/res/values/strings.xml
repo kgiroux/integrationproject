@@ -10,6 +10,8 @@
     <string name="inscription">Subscribe</string>
     <string name="about">About</string>
     <string name="mentionlegales">Legal notice</string>
+    <string name="welcome">Welcome to TF8 - Quiz</string>
+
 
     <string-array name="listMenu">
         <item>Connection</item>
@@ -79,7 +81,7 @@
         \n\t \u2022 GameActivity : This activity is the game. User have to choose the correct answer between 4 choices. After validate his choice, he have to wait the result from the animator.
 
     </string>
-    <string name="legalNotice" >
+    <string name="legalNotice">
         Accedat huc suavitas quaedam oportet sermonum atque morum, haudquaquam mediocre condimentum amicitiae. Tristitia autem et in omni re severitas habet illa quidem gravitatem, sed amicitia remissior esse debet et liberior et dulcior et ad omnem comitatem facilitatemque proclivior.
 
 Itaque verae amicitiae difficillime reperiuntur in iis qui in honoribus reque publica versantur; ubi enim istum invenias qui honorem amici anteponat suo? Quid? Haec ut omittam, quam graves, quam difficiles plerisque videntur calamitatum societates! Ad quas non est facile inventu qui descendant. Quamquam Ennius recte.

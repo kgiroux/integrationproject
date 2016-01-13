@@ -17,6 +17,11 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
+/**
+ * AjouterQuizAction
+ * @author Wenfeng
+ *
+ */
 public class AjouterQuizAction extends Action {
 	private final Logger actionQuizActionLogger = Logger.getLogger(AjouterQuizAction.class);
 	

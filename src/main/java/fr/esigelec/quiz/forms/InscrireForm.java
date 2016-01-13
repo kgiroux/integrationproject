@@ -65,4 +65,6 @@ public class InscrireForm extends ActionForm {
 		
 		return errors;
 	}
+	
+	
 }

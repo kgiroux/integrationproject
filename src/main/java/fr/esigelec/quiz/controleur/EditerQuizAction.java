@@ -14,6 +14,11 @@ import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Quiz;
 
+/**
+ * EditerQuizAction
+ * @author Wenfeng
+ *
+ */
 public class EditerQuizAction extends Action {
 	private static final Logger diterQuizActionLogger = Logger.getLogger(EditerQuizAction.class);
 

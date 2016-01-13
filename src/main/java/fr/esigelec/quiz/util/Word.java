@@ -12,19 +12,14 @@ public class Word implements Comparable<Word>{
 		else 
 			return 1;
 	}
-
 	public int getId() {
 		return id;
 	}
-
 	@Override
 	public String toString() {
 		return "Word [id=" + id + "]";
 	}
-
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
 }

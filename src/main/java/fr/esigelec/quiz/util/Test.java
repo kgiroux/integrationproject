@@ -49,7 +49,6 @@ public class Test {
 		
 		System.out.println(set.toString());
 		SetToListConverter.SetToList(array, set);
-		
 		System.out.println(array);
 		
 		

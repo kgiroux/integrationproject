@@ -25,12 +25,13 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 * @param p
 	 */
 	@Override
-	public void createPersonne(Personne p) {
+	public boolean createPersonne(Personne p) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(p);
 		session.getTransaction().commit();
-		session.close();	
+		session.close();
+		return (p.getId() != 0);
 	}
 
 	/**
@@ -89,12 +90,15 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 * @param p
 	 */
 	@Override
-	public void updatePersonne(Personne p) {
+	public boolean updatePersonne(Personne p) {
+		boolean modifie = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(p);
+		Personne newPers = getPersonne(p.getId());
 		session.getTransaction().commit();
 		session.close();
+		return (p.equals(newPers));
 	}
 
 	
@@ -105,12 +109,30 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 * @param p
 	 */
 	@Override
-	public void deletePersonne(Personne p) {
+	public boolean deletePersonne(Personne p) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(p);
 		session.getTransaction().commit();
 		session.close();
+		return (p == null);
 	}
 
+	@Override
+	public boolean connexion(String email, String pwd) {
+		boolean result = false;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Personne Where mail = " + email;
+		List<Personne> listePersonne = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		if (listePersonne.size() == 0) {
+			result = false;
+		} 
+		if (listePersonne.get(0).getMdp().equals(pwd)){
+			result = true;
+		}
+		return result;
+	}
 }

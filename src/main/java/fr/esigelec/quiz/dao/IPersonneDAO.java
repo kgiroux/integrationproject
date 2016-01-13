@@ -15,12 +15,23 @@ import fr.esigelec.quiz.dto.Personne;
 
 public interface IPersonneDAO {
 	
+	
+	
+	/**
+	 * M�thode : connexion
+	 * Connexion au jeu
+	 * @param email, pwd
+	 * @return boolean
+	 */
+	public boolean connexion(String email, String pwd);
+	
+	
 	/**
 	 * M�thode : createPersonne
 	 * Cr�e une personne dans la base de donn�es
 	 * @param p
 	 */
-	public void createPersonne(Personne p);
+	public boolean createPersonne(Personne p);
 	
 	/**
 	 * M�thode : getPersonne
@@ -48,7 +59,7 @@ public interface IPersonneDAO {
 	 * si elle a �t� enregistr�e avant
 	 * @param p
 	 */
-	public void updatePersonne(Personne p);
+	public boolean updatePersonne(Personne p);
 	
 	/**
 	 * M�thode : deletePersonne
@@ -56,7 +67,7 @@ public interface IPersonneDAO {
 	 * si elle est enregistr�e
 	 * @param p
 	 */
-	public void deletePersonne(Personne p);
+	public boolean deletePersonne(Personne p);
 
 }
 

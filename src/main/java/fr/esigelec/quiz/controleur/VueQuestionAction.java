@@ -19,7 +19,6 @@ public class VueQuestionAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		//TODO : Action Question View  implementation 
 	
 		return mapping.findForward("succes");
 		

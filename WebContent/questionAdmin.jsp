@@ -15,7 +15,7 @@
 <body>
 	<h1>Ajouter une question</h1>
 	<hr>
-		<form class="container form-horizontal contform" method="post" action="<%=request.getContextPath()%>/EnregistrerQuestion.do">
+		<form class="container form-horizontal contform" method="post" action="EnregistrerQuestion">
 			<br>
 			<fieldset>
 				<div class="form-group">
@@ -83,7 +83,7 @@
 				  <div class="col-md-6">
 				    <button type="submit" class="btn btn-primary">Ajouter</button>
 				    <button type="reset" class="btn btn-primary">Rétablir</button>
-				    <a href="/quiz/questionQuizAdmin.jsp"><button type="button" class="btn btn-primary">Annuler</button></a>
+				    <a href="VueQuestionQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
 				  </div>
 				</div>
 				<hr>

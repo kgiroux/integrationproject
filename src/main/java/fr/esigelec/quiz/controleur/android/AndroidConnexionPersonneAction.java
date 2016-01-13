@@ -14,6 +14,12 @@ import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.util.AndroidHelper;
 
+/**
+ * @author Kévin Giroux;
+ * 
+ */
+
+
 public class AndroidConnexionPersonneAction extends Action {
 	
 	@Override
@@ -21,10 +27,6 @@ public class AndroidConnexionPersonneAction extends Action {
 			HttpServletRequest request, HttpServletResponse response) {
 			
 			if("GET".equals(request.getMethod())){
-				// REMOVE WHEN DAO OK
-				//Personne p = new Personne(0, "Serais", "Sebastien", "serais@esigelec.com", "1234567890", 1);
-				//p.setId(42);
-				//JSONObject json = new JSONObject(p);
 				JSONObject json = AndroidHelper.DoGetForbiddenException();
 				request.setAttribute("json", json.toString());
 				return mapping.findForward("succes");
@@ -45,6 +47,8 @@ public class AndroidConnexionPersonneAction extends Action {
 					} else if (!mdp.equals(p.getMdp())) {
 						json = AndroidHelper.PassIncorrectException();
 					} else {
+						p.setMail("");
+						p.setMdp("");
 						json = new JSONObject(p);
 					}
 				} else {

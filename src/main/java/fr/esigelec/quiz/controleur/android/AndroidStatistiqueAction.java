@@ -11,8 +11,14 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.json.JSONObject;
 
+import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.AndroidHelper;
+/**
+ * @author Kévin Giroux;
+ * 
+ */
 
 public class AndroidStatistiqueAction extends Action{
 	@Override
@@ -25,20 +31,13 @@ public class AndroidStatistiqueAction extends Action{
 				int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 				
 				
-				
-				//TODO
-				//FIND ALL the object with the previous id;
-				
-				// TODO REMOVE WHEN OK
-				Quiz quiz = new Quiz();
-				quiz.setId(42);
-				long time = System.currentTimeMillis() /1000;
-				int delay = 30;
-				quiz.setDateDebutQuestion(new Timestamp(time));
-				quiz.setDateFinQuiz(new Timestamp(time+delay));
-				quiz.setEtape(1);
-				quiz.setLibelle("The android team is the best");
-				
+				QuizDAOImpl dao = new QuizDAOImpl();
+				Quiz quiz = dao.getQuiz(idQuiz);
+				if(quiz == null){
+					JSONObject json = AndroidHelper.DoGetForbiddenException();
+					request.setAttribute("json", json.toString());
+					return mapping.findForward("succes");
+				}
 				JSONObject json = new JSONObject(quiz);
 				System.out.println(json.toString());
 				request.setAttribute("json",json.toString());

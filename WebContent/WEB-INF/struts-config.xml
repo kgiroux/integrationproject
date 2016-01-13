@@ -35,6 +35,10 @@
          <forward name="succes" path="/quiz.jsp"></forward>
          <forward name="erreur" path="/index.jsp"></forward>
       </action>
+      <action scope="request" path="/ConnexionAdministrateur" name="" type="fr.esigelec.quiz.controleur.ConnexionAdministrateurAction" input="/">
+         <forward name="succes" path="/quizAdmin.jsp"></forward>
+         <forward name="erreur" path="/indexAdmin.jsp"></forward>
+      </action>
       <action scope="request" path="/Jouer" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
          <forward name="succes" path="/question.jsp"/>
       </action>

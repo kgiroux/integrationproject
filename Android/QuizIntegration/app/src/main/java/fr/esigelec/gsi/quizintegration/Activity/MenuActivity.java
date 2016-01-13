@@ -1,20 +1,28 @@
 package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +45,7 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 	private Toolbar toolbar;
 	private Personne pers;
     private List<Quiz> quizList;
+    private Quiz currentQuiz = null;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
@@ -52,13 +61,42 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         //Initialisation pour test
         initTest();
 
-		LinearLayout currentQuiz = (LinearLayout) findViewById(R.id.current_quiz);
-		currentQuiz.setOnClickListener(new View.OnClickListener() {
+        final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
+
+        if (currentQuiz != null){
+            TextView titre = (TextView) findViewById(R.id.title);
+            titre.setText(currentQuiz.getLibelle());
+            TextView date = (TextView) findViewById(R.id.date);
+            date.setText(currentQuiz.getDateDebutQuestion().toString());
+            TextView nbQuest = (TextView) findViewById(R.id.question);
+            nbQuest.setText("Question : " + currentQuiz.getNoQuestionCourante() + "/" + currentQuiz.getListeQuestions().size());
+        } else {
+            currentQuizLayout.setVisibility(View.GONE);
+        }
+
+        currentQuizLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				startActivity(new Intent(v.getContext(),GameActivity.class));
+                Intent intent = new Intent(v.getContext(),GameActivity.class);
+                intent.putExtra("idQuiz", currentQuiz.getId());
+				startActivity(intent);
 			}
 		});
+
+        for (Quiz quiz : quizList) {
+            LayoutInflater curQuizLayout = this.getLayoutInflater();
+            View view = curQuizLayout.inflate(R.layout.old_quiz, null);
+
+            TextView title = (TextView) view.findViewById(R.id.title);
+            TextView date = (TextView) view.findViewById(R.id.date);
+
+            title.setText(quiz.getLibelle());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
+
+            LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
+            oldQuiz.addView(view);
+        }
 	}
 
 
@@ -161,9 +199,9 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
     protected void initTest ()
     {
         quizList= new ArrayList<>();
-        Quiz quizCur = new Quiz(3,"Animaux", new Timestamp(System.currentTimeMillis()),null,4,new Timestamp(System.currentTimeMillis()),1);
-        Quiz quiz1 = new Quiz(1,"Geek", new Timestamp(2015,5,5,5,5,5,0), new Timestamp(2015,5,5,6,5,5,0),0,null,0);
-        Quiz quiz2 = new Quiz(2,"Espace", new Timestamp(2015,4,5,5,5,5,0), new Timestamp(2015,4,5,6,5,5,0),0,null,0);
+        currentQuiz = new Quiz(3,"Animaux", new Timestamp(System.currentTimeMillis()),null,1,new Timestamp(System.currentTimeMillis()),1);
+        Quiz quiz1 = new Quiz(1,"Geek", new Timestamp(115,5,5,5,5,5,0), new Timestamp(115,5,5,6,5,5,0),0,null,0);
+        Quiz quiz2 = new Quiz(2,"Espace", new Timestamp(115,4,5,5,5,5,0), new Timestamp(115,4,5,6,5,5,0),0,null,0);
         List<Question> questionListQuiz1 = new ArrayList<>();
         Question question1 = new Question(1,"En quelle année date le premier Iphone ?", 2);
         Question question2 = new Question(2,"rlihgseldhgistghsh ?", 3);
@@ -226,7 +264,15 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         propositionListquestion9.add(proposition3);
         propositionListquestion9.add(proposition4);
 
-
+        question1.setListePropositions(propositionListquestion1);
+        question2.setListePropositions(propositionListquestion2);
+        question3.setListePropositions(propositionListquestion3);
+        question4.setListePropositions(propositionListquestion4);
+        question5.setListePropositions(propositionListquestion5);
+        question6.setListePropositions(propositionListquestion6);
+        question7.setListePropositions(propositionListquestion7);
+        question8.setListePropositions(propositionListquestion8);
+        question9.setListePropositions(propositionListquestion9);
         questionListQuiz1.add(question1);
         questionListQuiz1.add(question2);
         questionListQuiz1.add(question3);
@@ -236,5 +282,12 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         questionListQuizCur.add(question7);
         questionListQuizCur.add(question8);
         questionListQuizCur.add(question9);
+
+        quiz1.setListeQuestions(questionListQuiz1);
+        quiz2.setListeQuestions(questionListQuiz2);
+        currentQuiz.setListeQuestions(questionListQuizCur);
+
+        quizList.add(quiz1);
+        quizList.add(quiz2);
     }
 }

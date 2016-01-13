@@ -109,15 +109,22 @@
                 android:text="@string/old"
                 android:id="@+id/old" />
 
-            <ListView
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/old_quiz"
-                android:smoothScrollbar="true"
-                android:layout_below="@+id/old"
-                android:layout_alignLeft="@+id/old"
-                android:layout_alignStart="@+id/old"
-                android:layout_marginTop="5dp" />
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView"
+                android:fillViewport="false"
+                android:layout_below="@+id/old">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/old_quiz">
+
+                </LinearLayout>
+            </ScrollView>
+
         </RelativeLayout>
 
     </LinearLayout>

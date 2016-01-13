@@ -20,13 +20,13 @@
 <div class="container">
 	<hr>
 	<div class="form-group">
-		<label for="libelle" class="col-xs-6 col-sm-2 control-label">LibellÃ© :</label>
+		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
 		<div class="col-xs-2 col-sm-4">
 			<input type="text" class="form-control" name="libelle" id="libelleQuiz" placeholder="JEE,Android,etc">
 		</div> 
 		   
 	</div>
- <a href="/quiz/questionAdmin.jsp"><button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
+ <a href="VueQuestionAdmin.do"><button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
 <div class="form-center">
 			<table class="table table-bordered table-hover">
 				<thead>

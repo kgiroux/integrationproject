@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
+ <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,13 +30,16 @@
     
     </thead>
     <tbody>
+    <% List<Quiz> quiz=(List<Quiz>)request.getAttribute("listeQuiz");
+						for(Quiz quiz1:quiz){ %>
     <tr>
-        <td>JEE</td>
-        <td>javax.http.servlet.httpServlet</td>
-        <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <td><%=quiz1.getLibelle()%></td>
+        <td><%=quiz1.getDateDebutQuiz()%></td>
+        <td><a href="SupprimerQuiz.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-remove"></span></a></td>
         <td><a href="#"><span class="glyphicon glyphicon-edit"></span></a></td>
 		<td><a href="#"><span class="glyphicon glyphicon-play"></span></a></td>
       </tr>
+      <%} %>
 	 <tr>
         <td>HTML</td>
 		<td>javax.http.servlet.httpServlet</td>

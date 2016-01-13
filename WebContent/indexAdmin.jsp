@@ -16,7 +16,7 @@
 <div class="container">
 	<h1>Administration</h1>
 	<hr>
-  <form class="form-horizontal">
+  <form class="form-horizontal" action="/ConnexionAdministrateur.do" method="post">
 	  <div class="form-center">
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>

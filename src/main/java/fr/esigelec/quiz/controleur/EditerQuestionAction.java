@@ -39,16 +39,17 @@ public class EditerQuestionAction extends Action {
 					Question question = questionDAO.getQuestion(idQuestion);
 					question.setLibelle(libelle);
 					questionDAO.updateQuestion(question);
+					request.setAttribute("listeQuestions", questionDAO.listQuestion());
 					return mapping.findForward("succes"); // questionsQuizzAdmin.jsp 
 				}
-				else editerQuestionActionLogger.INFO("erreur: libelle vide");
-			} else editerQuestionActionLogger.INFO("erreur: droit d'admin requis");
+				else editerQuestionActionLogger.info("erreur: libelle vide");
+			} else editerQuestionActionLogger.info("erreur: droit d'admin requis");
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Add attributes of error message
-			editerQuestionActionLogger.INFO("erreur: "+e);
+			editerQuestionActionLogger.info("erreur: "+e);
 		}
 	}
 }

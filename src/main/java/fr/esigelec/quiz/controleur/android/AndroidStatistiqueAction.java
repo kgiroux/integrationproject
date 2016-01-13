@@ -16,7 +16,7 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.AndroidHelper;
 /**
- * @author KÃ©vin Giroux;
+ * @author Kévin Giroux;
  * 
  */
 

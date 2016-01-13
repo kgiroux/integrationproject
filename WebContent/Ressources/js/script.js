@@ -1,4 +1,8 @@
-
+/*
+ * Projet d'intégration 
+ * @uthor Enrifath TIDJANI
+ * Script de validation des formulaires
+ */
 $(document).ready(function() {
     $('#inscriptionForm').formValidation({
         framework: 'bootstrap',

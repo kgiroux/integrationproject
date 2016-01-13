@@ -10,6 +10,43 @@ package fr.esigelec.quiz.dto;
 
 public class Personne {
 
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Personne other = (Personne) obj;
+		if (droits != other.droits)
+			return false;
+		if (id != other.id)
+			return false;
+		if (mail == null) {
+			if (other.mail != null)
+				return false;
+		} else if (!mail.equals(other.mail))
+			return false;
+		if (mdp == null) {
+			if (other.mdp != null)
+				return false;
+		} else if (!mdp.equals(other.mdp))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		return true;
+	}
+
 	//Attributs de la classe Personne
 	/**
 	 * id de la personne

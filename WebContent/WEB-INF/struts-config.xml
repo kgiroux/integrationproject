@@ -37,6 +37,11 @@
           <forward name="succes" path="/questionsQuizAdmin.jsp"></forward>
           <forward name="login" path="/index.jsp"></forward>
       </action>
+      <action scope="request" path="/EditerQuestion" type="fr.esigelec.quiz.controleur.EditerQuestionAction">
+          <forward name="succes" path="/questionsQuizAdmin.jsp"></forward>
+          <forward name="erreur" path="/questionsQuizzAdmin.jsp"></forward>
+          <forward name="login" path="/index.jsp"></forward>
+      </action>
       <!--
           Android actions
           

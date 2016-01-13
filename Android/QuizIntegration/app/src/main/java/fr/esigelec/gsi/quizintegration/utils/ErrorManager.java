@@ -1,7 +1,7 @@
 package fr.esigelec.gsi.quizintegration.utils;
 
 /**
- * Created by Kevin-Giroux on 13/01/2016.
+ * Created by Kevin-Giroux on 13/01/2016. ${PACKAGE_NAME} for the project QuizIntegration
  */
 public class ErrorManager {
 
@@ -10,6 +10,8 @@ public class ErrorManager {
         USER_NOT_FOUND,
         PASS_INCORRECT,
         MISSING_ARG,
+        DB_INSERT_FAIL,
+        QUIZ_NOT_FOUND,
         NOTHING
     }
 
@@ -28,6 +30,10 @@ public class ErrorManager {
                 return ERROR.PASS_INCORRECT;
             case 4 :
                 return ERROR.MISSING_ARG;
+            case 5 :
+                return ERROR.DB_INSERT_FAIL;
+            case 6 :
+                return ERROR.QUIZ_NOT_FOUND;
             default :
                 return ERROR.NOTHING;
         }
@@ -43,6 +49,10 @@ public class ErrorManager {
             case PASS_INCORRECT :
                 return "PASSWORD INCORRECT";
             case MISSING_ARG :
+                return "MISSING ARG";
+            case DB_INSERT_FAIL :
+                return "MISSING ARG";
+            case QUIZ_NOT_FOUND :
                 return "MISSING ARG";
             default :
                 return "NOTHING";

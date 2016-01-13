@@ -7,6 +7,15 @@
       <form-bean name="inscrireForm" type="fr.esigelec.quiz.forms.InscrireForm"/>
       <form-bean name="connexionForm" type="fr.esigelec.quiz.forms.ConnexionForm"/>
    </form-beans>
+   
+   <!-- configuration globale des erreurs -->
+   <global-exceptions>
+    <exception
+      key="erreur.globale.message"
+      type="java.lang.Exceptions"
+      path="/WEB-INF/jsp/erreur.jsp" />
+  </global-exceptions>
+   
    <action-mappings>
       <!-- 
          input : page ou on revient si erreur de validation 
@@ -43,9 +52,12 @@
       </action>
       <action scope="request" path="/SupprimerQuestion" name="" type="fr.esigelec.quiz.controleur.SupprimerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EditerQuestion" name="" type="fr.esigelec.quiz.controleur.EditerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="erreur" path="/questionQuizAdmin.jsp"/>
+         <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EnregistrerQuestion" name="" type="fr.esigelec.quiz.controleur.EnregistrerQuestionAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>

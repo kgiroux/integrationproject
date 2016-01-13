@@ -14,6 +14,7 @@ public class TestLogger {
 	public static void main(String[] args) {
 		testLogger.debug("Debug log");
 		testLogger.info("Info log");
+		testLogger.error("error log");
 	}
 
 }

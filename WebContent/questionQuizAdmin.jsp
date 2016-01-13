@@ -51,16 +51,19 @@
 						<%} %>
 				</tbody>
 			</table>
-		<script>	$("input[type='checkbox']:checked").each(
-				questions.add(q1)
+		<script>	
+		function getAttributes(){
+		$("input[type='checkbox']:checked").each(
+			questions.add(q1)
 			);
-			var libelle = $('#libelleQuiz').val();</script>
-			<% 			
+			var libelle = $('#libelleQuiz').val();
 			request.setAttribute("libelleQuiz", libelle);
-			request.setAttribute("listeQuestionsQuiz", questions); %>
-			<a href="AjouterQuiz.do"><button class="btn btn-primary">Créer</button></a>
+			request.setAttribute("listeQuestionsQuiz", questions);
+		}
+			</script>
+			<a href="AjouterQuiz.do"><button onClick="getAttributes()" class="btn btn-primary">Créer</button></a>
    
-   <a href="VueQuizAdmin"><button class="btn btn-primary">Annuler</button></a>
+   <a href="VueQuizAdmin.do"><button class="btn btn-primary">Annuler</button></a>
    <hr>
   </div>
 		  

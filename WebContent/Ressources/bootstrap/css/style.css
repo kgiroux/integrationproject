@@ -6,6 +6,16 @@ body
 	background-color:#E0F8F7;
 	text-align::center;
 }
+
+.montexte { 
+margin : 10px auto auto auto; 
+} 
+/*
+*@author : TIONO KEVIN 
+*/
+table { 
+margin : 10px auto auto auto; 
+} 
 h1, th, td, button {
 	text-align:center;
 }
@@ -40,12 +50,21 @@ h1, th, td, button {
 .glyphicon-play{
 	color:blue;
 }
+/*
+*@author : TIONO KEVIN 
+*/
 .question{
 	text-align:center;
 }
+/*
+*@author : TIONO KEVIN 
+*/
 th{
 background-color:#D8D8D8;	
 }
+/*
+*@author : TIONO KEVIN 
+*/
 tr{
 
 	text-align:center;

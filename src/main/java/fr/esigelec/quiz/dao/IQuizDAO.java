@@ -1,6 +1,7 @@
 package fr.esigelec.quiz.dao;
 
 import java.util.List;
+import java.util.Set;
 
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
@@ -53,7 +54,7 @@ public interface IQuizDAO {
 	 * m�thode : listQuestion
 	 * @return all the questions
 	 */
-	public List<Question> listQuestionQuiz(int idQuiz);
+	public Set<Question> listQuestionQuiz(int idQuiz);
 	
 	/**
 	 * m�thode : getNbQuestionParQuiz

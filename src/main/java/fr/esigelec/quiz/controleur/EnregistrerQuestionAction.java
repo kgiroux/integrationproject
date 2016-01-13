@@ -118,8 +118,8 @@ public class EnregistrerQuestionAction extends Action {
 			questionDAO.createQuestion(question);
 			quiz.getListeQuestions().add(question);
 			quizDAO.updateQuiz(quiz);
+			request.setAttribute("listeQuiz", quiz.getListeQuestions());
 		}
-		
 		
 		return mapping.findForward("succes");
 	}

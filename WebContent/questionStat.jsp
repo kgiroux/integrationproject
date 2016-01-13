@@ -1,3 +1,4 @@
+<!-- @author : TIONO KEVIN  -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
@@ -41,7 +42,7 @@
 	q.setBonneReponse(p1);
 	q.setListePropositions(l);
 	%>
-  <center><table class="table table-bordered table-hover " style="width:70%">
+  <table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr >
 <th class="question"><%=q.getLibelle() %></th>
@@ -58,7 +59,7 @@
       </tr>
 	<%  }%>
     </tbody>
-  </table></center>
+  </table>
 </div>
 
 </body>

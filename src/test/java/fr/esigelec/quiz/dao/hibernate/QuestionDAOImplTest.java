@@ -2,6 +2,8 @@ package fr.esigelec.quiz.dao.hibernate;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -37,20 +39,33 @@ public class QuestionDAOImplTest {
 		assertEquals(true, statut);
 	}
 
-	/**@Test
+	@Test
 	public void BtestGetQuestion() {
-		fail("Not yet implemented");
+		System.out.println("id de base : " + question.getId());
+		Question q = daoQuestion.getQuestion(question.getId());
+		System.out.println("id recup dans la base : " + q.getId());
+		assertTrue(q.equals(question));
 	}
 
 	@Test
 	public void CtestListQuestion() {
-		fail("Not yet implemented");
+		List<Question> listeOne = daoQuestion.listQuestion();
+		Question q = new Question();
+		listeOne.add(q);
+		daoQuestion.createQuestion(q);
+		List<Question> listeTwo = daoQuestion.listQuestion();
+		assertEquals(listeOne, listeTwo);
 	}
 
 	@Test
 	public void DtestUpdateQuestion() {
-		fail("Not yet implemented");
-	}*/
+		question.setLibelle("blabla");
+		System.out.println("Libelle Question: " + question.getLibelle());
+		boolean statut = daoQuestion.updateQuestion(question);
+		System.out.println("updateQuestion, Requete réussi: " + statut);
+		Question q = daoQuestion.getQuestion(question.getId());
+		assertEquals(q, question);
+	}
 
 	@Test(expected=NullPointerException.class)
 	public void EtestDeleteQuestion() {

@@ -31,7 +31,7 @@ public interface IQuestionDAO {
 	 * m�thode : listQuestion
 	 * @return all the questions
 	 */
-	public Set<Question> listQuestion(); 
+	public List<Question> listQuestion(); 
 	
 	/**
 	 * m�thode : updateQuestion

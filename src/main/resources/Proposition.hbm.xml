@@ -9,7 +9,10 @@
 		
 		<property name="libelle" column="libelle" type="string"/>
 		
-		<many-to-one name="idQuestion" column="idQuestion" unique="true" not-null="true"/>
-		
+		<many-to-one name="question" column="idQuestion" class="Question" 
+        cascade="all" unique="true" not-null="true"/>
 	</class>
+	
+	
+	
 </hibernate-mapping>

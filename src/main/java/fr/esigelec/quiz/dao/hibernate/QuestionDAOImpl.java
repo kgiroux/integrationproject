@@ -10,6 +10,8 @@ package fr.esigelec.quiz.dao.hibernate;
  * */
 
 import java.util.List;
+import java.util.Set;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuestionDAO;
@@ -53,11 +55,11 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 * @return all the questions
 	 */  
 	@Override
-	public List<Question> listQuestion() {
+	public Set<Question> listQuestion() {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query=session.createQuery("from Question");
-		List<Question> listeQuestions=query.list();
+		Set<Question> listeQuestions=(Set<Question>) query.list();
 		session.getTransaction().commit();
 		session.close();
 		return listeQuestions;

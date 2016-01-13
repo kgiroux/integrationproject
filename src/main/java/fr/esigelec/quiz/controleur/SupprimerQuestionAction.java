@@ -9,7 +9,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.dao.IQuestionDAO;
 import fr.esigelec.quiz.dao.IQuizDAO;
+import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 
@@ -30,13 +32,13 @@ public class SupprimerQuestionAction extends Action {
 				questionDAO.deleteQuestion(questionDAO.getQuestion(idQuestion));
 				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {
-				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
+				supprimerQuestionActionLogger.INFO("erreur: droit d'admin requis");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Add attributes of error message
-			return mapping.findForward("erreur");
+			supprimerQuestionActionLogger.INFO("erreur: "+e);
 		}
 	}
 }

@@ -41,7 +41,7 @@
         <%} else {%>
         <td></td>
         <%} %>
-		<td><a href="Jouer.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-play"></span></a></td>
+		<td><a href="JouerAdmin.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-play"></span></a></td>
       </tr>
       <%} %>
 	 </tbody>

@@ -6,7 +6,8 @@
               android:layout_height="match_parent"
               android:paddingTop="15dp"
               android:paddingLeft="10dp"
-              android:paddingRight="10dp">
+              android:paddingRight="10dp"
+              android:background="@drawable/background">
     <TextView
         android:id="@+id/titleText"
         android:textSize="25sp"
@@ -20,7 +21,8 @@
         android:layout_below="@id/titleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/prompt_email_pseudo"/>
+        android:text="@string/prompt_email_pseudo"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:inputType="textEmailAddress"
@@ -54,33 +56,29 @@
         android:weightSum="2"
         android:orientation="horizontal"
         android:id="@+id/buttonLinear"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/Register"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/register"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                android:background="@drawable/button_start"
+                android:layout_alignParentStart="true" />
 
             <Button
                 android:id="@+id/SignIn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/action_sign_in_short"/>
-
-        </LinearLayout>
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/action_sign_in_short"
+                android:background="@drawable/button_start"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
 
     </LinearLayout>
 

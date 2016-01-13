@@ -8,13 +8,13 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-public class VueInscriptionAction extends Action {
-
-	@Override
+public class VueAnimateurAction extends Action {
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
-		
-		// TODO: implement here
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		//TODO : Action Vue Animateur implementation 
 		
 		return mapping.findForward("succes");
 	}

@@ -1,4 +1,4 @@
-package fr.esigelec.quiz.controleur;
+package fr.esigelec.quiz.controleur.android;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,14 +8,20 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-public class VueInscriptionAction extends Action {
+public class AndroidJouerAction extends Action {
 
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		// TODO: implement here
-		
-		return mapping.findForward("succes");
+			if("GET".equals(request.getMethod()))
+			{
+				//TODO
+				// Return the current quizz
+				
+				return mapping.findForward("succes");
+			}
+			return mapping.findForward("error");
 	}
+	
 }

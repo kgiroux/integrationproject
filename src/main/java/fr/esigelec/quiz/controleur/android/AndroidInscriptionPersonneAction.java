@@ -14,42 +14,41 @@ import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.util.AndroidHelper;
 
-public class AndroidConnexionPersonneAction extends Action {
+public class AndroidInscriptionPersonneAction extends Action{
+	
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-			
+		
 			if("GET".equals(request.getMethod())){
-				// REMOVE WHEN DAO OK
 				//Personne p = new Personne(0, "Serais", "Sebastien", "serais@esigelec.com", "1234567890", 1);
 				//p.setId(42);
 				//JSONObject json = new JSONObject(p);
 				JSONObject json = AndroidHelper.DoGetForbiddenException();
 				request.setAttribute("json", json.toString());
-				return mapping.findForward("succes");
+				return mapping.findForward("error");
 		
 			}else if("POST".equals(request.getMethod())){
 			
-				String mail = request.getParameter("mail");
-				String mdp = request.getParameter("mdp");
-				JSONObject json = new JSONObject();
+				Personne p = new Personne();
+				p.setMail(request.getParameter("mail"));
+				p.setMdp(request.getParameter("mdp"));
+				// Only a simple user
+				p.setDroits(Personne.JOUEUR);
+				p.setNom(request.getParameter("nom"));
+				p.setPrenom(request.getParameter("prenom"));
+				
+				
+				// Need DAO ACtion for subscription
 				IPersonneDAO personneDAO = new PersonneDAOImpl();
-				if (mail != null && mdp != null) {
-					Personne p = personneDAO.getPersonne(mail);
-					// check login
-					// user not found
-					if (p == null) {
-						json = AndroidHelper.UserNotFoundException();
-					// password incorrect
-					} else if (!mdp.equals(p.getMdp())) {
-						json = AndroidHelper.PassIncorrectException();
-					} else {
-						json = new JSONObject(p);
-					}
-				} else {
-					json = AndroidHelper.MissingArgException();
-				}
+				personneDAO.createPersonne(p);
+				
+				// Validation
+				Personne p2 = personneDAO.getPersonne(p.getMail());
+				JSONObject json = new JSONObject(p2);
+				
+				
 				request.setAttribute("json",json.toString());
 				return mapping.findForward("succes");
 			}else{

@@ -4,6 +4,10 @@
 body
 {
 	background-color:#E0F8F7;
+	text-align::center;
+}
+h1, th, td, button {
+	text-align:center;
 }
 .container 
 {
@@ -11,9 +15,6 @@ body
 	background-color:#e0e0e0;
 	box-shadow: 0 0 20px #555;
 	border-radius: 10px;
-}
-table{
-	width:"80%";
 }
 .form-center
 {
@@ -31,3 +32,37 @@ table{
 .glyphicon-play{
 	color:blue;
 }
+<<<<<<< HEAD
+.question{
+	text-align:center;
+}
+th{
+background-color:#D8D8D8;	
+}
+tr{
+
+	text-align:center;
+}
+=======
+.table-bordered>tbody>tr>td, 
+.table-bordered>tbody>tr>th, 
+.table-bordered>tfoot>tr>td, 
+.table-bordered>tfoot>tr>th, 
+.table-bordered>thead>tr>td, 
+.table-bordered>thead>tr>th,
+.table-bordered>thead{
+	border-color:black;
+	border:1px solid black;
+}
+
+hr {
+	height: 1px;
+	background-color:#CFD8D7;
+}
+.paraanimateur, .animateur{
+	text-align:center;	
+}
+.contform{
+	margin:auto;
+}
+>>>>>>> 97540ab18b5c8739459bda7a9de5ddf79f9dead5

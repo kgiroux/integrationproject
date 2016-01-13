@@ -26,16 +26,78 @@
          <forward name="succes" path="/quiz.jsp"></forward>
          <forward name="erreur" path="/index.jsp"></forward>
       </action>
+      <action scope="request" path="/Jouer" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
+         <forward name="succes" path="/question.jsp"/>
+      </action>
+      <action scope="request" path="/Choisir" name="" type="fr.esigelec.quiz.controleur.ChoisirAction" input="/">
+         <forward name="succes" path="/question.jsp"/>
+      </action>
+      <action scope="request" path="/SupprimerQuiz" name="" type="fr.esigelec.quiz.controleur.SupprimerQuizAction" input="/">
+         <forward name="succes" path="/quizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/AjouterQuiz" name="" type="fr.esigelec.quiz.controleur.AjouterQuizAction" input="/">
+         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/EditerQuiz" name="" type="fr.esigelec.quiz.controleur.EditerQuizAction" input="/">
+         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/SupprimerQuestion" name="" type="fr.esigelec.quiz.controleur.SupprimerQuestionAction" input="/">
+         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/EditerQuestion" name="" type="fr.esigelec.quiz.controleur.EditerQuestionAction" input="/">
+         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/EnregistrerQuestion" name="" type="fr.esigelec.quiz.controleur.EnregistrerQuestionAction" input="/">
+         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/LancerPartie"  type="fr.esigelec.quiz.controleur.LancerPartieAction" input="/">
+        <forward name="succes" path="/animateur.jsp"/>
+      </action>
+      <!--
+          Vue actions
+          L'ensemble des actions "Vue" se trouve dans les balises suivantes. 
+       -->
       <action scope="request" path="/VueInscription"  type="fr.esigelec.quiz.controleur.VueInscriptionAction">
         <forward name="succes" path="/inscription.jsp"/>
       </action>
+      <action scope="request" path="/VueQuestion"  type="fr.esigelec.quiz.controleur.VueQuestionAction">
+        <forward name="succes" path="/question.jsp"/>
+      </action>
+      <action scope="request" path="/VueQuestionsQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
+        <forward name="succes" path="/questionQuizAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/VueAnimateur"  type="fr.esigelec.quiz.controleur.VueAnimateurAction">
+        <forward name="succes" path="/animateur.jsp"/>
+      </action>
       <!--
           Android actions
-          
+          L'ensemble des actions "Android" se trouve dans les balises suivantes.
        -->
        <action scope="request" path="/AndroidConnexionPersonne" type="fr.esigelec.quiz.controleur.android.AndroidConnexionPersonneAction" input="/">
+         <forward name="error" path="/json.jsp"/>
          <forward name="succes" path="/json.jsp"/>
        </action>
+       <action scope="request" path="/AndroidInscriptionPersonne" type="fr.esigelec.quiz.controleur.android.AndroidInscriptionPersonneAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidJouer" type="fr.esigelec.quiz.controleur.android.AndroidJouerAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidQuizList" type="fr.esigelec.quiz.controleur.android.AndroidQuizListAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidChoisir" type="fr.esigelec.quiz.controleur.android.AndroidChoisirAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       <action scope="request" path="/AndroidStatistiques" type="fr.esigelec.quiz.controleur.android.AndroidStatistiqueAction" input="/">
+         <forward name="error" path="/json.jsp"/>
+         <forward name="succes" path="/json.jsp"/>
+       </action>
+       
    </action-mappings>
    <message-resources parameter="mesMessages"></message-resources>
 </struts-config>

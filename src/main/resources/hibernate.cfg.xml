@@ -4,7 +4,7 @@
 	<session-factory>
 		<!--Databaseconnectionsettings -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://193.52.189.17/ir2016</property>
+		<property name="connection.url">jdbc:mysql://176.31.114.109/ir2016</property>
 		<property name="connection.username">ir2016</property>
 		<property name="connection.password">lesMeilleurs2016*</property>
 		
@@ -23,7 +23,7 @@
 		<!--Echo all executedSQL to stdout-->
 		<property name="show_sql">true</property>
 		
-		<mapping resource="Quizz.hbm.xml"/>
+		<mapping resource="Quiz.hbm.xml"/>
 		<mapping resource="Proposition.hbm.xml"/>
 		<mapping resource="Question.hbm.xml"/>
 		<mapping resource="Personne.hbm.xml"/>

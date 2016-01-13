@@ -51,5 +51,6 @@ public class EditerQuestionAction extends Action {
 			// Add attributes of error message
 			editerQuestionActionLogger.info("erreur: "+e);
 		}
+		return mapping.findForward("succes");
 	}
 }

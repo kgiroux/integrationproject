@@ -41,5 +41,6 @@ public class SupprimerQuestionAction extends Action {
 			// Add attributes of error message
 			supprimerQuestionActionLogger.info("erreur: "+e);
 		}
+		return mapping.findForward("succes");
 	}
 }

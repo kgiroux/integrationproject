@@ -20,40 +20,42 @@ import fr.esigelec.quiz.util.AndroidHelper;
  */
 
 
-public class AndroidConnexionPersonneAction extends Action {
+public class AndroidInscriptionPersonneAction extends Action{
+	
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-			
 			if("GET".equals(request.getMethod())){
 				JSONObject json = AndroidHelper.DoGetForbiddenException();
 				request.setAttribute("json", json.toString());
-				return mapping.findForward("succes");
-		
+				return mapping.findForward("error");
 			}else if("POST".equals(request.getMethod())){
 			
-				String mail = request.getParameter("mail");
-				String mdp = request.getParameter("mdp");
-				JSONObject json = new JSONObject();
+				Personne p = new Personne();
+				p.setMail(request.getParameter("mail"));
+				p.setMdp(request.getParameter("mdp"));
+				// Only a simple user
+				p.setDroits(Personne.JOUEUR);
+				p.setNom(request.getParameter("nom"));
+				p.setPrenom(request.getParameter("prenom"));
+				
+				
+				// Need DAO ACtion for subscription
 				IPersonneDAO personneDAO = new PersonneDAOImpl();
-				if (mail != null && mdp != null) {
-					Personne p = personneDAO.getPersonne(mail);
-					// check login
-					// user not found
-					if (p == null) {
-						json = AndroidHelper.UserNotFoundException();
-					// password incorrect
-					} else if (!mdp.equals(p.getMdp())) {
-						json = AndroidHelper.PassIncorrectException();
-					} else {
-						p.setMail("");
-						p.setMdp("");
-						json = new JSONObject(p);
-					}
-				} else {
-					json = AndroidHelper.MissingArgException();
+				personneDAO.createPersonne(p);
+				// Validation
+				
+				p.setMail("");
+				p.setMdp("");
+				
+				if(p.getId() == 0){
+					JSONObject json = AndroidHelper.DatabaseInsertFail();
+					request.setAttribute("json", json.toString());
+					return mapping.findForward("error");
 				}
+				JSONObject json = new JSONObject(p);
+				
 				request.setAttribute("json",json.toString());
 				return mapping.findForward("succes");
 			}else{

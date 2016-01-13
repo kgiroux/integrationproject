@@ -8,6 +8,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+/**
+ * @author Kévin Giroux;
+ * 
+ */
+
+
 public class AndroidQuizListAction extends Action{
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,

@@ -43,6 +43,10 @@ public class Proposition {
 		super();
 		this.libelle = libelle;
 	}
+	
+	public Proposition(String libelle) {
+		this.libelle = libelle;
+	}
 
 	/**
 	 * Constructeur par recopie

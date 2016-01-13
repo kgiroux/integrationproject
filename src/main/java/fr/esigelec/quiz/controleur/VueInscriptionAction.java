@@ -13,7 +13,9 @@ public class VueInscriptionAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
 		// TODO: implement here
+		
 		return mapping.findForward("succes");
 	}
 }

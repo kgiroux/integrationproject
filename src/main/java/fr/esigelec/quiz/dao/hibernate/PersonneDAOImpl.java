@@ -13,6 +13,7 @@ package fr.esigelec.quiz.dao.hibernate;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import fr.esigelec.quiz.dao.IPersonneDAO;
 import fr.esigelec.quiz.dto.Personne; 
@@ -43,6 +44,23 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Personne retour = (Personne) session.get(Personne.class, id);
+		session.getTransaction().commit();
+		session.close();
+		return retour;
+	}
+	
+	/**
+	 * M�thode : getPersonne
+	 * @param id
+	 * @return une personne � partir d'un id
+	 */
+	@Override
+	public Personne getPersonne(String mail) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Personne retour = (Personne) session.createCriteria(Personne.class)
+				.add(Restrictions.eq("mail", mail))
+				.uniqueResult();
 		session.getTransaction().commit();
 		session.close();
 		return retour;

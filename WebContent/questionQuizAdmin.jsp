@@ -63,7 +63,7 @@
 			</script>
 			<a href="AjouterQuiz.do"><button onClick="getAttributes()" class="btn btn-primary">Créer</button></a>
    
-   <a href="VueQuizAdmin"><button class="btn btn-primary">Annuler</button></a>
+   <a href="VueQuizAdmin.do"><button class="btn btn-primary">Annuler</button></a>
    <hr>
   </div>
 		  

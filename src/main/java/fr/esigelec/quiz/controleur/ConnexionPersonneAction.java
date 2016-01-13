@@ -2,6 +2,7 @@ package fr.esigelec.quiz.controleur;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -24,11 +25,13 @@ public class ConnexionPersonneAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
+		final Logger logger = Logger.getLogger(ConnexionPersonneAction.class);
+		
 		String mail = request.getParameter("mail");
 		String mdp = SecurityHelper.MD5(request.getParameter("mdp"));
 		
 		//FAIRE TRANSFORMATION EN MD5
-		
+			
 		//CHECK MAIL/MDP
 		
 		IPersonneDAO personneDAO = new PersonneDAOImpl();
@@ -36,17 +39,19 @@ public class ConnexionPersonneAction extends Action {
 		List<Quiz> listeQuiz = quizDAO.listQuiz();
 		Personne personne = personneDAO.getPersonne(mail);
 		
-		if( personne != null 
-			&& mail.equals(personne.getMail()) 
-			&& mdp.equals(personne.getMdp())) {
-			
-			
+		if( personne == null ) {
+			logger.error("Utilisateur inexistant");
+			return mapping.findForward("erreur");
+		}
+		else if(!mdp.equals(personne.getMdp())) {
+			logger.error("Utilisateur existant mais mot de passe incorrect");
+			return mapping.findForward("erreur");
+		}
+		else {
+			logger.info("Connexion réussie");
 			request.setAttribute("listeQuiz", listeQuiz);
 			request.setAttribute("personne", personne);
 			return mapping.findForward("succes");
-		}
-		else {
-			return mapping.findForward("erreur");
 		}
 	}
 }

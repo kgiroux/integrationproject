@@ -9,9 +9,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.dao.IQuestionDAO;
 import fr.esigelec.quiz.dao.IQuizDAO;
+import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Question;
 /**
  * 
  * @author Vincent Marion & Damien Bellenger
@@ -28,14 +31,14 @@ public class EditerQuestionAction extends Action {
 			// Get parameters and sessions
 			Personne p = (Personne) request.getSession().getAttribute("personne");
 			int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
-			String libelle = request.getSession().getParameter("libelle");
+			String libelle = request.getParameter("libelle");
 			
 			if (p.getDroits() == Personne.ADMIN) {
 				if(!libelle.equals("")){
 					IQuestionDAO questionDAO = new QuestionDAOImpl();
 					Question question = questionDAO.getQuestion(idQuestion);
 					question.setLibelle(libelle);
-					questionDAO.update(question);
+					questionDAO.updateQuestion(question);
 					return mapping.findForward("succes"); // questionsQuizzAdmin.jsp 
 				}
 				else return mapping.findForward("erreur"); // questionsQuizzAdmin.jsp

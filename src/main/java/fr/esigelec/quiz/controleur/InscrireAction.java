@@ -15,8 +15,10 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.forms.InscrireForm;
 import fr.esigelec.quiz.util.SecurityHelper;
 
-/*
- * There'e several errors now, because no DTO and DAO.
+/**
+ * InscrireAction
+ * @author Wenfeng
+ *
  */
 public class InscrireAction extends Action {
 	private static final Logger inscrireActionLogger = Logger.getLogger(InscrireAction.class);

@@ -21,12 +21,13 @@ import fr.esigelec.quiz.dto.Question;
 public class PropositionDAOImpl implements IPropositionDAO {
 
 	@Override
-	public void createProposition(Proposition p) {
+	public boolean createProposition(Proposition p) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(p);
 		session.getTransaction().commit();
 		session.close();
+		return (p.getId() != 0);
 	}
 
 	@Override
@@ -60,20 +61,23 @@ public class PropositionDAOImpl implements IPropositionDAO {
 	}
 
 	@Override
-	public void updateProposition(Proposition p) {
+	public boolean updateProposition(Proposition p) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(p);
+		Proposition newPro = getProposition(p.getId());
 		session.getTransaction().commit();
 		session.close();
+		return (p.equals(newPro));
 	}
 
 	@Override
-	public void deleteProposition(Proposition p) {
+	public boolean deleteProposition(Proposition p) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(p);
 		session.getTransaction().commit();
 		session.close();
+		return (p == null);
 	}
 }

@@ -17,6 +17,11 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
+/**
+ * AjouterQuizAction
+ * @author Wenfeng
+ *
+ */
 public class AjouterQuizAction extends Action {
 	private final Logger actionQuizActionLogger = Logger.getLogger(AjouterQuizAction.class);
 	
@@ -27,7 +32,7 @@ public class AjouterQuizAction extends Action {
 			// Get parameters and sessions
 			Personne p = (Personne) request.getSession().getAttribute("personne");
 			String libelleQuiz = request.getParameter("libelleQuiz");
-			List<Question> questions = (List<Question>) request.getAttribute("listeQuestions");
+			List<Question> questions = (List<Question>) request.getAttribute("listeQuestionsQuiz");
 			
 			if (p.getDroits() == Personne.ADMIN) {
 				// Create quiz

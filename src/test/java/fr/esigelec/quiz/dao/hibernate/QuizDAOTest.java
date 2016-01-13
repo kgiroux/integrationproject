@@ -20,8 +20,7 @@ public class QuizDAOTest {
 	@Test
 	public void testCreateQuiz() {
 		@SuppressWarnings("deprecation")
-		Quiz q = new Quiz("Quiz Test", new Timestamp(2016, 01, 11, 22, 55, 0, 0), new Timestamp(2016, 01, 11, 23, 05, 0, 0), new Timestamp(2016, 01, 11, 22, 05, 0, 0),
-				3, 3);
+		Quiz q = new Quiz("Quiz Test",3, 3);
 		
 		List<Quiz> listQ = qdao.listQuiz();
 		

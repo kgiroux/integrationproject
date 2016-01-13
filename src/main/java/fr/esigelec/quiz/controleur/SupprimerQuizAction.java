@@ -13,6 +13,11 @@ import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 
+/**
+ * SupprimerQuizAction
+ * @author Wenfeng
+ *
+ */
 public class SupprimerQuizAction extends Action {
 	private static final Logger supprimerQuizActionLogger = Logger.getLogger(SupprimerQuizAction.class);
 	

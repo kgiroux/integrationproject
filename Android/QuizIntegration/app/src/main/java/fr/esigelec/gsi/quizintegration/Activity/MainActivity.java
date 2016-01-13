@@ -29,6 +29,8 @@ import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
+import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
+import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 
@@ -230,27 +232,31 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					isMdpValid = false;
 				}
 
-
 				pers.setMail(loginValue);
 				pers.setMdp(passwordValue);
-
-				if(DEV){
-					isMdpValid = true;
-					isEmailValid = true;
-				}
 
 				try
 				{
 					JSONObject perJson = new AndroidHTTPRequest().execute(IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
-					Toast.makeText(getApplicationContext(),perJson.toString(),Toast.LENGTH_LONG).show();
-					pers.JSONObjectToPersonne(perJson);
-					Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
-
-				}catch(Exception ex)
+					if(perJson.has("err_code")){
+						int err_code = perJson.getInt("err_code");
+						ErrorManager error = SingletonErrorManager.getInstance().getError();
+                        String errorText = error.errorManager(err_code);
+						Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
+						isMdpValid = false;
+						isEmailValid = false;
+					}else{
+						pers.JSONObjectToPersonne(perJson);
+						Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
+					}
+				}
+				catch(Exception ex)
 				{
 					Log.e("ERROR",ex.getMessage());
 					TextView tv = (TextView) dialog.findViewById(R.id.errorText);
 					tv.setText(getString(R.string.error_connection));
+                    isEmailValid = false;
+                    isMdpValid = false;
 				}
 
 				if(isEmailValid && isMdpValid){

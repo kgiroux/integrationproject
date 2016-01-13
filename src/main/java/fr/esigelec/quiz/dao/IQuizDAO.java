@@ -44,6 +44,12 @@ public interface IQuizDAO {
 	public List<Quiz> getListQuizPublie(int status);
 	
 	/**
+	 * m�thode : getListQuizFinish
+	 * @return all the quizs finished
+	 */
+	public List<Quiz> getListQuizFinish();
+	
+	/**
 	 * m�thode : listQuestion
 	 * @return all the questions
 	 */

@@ -1,5 +1,11 @@
 package fr.esigelec.quiz.controleur.android;
 
+/**
+ * @author Kévin Giroux;
+ * 
+ */
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

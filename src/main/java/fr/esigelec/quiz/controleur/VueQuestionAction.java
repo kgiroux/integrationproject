@@ -1,7 +1,12 @@
+/**
+ * @author Rodolphe AGUIDISSOU - ESIGELEC 2016
+ */
 package fr.esigelec.quiz.controleur;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -15,12 +20,8 @@ public class VueQuestionAction extends Action {
 			throws Exception {
 
 		//TODO : Action Question View  implementation 
-		
-		
-		
-		
-		
-		return null;
+	
+		return mapping.findForward("succes");
 		
 	}
 

@@ -1,7 +1,12 @@
 package fr.esigelec.quiz.dto;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+
+import fr.esigelec.quiz.util.SetToListConverter;
 
 
 /**Projet d'integration
@@ -56,7 +61,8 @@ public class Quiz {
 	 */
 	private int etape;
 	
-	private List<Question> listeQuestions = new LinkedList<Question>();
+	//private List<Question> listeQuestions = new LinkedList<Question>();
+	private Set<Question> questions = new HashSet<Question>();
 
 
 	/*Constructeurs*/
@@ -231,6 +237,16 @@ public class Quiz {
 		this.listeQuestions = listeQuestions;
 	}*/
 
+
+	public List<Question> getListeQuestions() {
+		// TODO: changer to fr.esigelec.quiz.util.SetToListConverter
+		return new ArrayList<Question>(questions);
+	}
+	
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -264,22 +280,33 @@ public class Quiz {
 				return false;
 		} else if (!libelle.equals(other.libelle))
 			return false;
-		if (listeQuestions == null) {
-			if (other.listeQuestions != null)
-				return false;
-		} else if (!listeQuestions.equals(other.listeQuestions))
-			return false;
 		if (noQuestionCourante != other.noQuestionCourante)
+			return false;
+		if (questions == null) {
+			if (other.questions != null)
+				return false;
+		} else if (!questions.equals(other.questions))
 			return false;
 		return true;
 	}
 
-	public List<Question> getListeQuestions() {
-		return listeQuestions;
+	public void setListeQuestions(List<Question> listeQuestions) {
+		this.questions = new HashSet<Question>(listeQuestions);
+	}
+	
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
 	}
 
-	public void setListeQuestions(List<Question> listeQuestions) {
-		this.listeQuestions = listeQuestions;
+	@Override
+	public String toString() {
+		return "Quiz [id=" + id + ", libelle=" + libelle + ", dateDebutQuiz="
+				+ dateDebutQuiz + ", dateFinQuiz=" + dateFinQuiz
+				+ ", noQuestionCourante=" + noQuestionCourante
+				+ ", dateDebutQuestion=" + dateDebutQuestion + ", etape="
+				+ etape + ", questions=" + questions + "]";
 	}
+	
+	
 }
 

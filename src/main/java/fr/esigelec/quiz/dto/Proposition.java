@@ -22,7 +22,8 @@ public class Proposition {
 	 */
 	private String libelle; 
 
-	private Question question;
+	//private Question question;
+	private int idQuestion;
 	
 	/*Constructeurs*/
 
@@ -43,11 +44,15 @@ public class Proposition {
 	public Proposition(String libelle, Question question) {
 		super();
 		this.id = 0;
-		this.question = question;
+		//this.question = question;
+		this.idQuestion = question.getId();
 		this.libelle = libelle;
 	}
 	
-	
+	public Proposition(String libelle) {
+		this.libelle = libelle;
+		this.id = 0;
+	}
 
 	/**
 	 * Constructeur par recopie
@@ -98,16 +103,32 @@ public class Proposition {
 	 * @return the id of the question
 	 */
 	
-	public Question getquestion() {
-		return question;
+//	public Question getquestion() {
+//		return question;
+//	}
+	public int getIdQuestion() {
+		return idQuestion;
 	}
 	
 	/**
 	 * methode setIdQuestion
 	 * @param the id to set
 	 */
+//	public void setIdQuestion(Question question) {
+//		this.question = question;
+//	}
+	
 	public void setIdQuestion(Question question) {
-		this.question = question;
+		this.idQuestion = question.getId();
+	}
+	public void setIdQuestion(int idQuestion) {
+		this.idQuestion = idQuestion;
+	}
+
+	@Override
+	public String toString() {
+		return "Proposition [id=" + id + ", libelle=" + libelle + ", idQuestion="
+				+ idQuestion + "]";
 	}
 
 }

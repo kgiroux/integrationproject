@@ -1,7 +1,10 @@
 package fr.esigelec.quiz.dto;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**Projet d'integration
@@ -33,7 +36,8 @@ public class Question {
 	/**
 	 * liste des propositions de r�ponse � la question
 	 */
-	private List<Proposition> listePropositions;
+	//private List<Proposition> listePropositions;
+	private Set<Proposition> propositions = new HashSet<Proposition>();
 
 	/*Constructeurs*/
 
@@ -44,7 +48,8 @@ public class Question {
 	public Question() {
 		this.id = 0;
 		this.libelle = "";
-		this.listePropositions = null;
+		//this.listePropositions = null;
+		propositions = new HashSet<Proposition>();
 	}
 
 
@@ -59,7 +64,13 @@ public class Question {
 	public Question(String libelle, Proposition bonneReponse, List<Proposition> list) {
 		this.libelle = libelle;
 		this.bonneReponse = bonneReponse;
-		this.listePropositions = list;
+		this.propositions = new HashSet<Proposition>(list);
+	}
+	
+	public Question(String libelle, Proposition bonneReponse, Set<Proposition> set) {
+		this.libelle = libelle;
+		this.bonneReponse = bonneReponse;
+		this.propositions = set;
 	}
 
 
@@ -71,7 +82,7 @@ public class Question {
 		this.id = q.id;
 		this.libelle = q.libelle;
 		this.bonneReponse = q.bonneReponse;
-		this.listePropositions = q.listePropositions;
+		this.propositions = q.propositions;
 	}
 
 	/*Getters et setters*/
@@ -125,11 +136,18 @@ public class Question {
 	}
 
 	public List<Proposition> getListePropositions() {
-		return listePropositions;
+		return new ArrayList<Proposition>(propositions);
+	}
+	public Set<Proposition> getPropositions() {	
+		return propositions;
 	}
 
 	public void setListePropositions(List<Proposition> listePropositions) {
-		this.listePropositions = listePropositions;
+		this.propositions = new HashSet<Proposition> (listePropositions);
+	}
+	
+	public void setPropositions(Set<Proposition> propositions) {
+		this.propositions = propositions;
 	}
 
 	@Override
@@ -153,12 +171,22 @@ public class Question {
 				return false;
 		} else if (!libelle.equals(other.libelle))
 			return false;
-		if (listePropositions == null) {
-			if (other.listePropositions != null)
+		if (propositions == null) {
+			if (other.propositions != null)
 				return false;
-		} else if (!listePropositions.equals(other.listePropositions))
+		} else if (!propositions.equals(other.propositions))
 			return false;
 		return true;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", libelle=" + libelle
+				+ ", bonneReponse=" + bonneReponse + ", propositions="
+				+ propositions + "]";
+	}
+	
+	
 }
 

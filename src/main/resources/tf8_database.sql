@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 5.5.42, for osx10.6 (i386)
 --
--- Host: 193.52.189.17    Database: ir2016
+-- Host: localhost    Database: ir2016_v2
 -- ------------------------------------------------------
--- Server version	5.1.73-0ubuntu0.10.04.1
+-- Server version   5.5.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -86,9 +86,8 @@ CREATE TABLE `proposition` (
   `libelle` varchar(255) NOT NULL,
   `idQuestion` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `idQuestion` (`idQuestion`),
-  CONSTRAINT `fk_id_question` FOREIGN KEY (`idQuestion`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  KEY `idQuestion` (`idQuestion`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +96,7 @@ CREATE TABLE `proposition` (
 
 LOCK TABLES `proposition` WRITE;
 /*!40000 ALTER TABLE `proposition` DISABLE KEYS */;
+INSERT INTO `proposition` VALUES (3,'Java EE',2),(4,'PHP EE',2),(5,'Jyphon EE',2),(6,'Json EE',2);
 /*!40000 ALTER TABLE `proposition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -110,11 +110,10 @@ DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `libelle` varchar(255) NOT NULL,
-  `idBonneReponse` int(11) NOT NULL,
+  `idBonneReponse` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `idBonneReponse` (`idBonneReponse`),
-  CONSTRAINT `fk_idBonneReponse` FOREIGN KEY (`idBonneReponse`) REFERENCES `proposition` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  KEY `idBonneReponse` (`idBonneReponse`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,6 +122,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
+INSERT INTO `question` VALUES (2,'JEE',3);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,7 +142,7 @@ CREATE TABLE `quiz` (
   `dateDebutQuestion` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `etape` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +151,7 @@ CREATE TABLE `quiz` (
 
 LOCK TABLES `quiz` WRITE;
 /*!40000 ALTER TABLE `quiz` DISABLE KEYS */;
-INSERT INTO `quiz` VALUES (1,'','2016-01-13 15:58:41','2016-01-13 15:58:41',0,'2016-01-13 15:58:41',0);
+INSERT INTO `quiz` VALUES (1,'','2016-01-13 15:58:41','2016-01-13 15:58:41',0,'2016-01-13 15:58:41',0),(2,'Quiz test','2016-01-13 17:46:56','2016-01-13 17:46:56',0,'2016-01-13 17:46:56',0),(3,'Quiz test','2016-01-13 18:04:54','2016-01-13 18:04:54',0,'2016-01-13 18:04:54',0),(4,'Quiz test','2016-01-13 18:07:06','2016-01-13 18:07:06',0,'2016-01-13 18:07:06',0),(5,'Quiz test','2016-01-13 18:11:53','2016-01-13 18:11:53',0,'2016-01-13 18:11:53',0),(6,'Quiz test','2016-01-13 18:13:09','2016-01-13 18:13:09',0,'2016-01-13 18:13:09',0),(7,'Quiz test','2016-01-13 18:14:37','2016-01-13 18:14:37',0,'2016-01-13 18:14:37',0),(8,'Quiz test','2016-01-13 18:15:40','2016-01-13 18:15:40',0,'2016-01-13 18:15:40',0),(9,'Quiz test','2016-01-13 18:22:23','2016-01-13 18:22:23',0,'2016-01-13 18:22:23',0),(10,'Quiz test','2016-01-13 18:26:32','2016-01-13 18:26:32',0,'2016-01-13 18:26:32',0),(11,'Quiz test','2016-01-13 18:27:19','2016-01-13 18:27:19',0,'2016-01-13 18:27:19',0),(12,'Quiz test','2016-01-13 18:29:14','2016-01-13 18:29:14',0,'2016-01-13 18:29:14',0),(13,'Quiz test','2016-01-13 18:30:25','2016-01-13 18:30:25',0,'2016-01-13 18:30:25',0),(14,'Quiz test','2016-01-13 18:31:41','2016-01-13 18:31:41',0,'2016-01-13 18:31:41',0),(15,'Quiz test','2016-01-13 18:32:25','2016-01-13 18:32:25',0,'2016-01-13 18:32:25',0),(16,'Quiz test','2016-01-13 18:33:09','2016-01-13 18:33:09',0,'2016-01-13 18:33:09',0),(17,'Quiz test','2016-01-13 18:34:49','2016-01-13 18:34:49',0,'2016-01-13 18:34:49',0),(18,'Quiz test','2016-01-13 18:47:41','2016-01-13 18:47:41',0,'2016-01-13 18:47:41',0),(19,'Quiz test','2016-01-13 18:49:04','2016-01-13 18:49:04',0,'2016-01-13 18:49:04',0),(20,'Quiz test','2016-01-13 18:51:26','2016-01-13 18:51:26',0,'2016-01-13 18:51:26',0),(21,'Quiz test','2016-01-13 18:53:32','2016-01-13 18:53:32',0,'2016-01-13 18:53:32',0),(22,'Quiz test','2016-01-13 18:54:31','2016-01-13 18:54:31',0,'2016-01-13 18:54:31',0),(23,'Quiz test','2016-01-13 18:59:47','2016-01-13 18:59:47',0,'2016-01-13 18:59:47',0),(24,'Quiz test','2016-01-13 19:00:57','2016-01-13 19:00:57',0,'2016-01-13 19:00:57',0),(25,'Quiz test','2016-01-13 19:02:21','2016-01-13 19:02:21',0,'2016-01-13 19:02:21',0);
 /*!40000 ALTER TABLE `quiz` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,6 +178,7 @@ CREATE TABLE `quiz_question` (
 
 LOCK TABLES `quiz_question` WRITE;
 /*!40000 ALTER TABLE `quiz_question` DISABLE KEYS */;
+INSERT INTO `quiz_question` VALUES (4,2);
 /*!40000 ALTER TABLE `quiz_question` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -190,4 +191,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-01-13 17:52:46
+-- Dump completed on 2016-01-14  2:37:51

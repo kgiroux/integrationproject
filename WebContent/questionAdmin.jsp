@@ -15,7 +15,7 @@
 <body>
 	<h1>Ajouter une question</h1>
 	<hr>
-		<form class="container form-horizontal contform" method="post" action="<%=request.getContextPath()%>/EnregistrerQuestion.do">
+		<form class="container form-horizontal contform" method="post" action="EnregistrerQuestion">
 			<br>
 			<fieldset>
 				<div class="form-group">
@@ -57,25 +57,25 @@
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="p5">Proposition 5 : </label>  
 				  <div class="col-md-8">
-				  <input id="p5" name="p5" placeholder="proposition 5" class="form-control input-md" required="" type="text">    
+				  <input id="p5" name="p5" placeholder="proposition 5" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="p6">Proposition 6 : </label>  
 				  <div class="col-md-8">
-				  <input id="p6" name="p6" placeholder="proposition 6" class="form-control input-md" required="" type="text">    
+				  <input id="p6" name="p6" placeholder="proposition 6" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="p7">Proposition 7 : </label>  
 				  <div class="col-md-8">
-				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" required="" type="text">    
+				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="p7">Proposition 8 : </label>  
 				  <div class="col-md-8">
-				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" required="" type="text">    
+				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
@@ -83,7 +83,7 @@
 				  <div class="col-md-6">
 				    <button type="submit" class="btn btn-primary">Ajouter</button>
 				    <button type="reset" class="btn btn-primary">Rétablir</button>
-				    <a href="/quiz/questionQuizAdmin.jsp"><button type="button" class="btn btn-primary">Annuler</button></a>
+				    <a href="VueQuestionQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
 				  </div>
 				</div>
 				<hr>

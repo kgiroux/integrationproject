@@ -1,95 +1,115 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+import java.util.LinkedList;
+
 /**Projet d'integration
  * Le jeu de TF8
- * @author GSI-IR
- * Farid CHOUAKRIA et DELAUNAY BRICE
+ * GSI-IR
+ * @author Ghyslaine BOSSO BOSSO
+ * @author NGANE Pascale
+ * @author DELAUNAY Brice
+ * @author Farid CHOUAKRIA 
  * Classe QuizDAOImpl
  * Impl�mentation des m�thodes de l'interface QuizDAO
  * pour les liens avec la base de donn�es
  * */
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuizDAO;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
  
 public class QuizDAOImpl implements IQuizDAO{
 
-	
-	/**
-	 * m�thode : createQuiz
-	 * @param  q the quiz to create
-	 */
-	@Override
-	public void createQuiz(Quiz q) {
-		Session session= HibernateUtil.getSessionFactory().openSession();
+	public boolean createQuiz(Quiz q) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(q);
 		session.getTransaction().commit();
 		session.close();
+		return (q.getId() != 0);
 	}
 
-	
-	/**
-	 * m�thode : getQuiz
-	 * @param  id the id of the quiz we want
-	 * @return the quiz
-	 */
-	@Override
 	public Quiz getQuiz(int id) {
-		Session session= HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Quiz quiz=(Quiz)session.get(Quiz.class,id);
+		Quiz quiz = (Quiz)session.get(Quiz.class, id);
 		session.getTransaction().commit();
 		session.close();
 		return quiz;
 	}
 
-	
-	/**
-	 * m�thode : listQuiz
-	 * @return all the quizs
-	 */
-	@Override
 	public List<Quiz> listQuiz() {
-		Session session= HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query=session.createQuery("from Quiz");
-		List<Quiz> listeQuizs=query.list();
+		Query query = session.createQuery("FROM quiz");
+		List<Quiz> retour = query.list();
 		session.getTransaction().commit();
 		session.close();
-		return listeQuizs;
+		return retour;
 	}
 
+	public List<Quiz> getListQuizPublie(int status){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("FROM Quiz WHERE dateDebutQuiz is not null");
+		Set<Quiz> listeQuiz = (Set<Quiz>) query.list();
+		List<Quiz> retour = new LinkedList(listeQuiz);
+		session.getTransaction().commit();
+		session.close();
+		return retour;
+	}
 	
-	/**
-	 * m�thode : updateQuiz
-	 * @param  q the quiz which should be updated
-	 */
-	@Override
-	public void updateQuiz(Quiz q) {  
+	public List<Quiz> getListQuizFinish(){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("FROM Quiz WHERE dateFinQuiz is not null");
+		Set<Quiz> listeQuiz = (Set<Quiz>) query.list();
+		List<Quiz> retour = new LinkedList(listeQuiz);
+		session.getTransaction().commit();
+		session.close();
+		return retour;
+	}
+	
+	public List<Question> listQuestionQuiz(int idQuiz){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<Question> retour  = getQuiz(idQuiz).getListeQuestions();
+		session.getTransaction().commit();
+		session.close();
+		return retour;
+	}
+
+	public int getNbQuestionParQuiz(int idQuiz){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Set<Question> listeQuestions = (Set<Question>) listQuestionQuiz(idQuiz);
+		session.getTransaction().commit();
+		session.close();
+		return listeQuestions.size();
+	}
+	
+	public boolean updateQuiz(Quiz q) {  
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(q);
 		session.getTransaction().commit();
 		session.close();
+		Quiz newQuiz = getQuiz(q.getId());
+		return (newQuiz.equals(q));
 	}
 
-	
-	/**
-	 * m�thode : deleteQuiz
-	 * @param  q the quiz to delete
-	 */
 	@Override
-	public void deleteQuiz(Quiz q) {
+	public boolean deleteQuiz(Quiz q) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(q);
 		session.getTransaction().commit();
 		session.close();
+		return (q == null);
 	}
-
 }

@@ -1,15 +1,19 @@
-package fr.esigelec.quiz.exception;
+package fr.esigelec.quiz.util;
 
 import org.json.JSONObject;
 
 public class AndroidHelper {
-
+	// KEY
 	private static final String KEY_ERR_CODE = "err_code";
 	private static final String KEY_ERR_MSG = "err_msg";
+	
+	// ERROR CODE
 	private static final int DO_GET_FORBIDDEN = 1;
 	private static final int USER_NOT_FOUND = 2;
 	private static final int PASS_INCORRECT = 3;
 	private static final int MISSING_ARG = 4;
+	private static final int DB_INSERT_FAIL = 5;
+	private static final int QUIZ_NOT_FOUND = 6;
 	
 	public static JSONObject DoGetForbiddenException() {
 		JSONObject json = new JSONObject();
@@ -38,4 +42,20 @@ public class AndroidHelper {
 		json.put(KEY_ERR_MSG, "Argument(s) missing. We didn't get enough arguments (parameters) to complete your request.");
 		return json;
 	}
+	
+	public static JSONObject DatabaseInsertFail(){
+		JSONObject json = new JSONObject();
+		json.put(KEY_ERR_CODE,DB_INSERT_FAIL);
+		json.put(KEY_ERR_MSG, "Fail to insert data into database");
+		return json;
+	}
+	
+	public static JSONObject QuizNotFoundExeception(){
+		JSONObject json = new JSONObject();
+		json.put(KEY_ERR_CODE,QUIZ_NOT_FOUND);
+		json.put(KEY_ERR_MSG, "Quizz not found.");
+		return json;
+	}
+	
+	
 }

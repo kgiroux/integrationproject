@@ -3,14 +3,19 @@ package fr.esigelec.quiz.dto;
 
 /**Projet d'integration
  * Le jeu de TF8
- * @author GSI-IR
- * BOSSO BOSSO Ghyslaine and NGANE Pascale
+ * GSI-IR
+ * @author BOSSO BOSSO Ghyslaine
+ * @author  CHOUAKRIA Farid
+ * @author DELAUNAY Brice
+ * @author NGANE Pascale
  * Classe Personne
  * */
 
 public class Personne {
 
-	//Attributs de la classe Personne
+	
+
+	/**Attributs de la classe Personne
 	/**
 	 * id de la personne
 	 */
@@ -32,7 +37,7 @@ public class Personne {
 	 */
 	private String mdp;
 	/**
-	 * droits d'accï¿½s de la personne
+	 * droits d'acces de la personne
 	 * 0 --> Joueur
 	 * 1000 --> Admin
 	 */
@@ -45,7 +50,7 @@ public class Personne {
 	//Mï¿½thodes de la classe Personne
 
 	/**
-	 * Constructeur sans paramï¿½tres
+	 * Constructeur sans parametres
 	 */
 	public Personne() {}
 	
@@ -176,10 +181,57 @@ public class Personne {
 		this.droits = droits;
 	}
 	
+	/**
+	 * Methode toString()
+	 * Prints the details of the personne
+	 */
 	@Override
 	public String toString() {
 		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom
 				+ ", mail=" + mail + ", mdp=" + mdp + ", droits=" + droits
 				+ "]";
 	}
+
+	/**
+	 * Méthode equals
+	 * pour comparer deux objets de type Peronne
+	 * @return true si le sobjets sont égaux
+	 * @return false sinon
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Personne other = (Personne) obj;
+		if (droits != other.droits)
+			return false;
+		if (id != other.id)
+			return false;
+		if (mail == null) {
+			if (other.mail != null)
+				return false;
+		} else if (!mail.equals(other.mail))
+			return false;
+		if (mdp == null) {
+			if (other.mdp != null)
+				return false;
+		} else if (!mdp.equals(other.mdp))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		return true;
+	}
 }
+

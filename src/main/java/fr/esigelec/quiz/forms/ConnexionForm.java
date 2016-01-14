@@ -20,11 +20,11 @@ public class ConnexionForm extends ActionForm {
 		this.mail = mail;
 	}
 	
-	public String getPrenom() {
+	public String getPassword() {
 		return password;
 	}
 	
-	public void setPrenom(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	
@@ -39,9 +39,9 @@ public class ConnexionForm extends ActionForm {
 	
 		
 		if("".equals(mail))
-				errors.add("erreur.nom", new ActionMessage("erreur.nom.vide"));
+				errors.add("erreur.mail", new ActionMessage("erreur.connexion.mail.vide"));
 		if("".equals(password))
-				errors.add("erreur.prenom", new ActionMessage("erreur.prenom.vide"));
+				errors.add("erreur.password", new ActionMessage("erreur.connexion.mdp.vide"));
 		
 		return errors;
 	}

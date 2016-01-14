@@ -1,6 +1,5 @@
 package fr.esigelec.quiz.dto;
 
-
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
@@ -11,7 +10,7 @@ package fr.esigelec.quiz.dto;
 public class Proposition {
 
 
-	/*Attributs de la classe Proposition*/
+	/**Attributs de la classe Proposition*/
 
 	/**
 	 * identifiant de la proposition
@@ -23,7 +22,8 @@ public class Proposition {
 	 */
 	private String libelle; 
 
-	private Question idQuestion;
+	//private Question question;
+	private int idQuestion;
 	
 	/*Constructeurs*/
 
@@ -32,6 +32,8 @@ public class Proposition {
 	 */
 	public Proposition() {
 		super();
+		this.id = 0;
+		this.libelle = "";
 	}
 
 	/**
@@ -39,13 +41,17 @@ public class Proposition {
 	 * @param id
 	 * @param libelle
 	 */
-	public Proposition( String libelle, int idQuestion) {
+	public Proposition(String libelle, Question question) {
 		super();
+		this.id = 0;
+		//this.question = question;
+		this.idQuestion = question.getId();
 		this.libelle = libelle;
 	}
 	
 	public Proposition(String libelle) {
 		this.libelle = libelle;
+		this.id = 0;
 	}
 
 	/**
@@ -92,12 +98,37 @@ public class Proposition {
 		this.libelle = libelle;
 	}
 
-	public Question getIdQuestion() {
+	/**
+	 * methode getQIdQUestion
+	 * @return the id of the question
+	 */
+	
+//	public Question getquestion() {
+//		return question;
+//	}
+	public int getIdQuestion() {
 		return idQuestion;
 	}
-
-	public void setIdQuestion(Question idQuestion) {
+	
+	/**
+	 * methode setIdQuestion
+	 * @param the id to set
+	 */
+//	public void setIdQuestion(Question question) {
+//		this.question = question;
+//	}
+	
+	public void setIdQuestion(Question question) {
+		this.idQuestion = question.getId();
+	}
+	public void setIdQuestion(int idQuestion) {
 		this.idQuestion = idQuestion;
+	}
+
+	@Override
+	public String toString() {
+		return "Proposition [id=" + id + ", libelle=" + libelle + ", idQuestion="
+				+ idQuestion + "]";
 	}
 
 }

@@ -13,6 +13,11 @@ import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 
+/**
+ * SupprimerQuizAction
+ * @author Wenfeng
+ *
+ */
 public class SupprimerQuizAction extends Action {
 	private static final Logger supprimerQuizActionLogger = Logger.getLogger(SupprimerQuizAction.class);
 	
@@ -28,9 +33,9 @@ public class SupprimerQuizAction extends Action {
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuizDAO quizDAO = new QuizDAOImpl();
 				quizDAO.deleteQuiz(quizDAO.getQuiz(idQuiz));
-				return mapping.findForward("succes");	/* questionQuizAdmin.jsp */
+				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {
-				return mapping.findForward("login");	/* index.jsp */
+				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
 			}
 			
 		} catch (Exception e) {

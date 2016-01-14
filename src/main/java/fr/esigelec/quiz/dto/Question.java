@@ -1,7 +1,10 @@
 package fr.esigelec.quiz.dto;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**Projet d'integration
@@ -33,9 +36,8 @@ public class Question {
 	/**
 	 * liste des propositions de r�ponse � la question
 	 */
-	private List<Proposition> listePropositions;
-
-
+	//private List<Proposition> listePropositions;
+	private Set<Proposition> propositions = new HashSet<Proposition>();
 
 	/*Constructeurs*/
 
@@ -44,6 +46,10 @@ public class Question {
 	 */
 
 	public Question() {
+		this.id = 0;
+		this.libelle = "";
+		//this.listePropositions = null;
+		propositions = new HashSet<Proposition>();
 	}
 
 
@@ -58,7 +64,13 @@ public class Question {
 	public Question(String libelle, Proposition bonneReponse, List<Proposition> list) {
 		this.libelle = libelle;
 		this.bonneReponse = bonneReponse;
-		this.listePropositions = listePropositions;
+		this.propositions = new HashSet<Proposition>(list);
+	}
+	
+	public Question(String libelle, Proposition bonneReponse, Set<Proposition> set) {
+		this.libelle = libelle;
+		this.bonneReponse = bonneReponse;
+		this.propositions = set;
 	}
 
 
@@ -70,7 +82,7 @@ public class Question {
 		this.id = q.id;
 		this.libelle = q.libelle;
 		this.bonneReponse = q.bonneReponse;
-		this.listePropositions = q.listePropositions;
+		this.propositions = q.propositions;
 	}
 
 	/*Getters et setters*/
@@ -120,15 +132,61 @@ public class Question {
 	 * @param reponse the bonneReponse to set
 	 */
 	public void setBonneReponse(Proposition p) {
-		this.bonneReponse =p;
+		this.bonneReponse = p;
 	}
 
 	public List<Proposition> getListePropositions() {
-		return listePropositions;
+		return new ArrayList<Proposition>(propositions);
+	}
+	public Set<Proposition> getPropositions() {	
+		return propositions;
 	}
 
 	public void setListePropositions(List<Proposition> listePropositions) {
-		this.listePropositions = listePropositions;
+		this.propositions = new HashSet<Proposition> (listePropositions);
 	}
+	
+	public void setPropositions(Set<Proposition> propositions) {
+		this.propositions = propositions;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (bonneReponse == null) {
+			if (other.bonneReponse != null)
+				return false;
+		} else if (!bonneReponse.equals(other.bonneReponse))
+			return false;
+		if (id != other.id)
+			return false;
+		if (libelle == null) {
+			if (other.libelle != null)
+				return false;
+		} else if (!libelle.equals(other.libelle))
+			return false;
+		if (propositions == null) {
+			if (other.propositions != null)
+				return false;
+		} else if (!propositions.equals(other.propositions))
+			return false;
+		return true;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", libelle=" + libelle
+				+ ", bonneReponse=" + bonneReponse + ", propositions="
+				+ propositions + "]";
+	}
+	
+	
 }
 

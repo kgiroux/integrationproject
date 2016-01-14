@@ -10,28 +10,25 @@ package fr.esigelec.quiz.dao.hibernate;
  * */
 
 import java.util.List;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
-
 import fr.esigelec.quiz.dao.IQuestionDAO;
 import fr.esigelec.quiz.dto.Question;
-import fr.esigelec.quiz.dto.Quiz;
-
 
 public class QuestionDAOImpl implements IQuestionDAO{
-
+	
 	/**
 	 * m�thode : createQuestion
 	 * @param  q the question to create
 	 */ 
 	@Override
-	public void createQuestion(Question q) {
-		Session session= HibernateUtil.getSessionFactory().openSession();
+	public boolean createQuestion(Question q) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(q);
 		session.getTransaction().commit();
 		session.close();
+		return (q.getId() != 0);
 	}
 
 	
@@ -49,7 +46,6 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		session.close();
 		return question;
 	}
-
 	
 	/**
 	 * m�thode : listQuestion
@@ -60,24 +56,26 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query=session.createQuery("from Question");
-		List<Question> listeQuestions=query.list();
+		List<Question> listeQuestions = query.list();
 		session.getTransaction().commit();
 		session.close();
 		return listeQuestions;
 	}
 
-	
 	/**
 	 * m�thode : updateQuestion
 	 * @param  q the question which should be updated
 	 */
 	@Override
-	public void updateQuestion(Question q) {
+	public boolean updateQuestion(Question q) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(q);
+		Question newQuestion = getQuestion(q.getId());
 		session.getTransaction().commit();
 		session.close();
+		
+		return (newQuestion.equals(q));
 	}
 
 	
@@ -86,12 +84,13 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 * @param  q the question to delete
 	 */
 	@Override
-	public void deleteQuestion(Question q) {
+	public boolean deleteQuestion(Question q) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(q);
 		session.getTransaction().commit();
 		session.close();
+		
+		return (q == null);
 	}
-
 }

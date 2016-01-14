@@ -8,55 +8,68 @@ import fr.esigelec.quiz.dto.Personne;
 
 /**Projet d'integration
  * Le jeu de TF8
- * @author GSI-IR
- * BOSSO BOSSO Ghyslaine and NGANE Pascale 
- * Interface PersonneDAO
+ * GSI-IR
+ * @author BOSSO BOSSO Ghyslaine
+ * @author  CHOUAKRIA Farid
+ * @author DELAUNAY Brice
+ * @author NGANE Pascale
+ * Interface IPersonneDAO
  */
 
 public interface IPersonneDAO {
 	
-	/**
-	 * M�thode : createPersonne
-	 * Cr�e une personne dans la base de donn�es
-	 * @param p
-	 */
-	public void createPersonne(Personne p);
 	
 	/**
-	 * M�thode : getPersonne
+	 * Methode : connexion
+	 * Connexion au jeu
+	 * @param email, pwd
+	 * @return boolean
+	 */
+	public boolean connexion(String email, String pwd);
+	
+	
+	/**
+	 * Methode : createPersonne
+	 * Cree une personne dans la base de donnees
+	 * @param p
+	 */
+	public boolean createPersonne(Personne p);
+	
+	/**
+	 * Methode : getPersonne
 	 * @param id
-	 * @return une personne � partir d'un id
+	 * @return une personne a partir d'un id
 	 */
 	public Personne getPersonne(int id);
 	
 	/**
-	 * M�thode : getPersonne
+	 * Methode : getPersonne
 	 * @param email
-	 * @return une personne � partir de son mail
+	 * @return une personne a partir de son mail
 	 */
 	public Personne getPersonne(String mail);
 	
 	/**
-	 * M�thode : listPersonne
-	 * @return la liste de toutes les personnes enregistr�es dans la base de donn�es
+	 * Methode : listPersonne
+	 * @return la liste de toutes les personnes enregistrees dans la base de donnees
 	 */
 	public List<Personne> listPersonnes();
 	
 	/**
-	 * M�thode : updatePersonne
-	 * Met � jour une personne plac�e en entr�e dans la bdd
-	 * si elle a �t� enregistr�e avant
+	 * Methode : updatePersonne
+	 * Met a jour une personne placee en entree dans la bdd
+	 * si elle a ete enregistree avant
 	 * @param p
 	 */
-	public void updatePersonne(Personne p);
+	public boolean updatePersonne(Personne p);
 	
 	/**
-	 * M�thode : deletePersonne
-	 * Supprime une personne plac�e en entr�e dans la bdd
-	 * si elle est enregistr�e
+	 * Methode : deletePersonne
+	 * Supprime une personne placee en entree dans la bdd
+	 * si elle est enregistree
 	 * @param p
 	 */
-	public void deletePersonne(Personne p);
+	public boolean deletePersonne(Personne p);
 
 }
 

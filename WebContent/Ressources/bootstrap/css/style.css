@@ -6,7 +6,21 @@ body
 	background-color:#E0F8F7;
 	text-align::center;
 }
+
+.montexte { 
+margin : 10px auto auto auto; 
+} 
+/*
+*@author : TIONO KEVIN 
+*/
+table { 
+margin : 10px auto auto auto; 
+} 
 h1, th, td, button {
+	text-align:center;
+}
+.btn-center
+{
 	text-align:center;
 }
 .container 
@@ -16,6 +30,10 @@ h1, th, td, button {
 	box-shadow: 0 0 20px #555;
 	border-radius: 10px;
 }
+.contform{
+	margin:auto;
+}
+
 .form-center
 {
 	margin-top:2%;
@@ -32,18 +50,25 @@ h1, th, td, button {
 .glyphicon-play{
 	color:blue;
 }
-<<<<<<< HEAD
+/*
+*@author : TIONO KEVIN 
+*/
 .question{
 	text-align:center;
 }
+/*
+*@author : TIONO KEVIN 
+*/
 th{
 background-color:#D8D8D8;	
 }
+/*
+*@author : TIONO KEVIN 
+*/
 tr{
 
 	text-align:center;
 }
-=======
 .table-bordered>tbody>tr>td, 
 .table-bordered>tbody>tr>th, 
 .table-bordered>tfoot>tr>td, 
@@ -62,7 +87,4 @@ hr {
 .paraanimateur, .animateur{
 	text-align:center;	
 }
-.contform{
-	margin:auto;
-}
->>>>>>> 97540ab18b5c8739459bda7a9de5ddf79f9dead5
+

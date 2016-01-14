@@ -20,7 +20,7 @@ public interface IPropositionDAO {
 	 * @param  q the proposition to create
 	 */
 
-	public void createProposition(Proposition q);
+	public boolean createProposition(Proposition q);
 
 	/**
 	 * m�thode : getProposition
@@ -50,13 +50,13 @@ public interface IPropositionDAO {
 	 * @param  q the proposition which should be updated
 	 */
 
-	public void updateProposition(Proposition p); 
+	public boolean updateProposition(Proposition p); 
 
 	/**
 	 * m�thode : deleteProposition
 	 * @param  q the proposition which should be deleted
 	 */
 
-	public void deleteProposition(Proposition p); 
+	public boolean deleteProposition(Proposition p); 
 
 }

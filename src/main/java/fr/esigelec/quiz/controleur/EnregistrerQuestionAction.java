@@ -1,6 +1,7 @@
 package fr.esigelec.quiz.controleur;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -118,8 +119,8 @@ public class EnregistrerQuestionAction extends Action {
 			questionDAO.createQuestion(question);
 			quiz.getListeQuestions().add(question);
 			quizDAO.updateQuiz(quiz);
+			request.setAttribute("listeQuiz", quiz.getListeQuestions());
 		}
-		
 		
 		return mapping.findForward("succes");
 	}

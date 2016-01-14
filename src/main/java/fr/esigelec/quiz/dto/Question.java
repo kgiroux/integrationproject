@@ -14,7 +14,7 @@ import java.util.Set;
  * Classe Question
  * */
 
-public class Question {
+public class Question implements Comparable<Question>{
 
 	/*Attributs de la classe Question*/
 
@@ -185,6 +185,17 @@ public class Question {
 		return "Question [id=" + id + ", libelle=" + libelle
 				+ ", bonneReponse=" + bonneReponse + ", propositions="
 				+ propositions + "]";
+	}
+
+
+	@Override
+	public int compareTo(Question o) {
+		if(this.getId() < o.getId())
+			return -1;
+		else if (this.getId() < o.getId())
+			return 0;
+		else 
+			return 1;
 	}
 	
 	

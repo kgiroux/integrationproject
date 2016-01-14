@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**Projet d'integration
@@ -78,7 +79,8 @@ public class QuizDAOImpl implements IQuizDAO{
 	public List<Question> listQuestionQuiz(int idQuiz){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		List<Question> retour  = getQuiz(idQuiz).getListeQuestions();
+		ArrayList<Question> retour = new ArrayList<Question>();
+		getQuiz(idQuiz).getListeQuestions(retour);
 		session.getTransaction().commit();
 		session.close();
 		return retour;
@@ -87,7 +89,7 @@ public class QuizDAOImpl implements IQuizDAO{
 	public int getNbQuestionParQuiz(int idQuiz){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Set<Question> listeQuestions = (Set<Question>) listQuestionQuiz(idQuiz);
+		List<Question> listeQuestions = listQuestionQuiz(idQuiz);
 		session.getTransaction().commit();
 		session.close();
 		return listeQuestions.size();

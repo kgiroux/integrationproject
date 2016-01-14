@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**Projet d'integration
@@ -18,7 +19,8 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import fr.esigelec.quiz.dao.IPersonneDAO;
-import fr.esigelec.quiz.dto.Personne; 
+import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.util.SetToListConverter; 
 
 public class PersonneDAOImpl implements IPersonneDAO{
 
@@ -80,10 +82,11 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		session.beginTransaction();
 		String hql = "from Personne";
 		Set<Personne> recup = (Set<Personne>) session.createQuery(hql).list();
-		List<Personne> retour = new LinkedList<Personne>(recup);
+		ArrayList<Personne> myList = new ArrayList<Personne>();
+		SetToListConverter.SetToList(myList, recup);
 		session.getTransaction().commit();
 		session.close();
-		return retour;
+		return myList;
 	}
 
 	

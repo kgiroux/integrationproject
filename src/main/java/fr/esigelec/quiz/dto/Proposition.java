@@ -7,7 +7,7 @@ package fr.esigelec.quiz.dto;
  * Classe Question
  * */
 
-public class Proposition {
+public class Proposition implements Comparable<Proposition>{
 
 
 	/**Attributs de la classe Proposition*/
@@ -129,6 +129,16 @@ public class Proposition {
 	public String toString() {
 		return "Proposition [id=" + id + ", libelle=" + libelle + ", idQuestion="
 				+ idQuestion + "]";
+	}
+
+	@Override
+	public int compareTo(Proposition o) {
+		if(this.getId() < o.getId())
+			return -1;
+		else if (this.getId() < o.getId())
+			return 0;
+		else 
+			return 1;
 	}
 
 }

@@ -19,7 +19,7 @@ import fr.esigelec.quiz.util.SetToListConverter;
  * Classe Quiz
  * */
 
-public class Quiz {
+public class Quiz implements Comparable<Quiz>{
 
 	/**Attributs de la classe Quiz*/
 
@@ -238,9 +238,9 @@ public class Quiz {
 	}*/
 
 
-	public List<Question> getListeQuestions() {
+	public void getListeQuestions(ArrayList<Question> myList) {
 		// TODO: changer to fr.esigelec.quiz.util.SetToListConverter
-		return new ArrayList<Question>(questions);
+		SetToListConverter.SetToList(myList, questions);
 	}
 	
 	public Set<Question> getQuestions() {
@@ -305,6 +305,16 @@ public class Quiz {
 				+ ", noQuestionCourante=" + noQuestionCourante
 				+ ", dateDebutQuestion=" + dateDebutQuestion + ", etape="
 				+ etape + ", questions=" + questions + "]";
+	}
+
+	@Override
+	public int compareTo(Quiz o) {
+		if(this.getId() < o.getId())
+			return -1;
+		else if (this.getId() < o.getId())
+			return 0;
+		else 
+			return 1;
 	}
 	
 	

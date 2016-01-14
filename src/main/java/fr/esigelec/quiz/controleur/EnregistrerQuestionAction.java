@@ -117,9 +117,13 @@ public class EnregistrerQuestionAction extends Action {
 			}
 			question.setListePropositions(listPropositions);
 			questionDAO.createQuestion(question);
-			quiz.getListeQuestions().add(question);
+			ArrayList<Question> array = new ArrayList<Question>();
+			quiz.getListeQuestions(array);
+			array.add(question);
 			quizDAO.updateQuiz(quiz);
-			request.setAttribute("listeQuiz", quiz.getListeQuestions());
+			
+			// TODO ... enregistrer les questions ???? 
+			request.setAttribute("listeQuiz", array);
 		}
 		
 		return mapping.findForward("succes");

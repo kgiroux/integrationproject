@@ -11,7 +11,7 @@ package fr.esigelec.quiz.dto;
  * Classe Personne
  * */
 
-public class Personne {
+public class Personne implements Comparable<Personne>{
 
 	
 
@@ -193,9 +193,9 @@ public class Personne {
 	}
 
 	/**
-	 * Méthode equals
+	 * Mï¿½thode equals
 	 * pour comparer deux objets de type Peronne
-	 * @return true si le sobjets sont égaux
+	 * @return true si le sobjets sont ï¿½gaux
 	 * @return false sinon
 	 */
 	@Override
@@ -232,6 +232,16 @@ public class Personne {
 		} else if (!prenom.equals(other.prenom))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Personne o) {
+		if(this.getId() < o.getId())
+			return -1;
+		else if (this.getId() < o.getId())
+			return 0;
+		else 
+			return 1;
 	}
 }
 

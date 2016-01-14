@@ -11,6 +11,7 @@ package fr.esigelec.quiz.dao.hibernate;
 
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -14,7 +13,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
@@ -49,7 +47,7 @@ public class QuizDAOImplTest {
 		System.out.println("Quiz id = " + quiz.toString());
 		assertEquals(true, statut);
 	}
-	/**
+	
 	@Test
 	public void BtestGetQuiz() {
 		System.out.println("quiz base : " + quiz.toString());
@@ -65,7 +63,7 @@ public class QuizDAOImplTest {
 		daoQuest.createQuestion(q1);
 		quiz.addQuestion(q1);
 		System.out.println("quiz base : " + quiz.toString());
-		boolean statut = daoQuiz.updateQuiz(quiz);
+		daoQuiz.updateQuiz(quiz);
 		Quiz q = daoQuiz.getQuiz(quiz.getId());
 		System.out.println("quiz recup dans la base : " + q.toString());
 		assertEquals(q, quiz);
@@ -73,19 +71,42 @@ public class QuizDAOImplTest {
 	
 	@Test
 	public void GtestListQuestionQuiz() {
-		List<Question> qs = quiz.getQuestions();
+		Question q1 = new Question("Q1");
+		QuestionDAOImpl daoQuest = new QuestionDAOImpl();
+		daoQuest.createQuestion(q1);
+		
+		Quiz quiz = new Quiz("Quiz test", 0, 0);
+		quiz.addQuestion(q1);
+		daoQuiz.createQuiz(quiz);
+		
+		List<Question> qs = quiz.listeQuestions();
 		List<Question> bddListeQuestions = daoQuiz.listQuestionQuiz(quiz);
 		System.out.println(bddListeQuestions.toString());
 		assertEquals(qs, bddListeQuestions);
-	}*/
-	/**
+		//Delete 
+		daoQuest.deleteQuestion(q1);
+		daoQuiz.deleteQuiz(quiz);
+	}
+	
 	@Test
 	public void HtestGetNbQuestionParQuiz() {
-		int tailleDeBase = quiz.getQuestions().size();
-		Quiz q = daoQuiz.getQuiz(quiz.getId());
-		assertEquals(q.getQuestions().size(), tailleDeBase);
+		Question q1 = new Question("Q1");
+		QuestionDAOImpl daoQuest = new QuestionDAOImpl();
+		daoQuest.createQuestion(q1);
+		
+		Quiz quiz = new Quiz("Quiz test", 0, 0);
+		quiz.addQuestion(q1);
+		daoQuiz.createQuiz(quiz);
+		
+		int tailleDeBase = quiz.listeQuestions().size();
+		int tailleBDD = daoQuiz.getNbQuestionParQuiz(quiz);
+		System.out.println(tailleBDD);
+		assertEquals(tailleDeBase, tailleBDD);
+		//Delete 
+		daoQuest.deleteQuestion(q1);
+		daoQuiz.deleteQuiz(quiz);
 	}
-	/**
+	
 	@Test(expected=NullPointerException.class)
 	public void DtestDeleteQuiz() {
 		int id = quiz.getId();
@@ -152,6 +173,7 @@ public class QuizDAOImplTest {
 		daoQuiz.deleteQuiz(qFinish);
 		daoQuiz.deleteQuiz(qNotFinish);
 		assertTrue(finish);
-	}*/
+	}
 
 }
+

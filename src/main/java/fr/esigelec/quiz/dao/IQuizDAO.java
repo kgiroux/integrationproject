@@ -2,8 +2,6 @@ package fr.esigelec.quiz.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
-
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 

@@ -16,9 +16,9 @@ CREATE TABLE `question` (
 CREATE TABLE `proposition` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`libelle` varchar(255) NOT NULL,
-	`idQuestion` int(11) NOT NULL,
+	`id_question` int(11) NOT NULL,
 	`estBonneReponse` tinyint(1) NOT NULL,
-	CONSTRAINT fk_pro_quest FOREIGN KEY (`idQuestion`) REFERENCES `question` (`id`) ON DELETE CASCADE
+	CONSTRAINT fk_pro_quest FOREIGN KEY (`id_question`) REFERENCES `question` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `quiz` (

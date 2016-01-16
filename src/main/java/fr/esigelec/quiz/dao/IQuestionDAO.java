@@ -1,9 +1,6 @@
 package fr.esigelec.quiz.dao;
 
 import java.util.List;
-import java.util.Set;
-
-import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 
 

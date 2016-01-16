@@ -1,10 +1,15 @@
 package fr.esigelec.quiz.dto;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Choisir {
+public class Choisir implements Serializable {
 	
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Timestamp date;
 	
 	private Proposition proposition;
@@ -89,7 +94,4 @@ public class Choisir {
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
 	}
-	
-	
-	
 }

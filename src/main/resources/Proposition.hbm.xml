@@ -11,7 +11,7 @@
 		
 	 	<property name="estBonneReponse" column="estBonneReponse" type="boolean"/>
 		
-		<many-to-one name="question" column="idQuestion" class="Question" cascade="all" not-null="true"/>
+		<many-to-one name="question" column="id_question" class="Question" cascade="all" not-null="true"/>
 
 	</class>
 

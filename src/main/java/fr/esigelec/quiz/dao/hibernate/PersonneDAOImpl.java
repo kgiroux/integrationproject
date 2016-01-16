@@ -1,7 +1,6 @@
 package fr.esigelec.quiz.dao.hibernate;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -13,14 +12,11 @@ import java.util.LinkedList;
  * */
 
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import fr.esigelec.quiz.dao.IPersonneDAO;
-import fr.esigelec.quiz.dto.Personne;
-import fr.esigelec.quiz.util.SetToListConverter; 
+import fr.esigelec.quiz.dto.Personne; 
 
 public class PersonneDAOImpl implements IPersonneDAO{
 
@@ -81,6 +77,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Personne";
+		@SuppressWarnings("unchecked")
 		List<Personne> myList = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
@@ -96,7 +93,6 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 */
 	@Override
 	public boolean updatePersonne(Personne p) {
-		boolean modifie = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(p);

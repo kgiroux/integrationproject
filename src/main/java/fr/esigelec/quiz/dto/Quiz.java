@@ -61,7 +61,7 @@ public class Quiz {
 	private int etape;
 	
 	//private List<Question> listeQuestions = new LinkedList<Question>();
-	private List<Question> questions;
+	private Set<Question> questions;
 
 
 	/*Constructeurs*/
@@ -78,7 +78,7 @@ public class Quiz {
 		this.noQuestionCourante = 0;
 		this.dateDebutQuestion = null;
 		this.etape = 0;
-		this.questions = new ArrayList<Question>();
+		this.questions = new HashSet<Question>();
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class Quiz {
 		this.noQuestionCourante = noQuestionCourante;
 		this.dateDebutQuestion = null;
 		this.etape = etape;
-		this.questions = new ArrayList<Question>();
+		this.questions = new HashSet<Question>();
 	}
 
 	/**
@@ -119,11 +119,11 @@ public class Quiz {
 
 	/*Getters et setters*/
 	
-	public List<Question> getQuestions() {
+	public Set<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
+	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
 
@@ -239,9 +239,6 @@ public class Quiz {
 		this.etape = etape;
 	}
 	
-	public void addQuestion(Question q) {
-		questions.add(q);
-	}
 
 	@Override
 	public int hashCode() {
@@ -307,6 +304,16 @@ public class Quiz {
 				+ dateFinQuiz + ", noQuestionCourante=" + noQuestionCourante + ", dateDebutQuestion="
 				+ dateDebutQuestion + ", etape=" + etape + ", questions=" + questions + "]";
 	}
-
+	
+	public List<Question> listeQuestions() {
+		List<Question> listeQuestions = new ArrayList<Question>();
+		listeQuestions.addAll(questions);
+		return listeQuestions;
+		
+	}
+	
+	public void addQuestion(Question q) {
+		questions.add(q);
+	}
 	
 }

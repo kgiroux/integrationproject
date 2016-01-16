@@ -1,9 +1,5 @@
 package fr.esigelec.quiz.dao.hibernate;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 /**Projet d'integration
  * Le jeu de TF8
  * GSI-IR
@@ -17,14 +13,14 @@ import java.util.LinkedList;
  * */
 
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
+
+import java.sql.SQLException;
  
 public class QuizDAOImpl implements IQuizDAO{
 
@@ -62,17 +58,18 @@ public class QuizDAOImpl implements IQuizDAO{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("FROM Quiz WHERE dateDebutQuiz is not null");
-		Set<Quiz> listeQuiz = (Set<Quiz>) query.list();
-		List<Quiz> retour = new LinkedList(listeQuiz);
+		@SuppressWarnings("unchecked")
+		List<Quiz> listeQuiz =  query.list();
 		session.getTransaction().commit();
 		session.close();
-		return retour;
+		return listeQuiz;
 	}
 	
 	public List<Quiz> getListQuizFinish(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("FROM Quiz WHERE dateFinQuiz is not null");
+		@SuppressWarnings("unchecked")
 		List<Quiz> listeQuiz = query.list();
 		session.getTransaction().commit();
 		session.close();
@@ -80,13 +77,8 @@ public class QuizDAOImpl implements IQuizDAO{
 	}
 	
 	public List<Question> listQuestionQuiz(Quiz quiz){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		Query query = session.createQuery("FROM Quiz");
-		List<Question> listQuiz =  query.list();
-		session.getTransaction().commit();
-		session.close();
-		return listQuiz;
+		Quiz q = getQuiz(quiz.getId());
+		return q.listeQuestions();
 	}
 
 	public int getNbQuestionParQuiz(Quiz quiz){

@@ -2,7 +2,6 @@ package fr.esigelec.quiz.dao.hibernate;
 
 import static org.junit.Assert.*;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Before;
@@ -11,7 +10,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 
 //On regle la classe pour que les classes s'executent par odre alphabetique

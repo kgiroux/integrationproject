@@ -4,9 +4,9 @@
 	<session-factory>
 		<!--Databaseconnectionsettings -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://193.52.189.17/ir2016</property>
-		<property name="connection.username">ir2016</property>
-		<property name="connection.password">lesMeilleurs2016*</property>
+		<property name="connection.url">jdbc:mysql://localhost/ir2016</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password"></property>
 		
 		<!--JDBC connectionpool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
@@ -27,10 +27,11 @@
 		 -->
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
 		
-		<mapping resource="Quizz.hbm.xml"/>
+		<mapping resource="Quiz.hbm.xml"/>
 		<mapping resource="Proposition.hbm.xml"/>
 		<mapping resource="Question.hbm.xml"/>
 		<mapping resource="Personne.hbm.xml"/>
+		<mapping resource="Choisir.hbm.xml"/>
 		
 	</session-factory>
 </hibernate-configuration>

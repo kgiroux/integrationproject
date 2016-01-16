@@ -1,123 +1,94 @@
 package fr.esigelec.quiz.dto;
 
 import java.sql.Timestamp;
-import java.util.Date;
-
-/**Projet d'integration
- * Le jeu de TF8
- * GSI-IR
- * @author BOSSO BOSSO Ghyslaine
- * @author  CHOUAKRIA Farid
- * @author DELAUNAY Brice
- * @author NGANE Pascale
- * Classe Choisir
- */
 
 public class Choisir {
-
-	/**
-	 * Attributs de la classe Choisir
-	 */
 	
-	/**date*/
+	
 	private Timestamp date;
-	/** the proposition's id*/
-	private int idProposition;
-	/** the quiz's id*/
-	private int idQuiz;
-	/** the person's id*/
-	private int idPersonne;
 	
-	/**
-	 * Constructeurs
-	 */
+	private Proposition proposition;
 	
+	private Quiz quiz;
 	
-	/**
-	 *Constructeur sans paramètres
-	 */
-	public Choisir() {
-		super();
+	private Personne personne;
 
-	}
-
-	/**
-	 * Constructeur avec paramètres
-	 * @param date
-	 * @param idProposition
-	 * @param idQuiz
-	 * @param idPersonne
-	 */
-	public Choisir(Timestamp date, int id_proposition, int id_quiz, int id_personne) {
-		super();
+	public Choisir(Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
 		this.date = date;
-		this.idProposition = id_proposition;
-		this.idQuiz = id_quiz;
-		this.idPersonne = id_personne;
+		this.proposition = proposition;
+		this.quiz = quiz;
+		this.personne = personne;
 	}
 
-	
-	/** getters et setters*/
-	
-	/**
-	 * @return the date
-	 */
+	@Override
+	public String toString() {
+		return "Choisir [date=" + date + ", proposition=" + proposition + ", quiz=" + quiz + ", personne=" + personne
+				+ "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Choisir other = (Choisir) obj;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (personne == null) {
+			if (other.personne != null)
+				return false;
+		} else if (!personne.equals(other.personne))
+			return false;
+		if (proposition == null) {
+			if (other.proposition != null)
+				return false;
+		} else if (!proposition.equals(other.proposition))
+			return false;
+		if (quiz == null) {
+			if (other.quiz != null)
+				return false;
+		} else if (!quiz.equals(other.quiz))
+			return false;
+		return true;
+	}
+
 	public Timestamp getDate() {
 		return date;
 	}
 
-	/**
-	 * @param date the date to set
-	 */
 	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 
-	/**
-	 * @return the idProposition
-	 */
-	public int getIdProposition() {
-		return idProposition;
+	public Proposition getProposition() {
+		return proposition;
 	}
 
-	/**
-	 * @param idProposition the idProposition to set
-	 */
-	public void setIdProposition(int idProposition) {
-		this.idProposition = idProposition;
+	public void setProposition(Proposition proposition) {
+		this.proposition = proposition;
 	}
 
-	/**
-	 * @return the idQuiz
-	 */
-	public int getIdQuiz() {
-		return idQuiz;
+	public Quiz getQuiz() {
+		return quiz;
 	}
 
-	/**
-	 * @param idQuiz the idQuiz to set
-	 */
-	public void setIdQuiz(int idQuiz) {
-		this.idQuiz = idQuiz;
+	public void setQuiz(Quiz quiz) {
+		this.quiz = quiz;
 	}
 
-	/**
-	 * @return the idPersonne
-	 */
-	public int getIdPersonne() {
-		return idPersonne;
+	public Personne getPersonne() {
+		return personne;
 	}
 
-	/**
-	 * @param idPersonne the idPersonne to set
-	 */
-	public void setIdPersonne(int idPersonne) {
-		this.idPersonne = idPersonne;
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
 	}
-
-	
-	
-	
 	
 	
 	

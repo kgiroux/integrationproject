@@ -3,6 +3,7 @@ package fr.esigelec.quiz.dao;
 import java.util.List;
 import java.util.Set;
 
+import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 
 
@@ -44,5 +45,5 @@ public interface IQuestionDAO {
 	 * @param  q the question to delete
 	 */
 	public boolean deleteQuestion(Question q); 
-
+	
 }

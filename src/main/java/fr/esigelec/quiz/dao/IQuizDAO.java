@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
@@ -17,14 +18,14 @@ import fr.esigelec.quiz.dto.Quiz;
 public interface IQuizDAO {
 	
 	/**
-	 * m�thode : createQuiz
+	 * méthode : createQuiz
 	 * @param  q the quiz to create
 	 */
 	
 	public boolean createQuiz(Quiz q);
 	
 	/**
-	 * m�thode : getQuiz
+	 * méthode : getQuiz
 	 * @param  id the id of the quiz we want
 	 * @return the quiz
 	 */
@@ -32,48 +33,50 @@ public interface IQuizDAO {
 	public Quiz getQuiz(int id); 
 	
 	/**
-	 * m�thode : listQuiz
+	 * méthode : listQuiz
 	 * @return all the quizs
+	 * @throws SQLException 
 	 */
 	
-	public List<Quiz> listQuiz(); 
+	public List<Quiz> listQuiz() throws SQLException; 
 	
 	/**
-	 * m�thode : getListQuizPublie
+	 * méthode : getListQuizPublie
 	 * @return all the quizs publicated
 	 */
 	public List<Quiz> getListQuizPublie(int status);
 	
 	/**
-	 * m�thode : getListQuizFinish
+	 * méthode : getListQuizFinish
 	 * @return all the quizs finished
 	 */
 	public List<Quiz> getListQuizFinish();
 	
 	/**
-	 * m�thode : listQuestion
+	 * méthode : listQuestion
 	 * @return all the questions
 	 */
-	public List<Question> listQuestionQuiz(int idQuiz);
+	public List<Question> listQuestionQuiz(Quiz quiz);
 	
 	/**
-	 * m�thode : getNbQuestionParQuiz
+	 * méthode : getNbQuestionParQuiz
 	 * @param idQuiz
 	 * @return the size of the list
 	 */
-	public int getNbQuestionParQuiz(int idQuiz);
+	public int getNbQuestionParQuiz(Quiz quiz);
 	
 	/**
-	 * m�thode : updateQuiz
+	 * méthode : updateQuiz
 	 * @param  q the quiz which should be updated
 	 */
 	
 	public boolean updateQuiz(Quiz q); 
 	
 	/**
-	 * m�thode : deleteQuiz
+	 * méthode : deleteQuiz
 	 * @param  q the quiz to delete
 	 */
 	
 	public boolean deleteQuiz(Quiz q); 
+	
 }

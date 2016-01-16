@@ -63,7 +63,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	public Personne getPersonne(String mail) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Personne retour = (Personne) session.createCriteria(Personne.class)
+		Personne retour = (Personne) session.createCriteria(Personne.class, mail)
 				.add(Restrictions.eq("mail", mail))
 				.uniqueResult();
 		session.getTransaction().commit();
@@ -81,9 +81,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Personne";
-		Set<Personne> recup = (Set<Personne>) session.createQuery(hql).list();
-		ArrayList<Personne> myList = new ArrayList<Personne>();
-		SetToListConverter.SetToList(myList, recup);
+		List<Personne> myList = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
 		return myList;
@@ -126,20 +124,11 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	}
 
 	@Override
-	public boolean connexion(String email, String pwd) {
-		boolean result = false;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		String hql = "from Personne Where mail = " + email;
-		List<Personne> listePersonne = session.createQuery(hql).list();
-		session.getTransaction().commit();
-		session.close();
-		if (listePersonne.size() == 0) {
-			result = false;
-		} 
-		if (listePersonne.get(0).getMdp().equals(pwd)){
-			result = true;
+	public Personne connexion(String email, String pwd) {
+		Personne p = getPersonne(email);
+		if (p.getMdp().equals(pwd)){
+			return p;
 		}
-		return result;
+		return null;
 	}
 }

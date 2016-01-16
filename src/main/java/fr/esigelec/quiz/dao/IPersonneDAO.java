@@ -25,7 +25,7 @@ public interface IPersonneDAO {
 	 * @param email, pwd
 	 * @return boolean
 	 */
-	public boolean connexion(String email, String pwd);
+	public Personne connexion(String email, String pwd);
 	
 	
 	/**

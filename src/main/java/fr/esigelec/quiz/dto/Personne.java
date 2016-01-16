@@ -63,8 +63,8 @@ public class Personne implements Comparable<Personne>{
 	 * @param mdp
 	 * @param droits
 	 */
-	public Personne(int id, String nom, String prenom, String mail, String mdp, int droits) {
-		this.id = id;
+	public Personne(String nom, String prenom, String mail, String mdp, int droits) {
+		this.id = 0;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;

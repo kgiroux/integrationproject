@@ -41,7 +41,7 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	public Question getQuestion(int id) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Question question=(Question)session.get(Question.class,id);
+		Question question=session.get(Question.class,id);
 		session.getTransaction().commit();
 		session.close();
 		return question;
@@ -56,6 +56,7 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query=session.createQuery("from Question");
+		@SuppressWarnings("unchecked")
 		List<Question> listeQuestions = query.list();
 		session.getTransaction().commit();
 		session.close();
@@ -74,7 +75,6 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		Question newQuestion = getQuestion(q.getId());
 		session.getTransaction().commit();
 		session.close();
-		
 		return (newQuestion.equals(q));
 	}
 
@@ -90,7 +90,7 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		session.delete(q);
 		session.getTransaction().commit();
 		session.close();
-		
 		return (q == null);
 	}
+
 }

@@ -1,9 +1,7 @@
 package fr.esigelec.quiz.dto;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -17,7 +15,7 @@ import java.util.Set;
  * Classe Quiz
  * */
 
-public class Quiz {
+public class Quiz implements Comparable<Quiz> {
 
 	/**Attributs de la classe Quiz*/
 
@@ -305,15 +303,19 @@ public class Quiz {
 				+ dateDebutQuestion + ", etape=" + etape + ", questions=" + questions + "]";
 	}
 	
-	public List<Question> listeQuestions() {
-		List<Question> listeQuestions = new ArrayList<Question>();
-		listeQuestions.addAll(questions);
-		return listeQuestions;
-		
-	}
 	
 	public void addQuestion(Question q) {
 		questions.add(q);
+	}
+
+	@Override
+	public int compareTo(Quiz o) {
+		if(this.getId() < o.getId())
+			return -1;
+		else if (this.getId() < o.getId())
+			return 0;
+		else 
+			return 1;
 	}
 	
 }

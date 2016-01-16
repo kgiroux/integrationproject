@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.junit.runners.MethodSorters;
 
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.SetToListConverter;
 
 //On regle la classe pour que les classes s'executent par odre alphabetique
 @FixMethodOrder (MethodSorters.NAME_ASCENDING)
@@ -78,8 +80,8 @@ public class QuizDAOImplTest {
 		Quiz quiz = new Quiz("Quiz test", 0, 0);
 		quiz.addQuestion(q1);
 		daoQuiz.createQuiz(quiz);
-		
-		List<Question> qs = quiz.listeQuestions();
+		List<Question> qs = new ArrayList<Question>();
+		SetToListConverter.SetToList(qs, quiz.getQuestions());
 		List<Question> bddListeQuestions = daoQuiz.listQuestionQuiz(quiz);
 		System.out.println(bddListeQuestions.toString());
 		assertEquals(qs, bddListeQuestions);
@@ -98,7 +100,7 @@ public class QuizDAOImplTest {
 		quiz.addQuestion(q1);
 		daoQuiz.createQuiz(quiz);
 		
-		int tailleDeBase = quiz.listeQuestions().size();
+		int tailleDeBase = quiz.getQuestions().size();
 		int tailleBDD = daoQuiz.getNbQuestionParQuiz(quiz);
 		System.out.println(tailleBDD);
 		assertEquals(tailleDeBase, tailleBDD);

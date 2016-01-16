@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+import java.util.ArrayList;
+
 /**Projet d'integration
  * Le jeu de TF8
  * GSI-IR
@@ -19,6 +21,8 @@ import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.SetToListConverter;
+import fr.esigelec.quiz.util.Word;
 
 import java.sql.SQLException;
  
@@ -78,7 +82,9 @@ public class QuizDAOImpl implements IQuizDAO{
 	
 	public List<Question> listQuestionQuiz(Quiz quiz){
 		Quiz q = getQuiz(quiz.getId());
-		return q.listeQuestions();
+		List<Question> array = new ArrayList<Question>();
+		SetToListConverter.SetToList(array, q.getQuestions());
+		return array;
 	}
 
 	public int getNbQuestionParQuiz(Quiz quiz){

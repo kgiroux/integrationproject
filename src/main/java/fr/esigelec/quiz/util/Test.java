@@ -172,7 +172,7 @@ public class Test {
 		daoProposition.createProposition(p8);
 		
 		
-		qu1.setId(q.getId());
+		/**qu1.setId(q.getId());
 		qu1.setBonneReponse(p1);
 		qu2.setId(q.getId());
 		qu2.setBonneReponse(p1);
@@ -181,7 +181,7 @@ public class Test {
 		qu4.setId(q.getId());
 		qu4.setBonneReponse(p1);
 		qu5.setId(q.getId());
-		qu5.setBonneReponse(p1);
+		qu5.setBonneReponse(p1);*/
 		
 		
 		/*QuestionDAOImpl daoQuestion = new QuestionDAOImpl();

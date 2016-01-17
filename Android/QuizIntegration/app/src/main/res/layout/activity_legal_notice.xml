@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/legalNotice"
-                android:id="@+id/textView4"
+                android:id="@+id/legalNoticeText"
                 android:layout_below="@+id/legalNotice"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"

@@ -9,7 +9,7 @@ import fr.esigelec.gsi.quizintegration.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private final long SPLASH_LENGTH = 1000;
+    private final long SPLASH_LENGTH = 3000;
     Handler handler = new Handler();
 
     @Override

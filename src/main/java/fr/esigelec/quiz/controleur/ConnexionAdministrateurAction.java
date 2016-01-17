@@ -22,11 +22,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ConnexionAdministrateurAction extends Action {
 
+	private final Logger connexionAdministrateurActionLogger = Logger.getLogger(ConnexionAdministrateurAction.class);
+	
+	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+			HttpServletRequest request, HttpServletResponse response) {
 
-		final Logger logger = Logger.getLogger(ConnexionAdministrateurAction.class);
+		connexionAdministrateurActionLogger.debug("Execute");
 		
 		ConnexionForm f= (ConnexionForm) form;
 		String mail = f.getMail();
@@ -38,17 +40,17 @@ public class ConnexionAdministrateurAction extends Action {
 		Personne personne = personneDAO.getPersonne(mail);
 		
 		if( personne == null ) {
-			logger.error("Administrateur inexistant");
+			connexionAdministrateurActionLogger.debug("Action terminee avec erreur : les coordonnees ne correspondent pas à un administrateur");
 			return mapping.findForward("erreur");
 		}
 		else if(!mdp.equals(personne.getMdp())) {
-			logger.error("Administrateur existant mais mot de passe incorrect");
+			connexionAdministrateurActionLogger.debug("Action terminee avec erreur : mot de passe incorrect");
 			return mapping.findForward("erreur");
 		}
 		else {
-			logger.info("Connexion administrateur réussie");
 			request.setAttribute("listeQuiz", listeQuiz);
 			request.setAttribute("personne", personne);
+			connexionAdministrateurActionLogger.debug("Connexion réussie");
 			return mapping.findForward("succes");
 		}
 	}

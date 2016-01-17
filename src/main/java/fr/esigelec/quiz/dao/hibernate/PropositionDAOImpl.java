@@ -11,8 +11,8 @@ package fr.esigelec.quiz.dao.hibernate;
 
 
 import java.util.List;
-
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import fr.esigelec.quiz.dao.IPropositionDAO;
 import fr.esigelec.quiz.dto.Proposition;
@@ -44,7 +44,8 @@ public class PropositionDAOImpl implements IPropositionDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Proposition";
-		List<Proposition> retour = session.createQuery(hql).list();
+		@SuppressWarnings("unchecked")
+		List<Proposition> retour = (List<Proposition>) session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
 		return retour;
@@ -54,6 +55,7 @@ public class PropositionDAOImpl implements IPropositionDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Proposition where question.id = " + q.getId();
+		@SuppressWarnings("unchecked")
 		List<Proposition> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
@@ -79,5 +81,19 @@ public class PropositionDAOImpl implements IPropositionDAO {
 		session.getTransaction().commit();
 		session.close();
 		return (p == null);
+	}
+
+	@Override
+	public Proposition getBonneReponse(Question q) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		System.out.println("Question : " + q.getId());
+		Proposition retour = (Proposition) session.createCriteria(Proposition.class)
+				.add(Restrictions.eq("idQuestion", q.getId()))
+				.add(Restrictions.eq("estBonneReponse", 1))
+				.uniqueResult();
+		session.getTransaction().commit();
+		session.close();
+		return retour;
 	}
 }

@@ -1,12 +1,5 @@
 package fr.esigelec.quiz.dto;
 
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
@@ -24,56 +17,32 @@ public class Question {
 	private int id; 
 
 	/**
-	 * intitul� de la question
+	 * intitulé de la question
 	 */
 	private String libelle; 
-
-	/**
-	 *Proposition Bonne r�ponse
-	 */
-	private Proposition bonneReponse; 
-
-	/**
-	 * liste des propositions de r�ponse � la question
-	 */
-	//private List<Proposition> listePropositions;
-	private Set<Proposition> propositions = new HashSet<Proposition>();
 
 	/*Constructeurs*/
 
 	/**
-	 * Constructeur sans param�tres
+	 * Constructeur sans paramétres
 	 */
 
 	public Question() {
 		this.id = 0;
 		this.libelle = "";
-		//this.listePropositions = null;
-		propositions = new HashSet<Proposition>();
 	}
 
 
 	/**
-	 * Constructeur avec param�tres
-	 * @param id
+	 * Constructeur avec paramétres
 	 * @param libelle
-	 * @param bonneReponse
-	 * @param list
 	 */
 
-	public Question(String libelle, Proposition bonneReponse, List<Proposition> list) {
+	public Question(String libelle) {
+		this.id = 0;
 		this.libelle = libelle;
-		this.bonneReponse = bonneReponse;
-		this.propositions = new HashSet<Proposition>(list);
 	}
 	
-	public Question(String libelle, Proposition bonneReponse, Set<Proposition> set) {
-		this.libelle = libelle;
-		this.bonneReponse = bonneReponse;
-		this.propositions = set;
-	}
-
-
 	/**
 	 * Constructeur par recopie
 	 * @param Question q
@@ -81,74 +50,45 @@ public class Question {
 	public Question(Question q) {
 		this.id = q.id;
 		this.libelle = q.libelle;
-		this.bonneReponse = q.bonneReponse;
-		this.propositions = q.propositions;
 	}
 
 	/*Getters et setters*/
-
-	/**
-	 * m�thode getId()
-	 * @return the id
-	 */
+	
 	public int getId() {
 		return id;
 	}
 
-	/**
-	 * m�thode: setId()
-	 * @param id the id to set
-	 */
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	/**
-	 * m�thode: getLibelle()
-	 * @return the libelle
-	 */
+
 	public String getLibelle() {
 		return libelle;
 	}
 
-	/**
-	 * m�thode: setLibelle()
-	 * @param libelle : the libelle to set
-	 */
+
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
 
-	/**
-	 * m�thode:getBonneReponse()
-	 * @return the bonneReponse
-	 */
-	public Proposition getBonneReponse(){
-		return bonneReponse;
+
+	@Override
+	public String toString() {
+		return "Question [id=" + id + ", libelle=" + libelle + "]";
 	}
 
-	/**
-	 * m�thode: setBonneReponse()
-	 * @param reponse the bonneReponse to set
-	 */
-	public void setBonneReponse(Proposition p) {
-		this.bonneReponse = p;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
+		return result;
 	}
 
-	public List<Proposition> getListePropositions() {
-		return new ArrayList<Proposition>(propositions);
-	}
-	public Set<Proposition> getPropositions() {	
-		return propositions;
-	}
-
-	public void setListePropositions(List<Proposition> listePropositions) {
-		this.propositions = new HashSet<Proposition> (listePropositions);
-	}
-	
-	public void setPropositions(Set<Proposition> propositions) {
-		this.propositions = propositions;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -159,11 +99,6 @@ public class Question {
 		if (getClass() != obj.getClass())
 			return false;
 		Question other = (Question) obj;
-		if (bonneReponse == null) {
-			if (other.bonneReponse != null)
-				return false;
-		} else if (!bonneReponse.equals(other.bonneReponse))
-			return false;
 		if (id != other.id)
 			return false;
 		if (libelle == null) {
@@ -171,22 +106,8 @@ public class Question {
 				return false;
 		} else if (!libelle.equals(other.libelle))
 			return false;
-		if (propositions == null) {
-			if (other.propositions != null)
-				return false;
-		} else if (!propositions.equals(other.propositions))
-			return false;
 		return true;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", libelle=" + libelle
-				+ ", bonneReponse=" + bonneReponse + ", propositions="
-				+ propositions + "]";
-	}
 	
-	
+
 }
-

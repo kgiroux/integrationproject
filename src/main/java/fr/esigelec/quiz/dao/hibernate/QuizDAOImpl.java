@@ -1,6 +1,6 @@
 package fr.esigelec.quiz.dao.hibernate;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -15,13 +15,16 @@ import java.util.LinkedList;
  * */
 
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
+
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.SetToListConverter;
+import fr.esigelec.quiz.util.Word;
+
+import java.sql.SQLException;
  
 public class QuizDAOImpl implements IQuizDAO{
 
@@ -43,11 +46,13 @@ public class QuizDAOImpl implements IQuizDAO{
 		return quiz;
 	}
 
-	public List<Quiz> listQuiz() {
+	public List<Quiz> listQuiz() throws SQLException {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Query query = session.createQuery("FROM quiz");
-		List<Quiz> retour = query.list();
+		// get pays en utilisant HQL
+		String hql = "from Quiz";
+		@SuppressWarnings("unchecked")
+		List<Quiz> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
 		return retour;
@@ -57,39 +62,33 @@ public class QuizDAOImpl implements IQuizDAO{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("FROM Quiz WHERE dateDebutQuiz is not null");
-		Set<Quiz> listeQuiz = (Set<Quiz>) query.list();
-		List<Quiz> retour = new LinkedList(listeQuiz);
+		@SuppressWarnings("unchecked")
+		List<Quiz> listeQuiz =  query.list();
 		session.getTransaction().commit();
 		session.close();
-		return retour;
+		return listeQuiz;
 	}
 	
 	public List<Quiz> getListQuizFinish(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("FROM Quiz WHERE dateFinQuiz is not null");
-		Set<Quiz> listeQuiz = (Set<Quiz>) query.list();
-		List<Quiz> retour = new LinkedList(listeQuiz);
+		@SuppressWarnings("unchecked")
+		List<Quiz> listeQuiz = query.list();
 		session.getTransaction().commit();
 		session.close();
-		return retour;
+		return listeQuiz;
 	}
 	
-	public List<Question> listQuestionQuiz(int idQuiz){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		List<Question> retour  = getQuiz(idQuiz).getListeQuestions();
-		session.getTransaction().commit();
-		session.close();
-		return retour;
+	public List<Question> listQuestionQuiz(Quiz quiz){
+		Quiz q = getQuiz(quiz.getId());
+		List<Question> array = new ArrayList<Question>();
+		SetToListConverter.SetToList(array, q.getQuestions());
+		return array;
 	}
 
-	public int getNbQuestionParQuiz(int idQuiz){
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		Set<Question> listeQuestions = (Set<Question>) listQuestionQuiz(idQuiz);
-		session.getTransaction().commit();
-		session.close();
+	public int getNbQuestionParQuiz(Quiz quiz){
+		List<Question> listeQuestions = listQuestionQuiz(quiz);
 		return listeQuestions.size();
 	}
 	

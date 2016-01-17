@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -25,10 +26,14 @@ import fr.esigelec.quiz.dto.Quiz;
 
 
 public class EnregistrerQuestionAction extends Action {
+	
+	private static final Logger enregistrerQuestionActionLogger = Logger.getLogger(EnregistrerQuestionAction.class);
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		
+		enregistrerQuestionActionLogger.debug("Execute");
 		
 		String libelleQuestion = request.getParameter("libelleQuestion");
 		String p1, p2, p3, p4, p5, p6, p7, p8;
@@ -117,11 +122,16 @@ public class EnregistrerQuestionAction extends Action {
 			}
 			question.setListePropositions(listPropositions);
 			questionDAO.createQuestion(question);
-			quiz.getListeQuestions().add(question);
+			ArrayList<Question> array = new ArrayList<Question>();
+			quiz.getListeQuestions(array);
+			array.add(question);
 			quizDAO.updateQuiz(quiz);
-			request.setAttribute("listeQuiz", quiz.getListeQuestions());
+			
+			// TODO ... enregistrer les questions ???? 
+			request.setAttribute("listeQuiz", array);
 		}
-		
+
+		enregistrerQuestionActionLogger.debug("Question enregistree");
 		return mapping.findForward("succes");
 	}
 }

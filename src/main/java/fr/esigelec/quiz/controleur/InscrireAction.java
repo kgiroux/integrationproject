@@ -29,7 +29,7 @@ public class InscrireAction extends Action {
 		
 		try {
 			
-			inscrireActionLogger.info("start InscrireAction");
+			inscrireActionLogger.debug("Execute");
 			
 			InscrireForm inscrireForm = (InscrireForm) form;
 			Personne p = new Personne();
@@ -42,9 +42,11 @@ public class InscrireAction extends Action {
 			// Maybe we should add a check to verify if the person is already in db.
 			personneDAO.createPersonne(p);
 			// Maybe set some attributes on the request.
+			inscrireActionLogger.debug("Inscription terminee avec succes");
 			return mapping.findForward("succes");
 		} catch (Exception e) {
 			// Set error attributes
+			inscrireActionLogger.debug("Action terminee avec erreur : "+e.getMessage());
 			return mapping.findForward("erreur");
 		}
 	}

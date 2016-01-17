@@ -1,6 +1,6 @@
 package fr.esigelec.quiz.dao.hibernate;
 
-import java.util.LinkedList;
+
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -12,8 +12,6 @@ import java.util.LinkedList;
  * */
 
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -61,7 +59,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	public Personne getPersonne(String mail) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Personne retour = (Personne) session.createCriteria(Personne.class)
+		Personne retour = (Personne) session.createCriteria(Personne.class, mail)
 				.add(Restrictions.eq("mail", mail))
 				.uniqueResult();
 		session.getTransaction().commit();
@@ -79,11 +77,11 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Personne";
-		Set<Personne> recup = (Set<Personne>) session.createQuery(hql).list();
-		List<Personne> retour = new LinkedList<Personne>(recup);
+		@SuppressWarnings("unchecked")
+		List<Personne> myList = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
-		return retour;
+		return myList;
 	}
 
 	
@@ -95,7 +93,6 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	 */
 	@Override
 	public boolean updatePersonne(Personne p) {
-		boolean modifie = false;
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(p);
@@ -123,20 +120,11 @@ public class PersonneDAOImpl implements IPersonneDAO{
 	}
 
 	@Override
-	public boolean connexion(String email, String pwd) {
-		boolean result = false;
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		String hql = "from Personne Where mail = " + email;
-		List<Personne> listePersonne = session.createQuery(hql).list();
-		session.getTransaction().commit();
-		session.close();
-		if (listePersonne.size() == 0) {
-			result = false;
-		} 
-		if (listePersonne.get(0).getMdp().equals(pwd)){
-			result = true;
+	public Personne connexion(String email, String pwd) {
+		Personne p = getPersonne(email);
+		if (p.getMdp().equals(pwd)){
+			return p;
 		}
-		return result;
+		return null;
 	}
 }

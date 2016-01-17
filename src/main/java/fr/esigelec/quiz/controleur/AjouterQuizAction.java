@@ -23,11 +23,15 @@ import fr.esigelec.quiz.dto.Quiz;
  *
  */
 public class AjouterQuizAction extends Action {
-	private final Logger actionQuizActionLogger = Logger.getLogger(AjouterQuizAction.class);
+	
+	private final Logger ajouterQuizActionLogger = Logger.getLogger(AjouterQuizAction.class);
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+
+		ajouterQuizActionLogger.debug("Execute");
+		
 		try {
 			// Get parameters and sessions
 			Personne p = (Personne) request.getSession().getAttribute("personne");
@@ -44,14 +48,17 @@ public class AjouterQuizAction extends Action {
 				quizDAO.createQuiz(quiz);
 				// Set attributes and return map
 				request.setAttribute("listeQuestions", questions);
+				ajouterQuizActionLogger.debug("Quiz ajouté");
 				return mapping.findForward("succes");	/* Need to map to questionsQuizAdmin.jsp */
 			} else {
+				ajouterQuizActionLogger.debug("Action terminee. L'utilisateur n'est pas un administrateur");
 				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Add attributes of error message
+			ajouterQuizActionLogger.debug("Action terminee avec erreur : "+e.getMessage());
 			return mapping.findForward("erreur");
 		}
 	}

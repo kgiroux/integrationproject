@@ -80,8 +80,10 @@ public class QuizDAOImplTest {
 		Quiz quiz = new Quiz("Quiz test", 0, 0);
 		quiz.addQuestion(q1);
 		daoQuiz.createQuiz(quiz);
-		List<Question> qs = new ArrayList<Question>();
-		SetToListConverter.SetToList(qs, quiz.getQuestions());
+		// TODO: use SetToListConverter
+		// List<Question> qs = new ArrayList<Question>();
+		// SetToListConverter.SetToList(qs, quiz.getQuestions());
+		List<Question> qs = new ArrayList<Question>(quiz.getQuestions());
 		List<Question> bddListeQuestions = daoQuiz.listQuestionQuiz(quiz);
 		System.out.println(bddListeQuestions.toString());
 		assertEquals(qs, bddListeQuestions);

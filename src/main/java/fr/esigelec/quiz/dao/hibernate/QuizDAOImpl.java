@@ -82,9 +82,11 @@ public class QuizDAOImpl implements IQuizDAO{
 	
 	public List<Question> listQuestionQuiz(Quiz quiz){
 		Quiz q = getQuiz(quiz.getId());
-		List<Question> array = new ArrayList<Question>();
-		SetToListConverter.SetToList(array, q.getQuestions());
-		return array;
+		// TODO: use SetToListConverter
+		// List<Question> array = new ArrayList<Question>();
+		// SetToListConverter.SetToList(array, q.getQuestions());
+		List<Question> questions = new ArrayList<>(q.getQuestions());
+		return questions;
 	}
 
 	public int getNbQuestionParQuiz(Quiz quiz){

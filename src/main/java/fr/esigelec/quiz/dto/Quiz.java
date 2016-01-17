@@ -2,6 +2,7 @@ package fr.esigelec.quiz.dto;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -123,6 +124,10 @@ public class Quiz implements Comparable<Quiz> {
 
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
+	}
+	
+	public void setListeQuestions(List<Question> questions) {
+		this.questions = new HashSet<Question> (questions);
 	}
 
 	/**

@@ -29,6 +29,8 @@ import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
+import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
+import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 
@@ -49,10 +51,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate (savedInstanceState);
-		setContentView (R.layout.activity_main);
+		setContentView(R.layout.activity_main);
 		pers = SingletonPersonne.getInstance ().getPersonne ();
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
+        toolbar.setTitleTextColor(getColor(R.color.white));
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
 		dialog = createAndManageDialog();
@@ -94,25 +97,29 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					case 0:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						dialog.show ();
-						Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
+						if(DEBUG)
+							Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
 						break;
 					case 1:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),InscriptionActivity.class);
 						startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
-						Toast.makeText (getApplicationContext (), R.string.inscription, Toast.LENGTH_LONG).show ();
+						if(DEBUG)
+							Toast.makeText (getApplicationContext (), R.string.inscription, Toast.LENGTH_LONG).show ();
 						break;
 
 					case 2:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),AboutActivity.class);
-						Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
+						if(DEBUG)
+							Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
 						startActivity (t);
 						break;
 					case 3:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
-						Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
+						if(DEBUG)
+							Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
 						startActivity (t);
 						break;
 					case 4:
@@ -230,28 +237,36 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					isMdpValid = false;
 				}
 
-
 				pers.setMail(loginValue);
 				pers.setMdp(passwordValue);
-
-				if(DEV){
-					isMdpValid = true;
-					isEmailValid = true;
-				}
 
 				try
 				{
 					JSONObject perJson = new AndroidHTTPRequest().execute(IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
-					Toast.makeText(getApplicationContext(),perJson.toString(),Toast.LENGTH_LONG).show();
-					pers.JSONObjectToPersonne(perJson);
-					Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
-
-				}catch(Exception ex)
+					if(perJson.has("err_code")){
+						int err_code = perJson.getInt("err_code");
+						ErrorManager error = SingletonErrorManager.getInstance().getError();
+						Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
+						isMdpValid = false;
+						isEmailValid = false;
+					}else{
+						pers.JSONObjectToPersonne(perJson);
+						Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
+					}
+				}
+				catch(Exception ex)
 				{
 					Log.e("ERROR",ex.getMessage());
 					TextView tv = (TextView) dialog.findViewById(R.id.errorText);
 					tv.setText(getString(R.string.error_connection));
+                    isEmailValid = false;
+                    isMdpValid = false;
 				}
+				if(DEV){
+					isEmailValid = true;
+					isMdpValid = true;
+				}
+
 
 				if(isEmailValid && isMdpValid){
 					Intent t = new Intent (getApplicationContext (), MenuActivity.class);

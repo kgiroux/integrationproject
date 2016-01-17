@@ -69,7 +69,8 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
             TextView date = (TextView) findViewById(R.id.date);
             date.setText(currentQuiz.getDateDebutQuestion().toString());
             TextView nbQuest = (TextView) findViewById(R.id.question);
-            nbQuest.setText("Question : " + currentQuiz.getNoQuestionCourante() + "/" + currentQuiz.getListeQuestions().size());
+            String text = getString(R.string.question) + currentQuiz.getNoQuestionCourante() + getString(R.string.separator) + currentQuiz.getListeQuestions().size();
+            nbQuest.setText(text);
         } else {
             currentQuizLayout.setVisibility(View.GONE);
         }

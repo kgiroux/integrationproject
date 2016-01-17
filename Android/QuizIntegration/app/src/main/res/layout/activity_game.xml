@@ -137,7 +137,7 @@
                 android:textSize="36sp"
                 android:background="@drawable/timer"
                 android:gravity="center"
-                android:format="00" />
+                android:format="30" />
 
         </RelativeLayout>
 

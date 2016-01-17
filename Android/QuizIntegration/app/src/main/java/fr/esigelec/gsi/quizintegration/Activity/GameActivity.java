@@ -2,9 +2,11 @@ package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -32,7 +34,26 @@ public class GameActivity extends Activity
 
         //Initialisation pour test
         initTest();
+        initIHM();
 
+        new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                TextView timer = (TextView) findViewById(R.id.timer);
+                int second = Integer.parseInt(timer.getText().toString());
+
+                timer.setText(String.valueOf(second - 1));
+            }
+
+            public void onFinish() {
+                TextView timer = (TextView) findViewById(R.id.timer);
+                timer.setText(getString(R.string.finish));
+            }
+        }.start();
+	}
+
+
+    private void initIHM(){
         TextView questionText = (TextView) findViewById(R.id.question);
         button1 = (Button) findViewById(R.id.choice_one);
         button2 = (Button) findViewById(R.id.choice_two);
@@ -91,14 +112,14 @@ public class GameActivity extends Activity
             }
         });
 
-		ImageButton quit = (ImageButton) findViewById(R.id.quit);
-		quit.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-	}
+        ImageButton quit = (ImageButton) findViewById(R.id.quit);
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     protected void initTest() {
         question = new Question(1,"De quelle année date le premier Iphone ?", 3);

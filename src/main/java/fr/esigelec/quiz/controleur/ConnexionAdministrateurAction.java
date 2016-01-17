@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.controleur;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -26,7 +27,7 @@ public class ConnexionAdministrateurAction extends Action {
 	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
 		connexionAdministrateurActionLogger.debug("Execute");
 		

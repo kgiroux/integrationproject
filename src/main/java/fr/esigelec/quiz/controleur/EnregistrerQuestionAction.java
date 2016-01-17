@@ -3,6 +3,7 @@ package fr.esigelec.quiz.controleur;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,83 +53,74 @@ public class EnregistrerQuestionAction extends Action {
 			
 			Proposition propositionBonneReponse = new Proposition();
 			propositionBonneReponse.setLibelle(libelleQuestion);
-			propositionBonneReponse.setIdQuestion(question);
-			question.setBonneReponse(propositionBonneReponse);
+			propositionBonneReponse.setQuestion(question);
+			propositionBonneReponse.setEstBonneReponse(true);
 			
-			List<Proposition> listPropositions = new ArrayList<Proposition>();
 			if((p1 = request.getParameter("p1")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p1);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
 			if((p2 = request.getParameter("p2")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p2);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
 			if((p3 = request.getParameter("p3")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p3);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
 			if((p4 = request.getParameter("p4")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p4);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
 			if((p5 = request.getParameter("p5")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p5);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
 			if((p6 = request.getParameter("p6")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p6);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
 			if((p7 = request.getParameter("p7")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p7);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
 			if((p8 = request.getParameter("p8")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p8);
-				prop.setIdQuestion(question);
+				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
-				listPropositions.add(prop);
 			}
-			question.setListePropositions(listPropositions);
+			
 			questionDAO.createQuestion(question);
-			ArrayList<Question> array = new ArrayList<Question>();
-			quiz.getListeQuestions(array);
-			array.add(question);
+			Set<Question> setQuestion = quiz.getQuestions();
+			setQuestion.add(question);
+			quiz.setQuestions(setQuestion);
 			quizDAO.updateQuiz(quiz);
 			
 			// TODO ... enregistrer les questions ???? 
-			request.setAttribute("listeQuiz", array);
+			request.setAttribute("listeQuiz", setQuestion);
 		}
 
 		enregistrerQuestionActionLogger.debug("Question enregistree");

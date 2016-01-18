@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html:html>
 <head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title><bean:message key="erreur.globale.titre" /></title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">

@@ -101,6 +101,9 @@
       <action scope="request" path="/VueAnimateur"  type="fr.esigelec.quiz.controleur.VueAnimateurAction">
         <forward name="succes" path="/animateur.jsp"/>
       </action>
+      <action scope="request" path="/VueQuestionAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionAdminAction">
+        <forward name="succes" path="/questionAdmin.jsp"/>
+      </action>
       <!--
           Android actions
           L'ensemble des actions "Android" se trouve dans les balises suivantes.

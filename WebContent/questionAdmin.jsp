@@ -71,7 +71,7 @@
 				  <div class="col-md-6">
 				    <button type="submit" class="btn btn-primary">Ajouter</button>
 				    <button type="reset" class="btn btn-primary">Rétablir</button>
-				    <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do"><input type="button" class="btn btn-primary">Annuler</input></a>
+				    <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
 				  </div>
 				</div>
 				<hr>

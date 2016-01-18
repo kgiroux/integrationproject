@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
@@ -31,43 +33,43 @@ public class AjouterQuizAction extends Action {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		ajouterQuizActionLogger.debug("Execute");
+		ActionErrors errors = new ActionErrors();
 		
 		try {
-			// Get parameters and sessions
+			/* Get parameters and sessions */
 			Personne p = (Personne) request.getSession().getAttribute("personne");
 			String libelleQuiz = request.getParameter("libelleQuiz");
 			List<Question> questions = (List<Question>) request.getAttribute("listeQuestionsQuiz");
 			
-			if (libelleQuiz != null)
-				ajouterQuizActionLogger.info("libelleQuiz:" + libelleQuiz);
-			if (questions != null) {
-				for (Question q : questions)
-					ajouterQuizActionLogger.info("question:" + q);
+			/* Verify authentication session */
+			if (p == null || p.getDroits() != Personne.ADMIN) {
+				errors.add("err.session.auth", new ActionMessage("err.session.auth.notfound"));	// TODO: add error message in `mesMessage.properties'
+				return mapping.findForward("login");											// TODO: verify `login' goes well
 			}
 			
-//			if (p.getDroits() == Personne.ADMIN) {
-			if (true) {
-				// Create quiz
-				Quiz quiz = new Quiz();
-				quiz.setLibelle(libelleQuiz);
-				quiz.setListeQuestions(questions);
-				// Add to bdd
-				IQuizDAO quizDAO = new QuizDAOImpl();
-				quizDAO.createQuiz(quiz);
-				// Set attributes and return map
-				request.setAttribute("listeQuestions", questions);
-				ajouterQuizActionLogger.debug("Quiz ajout�");
-				return mapping.findForward("succes");	/* Need to map to questionsQuizAdmin.jsp */
-			} else {
-				ajouterQuizActionLogger.debug("Action terminee. L'utilisateur n'est pas un administrateur");
-				return mapping.findForward("login");	/* If user is not admin, map to somewhere */
+			/* Verify inputs (parameter `libelleQuez' && attribute `questions') */
+			if (libelleQuiz == null || "".equals(libelleQuiz) || questions == null) {
+				errors.add("err.inputs", new ActionMessage("err.inputs.null"));					// TODO: add error message in `mesMessage.properties'
+				return mapping.findForward("erreur");											// TODO: verify `erreur' goes well
 			}
+			
+			/* Everything goes well; create quiz */
+			Quiz quiz = new Quiz();
+			quiz.setLibelle(libelleQuiz);
+			quiz.setListeQuestions(questions);
+			// Add to bdd
+			IQuizDAO quizDAO = new QuizDAOImpl();
+			quizDAO.createQuiz(quiz);
+			// Set attributes and return map
+			request.setAttribute("listeQuestions", questions);
+			ajouterQuizActionLogger.debug("Quiz ajout�");
+			return mapping.findForward("succes");												// TODO: verify `succes' goes well
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Add attributes of error message
 			ajouterQuizActionLogger.debug("Action terminee avec erreur : "+e.getMessage());
-			return mapping.findForward("erreur");
+			return mapping.findForward("erreur");												// TODO: verify `erreur' goes well
 		}
 	}
 }

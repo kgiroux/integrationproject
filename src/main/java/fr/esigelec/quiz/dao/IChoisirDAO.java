@@ -28,6 +28,4 @@ public interface IChoisirDAO {
 	
 	public List<Choisir> getChoixPersonne(Personne P, Quiz q);
 	
-	public int scorePersonne(Personne P);
-	
 }

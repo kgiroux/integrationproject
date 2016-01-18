@@ -47,7 +47,7 @@ public class PropositionDAOImplTest {
 		assertEquals(true, statut);
 	}
 
-	/*@Test
+	@Test
 	public void BtestGetProposition() {
 		System.out.println("La classe de base: " + proposition.toString());
 		Proposition p = daoProposition.getProposition(proposition.getId());
@@ -62,16 +62,6 @@ public class PropositionDAOImplTest {
 		Proposition p = daoProposition.getProposition(proposition.getId());
 		assertEquals(p, proposition);
 	}
-	
-	
-	@Test(expected=NullPointerException.class)
-	public void DtestDeletePropositionEnCascade() {
-		int id = proposition.getId();
-		daoQuestion.deleteQuestion(question);
-		Proposition p = daoProposition.getProposition(id);
-		System.out.println(p.toString());
-	}
-	
 	
 	@Test(expected=NullPointerException.class)
 	public void EtestDeleteProposition() {
@@ -117,23 +107,25 @@ public class PropositionDAOImplTest {
 	@Test
 	public void HtestGetBonneReponse() {
 		Question question = new Question("Proposition Test Get Bonne Reponse");
-		daoQuestion.createQuestion(question);
 		
 		Proposition a = new Proposition("Proposition 1 gbr", false);
-		daoProposition.createProposition(a);
-		
+		question.getPropositions().add(a);
 		System.out.println("a" + question.getId());
-		Proposition b = new Proposition("Proposition 2 gbr", true);
-		daoProposition.createProposition(b);
 		
+		Proposition b = new Proposition("Proposition 2 gbr", true);
+		question.getPropositions().add(b);
 		System.out.println("b" + question.getId());
+		
 		Proposition c = new Proposition("Proposition 3 gbr", false);
-		daoProposition.createProposition(c);
+		question.getPropositions().add(c);
 		System.out.println("c" + question.getId());
 		
+		daoQuestion.createQuestion(question);
+		
 		Proposition p = daoProposition.getBonneReponse(question);
+		System.out.println(p.toString());
 		assertTrue(p.isEstBonneReponse());
 		//Delete
 		daoQuestion.deleteQuestion(question);
-	}*/
+	}
 }

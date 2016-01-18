@@ -53,7 +53,7 @@ public class ChoisirAction extends Action {
 			
 		}
 		else {
-			session.setAttribute("idProposition", idProposition);
+			session.setAttribute("idProposition", -1);
 		}
 
 		choisirActionLogger.debug("Action terminee avec succes");

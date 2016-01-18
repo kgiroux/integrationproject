@@ -38,7 +38,7 @@ public class ChoisirAction extends Action {
 		int idProposition = Integer.parseInt(request.getParameter("idProposition"));
 	    Quiz quiz  = (Quiz) session.getAttribute("quiz");
 		
-		Timestamp currentTime = new Timestamp(System.currentTimeMillis() /1000);
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 		
         Timestamp questionStartTime = quiz.getDateDebutQuestion() ;
         

@@ -92,7 +92,7 @@
       <action scope="request" path="/VueQuestion"  type="fr.esigelec.quiz.controleur.VueQuestionAction">
         <forward name="succes" path="/question.jsp"/>
       </action>
-      <action scope="request" path="/VueQuestionsQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
+      <action scope="request" path="/VueQuestionQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/questionQuizAdmin.jsp"/>
       </action>
       <action scope="request" path="/VueQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">

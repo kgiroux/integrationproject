@@ -43,6 +43,8 @@ public class Personne implements Comparable<Personne>{
 	 */
 	private int droits;
 	
+	private int score;
+	
 	public static final int ADMIN = 1000;
 	public static final int JOUEUR = 0;
 
@@ -70,6 +72,7 @@ public class Personne implements Comparable<Personne>{
 		this.mail = mail;
 		this.mdp = mdp;
 		this.droits = droits;
+		this.score = 0;
 	}
 
 	/**
@@ -83,6 +86,7 @@ public class Personne implements Comparable<Personne>{
 		this.mail = p.mail;
 		this.mdp = p.mdp;
 		this.droits = p.droits;
+		this.score = p.score;
 	}
 
 	/**
@@ -181,23 +185,28 @@ public class Personne implements Comparable<Personne>{
 		this.droits = droits;
 	}
 	
-	/**
-	 * Methode toString()
-	 * Prints the details of the personne
-	 */
-	@Override
-	public String toString() {
-		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom
-				+ ", mail=" + mail + ", mdp=" + mdp + ", droits=" + droits
-				+ "]";
+	public int getScore() {
+		return score;
 	}
 
-	/**
-	 * M�thode equals
-	 * pour comparer deux objets de type Peronne
-	 * @return true si le sobjets sont �gaux
-	 * @return false sinon
-	 */
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + droits;
+		result = prime * result + id;
+		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+		result = prime * result + ((mdp == null) ? 0 : mdp.hashCode());
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
+		result = prime * result + score;
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -231,14 +240,22 @@ public class Personne implements Comparable<Personne>{
 				return false;
 		} else if (!prenom.equals(other.prenom))
 			return false;
+		if (score != other.score)
+			return false;
 		return true;
 	}
 
 	@Override
-	public int compareTo(Personne o) {
-		if(this.getId() < o.getId())
+	public String toString() {
+		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", mdp=" + mdp
+				+ ", droits=" + droits + ", score=" + score + "]";
+	}
+
+	@Override
+	public int compareTo(Personne p) {
+		if(this.getScore() < p.getScore())
 			return -1;
-		else if (this.getId() < o.getId())
+		else if (this.getScore() == p.getScore())
 			return 0;
 		else 
 			return 1;

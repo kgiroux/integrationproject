@@ -3,7 +3,6 @@
 
 </body>
 <footer>
-<hr>
-<p class="btn-center"> Projet d'intégration, GSI-IR &COPY; 2016 ESIGELEC</p>
+<jsp:include page="/mention_legale.jsp"></jsp:include>
 </footer>
 </html>

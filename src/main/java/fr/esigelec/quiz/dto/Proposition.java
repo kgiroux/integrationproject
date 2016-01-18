@@ -28,6 +28,8 @@ public class Proposition implements Comparable<Proposition> {
 	 */
 	boolean estBonneReponse;
 	
+	private double pourcentage;
+	
 	/*Constructeurs*/
 
 	/**
@@ -38,6 +40,7 @@ public class Proposition implements Comparable<Proposition> {
 		this.id = 0;
 		this.libelle = "";
 		this.estBonneReponse = false;
+		this.pourcentage = 0;
 	}
 
 	/**
@@ -50,6 +53,7 @@ public class Proposition implements Comparable<Proposition> {
 		this.id = 0;
 		this.libelle = libelle;
 		this.estBonneReponse = estBonneReponse;
+		this.pourcentage = 0;
 	}
 
 
@@ -62,6 +66,7 @@ public class Proposition implements Comparable<Proposition> {
 		this.id = p.id;
 		this.libelle = p.libelle;
 		this.estBonneReponse = p.estBonneReponse;
+		this.pourcentage = p.pourcentage;
 	}
 
 	/*Getters et setters*/
@@ -88,6 +93,14 @@ public class Proposition implements Comparable<Proposition> {
 	 */
 	public String getLibelle() {
 		return libelle;
+	}
+
+	public double getPourcentage() {
+		return pourcentage;
+	}
+
+	public void setPourcentage(double pourcentage) {
+		this.pourcentage = pourcentage;
 	}
 
 	/**
@@ -146,7 +159,7 @@ public class Proposition implements Comparable<Proposition> {
 	public int compareTo(Proposition p) {
 		if(this.getId() < p.getId())
 			return -1;
-		else if (this.getId() < p.getId())
+		else if (this.getId() == p.getId())
 			return 0;
 		else 
 			return 1;

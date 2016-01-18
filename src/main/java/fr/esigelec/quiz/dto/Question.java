@@ -148,7 +148,7 @@ public class Question implements  Comparable<Question>  {
 	public int compareTo(Question o) {
 		if(this.getId() < o.getId())
 			return -1;
-		else if (this.getId() < o.getId())
+		else if (this.getId() == o.getId())
 			return 0;
 		else 
 			return 1;

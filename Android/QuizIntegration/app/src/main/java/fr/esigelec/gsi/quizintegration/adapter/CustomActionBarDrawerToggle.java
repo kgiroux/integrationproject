@@ -25,14 +25,14 @@ public class CustomActionBarDrawerToggle extends ActionBarDrawerToggle
 	@Override
 	public void onDrawerClosed (View view)
 	{
-		toolbar.setTitle (R.string.app_name);
+		//toolbar.setTitle (R.string.app_name);
 		activity.invalidateOptionsMenu (); // creates call to onPrepareOptionsMenu()
 	}
 
 	@Override
 	public void onDrawerOpened (View drawerView)
 	{
-		toolbar.setTitle (R.string.app_name);
+		//toolbar.setTitle (R.string.app_name);
 		activity.invalidateOptionsMenu (); // creates call to onPrepareOptionsMenu()
 	}
 }

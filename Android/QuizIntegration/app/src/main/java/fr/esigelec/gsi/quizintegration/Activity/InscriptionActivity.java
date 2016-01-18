@@ -22,11 +22,8 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  */
-
-
 public class InscriptionActivity extends AppCompatActivity implements View.OnClickListener
 {
-
 	private Personne pers;
 	private Map<Integer,String> idError;
 	@Override
@@ -67,7 +64,6 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
 		Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
 		return resultToReturn;
 	}
-
 
 	@Override
 	public void onClick(View v) {

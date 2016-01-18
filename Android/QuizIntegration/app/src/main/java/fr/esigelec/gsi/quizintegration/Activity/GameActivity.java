@@ -19,8 +19,6 @@ import fr.esigelec.gsi.quizintegration.R;
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  */
-
-
 public class GameActivity extends Activity
 {
     private Question question;
@@ -31,10 +29,9 @@ public class GameActivity extends Activity
     private Button button4;
 
 	@Override
-	protected void onCreate (Bundle savedInstanceState)
-	{
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_game);
+	protected void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
 
         //Initialisation pour test
         initTest();
@@ -45,7 +42,6 @@ public class GameActivity extends Activity
             public void onTick(long millisUntilFinished) {
                 TextView timer = (TextView) findViewById(R.id.timer);
                 int second = Integer.parseInt(timer.getText().toString());
-
                 timer.setText(String.valueOf(second - 1));
             }
 
@@ -54,8 +50,7 @@ public class GameActivity extends Activity
                 timer.setText(getString(R.string.finish));
             }
         }.start();
-	}
-
+    }
 
     private void initIHM(){
         TextView questionText = (TextView) findViewById(R.id.question);
@@ -78,7 +73,6 @@ public class GameActivity extends Activity
                 button3.setEnabled(false);
                 button4.setEnabled(false);
                 respGiven = 1;
-
                 return true;
             }
         });

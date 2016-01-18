@@ -15,9 +15,6 @@ import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
  */
 public class LegalNoticeActivity extends AppCompatActivity
 {
-
-
-
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{

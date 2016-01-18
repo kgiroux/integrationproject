@@ -136,6 +136,7 @@
                 android:layout_centerInParent="true"
                 android:textSize="36sp"
                 android:background="@drawable/timer"
+                android:textColor="@color/white"
                 android:gravity="center"
                 android:format="30" />
 

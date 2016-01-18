@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import fr.esigelec.gsi.quizintegration.R;
 
-
-
+/**
+ * Created by Yuhuang, Tang on 13/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     private final long SPLASH_LENGTH = 3000;
@@ -30,10 +31,6 @@ public class WelcomeActivity extends AppCompatActivity {
         }catch (PackageManager.NameNotFoundException e ){
             e.printStackTrace ();
         }
-
-
-
-        ;
 
         handler.postDelayed(new Runnable() {
 

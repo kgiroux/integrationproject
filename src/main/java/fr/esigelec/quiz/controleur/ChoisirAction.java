@@ -16,6 +16,11 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.dao.IChoisirDAO;
+import fr.esigelec.quiz.dao.hibernate.ChoisirDAOImpl;
+import fr.esigelec.quiz.dto.Choisir;
+import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -33,12 +38,20 @@ public class ChoisirAction extends Action {
 		//UTILS
 		HttpSession session = request.getSession();
 		
-		
+		Personne personne=(Personne)session.getAttribute("personne");
 		//IN 
 		int idProposition = Integer.parseInt(request.getParameter("idProposition"));
 	    Quiz quiz  = (Quiz) session.getAttribute("quiz");
-		
-		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+	    Proposition proposition = new Proposition();
+	    proposition.setId(idProposition);
+	    
+		Choisir choisir=new Choisir(new Timestamp(System.currentTimeMillis()),proposition,quiz,personne);
+	    
+	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
+	    choisirDAO.createChoix(choisir);
+	    
+	    
+		/*Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 		
         Timestamp questionStartTime = quiz.getDateDebutQuestion() ;
         
@@ -47,15 +60,15 @@ public class ChoisirAction extends Action {
         cal.add(Calendar.SECOND, 30);
        		
 		if ( currentTime.before(cal.getTime())){
-			
+			*/
 			//OUT 
 			session.setAttribute("idProposition", idProposition);
 			
-		}
+		/*}
 		else {
 			session.setAttribute("idProposition", -1);
 		}
-
+*/
 		choisirActionLogger.debug("Action terminee avec succes");
 		return mapping.findForward("succes");
 		

@@ -12,7 +12,8 @@
 		Chiffres[i] = new Image()
 		Chiffres[i].src = 'Ressources/images/' + i + '.gif'
 	}
-	
+     
+    
 	// Definition de la fonction appelé chaque seconde
 	function Ecoule() {
 		// On modifie l'affichage
@@ -27,3 +28,4 @@
 		}
 		reste--
 	}
+	

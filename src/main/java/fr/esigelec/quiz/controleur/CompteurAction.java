@@ -27,7 +27,7 @@ public class CompteurAction extends Action {
 				Quiz quiz = (Quiz)session.getAttribute("quiz");
 							
 				
-				
+				quiz.setNoQuestionCourante(compteur);
 				quiz.setEtape(0);
 				quizdaoimpl.updateQuiz(quiz);
 				Quiz q = quizdaoimpl.getQuiz(quiz.getId());

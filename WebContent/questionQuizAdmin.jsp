@@ -27,22 +27,11 @@
 					</tr>
 				</thead>
 				<tbody>
-				<% List<Question> listq = null; 
-				Question question = new Question("question1");
-				Proposition pro1 = new Proposition("proposition1faux",false);
-				Proposition pro2 = new Proposition("proposition2bonne",true);
-				question.getPropositions().add(pro1);
-				question.getPropositions().add(pro2);
-				Question question1 = new Question("question2");
-				Proposition prop11 = new Proposition("proposition11faux",false);
-				Proposition prop22 = new Proposition("proposition22bonne",true);
-				question.getPropositions().add(prop11);
-				question.getPropositions().add(prop22);
-				listq= new LinkedList<Question>();
-				listq.add(question);
-				listq.add(question1);
-				//List<Question> q=(List<Question>)request.getAttribute("listeQuestions");
-						for(Question q1:listq){ %>
+				<% 				
+				List<Question> q= null;
+				if  ((List<Question>)request.getAttribute("listeQuestions") != null) {	
+					q = (List<Question>)request.getAttribute("listeQuestions");
+					for(Question q1:q){ %>
 					<tr>
 						<td><input type="checkbox" name="<%=q1.getId()%>" id="<%=q1.getId()%>" >
 						</td>
@@ -50,7 +39,9 @@
 						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>" ><span class="glyphicon glyphicon-remove"></span></a></td>
 						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do"><span class="glyphicon glyphicon-edit"></span></a></td>
 					</tr>
-						<%} %>
+						<%} 
+						}
+						%>
 				</tbody>
 			</table>
 			<button type="submit" class="btn btn-primary">Créer</button>

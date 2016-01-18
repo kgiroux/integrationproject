@@ -15,6 +15,7 @@
 <script src="Ressources/bootstrap/js/compteur.js"></script>
 </head>
 <body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
+
 <%
 int count=(int)session.getAttribute("compteur");
 
@@ -24,13 +25,13 @@ int count=(int)session.getAttribute("compteur");
 Quiz q=(Quiz)session.getAttribute("quiz");
 System.out.println(q.toString());
 List<Question> listq=q.getListeQuestions();
-
+Question questioncur=listq.get(count);
+session.setAttribute("questioncurrente",questioncur);
 %>
 <div class="form-center animateur">
-<a href="<%=request.getContextPath()%>/Stats.do"><button class="btn btn-primary" >Afficher statistiques</button></a>
-<a href="<%=request.getContextPath()%>/Reponse.do"><button class="btn btn-primary">Afficher bonne réponse</button></a>	
-<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>"><button class="btn btn-primary" id="suivant">Question suivante</button></a>
-
+<a href="<%=request.getContextPath()%>/Stats.do"><button id="bouton1" class="btn btn-primary" >Afficher statistiques</button></a>
+<a href="<%=request.getContextPath()%>/Reponse.do"><button id="bouton2"  class="btn btn-primary">Afficher bonne réponse</button></a>	
+<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>"><button id="bouton3" class="btn btn-primary" id="suivant">Question suivante</button></a>
 
 <h1>Question n°<%=count+1%></h1>
 </div>
@@ -44,8 +45,8 @@ List<Question> listq=q.getListeQuestions();
 				<thead>
 					<tr>
 						<th><%=listq.get(count).getLibelle()%></th>
-						<% if(q.getEtape()>1)%><th>Statistiques</th>
-						<% if(q.getEtape()>2)%><th>Reponse</th>
+						<% if(q.getEtape()>1)%><th>%</th>
+						<% if(q.getEtape()>2)%><th>Réponse</th>
 						
 					</tr>
 				</thead>
@@ -54,17 +55,20 @@ List<Question> listq=q.getListeQuestions();
 					<tr>
 						<td><a id="test" href="#"><%=listq.get(count).getListePropositions().get(j).getLibelle()%></a></td>
 					
-					<% if(q.getEtape()>1) {%>
+									
 					
-					
-						<td>2</td>
-					
+					<% if(q.getEtape()>1) {
+						List<Proposition> listpro= (List<Proposition>)session.getAttribute("listpro");
+					%>
+						<td><%=listpro.get(j).getPourcentage()%></td>
 					<%} %>
-					<% if(q.getEtape()>2) {%>
-					
-						<td>3</td>
+					<% if(q.getEtape()>2) {
+					if(listq.get(count).getListePropositions().get(j).isEstBonneReponse()){%>
+						<td class="vert"></td><%} else{%>
+						<td class="rouge"></td><%} %>
+					<%} %>
 					</tr>
-					<%} %>
+					
 					<%} %>
 				</tbody>
 			</table>

@@ -11,37 +11,20 @@
  <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
  <p class="question"><strong>Reste</strong> : 0 secondes</p>
  <br>
- <%--
-	
-	Proposition p1 = new Proposition("javax.http.servlet.HttpServlet");
-	Proposition p2 = new Proposition("javax.servlet.HttpServlet");
-	Proposition p3 = new Proposition("java.http.servlet.ServletHttp");
-	Proposition p4 = new Proposition("javax.http.servlet.ServletHttp");
-
-	List<Proposition> l=new ArrayList<Proposition>();
-	l.add(p1);
-	l.add(p2);
-	l.add(p3);
-	l.add(p4);
-	Question q = new Question();
-	q.setLibelle("De quelle classe doit hériter une servlet ?");
-	q.setId(1);
-	q.setBonneReponse(p1);
-	q.setListePropositions(l);
-	--%>
+ <c:out value="${quiz}" />
   <table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr >
-<th class="question"><%--=q.getLibelle() --%></th>
- <th style="text-align:center">%</th>
+		<th class="question"><%--=q.getLibelle() --%></th>
+		 <th style="text-align:center">%</th>
       </tr>
     </thead>
     <tbody>
 	
 	  <%-- for(int i=0; i<q.getListePropositions().size(); i++){--%>
       <tr>
-        <td ><a href="#">j<%--=q.getListePropositions().get(i).getLibelle().toString()--%></a></td>
-		<td>30 %</td>
+        <td ><a href="#"><c:out value="${quiz.question.libelle}" /></a></td>
+		<td><c:out value="${quiz.question.libelle}" /></td>
 
       </tr>
 	<%-- }--%>

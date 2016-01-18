@@ -53,7 +53,7 @@
 						<%} %>
 				</tbody>
 			</table>
-			<button class="btn btn-primary">Créer</button>
+			<button class="btn btn-primary"></button>
    </form>
    			<a href="<%=request.getContextPath()%>/VueQuizAdmin.do"><button class="btn btn-primary">Annuler</button></a>
    <hr>

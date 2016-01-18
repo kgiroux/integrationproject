@@ -38,7 +38,15 @@ public class AjouterQuizAction extends Action {
 			String libelleQuiz = request.getParameter("libelleQuiz");
 			List<Question> questions = (List<Question>) request.getAttribute("listeQuestionsQuiz");
 			
-			if (p.getDroits() == Personne.ADMIN) {
+			if (libelleQuiz != null)
+				ajouterQuizActionLogger.info("libelleQuiz:" + libelleQuiz);
+			if (questions != null) {
+				for (Question q : questions)
+					ajouterQuizActionLogger.info("question:" + q);
+			}
+			
+//			if (p.getDroits() == Personne.ADMIN) {
+			if (true) {
 				// Create quiz
 				Quiz quiz = new Quiz();
 				quiz.setLibelle(libelleQuiz);

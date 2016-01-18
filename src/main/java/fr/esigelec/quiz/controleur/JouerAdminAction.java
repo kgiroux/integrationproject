@@ -26,15 +26,17 @@ public class JouerAdminAction extends Action  {
 		HttpSession session = request.getSession();
 
 		
-		int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
+		//int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
+		
 		
 		
 		//OUT 
-		Quiz quiz = quizdaoimpl.getQuiz(idQuiz);
+		Quiz quiz = quizdaoimpl.getQuiz(18);
+		
+		int idQuiz = quiz.getId();
 		quiz.setEtape(1);
 		Question question = ActionService.getQuestionByQuizId(idQuiz);
-		
-		
+				
 		
 		session.setAttribute("quiz", quiz);
 		session.setAttribute("question", question);

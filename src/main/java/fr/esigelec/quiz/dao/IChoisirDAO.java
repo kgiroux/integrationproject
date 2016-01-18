@@ -27,5 +27,9 @@ public interface IChoisirDAO {
 	public boolean deleteChoix(Choisir c);
 	
 	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q);
+
+	int getNombrePersonneParQuiz(Quiz q);
+
+	int getNombrePersonneParProposition(Quiz q, Proposition p);
 	
 }

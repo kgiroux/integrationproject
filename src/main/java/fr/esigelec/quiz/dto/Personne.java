@@ -72,6 +72,7 @@ public class Personne implements Comparable<Personne>{
 		this.mail = mail;
 		this.mdp = mdp;
 		this.droits = droits;
+		this.score = 0;
 	}
 
 	/**
@@ -85,6 +86,7 @@ public class Personne implements Comparable<Personne>{
 		this.mail = p.mail;
 		this.mdp = p.mdp;
 		this.droits = p.droits;
+		this.score = p.score;
 	}
 
 	/**

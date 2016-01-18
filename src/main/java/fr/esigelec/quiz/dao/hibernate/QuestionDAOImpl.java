@@ -1,6 +1,6 @@
 package fr.esigelec.quiz.dao.hibernate;
 
-import java.util.ArrayList;
+
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -12,14 +12,19 @@ import java.util.ArrayList;
  * */
 
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
+
+import fr.esigelec.quiz.controleur.TestLogger;
 import fr.esigelec.quiz.dao.IQuestionDAO;
 import fr.esigelec.quiz.dto.Question;
-import fr.esigelec.quiz.dto.Quiz;
-import fr.esigelec.quiz.util.SetToListConverter;
 
 public class QuestionDAOImpl implements IQuestionDAO {
+	
+	private static final Logger logger = Logger.getLogger(TestLogger.class);
+
 	
 	/**
 	 * m�thode : createQuestion
@@ -32,6 +37,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		session.save(q);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("createQuestion : " + q.toString());
 		return (q.getId() != 0);
 	}
 
@@ -45,9 +51,10 @@ public class QuestionDAOImpl implements IQuestionDAO {
 	public Question getQuestion(int id) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Question question=session.get(Question.class,id);
+		Question question = session.get(Question.class,id);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("get Question: " + question.toString() + " From id : " + id);
 		return question;
 	}
 	
@@ -64,6 +71,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		List<Question> listeQuestions = query.list();
 		session.getTransaction().commit();
 		session.close();
+		logger.info("get liste Question: " + listeQuestions.toString());
 		return listeQuestions;
 	}
 
@@ -80,6 +88,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		Question newQuestion = getQuestion(q.getId());
 		session.getTransaction().commit();
 		session.close();
+		logger.info("updateQuestion: " + newQuestion.toString());
 		return (newQuestion.equals(q));
 	}
 
@@ -95,6 +104,8 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		session.delete(q);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("deleteQuestion: " + q);
 		return (q == null);
 	}
+
 }

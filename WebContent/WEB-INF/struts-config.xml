@@ -49,7 +49,8 @@
          <forward name="succes" path="/question.jsp"/>
       </action>
       <action scope="request" path="/SupprimerQuiz" name="" type="fr.esigelec.quiz.controleur.SupprimerQuizAction" input="/">
-         <forward name="succes" path="/quizAdmin.jsp"/>
+         <forward name="succes" path="/VueQuizAdmin.do"/>
+         <forward name="login"  path="/indexAdmin.jsp"/>
       </action>
       <action scope="request" path="/AjouterQuiz" name="" type="fr.esigelec.quiz.controleur.AjouterQuizAction" input="/">
          <forward name="succes" path="/VueQuizAdmin.do"/>

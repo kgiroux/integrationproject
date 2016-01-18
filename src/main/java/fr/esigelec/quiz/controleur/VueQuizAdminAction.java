@@ -22,7 +22,7 @@ import fr.esigelec.quiz.dto.Personne;
  */
 public class VueQuizAdminAction extends Action {
 	
-private static final Logger vueQuizAdminAction = Logger.getLogger(VueQuizAdminAction.class);
+	private final Logger vueQuizAdminAction = Logger.getLogger(VueQuizAdminAction.class);
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -46,6 +46,7 @@ private static final Logger vueQuizAdminAction = Logger.getLogger(VueQuizAdminAc
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return mapping.findForward("erreur");
 		}
 		return mapping.findForward("succes");
 	}

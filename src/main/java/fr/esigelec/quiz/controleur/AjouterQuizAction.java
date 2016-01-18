@@ -42,7 +42,6 @@ public class AjouterQuizAction extends Action {
 			/* Get parameters and sessions */
 			Personne p = (Personne) request.getSession().getAttribute("personne");
 			String libelleQuiz = request.getParameter("libelleQuiz");
-//			List<Question> questions = (List<Question>) request.getAttribute("listeQuestionsQuiz");
 			String[] questionIds = request.getParameterValues("questionId");
 			
 			/* Verify authentication session */
@@ -58,7 +57,7 @@ public class AjouterQuizAction extends Action {
 				errors.add("err.inputs", new ActionMessage("err.inputs.null"));	
 				if (!errors.isEmpty())
 					addErrors(request, errors);
-				return mapping.findForward("erreur");											// TODO: verify `erreur' goes well
+				return mapping.findForward("erreur");
 			}
 			
 			/* Everything goes well; create quiz */
@@ -82,7 +81,7 @@ public class AjouterQuizAction extends Action {
 			e.printStackTrace();
 			// Add attributes of error message
 			ajouterQuizActionLogger.debug("Action terminee avec erreur : "+e.getMessage());
-			return mapping.findForward("erreur");												// TODO: verify `erreur' goes well
+			return mapping.findForward("erreur");
 		}
 	}
 }

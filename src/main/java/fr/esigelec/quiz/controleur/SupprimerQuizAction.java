@@ -30,9 +30,14 @@ public class SupprimerQuizAction extends Action {
 			Personne p = (Personne) request.getSession().getAttribute("personne");
 			int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 			
+			if (p == null)
+				supprimerQuizActionLogger.info("Personne est null");
+			if (idQuiz == 0)
+				supprimerQuizActionLogger.info("idQuiz est null");
+			
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuizDAO quizDAO = new QuizDAOImpl();
-				quizDAO.deleteQuiz(quizDAO.getQuiz(idQuiz));
+				quizDAO.deleteQuiz(quizDAO.getQuizAvecQuestions(idQuiz));
 				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {
 				return mapping.findForward("login");	/* If user is not admin, map to somewhere */

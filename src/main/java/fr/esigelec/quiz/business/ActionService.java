@@ -27,17 +27,31 @@ import fr.esigelec.quiz.dto.Quiz;
 
 public class ActionService {
 	
+	/**
+	 * retourne la question courante
+	 * @param idQuiz
+	 * @return
+	 */
 	public static  Question  getQuestionByQuizId(int idQuiz){
 		
 		//UTILS 
 		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
-		QuestionDAOImpl questiondaoimpl = new QuestionDAOImpl();
 		
-		Quiz quiz= quizdaoimpl.getQuiz(idQuiz);	
-		Question question = questiondaoimpl.getQuestion(quiz.getNoQuestionCourante());
+		
+		Quiz quiz= quizdaoimpl.getQuizAvecQuestions(idQuiz);	
+		
+		
+		
+		
+		
+		Question question = quiz.getListeQuestions().get(quiz.getNoQuestionCourante());
 		
 		return question;
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Méthode renvoyant le classement des personnes pour un quiz

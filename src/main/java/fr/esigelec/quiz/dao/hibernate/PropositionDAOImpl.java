@@ -86,11 +86,12 @@ public class PropositionDAOImpl implements IPropositionDAO {
 	public Proposition getBonneReponse(Question q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		System.out.println("Question : " + q.getId());
-		Proposition retour = (Proposition) session.createCriteria(Proposition.class)
-				.add(Restrictions.eq("idQuestion", q.getId()))
+		String hql = "From Proposition where estBonneReponse = 1 AND id_question = " + q.getId();
+		Proposition retour = (Proposition) session.createQuery(hql).uniqueResult();
+		/*Proposition retour = (Proposition) session.createCriteria(Proposition.class)
+				.add(Restrictions.eq("id_question", q.getId()))
 				.add(Restrictions.eq("estBonneReponse", 1))
-				.uniqueResult();
+				.uniqueResult();*/
 		session.getTransaction().commit();
 		session.close();
 		logger.info("getBonneReponse : " + retour.toString() + " From question" + q.toString());

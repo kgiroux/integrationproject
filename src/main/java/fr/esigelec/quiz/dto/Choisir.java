@@ -20,6 +20,8 @@ public class Choisir implements Serializable {
 	
 	private Personne personne;
 
+	public Choisir() {}
+	
 	public Choisir(Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
 		this.date = date;
 		this.proposition = proposition;

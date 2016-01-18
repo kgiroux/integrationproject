@@ -47,13 +47,19 @@ public class AndroidChoisirAction extends Action{
 				IChoisirDAO choisirDAO = new ChoisirDAOImpl();
 				
 				//Retrive proposition of the player
-				int idProposition = Integer.parseInt(request.getParameter("idProposition"));
+				/*int idProposition = Integer.parseInt(request.getParameter("idProposition"));
 				int idPersonne = Integer.parseInt(request.getParameter("idPersonne"));
 				int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 				Proposition prop = propositionDAO.getProposition(idProposition);
 				Quiz quiz = quizDAO.getQuiz(idQuiz);
 				Personne pers = personneDAO.getPersonne(idPersonne);
-				
+				*/
+				Proposition prop = new Proposition();
+				prop.setId(3);
+				Quiz quiz = new Quiz();
+				quiz.setId(1);
+				Personne pers = new Personne();
+				pers.setId(5);
 				//Save proposition to the database
 				Choisir choix = new Choisir(new Timestamp(System.currentTimeMillis()),prop,quiz,pers);
 				JSONObject json = new JSONObject();

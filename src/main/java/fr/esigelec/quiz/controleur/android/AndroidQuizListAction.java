@@ -29,7 +29,15 @@ public class AndroidQuizListAction extends Action{
 			{
 				QuizDAOImpl dao = new QuizDAOImpl();
 				List<Quiz> listQuiz = dao.getListQuizFinish();
-				JSONObject json = new JSONObject(listQuiz);
+				JSONObject json = new JSONObject();
+				json.put("QuizList", listQuiz);
+				int compteur = 0;
+				
+				/*for(Quiz q : listQuiz){
+					
+					json.put(String.valueOf(compteur), q);
+					compteur++;
+				}*/
 				
 				//Return informations to client
 				request.setAttribute("json",json.toString());

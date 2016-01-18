@@ -1,3 +1,4 @@
+<%@page import="org.hamcrest.core.IsNull"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
  <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
@@ -19,29 +20,11 @@
     </thead>
     <tbody>
     <% 
-    List<Question> listq = null; 
-	Question question = new Question("question1");
-	Proposition pro1 = new Proposition("proposition1faux",false);
-	Proposition pro2 = new Proposition("proposition2bonne",true);
-	question.getPropositions().add(pro1);
-	question.getPropositions().add(pro2);
-	Question question1 = new Question("question2");
-	Proposition prop11 = new Proposition("proposition11faux",false);
-	Proposition prop22 = new Proposition("proposition22bonne",true);
-	question.getPropositions().add(prop11);
-	question.getPropositions().add(prop22);
-	listq= new LinkedList<Question>();
-	listq.add(question);
-	listq.add(question1);
-	Quiz q = new Quiz();
-	q.setListeQuestions(listq);
-	q.setId(0);
-	q.setLibelle("bouh");
     List<Quiz> quiz = null;
-    Quiz quiz1 = q;
-//    quiz.add(q);
-	//List<Quiz> quiz=(List<Quiz>)request.getAttribute("listeQuiz");
-						//for(Quiz quiz1:quiz){ 
+		if(request.getAttribute("listeQuiz")!=null) {
+		quiz = (List<Quiz>)request.getAttribute("listeQuiz");
+	
+						for(Quiz quiz1:quiz){ 
 						%>
     <tr>
         <td><%=quiz1.getLibelle()%></td>
@@ -55,7 +38,8 @@
 		<td><a href="<%=request.getContextPath()%>/JouerAdmin.do?idQuiz=<%=quiz1.getId()%>"><span class="glyphicon glyphicon-play"></span></a></td>
       </tr>
       <%
-      //}
+		} 
+      		}
 						%>
 	 </tbody>
   </table>	

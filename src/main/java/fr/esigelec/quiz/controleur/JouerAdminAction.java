@@ -35,11 +35,11 @@ public class JouerAdminAction extends Action  {
 		
 		int idQuiz = quiz.getId();
 		quiz.setEtape(1);
-		Question question = ActionService.getQuestionByQuizId(idQuiz);
+		//Question question = ActionService.getQuestionByQuizId(idQuiz);
 				
 		
 		session.setAttribute("quiz", quiz);
-		session.setAttribute("question", question);
+		//session.setAttribute("question", question);
 		int compteur=0;
 		session.setAttribute("compteur", compteur);
 		

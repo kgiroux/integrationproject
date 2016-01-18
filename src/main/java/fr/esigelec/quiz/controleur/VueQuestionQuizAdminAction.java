@@ -31,6 +31,8 @@ public class VueQuestionQuizAdminAction extends Action {
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuestionDAO questionDAO = new QuestionDAOImpl();
 				request.setAttribute("listeQuestions", questionDAO.listQuestion());
+				IQuizDAO quizDAO = new QuizDAOImpl();
+				request.setAttribute("listeQuiz", quizDAO.listQuiz());
 				/* Need to map to quizAdmin.jsp */
 			} else {
 				vueQuestionQuizAdminAction.info("erreur: droit d'admin requis");

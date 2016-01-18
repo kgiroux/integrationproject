@@ -6,5 +6,7 @@
 			<generator class="native"/>
 		</id>		
 		<property name="libelle" column="libelle" type="string"/>
+		
+		<many-to-one name="propositions" column="id_question" class="Proposition" lazy="false"/>
     </class>
 </hibernate-mapping>

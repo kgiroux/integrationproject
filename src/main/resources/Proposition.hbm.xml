@@ -10,9 +10,6 @@
 		<property name="libelle" column="libelle" type="string"/>
 		
 	 	<property name="estBonneReponse" column="estBonneReponse" type="boolean"/>
-		
-		<many-to-one name="question" column="id_question" class="Question" cascade="all" not-null="true"/>
-
 	</class>
 
 </hibernate-mapping>

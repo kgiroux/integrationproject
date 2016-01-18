@@ -24,7 +24,8 @@ int count=(int)session.getAttribute("compteur");
 Quiz q=(Quiz)session.getAttribute("quiz");
 System.out.println(q.toString());
 List<Question> listq=q.getListeQuestions();
-
+Question questioncur=listq.get(count);
+session.setAttribute("questioncurrente",questioncur);
 %>
 <div class="form-center animateur">
 <a href="<%=request.getContextPath()%>/Stats.do"><button class="btn btn-primary" >Afficher statistiques</button></a>
@@ -56,8 +57,10 @@ List<Question> listq=q.getListeQuestions();
 					
 									
 					
-					<% if(q.getEtape()>1) {%>
-						<td>3</td>
+					<% if(q.getEtape()>1) {
+						List<Proposition> listpro= (List<Proposition>)session.getAttribute("listpro");
+					%>
+						<td><%=listpro.get(j).getPourcentage()%></td>
 					<%} %>
 					<% if(q.getEtape()>2) {
 					if(listq.get(count).getListePropositions().get(j).isEstBonneReponse()){%>

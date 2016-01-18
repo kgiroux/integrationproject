@@ -42,7 +42,7 @@
       <action scope="request" path="/Jouer" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
          <forward name="succes" path="/question.jsp"/>
       </action>
-      <action scope="request" path="/JouerAdmin" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
+      <action scope="request" path="/JouerAdmin" name="" type="fr.esigelec.quiz.controleur.JouerAdminAction" input="/">
          <forward name="succes" path="/animateur.jsp"/>
       </action>
       <action scope="request" path="/Choisir" name="" type="fr.esigelec.quiz.controleur.ChoisirAction" input="/">

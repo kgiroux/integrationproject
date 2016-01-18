@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.controleur;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
+import fr.esigelec.quiz.dao.IQuestionDAO;
 import fr.esigelec.quiz.dao.IQuizDAO;
+import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Question;
@@ -39,7 +42,8 @@ public class AjouterQuizAction extends Action {
 			/* Get parameters and sessions */
 			Personne p = (Personne) request.getSession().getAttribute("personne");
 			String libelleQuiz = request.getParameter("libelleQuiz");
-			List<Question> questions = (List<Question>) request.getAttribute("listeQuestionsQuiz");
+//			List<Question> questions = (List<Question>) request.getAttribute("listeQuestionsQuiz");
+			String[] questionIds = request.getParameterValues("questionId");
 			
 			/* Verify authentication session */
 			if (p == null || p.getDroits() != Personne.ADMIN) {
@@ -50,7 +54,7 @@ public class AjouterQuizAction extends Action {
 			}
 			
 			/* Verify inputs (parameter `libelleQuez' && attribute `questions') */
-			if (libelleQuiz == null || "".equals(libelleQuiz) || questions == null) {
+			if (libelleQuiz == null || "".equals(libelleQuiz) || questionIds.length == 0) {
 				errors.add("err.inputs", new ActionMessage("err.inputs.null"));					// TODO: add error message in `mesMessage.properties'
 				if (!errors.isEmpty())
 					addErrors(request, errors);
@@ -58,6 +62,13 @@ public class AjouterQuizAction extends Action {
 			}
 			
 			/* Everything goes well; create quiz */
+			IQuestionDAO questionDAO = new QuestionDAOImpl();
+			List<Question> questions = new ArrayList<Question>();
+			for (String s : questionIds) {
+				int id = Integer.parseInt(s);
+				questions.add(questionDAO.getQuestion(id));
+			}
+			
 			Quiz quiz = new Quiz();
 			quiz.setLibelle(libelleQuiz);
 			quiz.setListeQuestions(questions);
@@ -65,7 +76,7 @@ public class AjouterQuizAction extends Action {
 			IQuizDAO quizDAO = new QuizDAOImpl();
 			quizDAO.createQuiz(quiz);
 			// Set attributes and return map
-			request.setAttribute("listeQuestions", questions);
+			request.setAttribute("listeQuiz", quizDAO.listQuiz());
 			ajouterQuizActionLogger.debug("Quiz ajout�");
 			return mapping.findForward("succes");												// TODO: verify `succes' goes well
 			

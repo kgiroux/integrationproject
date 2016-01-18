@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionMapping;
 
 import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
+import fr.esigelec.quiz.dto.Personne;
 //import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;

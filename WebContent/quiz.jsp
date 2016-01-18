@@ -5,20 +5,7 @@
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import ="java.sql.Timestamp" %>  
     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Consulter Quiz</title>
-<link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
-<script src="Ressources/Jquery/jquery.min.js"></script>
-<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
-
-</head>
+<jsp:include page="/header.jsp"></jsp:include>
 <body>
 <div >
   <h2 class="question">CONSULTER LES QUIZ</h2>
@@ -79,5 +66,4 @@ q3.setDateDebutQuiz(t);
     </tbody>
   </table>
 </div>
-</body>
-</html>
+<jsp:include page="/footer.jsp"></jsp:include>

@@ -78,50 +78,10 @@ public class GameActivity extends Activity implements View.OnTouchListener
         button3.setText(question.getListePropositions().get(2).getLibelle());
         button4.setText(question.getListePropositions().get(3).getLibelle());
 
-        button1.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                button1.setPressed(true);
-                button2.setEnabled(false);
-                button3.setEnabled(false);
-                button4.setEnabled(false);
-                respGiven = 1;
-                return true;
-            }
-        });
-        button2.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                button2.setPressed(true);
-                button1.setEnabled(false);
-                button3.setEnabled(false);
-                button4.setEnabled(false);
-                respGiven = 2;
-                return true;
-            }
-        });
-        button3.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                button3.setPressed(true);
-                button1.setEnabled(false);
-                button2.setEnabled(false);
-                button4.setEnabled(false);
-                respGiven = 3;
-                return true;
-            }
-        });
-        button4.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                button4.setPressed(true);
-                button1.setEnabled(false);
-                button2.setEnabled(false);
-                button3.setEnabled(false);
-                respGiven = 4;
-                return true;
-            }
-        });
+		button1.setOnTouchListener (this);
+		button2.setOnTouchListener (this);
+		button3.setOnTouchListener (this);
+		button4.setOnTouchListener (this);
 
         ImageButton quit = (ImageButton) findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {

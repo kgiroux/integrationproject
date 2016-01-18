@@ -43,7 +43,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 	}
 
 	@Override
-	public List<Choisir> getChoixPersonne(Personne p, Quiz q) {
+	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Proposition where quiz.id = " + q.getId() + " and personne.id = " + p.getId();

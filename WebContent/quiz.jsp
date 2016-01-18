@@ -25,7 +25,7 @@
   <hr>
  <br> 
  
- <% 
+ <%-- 
  //Simulation de données
 Timestamp t = new Timestamp(System.currentTimeMillis());
 
@@ -44,7 +44,7 @@ q3.setDateDebutQuiz(t);
  
  
  
- %>   
+ --%>   
  
       
   <table class="table table-bordered table-hover ">
@@ -65,7 +65,7 @@ q3.setDateDebutQuiz(t);
     You should use sessionScope to read session scope level attribute.
     - Mincong
  -->
- <c:forEach var="quiz" items="${sessionScope.listeQuiz}">
+ <c:forEach var="quiz" items="${listeQuiz}">
 
       <tr class="question">
         <td><c:out value="${quiz.libelle}" /></td>

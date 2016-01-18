@@ -11,6 +11,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Quiz;
 
 public class StatsAction extends Action{
@@ -19,11 +20,16 @@ public class StatsAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
+
+		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
 		
-		Quiz q=(Quiz) request.getAttribute("quiz");
-		q.setEtape(2);
+		int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 		
 		
+		//OUT 
+		Quiz quiz = quizdaoimpl.getQuiz(idQuiz);
+		quiz.setEtape(2);
+				
 		return mapping.findForward("succes");
 		
 		

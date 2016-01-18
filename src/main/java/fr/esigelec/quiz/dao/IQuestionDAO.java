@@ -45,10 +45,4 @@ public interface IQuestionDAO {
 	 */
 	public boolean deleteQuestion(Question q);
 	
-	/**
-	 * m�thode : deleteQuestion
-	 * @param  q the question to delete
-	 */
-	public List<Proposition> getListePropositions(Question q);
-	
 }

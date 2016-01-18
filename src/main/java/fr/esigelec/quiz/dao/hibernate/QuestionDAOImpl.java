@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+import java.util.ArrayList;
+
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
@@ -13,10 +15,11 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuestionDAO;
-import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
+import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.SetToListConverter;
 
-public class QuestionDAOImpl implements IQuestionDAO{
+public class QuestionDAOImpl implements IQuestionDAO {
 	
 	/**
 	 * m�thode : createQuestion
@@ -64,6 +67,7 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		return listeQuestions;
 	}
 
+
 	/**
 	 * m�thode : updateQuestion
 	 * @param  q the question which should be updated
@@ -93,18 +97,4 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		session.close();
 		return (q == null);
 	}
-
-
-	@Override
-	public List<Proposition> getListePropositions(Question q) {
-		Session session= HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		Query query=session.createQuery("from Proposition where id_question = " + q.getId());
-		@SuppressWarnings("unchecked")
-		List<Proposition> listeProposition = query.list();
-		session.getTransaction().commit();
-		session.close();
-		return listeProposition;
-	}
-
 }

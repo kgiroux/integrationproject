@@ -9,6 +9,8 @@ public class Choisir implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private int id;
 
 	private Timestamp date;
 	
@@ -61,6 +63,14 @@ public class Choisir implements Serializable {
 		} else if (!quiz.equals(other.quiz))
 			return false;
 		return true;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Timestamp getDate() {

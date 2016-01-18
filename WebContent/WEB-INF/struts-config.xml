@@ -42,7 +42,7 @@
       <action scope="request" path="/Jouer" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
          <forward name="succes" path="/question.jsp"/>
       </action>
-      <action scope="request" path="/JouerAdmin" name="" type="fr.esigelec.quiz.controleur.JouerAdminAction" input="/">
+      <action scope="request" path="/JouerAdmin" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
          <forward name="succes" path="/animateur.jsp"/>
       </action>
       <action scope="request" path="/Choisir" name="" type="fr.esigelec.quiz.controleur.ChoisirAction" input="/">
@@ -91,10 +91,7 @@
       <action scope="request" path="/VueQuestion"  type="fr.esigelec.quiz.controleur.VueQuestionAction">
         <forward name="succes" path="/question.jsp"/>
       </action>
-      <action scope="request" path="/VueQuestionAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionAction">
-        <forward name="succes" path="/questionAdmin.jsp"/>
-      </action>
-      <action scope="request" path="/VueQuestionsQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
+      <action scope="request" path="/VueQuestionQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/questionQuizAdmin.jsp"/>
       </action>
       <action scope="request" path="/VueQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">

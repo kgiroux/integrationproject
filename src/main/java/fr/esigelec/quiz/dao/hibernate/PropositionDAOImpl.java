@@ -51,17 +51,6 @@ public class PropositionDAOImpl implements IPropositionDAO {
 		return retour;
 	}
 
-	public List<Proposition> getPropositionParQuestion(Question q) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		String hql = "from Proposition where question.id = " + q.getId();
-		@SuppressWarnings("unchecked")
-		List<Proposition> retour = session.createQuery(hql).list();
-		session.getTransaction().commit();
-		session.close();
-		return retour;
-	}
-
 	@Override
 	public boolean updateProposition(Proposition p) {
 		Session session = HibernateUtil.getSessionFactory().openSession();

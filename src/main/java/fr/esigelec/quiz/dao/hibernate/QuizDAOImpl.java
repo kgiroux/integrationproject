@@ -22,11 +22,9 @@ import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.SetToListConverter;
-import fr.esigelec.quiz.util.Word;
-
 import java.sql.SQLException;
  
-public class QuizDAOImpl implements IQuizDAO{
+public class QuizDAOImpl implements IQuizDAO {
 
 	public boolean createQuiz(Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -83,10 +81,9 @@ public class QuizDAOImpl implements IQuizDAO{
 	public List<Question> listQuestionQuiz(Quiz quiz){
 		Quiz q = getQuiz(quiz.getId());
 		// TODO: use SetToListConverter
-		// List<Question> array = new ArrayList<Question>();
-		// SetToListConverter.SetToList(array, q.getQuestions());
-		List<Question> questions = new ArrayList<>(q.getQuestions());
-		return questions;
+		List<Question> array = new ArrayList<Question>();
+		SetToListConverter.SetToList(array, q.getQuestions());
+		return array;
 	}
 
 	public int getNbQuestionParQuiz(Quiz quiz){

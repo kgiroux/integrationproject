@@ -1,19 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
  <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Administrer quiz</title>
-<link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
-<script src="Ressources/Jquery/jquery.min.js"></script>
-<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
-</head>
-<body>
+<jsp:include page="/header.jsp"></jsp:include>
 	<h1>Administrer les quiz</h1>
 	<hr>
 	 <a href="VueQuestionQuizAdmin.do"><button class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button></a>
@@ -46,7 +34,4 @@
       <%} %>
 	 </tbody>
   </table>	
-  
-
-</body>
-</html>
+<jsp:include page="/footer.jsp"></jsp:include>

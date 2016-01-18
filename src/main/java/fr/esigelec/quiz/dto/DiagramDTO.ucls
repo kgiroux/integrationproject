@@ -48,42 +48,50 @@
   </class>  
   <association id="6">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="7" name="quiz"/>      
-      <multiplicity id="8" minimum="0" maximum="1"/>    
+      <attribute id="7" name="quiz">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="8" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="10" name="personne"/>      
-      <multiplicity id="11" minimum="0" maximum="1"/>    
+      <attribute id="10" name="personne">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="12">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="13" name="proposition"/>      
-      <multiplicity id="14" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="13" name="questions">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="14" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="15">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="16" name="question"/>      
-      <multiplicity id="17" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="16" name="proposition">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="17" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="18">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="19" name="questions"/>      
-      <multiplicity id="20" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 

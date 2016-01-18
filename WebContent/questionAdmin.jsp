@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Administrer quiz</title>
-<link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
-<script src="Ressources/Jquery/jquery.min.js"></script>
-<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
-</head>
-<body>
+<jsp:include page="/header.jsp"></jsp:include>
 	<h1>Ajouter une question</h1>
 	<hr>
 		<form class="container form-horizontal contform" method="post" action="EnregistrerQuestion">
@@ -89,7 +77,5 @@
 				<hr>
 			</fieldset>
 		</form>
-	
 	<br>
-</body>
-</html>
+<jsp:include page="/footer.jsp"></jsp:include>

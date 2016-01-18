@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -11,3 +12,10 @@
 
 </body>
 </html>
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<jsp:include page="/header.jsp"></jsp:include>
+
+<jsp:include page="/footer.jsp"></jsp:include>
+>>>>>>> dd553e7ad345f2bc7f05779ff5fe5265f517800e

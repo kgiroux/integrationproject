@@ -44,8 +44,8 @@ List<Question> listq=q.getListeQuestions();
 				<thead>
 					<tr>
 						<th><%=listq.get(count).getLibelle()%></th>
-						<% if(q.getEtape()>1)%><th>Statistiques</th>
-						<% if(q.getEtape()>2)%><th>Reponse</th>
+						<% if(q.getEtape()>1)%><th>%</th>
+						<% if(q.getEtape()>2)%><th>Réponse</th>
 						
 					</tr>
 				</thead>
@@ -54,17 +54,18 @@ List<Question> listq=q.getListeQuestions();
 					<tr>
 						<td><a id="test" href="#"><%=listq.get(count).getListePropositions().get(j).getLibelle()%></a></td>
 					
+									
+					
 					<% if(q.getEtape()>1) {%>
-					
-					
-						<td>2</td>
-					
-					<%} %>
-					<% if(q.getEtape()>2) {%>
-					
 						<td>3</td>
-					</tr>
 					<%} %>
+					<% if(q.getEtape()>2) {
+					if(listq.get(count).getListePropositions().get(j).isEstBonneReponse()){%>
+						<td class="vert"></td><%} else{%>
+						<td class="rouge"></td><%} %>
+					<%} %>
+					</tr>
+					
 					<%} %>
 				</tbody>
 			</table>

@@ -24,19 +24,20 @@ Quiz q;
 List<Question> listq;
 if(request.getAttribute("quiz")==null){
 q=(Quiz)request.getAttribute("quiz");
-listq=q.getListeQuestions();}
+
+listq=setToListConverte<Question>();}
 //List<Question> listq=q.getListeQuestions();
 else{
 Question question = new Question("question1");
-Proposition pro1 = new Proposition("proposition1faux",question,false);
-Proposition pro2 = new Proposition("proposition2bonne",question,true);
+Proposition pro1 = new Proposition("proposition1faux",false);
+Proposition pro2 = new Proposition("proposition2bonne",true);
 List<Proposition> list = new LinkedList<Proposition>();
 list.add(pro1);
 list.add(pro2);
 
 Question question1 = new Question("question2");
-Proposition prop11 = new Proposition("proposition11faux",question1,false);
-Proposition prop22 = new Proposition("proposition22bonne",question1,true);
+Proposition prop11 = new Proposition("proposition11faux",false);
+Proposition prop22 = new Proposition("proposition22bonne",true);
 List<Proposition> list1 = new LinkedList<Proposition>();
 list1.add(prop11);
 list1.add(prop22);
@@ -49,8 +50,8 @@ q.setListeQuestions(listq);
 }
 %>
 <div class="form-center animateur">
-<a href="Stats.do?quiz=<%=q%>"><button class="btn btn-primary" >Afficher statistiques</button></a>
-<a href="Reponse.do?quiz=<%=q%>"><button class="btn btn-primary">Afficher bonne réponse</button></a>	
+<a href="Stats.do?idQuiz=<%=q.getId()%>"><button class="btn btn-primary" >Afficher statistiques</button></a>
+<a href="Reponse.do?idQuiz=<%=q.getId()%>"><button class="btn btn-primary">Afficher bonne réponse</button></a>	
 <a href="Compteur.do?compteur=<%=count+1%>"><button class="btn btn-primary" id="suivant">Question suivante</button></a>
 
 

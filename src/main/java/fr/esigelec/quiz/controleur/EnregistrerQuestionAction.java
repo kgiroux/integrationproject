@@ -25,6 +25,11 @@ import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
+/**
+ * 
+ * @author Vincent Marion & Damien Bellenger
+ *
+ */
 
 public class EnregistrerQuestionAction extends Action {
 	

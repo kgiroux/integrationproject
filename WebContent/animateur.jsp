@@ -19,30 +19,41 @@
 int count=Integer.parseInt(request.getParameter("compteur"));
 
 %>
-
-<div class="form-center animateur">
-<button class="btn btn-primary">Afficher statistiques</button>
-<button class="btn btn-primary">Afficher bonne réponse</button>	
-<a href="Compteur.do?compteur=<%=count+1%>"><button class="btn btn-primary" id="suivant">Question suivante</button></a>
 <%
-//Quiz q=(Quiz)request.getAttribute("quiz");
+Quiz q;
+List<Question> listq;
+if(request.getAttribute("quiz")==null){
+q=(Quiz)request.getAttribute("quiz");
+
+listq=setToListConverte<Question>();}
 //List<Question> listq=q.getListeQuestions();
-Proposition pro1 = new Proposition("proposition1");
-Proposition pro2 = new Proposition("proposition2");
+else{
+Question question = new Question("question1");
+Proposition pro1 = new Proposition("proposition1faux",false);
+Proposition pro2 = new Proposition("proposition2bonne",true);
 List<Proposition> list = new LinkedList<Proposition>();
 list.add(pro1);
 list.add(pro2);
-Question question = new Question("question1",pro1,list);
-Proposition prop11 = new Proposition("proposition11");
-Proposition prop22 = new Proposition("proposition22");
+
+Question question1 = new Question("question2");
+Proposition prop11 = new Proposition("proposition11faux",false);
+Proposition prop22 = new Proposition("proposition22bonne",true);
 List<Proposition> list1 = new LinkedList<Proposition>();
 list1.add(prop11);
 list1.add(prop22);
-Question question1 = new Question("question2",prop11,list1);
-List<Question> listq= new LinkedList<Question>();
+
+listq= new LinkedList<Question>();
 listq.add(question);
 listq.add(question1);
+q = new Quiz();
+q.setListeQuestions(listq);
+}
 %>
+<div class="form-center animateur">
+<a href="Stats.do?idQuiz=<%=q.getId()%>"><button class="btn btn-primary" >Afficher statistiques</button></a>
+<a href="Reponse.do?idQuiz=<%=q.getId()%>"><button class="btn btn-primary">Afficher bonne réponse</button></a>	
+<a href="Compteur.do?compteur=<%=count+1%>"><button class="btn btn-primary" id="suivant">Question suivante</button></a>
+
 
 <h1>Question n°<%=count%></h1>
 </div>
@@ -64,6 +75,16 @@ listq.add(question1);
 					<tr>
 						<td><a id="test" href="#"><%=listq.get(count).getListePropositions().get(j).getLibelle()%></a></td>
 					</tr>
+					<% if(q.getEtape()>1) {%>
+					<tr>
+						<td>2</td>
+					</tr>
+					<%} %>
+					<% if(q.getEtape()>2) {%>
+					<tr>
+						<td>3</td>
+					</tr>
+					<%} %>
 					<%} %>
 				</tbody>
 			</table>

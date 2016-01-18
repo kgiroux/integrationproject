@@ -75,6 +75,12 @@
       <action scope="request" path="/Compteur"  type="fr.esigelec.quiz.controleur.CompteurAction" input="/">
         <forward name="succes" path="/animateur.jsp"/>
       </action>
+       <action scope="request" path="/Stats"  type="fr.esigelec.quiz.controleur.StatsAction" input="/">
+        <forward name="succes" path="/animateur.jsp"/>
+      </action>
+      <action scope="request" path="/Reponse"  type="fr.esigelec.quiz.controleur.ReponseAction" input="/">
+        <forward name="succes" path="/animateur.jsp"/>
+      </action>
       <!--
           Vue actions
           L'ensemble des actions "Vue" se trouve dans les balises suivantes. 

@@ -1,9 +1,10 @@
 package fr.esigelec.quiz.dao;
 
 import java.util.List;
-
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Quiz;
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -19,19 +20,12 @@ import fr.esigelec.quiz.dto.Personne;
 public interface IChoisirDAO {
 	
 	
-	public boolean faireChoix(Choisir c);
+	public boolean createChoix(Choisir c);
 	
-	public boolean modifierChoix(Choisir c);
+	public boolean updateChoix(Choisir c);
 	
 	public boolean deleteChoix(Choisir c);
 	
-	public List<Choisir> getChoixPersonne(Personne P);
+	public List<Choisir> getChoixPersonne(Personne P, Quiz q);
 	
-	public int scorePersonne(Personne P);
-	
-	public List<Choisir> getChoixQuiz(Personne P);
-	
-	public boolean updatePersonne(Personne p);
-	
-
 }

@@ -22,8 +22,6 @@ import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.SetToListConverter;
-import fr.esigelec.quiz.util.Word;
-
 import java.sql.SQLException;
  
 public class QuizDAOImpl implements IQuizDAO {
@@ -85,8 +83,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		// TODO: use SetToListConverter
 		List<Question> array = new ArrayList<Question>();
 		SetToListConverter.SetToList(array, q.getQuestions());
-		List<Question> questions = new ArrayList<>(q.getQuestions());
-		return questions;
+		return array;
 	}
 
 	public int getNbQuestionParQuiz(Quiz quiz){

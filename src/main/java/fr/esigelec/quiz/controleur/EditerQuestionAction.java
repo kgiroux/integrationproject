@@ -33,13 +33,12 @@ public class EditerQuestionAction extends Action {
 		try {
 			// Get parameters and sessions
 			Personne p = (Personne) request.getSession().getAttribute("personne");
-			int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
+			Question question = (Question) request.getParameter("Question");
 			String libelle = request.getParameter("libelle");
 			
 			if (p.getDroits() == Personne.ADMIN) {
 				if(!libelle.equals("")){
 					IQuestionDAO questionDAO = new QuestionDAOImpl();
-					Question question = questionDAO.getQuestion(idQuestion);
 					question.setLibelle(libelle);
 					questionDAO.updateQuestion(question);
 					request.setAttribute("listeQuestions", questionDAO.listQuestion());

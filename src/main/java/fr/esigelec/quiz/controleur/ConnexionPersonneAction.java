@@ -20,6 +20,7 @@ import fr.esigelec.quiz.util.SecurityHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class ConnexionPersonneAction extends Action {
 	
@@ -30,7 +31,7 @@ public class ConnexionPersonneAction extends Action {
 			HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
 		connexionPersonneActionLogger.debug("Execute");
-		
+		HttpSession session =request.getSession();
 		ConnexionForm f= (ConnexionForm) form;
 		String mail = f.getMail();
 		String mdp = SecurityHelper.MD5(f.getPassword());
@@ -50,7 +51,7 @@ public class ConnexionPersonneAction extends Action {
 		}
 		else {
 			request.setAttribute("listeQuiz", listeQuiz);
-			request.setAttribute("personne", personne);
+			session.setAttribute("personne", personne);
 			connexionPersonneActionLogger.debug("Connexion réussie");
 			return mapping.findForward("succes");
 		}

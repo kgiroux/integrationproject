@@ -23,7 +23,7 @@
 <div >
   <h2 class="question">CONSULTER LES QUIZ</h2>
  <hr><br> 
- <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p>
+ <p class="question"><strong>Classement </strong> : 1 er </p>
  <div> 
  <p class="question"><strong>Reste</strong> : &nbsp;
  <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">

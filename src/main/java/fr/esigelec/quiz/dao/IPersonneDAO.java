@@ -4,6 +4,7 @@ package fr.esigelec.quiz.dao;
 import java.util.List;
 
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Quiz;
 
 
 /**Projet d'integration

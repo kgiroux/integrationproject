@@ -1,5 +1,11 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+/**
+* @author BOSSO BOSSO Ghyslaine
+* @author  CHOUAKRIA Farid
+* @author DELAUNAY Brice
+* @author NGANE Pascale
+*/
 import java.util.List;
 
 import org.hibernate.Session;
@@ -7,6 +13,7 @@ import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -43,7 +50,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 	}
 
 	@Override
-	public List<Choisir> getChoixPersonne(Personne p, Quiz q) {
+	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Proposition where quiz.id = " + q.getId() + " and personne.id = " + p.getId();
@@ -52,5 +59,29 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.getTransaction().commit();
 		session.close();
 		return retour;
+	}
+	
+	@Override
+	public int getNombrePersonneParQuiz(Quiz q) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Choisir where quiz.id = " + q.getId() + " ";
+		@SuppressWarnings("unchecked")
+		List<Choisir> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		return retour.size();
+	}
+	
+	@Override
+	public int getNombrePersonneParProposition(Quiz q, Proposition p) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Choisir where quiz.id = " + q.getId() + " and proposition.id="+p.getId()+" " ;
+		@SuppressWarnings("unchecked")
+		List<Choisir> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		return retour.size();
 	}
 }

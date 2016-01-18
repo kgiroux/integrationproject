@@ -30,6 +30,8 @@ public class AndroidQuizListAction extends Action{
 				QuizDAOImpl dao = new QuizDAOImpl();
 				List<Quiz> listQuiz = dao.getListQuizFinish();
 				JSONObject json = new JSONObject(listQuiz);
+				
+				//Return informations to client
 				request.setAttribute("json",json.toString());
 				return mapping.findForward("succes");
 			}

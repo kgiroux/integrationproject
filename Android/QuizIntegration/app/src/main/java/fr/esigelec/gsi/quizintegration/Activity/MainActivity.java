@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -55,7 +56,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		pers = SingletonPersonne.getInstance ().getPersonne ();
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
-        toolbar.setTitleTextColor(R.color.white);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(),R.color.white));
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
 		dialog = createAndManageDialog();

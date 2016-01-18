@@ -20,7 +20,6 @@ public class Quiz
     private Timestamp dateFinQuiz;
     private int noQuestionCourante;
     private Timestamp dateDebutQuestion;
-
     private int nbQuestion;
     private int etape;
     private List<Question> listeQuestions;

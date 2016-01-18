@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -42,7 +43,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 {
 	public static String IPSERVER = "http://176.31.114.109/quiz/";
 	public static boolean DEBUG = true;
-	public static boolean DEV = true;
+	public static boolean DEV = false;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	List<String> groupList;
@@ -59,7 +60,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		pers = SingletonPersonne.getInstance ().getPersonne ();
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
-        toolbar.setTitleTextColor(getColor(R.color.white));
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
 		dialog = createAndManageDialog();
@@ -246,6 +247,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 				try
 				{
+					//Toast.makeText(getApplicationContext(), pers.PersonneToHashMap().toString(), Toast.LENGTH_LONG).show();
 					JSONObject perJson = new AndroidHTTPRequest().execute(IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
 					if(perJson.has("err_code")){
 						int err_code = perJson.getInt("err_code");

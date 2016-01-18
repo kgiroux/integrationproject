@@ -2,6 +2,7 @@ package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -38,11 +39,7 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
 
 		valid.setOnClickListener(this);
 		cancel.setOnClickListener(this);
-
-		pers = SingletonPersonne.getInstance().getPersonne();
 		initMap();
-
-
 	}
 
 	private void initMap(){
@@ -76,11 +73,12 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
 	public void onClick(View v) {
 		switch (v.getId()){
 			case R.id.valid :
+				pers = new Personne();
 				int result = getData();
 				if(result == 0){
 					try{
 						JSONObject perJson = new AndroidHTTPRequest().execute(MainActivity.IPSERVER + "AndroidInscriptionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
-						Toast.makeText(getApplicationContext(),perJson.toString(),Toast.LENGTH_LONG).show();
+						//Toast.makeText(getApplicationContext(),perJson.toString(),Toast.LENGTH_LONG).show();
 						pers.JSONObjectToPersonne(perJson);
 						Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
 						setResult(RESULT_OK);
@@ -89,7 +87,6 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
 						Log.e("ERROR", ex.getMessage());
 						Toast.makeText(getApplicationContext(),getString(R.string.error_occur_sub),Toast.LENGTH_LONG).show();
 					}
-
 				}
 				break;
 			case R.id.cancel:

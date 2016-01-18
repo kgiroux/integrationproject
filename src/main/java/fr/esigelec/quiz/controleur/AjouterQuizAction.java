@@ -48,7 +48,7 @@ public class AjouterQuizAction extends Action {
 				quizDAO.createQuiz(quiz);
 				// Set attributes and return map
 				request.setAttribute("listeQuestions", questions);
-				ajouterQuizActionLogger.debug("Quiz ajouté");
+				ajouterQuizActionLogger.debug("Quiz ajoutï¿½");
 				return mapping.findForward("succes");	/* Need to map to questionsQuizAdmin.jsp */
 			} else {
 				ajouterQuizActionLogger.debug("Action terminee. L'utilisateur n'est pas un administrateur");
@@ -62,5 +62,4 @@ public class AjouterQuizAction extends Action {
 			return mapping.findForward("erreur");
 		}
 	}
-
 }

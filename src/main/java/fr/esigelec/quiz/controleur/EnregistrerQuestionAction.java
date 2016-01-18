@@ -56,68 +56,70 @@ public class EnregistrerQuestionAction extends Action {
 			Question question = new Question();
 			Quiz quiz = quizDAO.getQuiz(Integer.valueOf(idQuiz));
 			
+			Set<Proposition> listeProposition = new HashSet<Proposition>();
 			Proposition propositionBonneReponse = new Proposition();
 			propositionBonneReponse.setLibelle(libelleQuestion);
-			propositionBonneReponse.setQuestion(question);
 			propositionBonneReponse.setEstBonneReponse(true);
+			listeProposition.add(propositionBonneReponse);
 			
 			if((p1 = request.getParameter("p1")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p1);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			if((p2 = request.getParameter("p2")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p2);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			if((p3 = request.getParameter("p3")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p3);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			if((p4 = request.getParameter("p4")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p4);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			if((p5 = request.getParameter("p5")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p5);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			if((p6 = request.getParameter("p6")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p6);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			if((p7 = request.getParameter("p7")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p7);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			if((p8 = request.getParameter("p8")) != null)
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p8);
-				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
+				listeProposition.add(prop);
 			}
 			
+			question.setPropositions(listeProposition);
 			questionDAO.createQuestion(question);
 			Set<Question> setQuestion = quiz.getQuestions();
 			setQuestion.add(question);

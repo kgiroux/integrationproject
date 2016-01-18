@@ -31,7 +31,7 @@ public class VueQuestionQuizAdminAction extends Action {
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuestionDAO questionDAO = new QuestionDAOImpl();
 				request.setAttribute("listeQuestions", questionDAO.listQuestion());
-				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
+				/* Need to map to quizAdmin.jsp */
 			} else {
 				vueQuestionQuizAdminAction.info("erreur: droit d'admin requis");
 			}
@@ -41,5 +41,6 @@ public class VueQuestionQuizAdminAction extends Action {
 			// Add attributes of error message
 			vueQuestionQuizAdminAction.info("erreur: "+e);
 		}
+		return mapping.findForward("succes");
 	}
 }

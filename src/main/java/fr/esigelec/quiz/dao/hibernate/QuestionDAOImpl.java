@@ -13,6 +13,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuestionDAO;
+import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 
 public class QuestionDAOImpl implements IQuestionDAO{
@@ -91,6 +92,19 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		session.getTransaction().commit();
 		session.close();
 		return (q == null);
+	}
+
+
+	@Override
+	public List<Proposition> getListePropositions(Question q) {
+		Session session= HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query=session.createQuery("from Proposition where id_question = " + q.getId());
+		@SuppressWarnings("unchecked")
+		List<Proposition> listeProposition = query.list();
+		session.getTransaction().commit();
+		session.close();
+		return listeProposition;
 	}
 
 }

@@ -28,6 +28,7 @@ public class SupprimerQuizAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
+		supprimerQuizActionLogger.info("starting..");
 		ActionErrors errors = new ActionErrors();
 
 		try {

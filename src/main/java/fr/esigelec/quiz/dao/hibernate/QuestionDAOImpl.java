@@ -97,4 +97,5 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		session.close();
 		return (q == null);
 	}
+
 }

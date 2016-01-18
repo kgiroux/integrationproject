@@ -15,9 +15,12 @@ import java.util.ArrayList;
  * */
 
 import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import fr.esigelec.quiz.controleur.TestLogger;
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
@@ -25,6 +28,8 @@ import fr.esigelec.quiz.util.SetToListConverter;
 import java.sql.SQLException;
  
 public class QuizDAOImpl implements IQuizDAO {
+	
+	private static final Logger logger = Logger.getLogger(TestLogger.class);
 
 	public boolean createQuiz(Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -32,6 +37,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		session.save(q);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("Create Quiz : " + q.toString());
 		return (q.getId() != 0);
 	}
 
@@ -40,6 +46,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		session.beginTransaction();
 		Quiz quiz = (Quiz)session.get(Quiz.class, id);
 		session.getTransaction().commit();
+		logger.info("get Quiz: " + quiz.toString() + " From id : " + id);
 		session.close();
 		return quiz;
 	}
@@ -47,16 +54,16 @@ public class QuizDAOImpl implements IQuizDAO {
 	public List<Quiz> listQuiz() throws SQLException {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		// get pays en utilisant HQL
 		String hql = "from Quiz";
 		@SuppressWarnings("unchecked")
 		List<Quiz> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
+		logger.info("get liste Quiz: " + retour.toString());
 		return retour;
 	}
 
-	public List<Quiz> getListQuizPublie(int status){
+	public List<Quiz> getListQuizPublie(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("FROM Quiz WHERE dateDebutQuiz is not null");
@@ -64,6 +71,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		List<Quiz> listeQuiz =  query.list();
 		session.getTransaction().commit();
 		session.close();
+		logger.info("getListQuizPublie: " + listeQuiz.toString());
 		return listeQuiz;
 	}
 	
@@ -75,6 +83,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		List<Quiz> listeQuiz = query.list();
 		session.getTransaction().commit();
 		session.close();
+		logger.info("getListQuizFinish: " + listeQuiz.toString());
 		return listeQuiz;
 	}
 	
@@ -83,11 +92,13 @@ public class QuizDAOImpl implements IQuizDAO {
 		// TODO: use SetToListConverter
 		List<Question> array = new ArrayList<Question>();
 		SetToListConverter.SetToList(array, q.getQuestions());
+		logger.info("listQuestionQuiz: " + array.toString());
 		return array;
 	}
 
 	public int getNbQuestionParQuiz(Quiz quiz){
 		List<Question> listeQuestions = listQuestionQuiz(quiz);
+		logger.info("getNbQuestionParQuiz: " + listeQuestions.size() +" From quiz" + quiz.toString());
 		return listeQuestions.size();
 	}
 	
@@ -98,6 +109,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		session.getTransaction().commit();
 		session.close();
 		Quiz newQuiz = getQuiz(q.getId());
+		logger.info("updateQuiz: " + newQuiz.toString());
 		return (newQuiz.equals(q));
 	}
 
@@ -108,6 +120,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		session.delete(q);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("deleteQuiz: " + q);
 		return (q == null);
 	}
 }

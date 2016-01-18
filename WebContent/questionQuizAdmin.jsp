@@ -15,7 +15,7 @@
 		</div> 
 		   
 	</div>
- <a href="<%=request.getContextPath()%>/VueQuestionAdmin.do"><button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
+ <a href="<%=request.getContextPath()%>/VueQuestionAdmin.do"><button type="button"  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
 <div class="form-center">
 			<table class="table table-bordered table-hover">
 				<thead>
@@ -47,15 +47,15 @@
 						<td><input type="checkbox" name="<%=q1.getId()%>" id="<%=q1.getId()%>" >
 						</td>
 						<td><%=q1.getLibelle()%></td>
-						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do" ><span class="glyphicon glyphicon-remove"></span></a></td>
-						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>" ><span class="glyphicon glyphicon-remove"></span></a></td>
+						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do"><span class="glyphicon glyphicon-edit"></span></a></td>
 					</tr>
 						<%} %>
 				</tbody>
 			</table>
-			<button class="btn btn-primary">Créer</button>
+			<button type="submit" class="btn btn-primary">Créer</button>
    </form>
-   			<a href="<%=request.getContextPath()%>/VueQuizAdmin.do"><button class="btn btn-primary">Annuler</button></a>
+   			<a href="<%=request.getContextPath()%>/VueQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
    <hr>
   </div>  
 </div>

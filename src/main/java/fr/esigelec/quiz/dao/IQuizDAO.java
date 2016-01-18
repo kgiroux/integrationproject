@@ -50,6 +50,13 @@ public interface IQuizDAO {
 	 */
 	public List<Quiz> getListQuizFinish();
 	
+	
+	/**
+	 * méthode : getListQuizFinish
+	 * @return all the quizs finished
+	 */
+	public Quiz getCurrentQuiz();
+	
 	/**
 	 * méthode : listQuestion
 	 * @return all the questions
@@ -76,5 +83,8 @@ public interface IQuizDAO {
 	 */
 	
 	public boolean deleteQuiz(Quiz q); 
+	
+	
+	
 	
 }

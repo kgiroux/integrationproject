@@ -91,7 +91,6 @@ public class QuizDAOImpl implements IQuizDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query = session.createQuery("FROM Quiz WHERE dateDebutQuiz is not null and dateFinQuiz is null");
-		@SuppressWarnings("unchecked")
 		Quiz quiz = (Quiz) query.uniqueResult();
 		session.getTransaction().commit();
 		session.close();

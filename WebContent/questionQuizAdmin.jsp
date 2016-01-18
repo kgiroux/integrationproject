@@ -7,7 +7,7 @@
 	<hr>
 <div class="container">
 	<hr>
-	<form method="POST" action="AjouterQuiz.do">
+	<form method="POST" action="<%=request.getContextPath()%>/AjouterQuiz.do">
 	<div class="form-group">
 		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
 		<div class="col-xs-2 col-sm-4">
@@ -15,7 +15,7 @@
 		</div> 
 		   
 	</div>
- <a href="VueQuestionAdmin.do"><button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
+ <a href="<%=request.getContextPath()%>/VueQuestionAdmin.do"><button  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
 <div class="form-center">
 			<table class="table table-bordered table-hover">
 				<thead>
@@ -27,33 +27,35 @@
 					</tr>
 				</thead>
 				<tbody>
-				<% List<Question> questions = null; 
-				List<Question> q=(List<Question>)request.getAttribute("listeQuestions");
-						for(Question q1:q){ %>
+				<% List<Question> listq = null; 
+				Question question = new Question("question1");
+				Proposition pro1 = new Proposition("proposition1faux",false);
+				Proposition pro2 = new Proposition("proposition2bonne",true);
+				question.getPropositions().add(pro1);
+				question.getPropositions().add(pro2);
+				Question question1 = new Question("question2");
+				Proposition prop11 = new Proposition("proposition11faux",false);
+				Proposition prop22 = new Proposition("proposition22bonne",true);
+				question.getPropositions().add(prop11);
+				question.getPropositions().add(prop22);
+				listq= new LinkedList<Question>();
+				listq.add(question);
+				listq.add(question1);
+				//List<Question> q=(List<Question>)request.getAttribute("listeQuestions");
+						for(Question q1:listq){ %>
 					<tr>
 						<td><input type="checkbox" name="<%=q1.getId()%>" id="<%=q1.getId()%>" >
 						</td>
 						<td><%=q1.getLibelle()%></td>
-						<td><a href="EditionQuestion.do" ><span class="glyphicon glyphicon-remove"></span></a></td>
-						<td><a href="SupprimerQuestion.do?idQuestion=<%= q1.getId()%>"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do" ><span class="glyphicon glyphicon-remove"></span></a></td>
+						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>"><span class="glyphicon glyphicon-edit"></span></a></td>
 					</tr>
 						<%} %>
 				</tbody>
 			</table>
-		 <script>
-		function getAttributes(){
-		$("input[type='checkbox']:checked").each(
-			questions.add(q1)
-			);
-			var libelleQuiz = $('#libelleQuiz').val();
-			request.setAttribute("libelleQuiz", libelle);
-			request.setAttribute("listeQuestionsQuiz", questions);
-		}
-			</script> 
 			<button class="btn btn-primary">Créer</button>
-   
-   <a href="VueQuizAdmin.do"><button class="btn btn-primary">Annuler</button></a>
    </form>
+   			<a href="<%=request.getContextPath()%>/VueQuizAdmin.do"><button class="btn btn-primary">Annuler</button></a>
    <hr>
   </div>  
 </div>

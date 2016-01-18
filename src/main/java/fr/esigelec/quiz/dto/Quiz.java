@@ -16,7 +16,7 @@ import java.util.Set;
  * Classe Quiz
  * */
 
-public class Quiz implements Comparable<Quiz> {
+public class Quiz {
 
 	/**Attributs de la classe Quiz*/
 
@@ -312,15 +312,4 @@ public class Quiz implements Comparable<Quiz> {
 	public void addQuestion(Question q) {
 		questions.add(q);
 	}
-
-	@Override
-	public int compareTo(Quiz o) {
-		if(this.getId() < o.getId())
-			return -1;
-		else if (this.getId() < o.getId())
-			return 0;
-		else 
-			return 1;
-	}
-	
 }

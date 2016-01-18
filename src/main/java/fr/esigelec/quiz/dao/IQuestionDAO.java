@@ -1,6 +1,8 @@
 package fr.esigelec.quiz.dao;
 
 import java.util.List;
+
+import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 
 
@@ -41,6 +43,12 @@ public interface IQuestionDAO {
 	 * m�thode : deleteQuestion
 	 * @param  q the question to delete
 	 */
-	public boolean deleteQuestion(Question q); 
+	public boolean deleteQuestion(Question q);
+	
+	/**
+	 * m�thode : deleteQuestion
+	 * @param  q the question to delete
+	 */
+	public List<Proposition> getListePropositions(Question q);
 	
 }

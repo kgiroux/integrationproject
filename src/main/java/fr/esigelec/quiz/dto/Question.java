@@ -1,7 +1,11 @@
 package fr.esigelec.quiz.dto;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import fr.esigelec.quiz.util.SetToListConverter;
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -10,7 +14,7 @@ import java.util.List;
  * Classe Question
  * */
 
-public class Question {
+public class Question implements  Comparable<Question>  {
 
 	/*Attributs de la classe Question*/
 
@@ -24,7 +28,7 @@ public class Question {
 	 */
 	private String libelle; 
 	
-	private List<Proposition> propositions;
+	private Set<Proposition> propositions;
 
 	/*Constructeurs*/
 
@@ -35,7 +39,7 @@ public class Question {
 	public Question() {
 		this.id = 0;
 		this.libelle = "";
-		propositions = new ArrayList<Proposition>();
+		propositions = new HashSet<Proposition>();
 	}
 
 
@@ -47,7 +51,7 @@ public class Question {
 	public Question(String libelle) {
 		this.id = 0;
 		this.libelle = libelle;
-		propositions = new ArrayList<Proposition>();
+		propositions = new HashSet<Proposition>();
 	}
 	
 	/**
@@ -83,12 +87,12 @@ public class Question {
 	}
 
 
-	public List<Proposition> getPropositions() {
+	public Set<Proposition> getPropositions() {
 		return propositions;
 	}
 
 
-	public void setPropositions(List<Proposition> propositions) {
+	public void setPropositions(Set<Proposition> propositions) {
 		this.propositions = propositions;
 	}
 
@@ -98,6 +102,11 @@ public class Question {
 		return "Question [id=" + id + ", libelle=" + libelle + ", propositions=" + propositions + "]";
 	}
 
+	public List<Proposition> getListePropositions() {
+		List<Proposition> array = new ArrayList<Proposition>();
+		SetToListConverter.SetToList(array, propositions);
+		return array;
+	}
 
 	@Override
 	public int hashCode() {
@@ -134,4 +143,14 @@ public class Question {
 		return true;
 	}
 
+
+	@Override
+	public int compareTo(Question o) {
+		if(this.getId() < o.getId())
+			return -1;
+		else if (this.getId() < o.getId())
+			return 0;
+		else 
+			return 1;
+	}
 }

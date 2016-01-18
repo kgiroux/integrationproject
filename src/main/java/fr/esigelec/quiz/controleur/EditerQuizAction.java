@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.controleur;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,9 +11,12 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.dao.IQuestionDAO;
 import fr.esigelec.quiz.dao.IQuizDAO;
+import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 /**
@@ -35,9 +40,15 @@ public class EditerQuizAction extends Action {
 			
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuizDAO quizDAO = new QuizDAOImpl();
+				IQuestionDAO questionDAO = new QuestionDAOImpl();
 				Quiz quiz = quizDAO.getQuiz(idQuiz);
+				List<Question> listeQuestionsQuiz = quizDAO.listQuestionQuiz(quiz);
+				List <Question> listeQuestions = questionDAO.listQuestion();
+				
+				request.setAttribute("listeQuestions", listeQuestions);
+				request.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
 
-				editerQuizActionLogger.debug("Question éditée");
+				editerQuizActionLogger.debug("Question ï¿½ditï¿½e");
 				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {
 				editerQuizActionLogger.debug("Action terminee avec erreur : l'utilisateur n'est pas un administrateur");

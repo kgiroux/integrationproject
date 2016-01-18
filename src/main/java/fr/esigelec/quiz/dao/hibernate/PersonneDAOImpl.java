@@ -12,11 +12,16 @@ package fr.esigelec.quiz.dao.hibernate;
  * */
 
 import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import fr.esigelec.quiz.dao.IPersonneDAO;
-import fr.esigelec.quiz.dto.Personne; 
+import fr.esigelec.quiz.dto.Choisir;
+import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Question;
+import fr.esigelec.quiz.dto.Quiz; 
 
 public class PersonneDAOImpl implements IPersonneDAO{
 

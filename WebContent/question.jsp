@@ -1,10 +1,11 @@
+
 <!-- @author : TIONO KEVIN & TIDJANI ENRIFATH -->
 
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import="java.util.*" %>  
-    <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+        <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,40 +36,46 @@
 		
 		
 	
-	<%
-	
-	Proposition p1 = new Proposition("javax.http.servlet.HttpServlet");
-	Proposition p2 = new Proposition("javax.servlet.HttpServlet");
-	Proposition p3 = new Proposition("java.http.servlet.ServletHttp");
-	Proposition p4 = new Proposition("javax.http.servlet.ServletHttp");
-
-	List<Proposition> l=new ArrayList<Proposition>();
-	l.add(p1);
-	l.add(p2);
-	l.add(p3);
-	l.add(p4);
-	Question q = new Question();
+	<%--
+	session.getAttribute("question");
+	Question q = (Question)session.getAttribute("question");
 	q.setLibelle("De quelle classe doit heriter une servlet ?");
 	q.setId(1);
+	
+	 Proposition p1 = new Proposition("javax.http.servlet.HttpServlet",q,true);
+	Proposition p2 = new Proposition("javax.servlet.HttpServlet",q,false);
+	Proposition p3 = new Proposition("java.http.servlet.ServletHttp",q,false);
+	Proposition p4 = new Proposition("javax.http.servlet.ServletHttp",q,false);
+
+	List<Proposition> listeProposition=new ArrayList<Proposition>();
+	listeProposition.add(p1);
+	listeProposition.add(p2);
+	listeProposition.add(p3);
+	listeProposition.add(p4);
+	 session.setAttribute("listeProposition",listeProposition);
+	 session.setAttribute("question",q);*/
+	 
+	
+	
 	q.setBonneReponse(p1);
 	q.setListePropositions(l);
-	%>
+	--%>
+
 		<table class="table table-bordered table-hover " style="width:70%">
 	    <thead>
 	      <tr >
-	 <th class="question"><%=q.getLibelle() %></th>
+	 <th class="question"><c:out value="${question.libelle}" /></th>
 	      </tr>
 	    </thead>
 	    <tbody>
-	    <% for(int i=0; i<q.getListePropositions().size(); i++){%>
-
+ <c:forEach var="proposition" items="${question.listePropositions}">
       <tr class="question">
-        <td><a href="#"><%=q.getListePropositions().get(i).getLibelle().toString()%></a></td>
+ 
+        <td><a href="<%=request.getContextPath()%>/Choisir.do?idProposition=${proposition.id}"><c:out value="${proposition.libelle}" /></a></td>
 
       </tr>
-	<%  }%>
+       </c:forEach> 
     </tbody>
   </table>
 </div>
-</body>
-</html>
+<jsp:include page="/footer.jsp"></jsp:include>

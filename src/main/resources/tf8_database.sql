@@ -3,7 +3,7 @@ CREATE TABLE `personne` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nom` varchar(255) NOT NULL,
 	`prenom` varchar(255) NOT NULL,
-	`mail` varchar(255) NOT NULL,
+	`mail` varchar(255) NOT NULL UNIQUE,
 	`mdp` varchar(255) NOT NULL,
 	`droits` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -16,14 +16,14 @@ CREATE TABLE `question` (
 CREATE TABLE `proposition` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`libelle` varchar(255) NOT NULL,
-	`id_question` int(11) NOT NULL,
+	`id_question` int(11),
 	`estBonneReponse` tinyint(1) NOT NULL,
 	CONSTRAINT fk_pro_quest FOREIGN KEY (`id_question`) REFERENCES `question` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `quiz` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`libelle` varchar(255) NOT NULL,
+	`libelle` varchar(255) NOT NULL UNIQUE,
 	`dateDebutQuiz` timestamp NULL DEFAULT NULL,
 	`dateFinQuiz` timestamp NULL DEFAULT NULL,
 	`noQuestionCourante` int(11) NOT NULL,

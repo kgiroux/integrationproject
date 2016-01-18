@@ -1,9 +1,12 @@
 package fr.esigelec.quiz.dto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import fr.esigelec.quiz.util.SetToListConverter;
 
 
 /**Projet d'integration
@@ -226,6 +229,12 @@ public class Quiz {
 		this.dateDebutQuestion = dateDebutQuestion;
 	}
 
+	public List<Question> getListeQuestions() {
+		List<Question> array = new ArrayList<Question>();
+		SetToListConverter.SetToList(array, questions);
+		return array;
+	}
+	
 	/**
 	 * méthode: getEtape()
 	 * @return the etape

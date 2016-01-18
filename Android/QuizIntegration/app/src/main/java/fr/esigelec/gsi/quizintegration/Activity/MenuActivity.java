@@ -1,7 +1,6 @@
 package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,12 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +30,11 @@ import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
+
+/**
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ */
+
 
 public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickListener
 {

@@ -26,6 +26,7 @@ public class Quiz
 
     /* Constructor */
     public Quiz() {
+
     }
 
     /* Getters & Setters */

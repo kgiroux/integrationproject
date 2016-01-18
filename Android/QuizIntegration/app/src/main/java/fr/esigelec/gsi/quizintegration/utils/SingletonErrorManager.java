@@ -3,7 +3,7 @@ package fr.esigelec.gsi.quizintegration.utils;
 import fr.esigelec.gsi.quizintegration.Objects.Personne;
 
 /**
- * Created by Kevin-Giroux on 13/01/2016.
+ * Created by Kevin-Giroux on 13/01/2016. Package : ${PACKAGE_NAME} Project Name : QuizIntegration
  */
 public class SingletonErrorManager {
 

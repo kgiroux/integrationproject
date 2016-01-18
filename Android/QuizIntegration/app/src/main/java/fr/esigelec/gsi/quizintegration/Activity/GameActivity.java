@@ -6,7 +6,6 @@ import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -16,6 +15,11 @@ import java.util.List;
 import fr.esigelec.gsi.quizintegration.Objects.Proposition;
 import fr.esigelec.gsi.quizintegration.Objects.Question;
 import fr.esigelec.gsi.quizintegration.R;
+
+/**
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ */
+
 
 public class GameActivity extends Activity
 {

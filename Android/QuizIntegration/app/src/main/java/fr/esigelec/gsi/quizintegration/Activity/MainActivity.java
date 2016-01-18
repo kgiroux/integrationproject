@@ -33,6 +33,10 @@ import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
+/**
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ */
+
 
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
 {

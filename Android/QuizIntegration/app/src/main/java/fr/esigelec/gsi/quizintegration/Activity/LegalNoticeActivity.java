@@ -10,7 +10,9 @@ import java.util.concurrent.ExecutionException;
 
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
-
+/**
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ */
 public class LegalNoticeActivity extends AppCompatActivity
 {
 

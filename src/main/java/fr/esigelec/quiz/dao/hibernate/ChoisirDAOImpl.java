@@ -7,7 +7,6 @@ import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
-import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -53,11 +52,5 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.getTransaction().commit();
 		session.close();
 		return retour;
-	}
-
-	@Override
-	public int scorePersonne(Personne P) {
-		
-		return 0;
 	}
 }

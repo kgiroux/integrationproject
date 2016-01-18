@@ -1,3 +1,4 @@
+
 <!-- @author : TIONO KEVIN & TIDJANI ENRIFATH -->
 
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -70,5 +71,4 @@
     </tbody>
   </table>
 </div>
-</body>
-</html>
+<jsp:include page="/footer.jsp"></jsp:include>

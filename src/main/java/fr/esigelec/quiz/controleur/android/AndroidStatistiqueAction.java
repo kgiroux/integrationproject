@@ -31,10 +31,7 @@ public class AndroidStatistiqueAction extends Action{
 				//TODO
 				int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 				
-				
 				//List<Quiz> quizList
-				
-				
 				QuizDAOImpl daoQuiz = new QuizDAOImpl();
 				Quiz quiz = daoQuiz.getQuiz(idQuiz);
 				if(quiz == null){

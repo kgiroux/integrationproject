@@ -1,6 +1,3 @@
-/**
- * @author TIONO KEVIN & ENRIFATH TIDJANI
- */
 package fr.esigelec.quiz.controleur;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +10,7 @@ import org.apache.struts.action.ActionMapping;
 
 import fr.esigelec.quiz.dto.Quiz;
 
-public class StatsAction extends Action{
+public class ReponseAction extends Action{
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -21,7 +18,7 @@ public class StatsAction extends Action{
 		
 		
 		Quiz q=(Quiz) request.getAttribute("quiz");
-		q.setEtape(2);
+		q.setEtape(3);
 		
 		
 		return mapping.findForward("succes");

@@ -31,6 +31,7 @@ public class JouerAdminAction extends Action  {
 		
 		//OUT 
 		Quiz quiz = quizdaoimpl.getQuiz(idQuiz);
+		quiz.setEtape(1);
 		Question question = ActionService.getQuestionByQuizId(idQuiz);
 		
 		

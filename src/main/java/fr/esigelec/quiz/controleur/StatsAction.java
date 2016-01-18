@@ -14,6 +14,11 @@ import org.apache.struts.action.ActionMapping;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Quiz;
 
+/**
+ * 
+ * @author minconghuang
+ * @deprecated
+ */
 public class StatsAction extends Action{
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,

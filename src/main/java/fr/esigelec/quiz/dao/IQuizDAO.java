@@ -30,6 +30,8 @@ public interface IQuizDAO {
 	
 	public Quiz getQuiz(int id); 
 	
+	public Quiz getQuizAvecQuestions(int id);
+	
 	/**
 	 * méthode : listQuiz
 	 * @return all the quizs
@@ -39,10 +41,18 @@ public interface IQuizDAO {
 	public List<Quiz> listQuiz() throws SQLException; 
 	
 	/**
+	 * méthode : listQuiz
+	 * @return all the quiz with questions loaded
+	 * @throws SQLException 
+	 */
+	
+	public List<Quiz> listQuizAvecQuestions() throws SQLException; 
+	
+	/**
 	 * méthode : getListQuizPublie
 	 * @return all the quizs publicated
 	 */
-	public List<Quiz> getListQuizPublie(int status);
+	public List<Quiz> getListQuizPublie();
 	
 	/**
 	 * méthode : getListQuizFinish

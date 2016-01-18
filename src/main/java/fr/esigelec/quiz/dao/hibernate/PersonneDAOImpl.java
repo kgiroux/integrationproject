@@ -13,18 +13,19 @@ package fr.esigelec.quiz.dao.hibernate;
 
 import java.util.List;
 
-import org.hibernate.Query;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
+import fr.esigelec.quiz.controleur.TestLogger;
 import fr.esigelec.quiz.dao.IPersonneDAO;
-import fr.esigelec.quiz.dto.Choisir;
-import fr.esigelec.quiz.dto.Personne;
-import fr.esigelec.quiz.dto.Question;
-import fr.esigelec.quiz.dto.Quiz; 
+import fr.esigelec.quiz.dto.Personne; 
 
 public class PersonneDAOImpl implements IPersonneDAO{
 
+	private static final Logger logger = Logger.getLogger(TestLogger.class);
+
+	
 	/**
 	 * M�thode : createPersonne
 	 * Cr�e une personne dans la base de donn�es
@@ -37,6 +38,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		session.save(p);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("createPersonne : " + p.toString());
 		return (p.getId() != 0);
 	}
 
@@ -52,6 +54,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		Personne retour = (Personne) session.get(Personne.class, id);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("get Personne: " + retour.toString() + " From id : " + id);
 		return retour;
 	}
 	
@@ -69,6 +72,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 				.uniqueResult();
 		session.getTransaction().commit();
 		session.close();
+		logger.info("get Personne: " + retour.toString() + " From mail : " + mail);
 		return retour;
 	}
 
@@ -86,6 +90,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		List<Personne> myList = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
+		logger.info("get listPersonnes: " + myList.toString());
 		return myList;
 	}
 
@@ -104,6 +109,7 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		Personne newPers = getPersonne(p.getId());
 		session.getTransaction().commit();
 		session.close();
+		logger.info("updatePersonne: " + newPers.toString());
 		return (p.equals(newPers));
 	}
 
@@ -121,15 +127,19 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		session.delete(p);
 		session.getTransaction().commit();
 		session.close();
+		logger.info("deletePersonne: " + p);
 		return (p == null);
 	}
 
 	@Override
 	public Personne connexion(String email, String pwd) {
+		String etat = "Login et mot de passe ok";
 		Personne p = getPersonne(email);
-		if (p.getMdp().equals(pwd)){
-			return p;
+		if (!p.getMdp().equals(pwd)){
+			etat = "Login ou mot de passe faux";
+			p = null;
 		}
-		return null;
+		logger.info("connexion: " + etat);
+		return p;
 	}
 }

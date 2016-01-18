@@ -12,13 +12,13 @@
 		  <div class="form-group">
 		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="email" class="form-control" name="mail" id="inputEmail3" placeholder="nom@domain.com">
+		      <input type="email" value="a@a.a" class="form-control" name="mail" id="inputEmail3" placeholder="nom@domain.com">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="password" id="inputPassword3" placeholder="Password">
+		      <input type="password" value="a" class="form-control" name="password" id="inputPassword3" placeholder="Password">
 		    </div>
 		  </div>
 		  <span class="col-xs-6 col-sm-4"></span>

@@ -16,26 +16,42 @@ import org.hibernate.Session;
 import fr.esigelec.quiz.dao.hibernate.ChoisirDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.HibernateUtil;
 import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
+import fr.esigelec.quiz.dao.hibernate.PropositionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 public class ActionService {
 	
+	/**
+	 * retourne la question courante
+	 * @param idQuiz
+	 * @return
+	 */
 	public static  Question  getQuestionByQuizId(int idQuiz){
 		
 		//UTILS 
 		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
-		QuestionDAOImpl questiondaoimpl = new QuestionDAOImpl();
 		
-		Quiz quiz= quizdaoimpl.getQuiz(idQuiz);	
-		Question question = questiondaoimpl.getQuestion(quiz.getNoQuestionCourante());
+		
+		Quiz quiz= quizdaoimpl.getQuizAvecQuestions(idQuiz);	
+		
+		
+		
+		
+		
+		Question question = quiz.getListeQuestions().get(quiz.getNoQuestionCourante());
 		
 		return question;
 	}
+	
+	
+	
+	
 	
 	/**
 	 * Méthode renvoyant le classement des personnes pour un quiz
@@ -66,5 +82,21 @@ public class ActionService {
 		}
 		return score;
 	}
-
+	
+	/**
+	 * Méthode renvoyant le pourcentage de bonnes réponses par question
+	 * @param q : La question demandée
+	 * @return La liste des propositions avec leurs pourcentages de bonnes réponses
+	 */
+	public static List<Proposition> getPourcentagePropositions(Quiz quiz, Question ques) {
+		int nbPersonne = new ChoisirDAOImpl().getNombrePersonneParQuiz(quiz); //nb de joueurs
+		double pourcentage = 0;
+		List<Proposition> listeProposition = ques.getListePropositions();//propositions de la question
+		for (Proposition p : listeProposition) {
+			pourcentage =((new ChoisirDAOImpl().getNombrePersonneParProposition(quiz, p)) *100)/nbPersonne; //pourcentage par proposition
+			p.setPourcentage(pourcentage);
+		}
+		
+		return listeProposition;
+	}
 }

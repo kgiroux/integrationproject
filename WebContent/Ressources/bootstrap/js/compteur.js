@@ -12,7 +12,21 @@
 		Chiffres[i] = new Image()
 		Chiffres[i].src = 'Ressources/images/' + i + '.gif'
 	}
-	
+     function afficher_cacher(id)
+        {
+            if(document.getElementById(id).style.visibility=="hidden")
+            {
+                document.getElementById(id).style.visibility="visible";
+               
+            }
+            else
+            {
+                document.getElementById(id).style.visibility="hidden";
+                
+            }
+            return true;
+        }
+    
 	// Definition de la fonction appelé chaque seconde
 	function Ecoule() {
 		// On modifie l'affichage
@@ -22,8 +36,12 @@
 			// Une fois les 59 secondes coulees, on le recharge.
 			clearInterval(interval)
 			alert('Trop tard !!!')
+			afficher_cacher('bouton1');
+			afficher_cacher('bouton2');
+			afficher_cacher('bouton3');
 			interval=null
 			reste=30
 		}
 		reste--
 	}
+	

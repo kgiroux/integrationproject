@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -19,10 +20,14 @@ import fr.esigelec.quiz.dto.Quiz;
 
 
 public class ChoisirAction extends Action {
+
+	private final Logger choisirActionLogger = Logger.getLogger(ChoisirAction.class);
 	
+	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+			HttpServletRequest request, HttpServletResponse response) {
+
+		choisirActionLogger.debug("Execute");
 		
 		
 		//UTILS
@@ -50,7 +55,8 @@ public class ChoisirAction extends Action {
 		else {
 			session.setAttribute("idProposition", idProposition);
 		}
-		
+
+		choisirActionLogger.debug("Action terminee avec succes");
 		return mapping.findForward("succes");
 		
 		

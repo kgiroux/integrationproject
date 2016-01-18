@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/HibernateMappingDTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="fr.esigelec.quiz.dto">
+	<class name="Choisir" table="choisir">
+		
+		 <composite-id>
+        	<key-many-to-one name="quiz" column="id_quiz" class="Quiz" />
+        	<key-many-to-one name="personne" column="id_personne" class="Personne" />
+    	</composite-id>
+		
+	 	<property name="date" column="date" type="timestamp"/>
+	 	<many-to-one name="proposition" column="id_proposition" class="Proposition" cascade="all" not-null="true"/>
+	</class>
+
+</hibernate-mapping>

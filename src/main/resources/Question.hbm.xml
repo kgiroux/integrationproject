@@ -2,19 +2,9 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/HibernateMappingDTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="fr.esigelec.quiz.dto">
 	<class name="Question" table="question">
-	
 		<id name="id" column="id">
 			<generator class="native"/>
-		</id>
-		
+		</id>		
 		<property name="libelle" column="libelle" type="string"/>
-		
-		<set name="listePropositions" table="proposition">
-            <key> <column name="idQuestion" not-null="true" /> </key>
-            <one-to-many class="fr.esigelec.quiz.dto.Question" />
-        </set>
-        
-		<many-to-one name="bonneReponse" column="idBonneReponse" unique="true" not-null="true"/>
-		
-	</class>
+    </class>
 </hibernate-mapping>

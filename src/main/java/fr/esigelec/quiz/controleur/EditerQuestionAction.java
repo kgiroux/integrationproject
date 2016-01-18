@@ -27,6 +27,9 @@ public class EditerQuestionAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
+		editerQuestionActionLogger.debug("Execute");
+		
 		try {
 			// Get parameters and sessions
 			Personne p = (Personne) request.getSession().getAttribute("personne");
@@ -40,17 +43,19 @@ public class EditerQuestionAction extends Action {
 					question.setLibelle(libelle);
 					questionDAO.updateQuestion(question);
 					request.setAttribute("listeQuestions", questionDAO.listQuestion());
+					editerQuestionActionLogger.debug("Action terminee avec succes : question editee");
 					return mapping.findForward("succes"); // questionsQuizzAdmin.jsp 
 				}
-				else editerQuestionActionLogger.info("erreur: libelle vide");
-			} else editerQuestionActionLogger.info("erreur: droit d'admin requis");
+				else editerQuestionActionLogger.debug("erreur: libelle vide");
+			} else editerQuestionActionLogger.debug("erreur: droit d'admin requis");
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			// Add attributes of error message
-			editerQuestionActionLogger.info("erreur: "+e);
+			editerQuestionActionLogger.debug("erreur: "+e.getMessage());
 		}
+		editerQuestionActionLogger.debug("Action terminee avec succes : question editee");
 		return mapping.findForward("succes");
 	}
 }

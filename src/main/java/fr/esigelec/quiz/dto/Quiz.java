@@ -1,6 +1,6 @@
 package fr.esigelec.quiz.dto;
+
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,9 +16,10 @@ import java.util.Set;
  * Classe Quiz
  * */
 
-public class Quiz {
+public class Quiz implements Comparable<Quiz> {
 
 	/**Attributs de la classe Quiz*/
+
 
 	/**
 	 * identifiant du quiz
@@ -31,7 +32,7 @@ public class Quiz {
 	private String libelle; 
 
 	/**
-	 * Date et heure de d�but du quiz
+	 * Date et heure de début du quiz
 	 */
 	private Timestamp dateDebutQuiz; 
 
@@ -46,31 +47,41 @@ public class Quiz {
 	private int noQuestionCourante; 
 
 	/**
-	 * date et heure de d�but de la question
+	 * date et heure de début de la question
 	 */
 	private Timestamp dateDebutQuestion;
 
 	/**
-	 * �tape 
+	 * étape 
 	 * 1 : en cours
 	 *  2 : affichage de statistiques
-	 *   3 : affichage r�ponse + classement
+	 *   3 : affichage réponse + classement
 	 */
 	private int etape;
 	
-	private Set<Question> listeQuestions = new HashSet<Question>();
+	//private List<Question> listeQuestions = new LinkedList<Question>();
+	private Set<Question> questions;
 
 
 	/*Constructeurs*/
 
 	/**
-	 * Constructeur sans param�tres
+	 * Constructeur sans paramétres
 	 */
 
-	public Quiz() {}
+	public Quiz() {
+		this.id = 0;
+		this.libelle = "";
+		this.dateDebutQuiz = null;
+		this.dateFinQuiz = null;
+		this.noQuestionCourante = 0;
+		this.dateDebutQuestion = null;
+		this.etape = 0;
+		this.questions = new HashSet<Question>();
+	}
 
 	/**
-	 * Constructeur avec param�tres
+	 * Constructeur avec paramétres
 	 * @param id
 	 * @param libelle
 	 * @param noQuestionCourante
@@ -83,8 +94,9 @@ public class Quiz {
 		this.dateDebutQuiz = null;
 		this.dateFinQuiz = null;
 		this.noQuestionCourante = noQuestionCourante;
-		this.dateDebutQuestion=null;
+		this.dateDebutQuestion = null;
 		this.etape = etape;
+		this.questions = new HashSet<Question>();
 	}
 
 	/**
@@ -100,13 +112,26 @@ public class Quiz {
 		this.dateDebutQuestion=q.dateDebutQuestion;
 		this.noQuestionCourante = q.noQuestionCourante;
 		this.etape = q.etape;
+		this.questions = q.questions;
 	}
 
 
 	/*Getters et setters*/
+	
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
+	}
+	
+	public void setListeQuestions(List<Question> questions) {
+		this.questions = new HashSet<Question> (questions);
+	}
 
 	/**
-	 * m�thode getId()
+	 * méthode getId()
 	 * @return the id
 	 */
 	public int getId() {
@@ -114,7 +139,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: setId()
+	 * méthode: setId()
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
@@ -122,7 +147,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: getLibelle()
+	 * méthode: getLibelle()
 	 * @return the libelle
 	 */
 	public String getLibelle() {
@@ -130,7 +155,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: setLibelle()
+	 * méthode: setLibelle()
 	 * @param libelle the libelle to set
 	 */
 	public void setLibelle(String libelle) {
@@ -138,7 +163,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode:getDateDebutQuiz()
+	 * méthode:getDateDebutQuiz()
 	 * @return the dateDebutQuiz
 	 */
 	public Timestamp getDateDebutQuiz() {
@@ -146,7 +171,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: setDateDebutQuiz()
+	 * méthode: setDateDebutQuiz()
 	 * @param dateDebutQuiz the dateDebutQuiz to set
 	 */
 	public void setDateDebutQuiz(Timestamp dateDebutQuiz) {
@@ -154,7 +179,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode:getDateFinQuiz()
+	 * méthode:getDateFinQuiz()
 	 * @return the dateFinQuiz
 	 */
 	public Timestamp getDateFinQuiz() {
@@ -162,7 +187,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: setDateFinQuiz
+	 * méthode: setDateFinQuiz
 	 * @param dateFinQuiz the dateFinQuiz to set
 	 */
 	public void setDateFinQuiz(Timestamp dateFinQuiz) {
@@ -170,7 +195,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: getNoQuestionCourante
+	 * méthode: getNoQuestionCourante
 	 * @return the noQuestionCourante
 	 */
 	public int getNoQuestionCourante() {
@@ -178,7 +203,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: setNoQuestionCourante
+	 * méthode: setNoQuestionCourante
 	 * @param noQuestionCourante the noQuestionCourante to set
 	 */
 	public void setNoQuestionCourante(int noQuestionCourante) {
@@ -186,7 +211,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: getDateDebutQuestion()
+	 * méthode: getDateDebutQuestion()
 	 * @return the dateDebutQuestion
 	 */
 	public Timestamp getDateDebutQuestion() {
@@ -194,7 +219,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: setDateDebutQuestion()
+	 * méthode: setDateDebutQuestion()
 	 * @param dateDebutQuestion the dateDebutQuestion to set
 	 */
 	public void setDateDebutQuestion(Timestamp dateDebutQuestion) {
@@ -202,7 +227,7 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: getEtape()
+	 * méthode: getEtape()
 	 * @return the etape
 	 */
 	public int getEtape() {
@@ -210,20 +235,28 @@ public class Quiz {
 	}
 
 	/**
-	 * m�thode: setEtape()
+	 * méthode: setEtape()
 	 * @param etape the etape to set
 	 */
 	public void setEtape(int etape) {
 		this.etape = etape;
 	}
-	/**
-	public List<Question> getListeQuestions() {
-		return listeQuestions;
-	}*/
+	
 
-	/**public void setListeQuestions(List<Question> listeQuestions) {
-		this.listeQuestions = listeQuestions;
-	}*/
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dateDebutQuestion == null) ? 0 : dateDebutQuestion.hashCode());
+		result = prime * result + ((dateDebutQuiz == null) ? 0 : dateDebutQuiz.hashCode());
+		result = prime * result + ((dateFinQuiz == null) ? 0 : dateFinQuiz.hashCode());
+		result = prime * result + etape;
+		result = prime * result + id;
+		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
+		result = prime * result + noQuestionCourante;
+		result = prime * result + ((questions == null) ? 0 : questions.hashCode());
+		return result;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -258,22 +291,36 @@ public class Quiz {
 				return false;
 		} else if (!libelle.equals(other.libelle))
 			return false;
-		if (listeQuestions == null) {
-			if (other.listeQuestions != null)
-				return false;
-		} else if (!listeQuestions.equals(other.listeQuestions))
-			return false;
 		if (noQuestionCourante != other.noQuestionCourante)
+			return false;
+		if (questions == null) {
+			if (other.questions != null)
+				return false;
+		} else if (!questions.equals(other.questions))
 			return false;
 		return true;
 	}
 
-	public Set<Question> getListeQuestions() {
-		return listeQuestions;
+	@Override
+	public String toString() {
+		return "Quiz [id=" + id + ", libelle=" + libelle + ", dateDebutQuiz=" + dateDebutQuiz + ", dateFinQuiz="
+				+ dateFinQuiz + ", noQuestionCourante=" + noQuestionCourante + ", dateDebutQuestion="
+				+ dateDebutQuestion + ", etape=" + etape + ", questions=" + questions + "]";
+	}
+	
+	
+	public void addQuestion(Question q) {
+		questions.add(q);
 	}
 
-	public void setListeQuestions(Set<Question> listeQuestions) {
-		this.listeQuestions = listeQuestions;
+	@Override
+	public int compareTo(Quiz o) {
+		if(this.getId() < o.getId())
+			return -1;
+		else if (this.getId() < o.getId())
+			return 0;
+		else 
+			return 1;
 	}
+	
 }
-

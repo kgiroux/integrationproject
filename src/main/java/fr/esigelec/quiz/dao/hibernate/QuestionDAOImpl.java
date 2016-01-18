@@ -10,8 +10,6 @@ package fr.esigelec.quiz.dao.hibernate;
  * */
 
 import java.util.List;
-import java.util.Set;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import fr.esigelec.quiz.dao.IQuestionDAO;
@@ -25,12 +23,11 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 */ 
 	@Override
 	public boolean createQuestion(Question q) {
-		Session session= HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(q);
 		session.getTransaction().commit();
 		session.close();
-		
 		return (q.getId() != 0);
 	}
 
@@ -44,7 +41,7 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	public Question getQuestion(int id) {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		Question question=(Question)session.get(Question.class,id);
+		Question question=session.get(Question.class,id);
 		session.getTransaction().commit();
 		session.close();
 		return question;
@@ -55,11 +52,12 @@ public class QuestionDAOImpl implements IQuestionDAO{
 	 * @return all the questions
 	 */  
 	@Override
-	public Set<Question> listQuestion() {
+	public List<Question> listQuestion() {
 		Session session= HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Query query=session.createQuery("from Question");
-		Set<Question> listeQuestions=(Set<Question>) query.list();
+		@SuppressWarnings("unchecked")
+		List<Question> listeQuestions = query.list();
 		session.getTransaction().commit();
 		session.close();
 		return listeQuestions;
@@ -77,7 +75,6 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		Question newQuestion = getQuestion(q.getId());
 		session.getTransaction().commit();
 		session.close();
-		
 		return (newQuestion.equals(q));
 	}
 
@@ -93,7 +90,7 @@ public class QuestionDAOImpl implements IQuestionDAO{
 		session.delete(q);
 		session.getTransaction().commit();
 		session.close();
-		
 		return (q == null);
 	}
+
 }

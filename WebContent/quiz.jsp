@@ -59,12 +59,16 @@ q3.setDateDebutQuiz(t);
     <tbody>
 	
 	
-
- <c:forEach var="quiz" items="${listeQuiz}">
+<!--
+    Hi, Kevin.
+    You should use sessionScope to read session scope level attribute.
+    - Mincong
+ -->
+ <c:forEach var="quiz" items="${sessionScope.listeQuiz}">
 
       <tr class="question">
         <td><c:out value="${quiz.libelle}" /></td>
-        <td><c:out value="${quiz.listeQuestions.size()}" /></td>
+        <td><c:out value="${quiz.questions.size()}" /></td>
         <td><c:out value="${quiz.dateDebutQuiz}" /></td>
 		<td><a href="<%=request.getContextPath()%>/Jouer.do?idQuiz=${quiz.id}"><img src="Ressources/images/jouer.png" width="8%"/></a></td>
 		<td><a href="<%=request.getContextPath()%>/Stats.do?idQuiz=${quiz.id}"><img src="Ressources/images/stats.png" width="8%"/></a></td>

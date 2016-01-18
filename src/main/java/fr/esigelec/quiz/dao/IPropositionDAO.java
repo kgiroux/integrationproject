@@ -58,5 +58,11 @@ public interface IPropositionDAO {
 	 */
 
 	public boolean deleteProposition(Proposition p); 
+	
+	/**
+	 * m�thode : getBonneReponse
+	 * @param  q the question 
+	 */
+	public Proposition getBonneReponse(Question q);
 
 }

@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.controleur;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -21,12 +22,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class ConnexionPersonneAction extends Action {
-
+	
+	private final Logger connexionPersonneActionLogger = Logger.getLogger(ConnexionPersonneAction.class);
+	
+	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+			HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
-		final Logger logger = Logger.getLogger(ConnexionPersonneAction.class);
+		connexionPersonneActionLogger.debug("Execute");
 		
 		ConnexionForm f= (ConnexionForm) form;
 		String mail = f.getMail();
@@ -38,17 +41,17 @@ public class ConnexionPersonneAction extends Action {
 		Personne personne = personneDAO.getPersonne(mail);
 		
 		if( personne == null ) {
-			logger.error("Utilisateur inexistant");
+			connexionPersonneActionLogger.debug("Action terminee avec erreur : Utilisateur inexistant");
 			return mapping.findForward("erreur");
 		}
 		else if(!mdp.equals(personne.getMdp())) {
-			logger.error("Utilisateur existant mais mot de passe incorrect");
+			connexionPersonneActionLogger.debug("Action terminee avec erreur : mot de passe incorrect");
 			return mapping.findForward("erreur");
 		}
 		else {
-			logger.info("Connexion réussie");
 			request.setAttribute("listeQuiz", listeQuiz);
 			request.setAttribute("personne", personne);
+			connexionPersonneActionLogger.debug("Connexion réussie");
 			return mapping.findForward("succes");
 		}
 	}

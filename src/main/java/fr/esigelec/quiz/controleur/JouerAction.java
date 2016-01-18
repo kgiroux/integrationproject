@@ -4,6 +4,9 @@
 package fr.esigelec.quiz.controleur;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,12 +41,15 @@ public class JouerAction extends Action {
 		
 		//OUT 
 		Quiz quiz = quizdaoimpl.getQuiz(idQuiz);
-		Question question = ActionService.getQuestionByQuizId(idQuiz);
-		
-		
+		// TODO: 
+		// Salut mon ami, 
+		// Les questions sont déjà stockées dans quiz.
+		//   - Mincong
+		//Question question = ActionService.getQuestionByQuizId(idQuiz);
+		List<Question> questions = new ArrayList<Question>(quiz.getQuestions());
 		
 		session.setAttribute("quiz", quiz);
-		session.setAttribute("question", question);
+		session.setAttribute("questions", questions);
 		
 		
 		return mapping.findForward("succes");

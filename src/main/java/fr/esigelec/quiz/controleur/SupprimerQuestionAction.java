@@ -31,11 +31,11 @@ public class SupprimerQuestionAction extends Action {
 		try {
 			// Get parameters and sessions
 			Personne p = (Personne) request.getSession().getAttribute("personne");
-			int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
+			Question question = (Question) request.getParameter("idQuestion");
 			
 			if (p.getDroits() == Personne.ADMIN) {
 				IQuestionDAO questionDAO = new QuestionDAOImpl();
-				questionDAO.deleteQuestion(questionDAO.getQuestion(idQuestion));
+				questionDAO.deleteQuestion(question);
 				request.setAttribute("listeQuestions", questionDAO.listQuestion());
 				return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			} else {

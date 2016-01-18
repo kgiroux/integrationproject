@@ -42,7 +42,7 @@ public interface IQuizDAO {
 	 * méthode : getListQuizPublie
 	 * @return all the quizs publicated
 	 */
-	public List<Quiz> getListQuizPublie(int status);
+	public List<Quiz> getListQuizPublie();
 	
 	/**
 	 * méthode : getListQuizFinish

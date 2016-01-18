@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8" %>
  <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<jsp:include page="/header.jsp"></jsp:include>
+	<jsp:include page="/header.jsp"></jsp:include>
 <div class="container">
 	<h1 >Bienvenue</h1>
 	<hr>

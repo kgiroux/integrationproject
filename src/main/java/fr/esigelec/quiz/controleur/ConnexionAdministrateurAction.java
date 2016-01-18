@@ -41,7 +41,7 @@ public class ConnexionAdministrateurAction extends Action {
 		Personne personne = personneDAO.getPersonne(mail);
 		
 		if( personne == null ) {
-			connexionAdministrateurActionLogger.debug("Action terminee avec erreur : les coordonnees ne correspondent pas à un administrateur");
+			connexionAdministrateurActionLogger.debug("Action terminee avec erreur : les coordonnees ne correspondent pas ï¿½ un administrateur");
 			return mapping.findForward("erreur");
 		}
 		else if(!mdp.equals(personne.getMdp())) {
@@ -50,8 +50,8 @@ public class ConnexionAdministrateurAction extends Action {
 		}
 		else {
 			request.setAttribute("listeQuiz", listeQuiz);
-			request.setAttribute("personne", personne);
-			connexionAdministrateurActionLogger.debug("Connexion réussie");
+			request.getSession().setAttribute("personne", personne);
+			connexionAdministrateurActionLogger.debug("Connexion rï¿½ussie");
 			return mapping.findForward("succes");
 		}
 	}

@@ -37,7 +37,6 @@ public class ConnexionForm extends ActionForm {
 		
 		ActionErrors errors=new ActionErrors();
 	
-		
 		if("".equals(mail))
 				errors.add("erreur.mail", new ActionMessage("erreur.connexion.mail.vide"));
 		if("".equals(password))

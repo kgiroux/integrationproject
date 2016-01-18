@@ -39,6 +39,7 @@ public class VueQuestionAction extends Action {
 		
 		int idBonneReponse = 0;
 		Set<Proposition> listProposition = question.getPropositions();
+		
 		for(Proposition proposition : listProposition){
 			if(proposition.isEstBonneReponse()){
 				idBonneReponse = proposition.getId();
@@ -48,7 +49,7 @@ public class VueQuestionAction extends Action {
 		
 		List<Personne> classement = ActionService.getClassement(quiz);
 		
-		Hashtable<Integer, Float> pourcentage = null;
+		List<Proposition> pourcentage = ActionService.getPourcentagePropositions(quiz, question);
 		
 		
 		
@@ -56,7 +57,8 @@ public class VueQuestionAction extends Action {
 		//OUT
 		session.setAttribute("idBonneReponse", idBonneReponse);
 		session.setAttribute("classement", classement);
-		session.setAttribute("hashtablePourcentage", pourcentage);
+		session.setAttribute("pourcentage", pourcentage);
+		
 		
 		
 		return mapping.findForward("succes");

@@ -1,5 +1,8 @@
 package fr.esigelec.quiz.controleur.android;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +18,7 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.util.AndroidHelper;
 
 /**
- * @author Kévin Giroux;
+ * @author Kï¿½vin Giroux;
  * 
  */
 
@@ -30,15 +33,20 @@ public class AndroidConnexionPersonneAction extends Action {
 				JSONObject json = AndroidHelper.DoGetForbiddenException();
 				request.setAttribute("json", json.toString());
 				return mapping.findForward("succes");
-		
 			}else if("POST".equals(request.getMethod())){
-			
-				String mail = request.getParameter("mail");
+				String mail = null;
+				try {
+					mail = URLDecoder.decode(request.getParameter("mail"), "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				String mdp = request.getParameter("mdp");
 				JSONObject json = new JSONObject();
 				IPersonneDAO personneDAO = new PersonneDAOImpl();
 				if (mail != null && mdp != null) {
 					Personne p = personneDAO.getPersonne(mail);
+					//Personne p = new Personne("nom","prenom","mail@mail.com","123456789",0);
 					// check login
 					// user not found
 					if (p == null) {
@@ -57,6 +65,9 @@ public class AndroidConnexionPersonneAction extends Action {
 				request.setAttribute("json",json.toString());
 				return mapping.findForward("succes");
 			}else{
+				JSONObject json = new JSONObject();
+				json = AndroidHelper.TimeOutExeception();
+				request.setAttribute("json", json);
 				return mapping.findForward("error");
 			}
 		}

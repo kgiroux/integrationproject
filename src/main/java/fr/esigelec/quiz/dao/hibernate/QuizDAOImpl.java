@@ -92,7 +92,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		session.beginTransaction();
 		Query query = session.createQuery("FROM Quiz WHERE dateDebutQuiz is not null and dateFinQuiz is null");
 		@SuppressWarnings("unchecked")
-		Quiz quiz = query.uniqueResult();
+		Quiz quiz = (Quiz) query.uniqueResult();
 		session.getTransaction().commit();
 		session.close();
 		logger.info("Current Quiz: " + quiz.toString());

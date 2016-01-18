@@ -103,7 +103,7 @@ public class QuizDAOImpl implements IQuizDAO {
 	}
 	
 	public boolean updateQuiz(Quiz q) {  
-		Session session= HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(q);
 		session.getTransaction().commit();

@@ -44,12 +44,16 @@ public class AjouterQuizAction extends Action {
 			/* Verify authentication session */
 			if (p == null || p.getDroits() != Personne.ADMIN) {
 				errors.add("err.session.auth", new ActionMessage("err.session.auth.notfound"));	// TODO: add error message in `mesMessage.properties'
+				if (!errors.isEmpty())
+					addErrors(request, errors);
 				return mapping.findForward("login");											// TODO: verify `login' goes well
 			}
 			
 			/* Verify inputs (parameter `libelleQuez' && attribute `questions') */
 			if (libelleQuiz == null || "".equals(libelleQuiz) || questions == null) {
 				errors.add("err.inputs", new ActionMessage("err.inputs.null"));					// TODO: add error message in `mesMessage.properties'
+				if (!errors.isEmpty())
+					addErrors(request, errors);
 				return mapping.findForward("erreur");											// TODO: verify `erreur' goes well
 			}
 			

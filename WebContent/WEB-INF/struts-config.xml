@@ -53,7 +53,8 @@
       </action>
       <action scope="request" path="/AjouterQuiz" name="" type="fr.esigelec.quiz.controleur.AjouterQuizAction" input="/">
          <forward name="succes" path="/quizAdmin.jsp"/>
-         <forward name="login" path="/indexAdmin.jsp"/>
+         <forward name="login"  path="/indexAdmin.jsp"/>
+         <forward name="erreur" path="/questionQuizAdmin.jsp"/>
       </action>
       <action scope="request" path="/EditerQuiz" name="" type="fr.esigelec.quiz.controleur.EditerQuizAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>

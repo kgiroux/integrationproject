@@ -35,7 +35,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/current"
-                android:id="@+id/current" />
+                android:id="@+id/current"
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_below="@id/current"
@@ -108,7 +109,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/old"
-                android:id="@+id/old" />
+                android:id="@+id/old"
+                android:textColor="@color/white" />
 
             <ScrollView
                 android:layout_width="match_parent"

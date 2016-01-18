@@ -3,6 +3,7 @@ package fr.esigelec.gsi.quizintegration.Activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -35,8 +36,6 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  */
-
-
 public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickListener
 {
 	private DrawerLayout mDrawerLayout;
@@ -47,21 +46,32 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 	private Personne pers;
     private List<Quiz> quizList;
     private Quiz currentQuiz = null;
+    private Typeface myTypeface;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
-		pers = SingletonPersonne.getInstance ().getPersonne ();
+
+		pers = SingletonPersonne.getInstance ().getPersonne();
+
+        myTypeface = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
+
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle(R.string.app_name);
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 		toolbar.setOnMenuItemClickListener(this);
+
 		create_expandable_list();
 
         //Initialisation pour test
         initTest();
+
+        TextView curText = (TextView) findViewById(R.id.current);
+        TextView oldText = (TextView) findViewById(R.id.old);
+        curText.setTypeface(myTypeface);
+        oldText.setTypeface(myTypeface);
 
         final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
 
@@ -102,7 +112,6 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         }
 	}
 
-
 	public void create_drawer ()
 	{
 		mDrawerLayout = (DrawerLayout) findViewById (R.id.drawer_layout);
@@ -127,33 +136,31 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 			@Override
 			public boolean onGroupClick (ExpandableListView parent, View v, int groupPosition, long id)
 			{
-				Intent t;
-				switch (groupPosition)
-				{
-					case 0:
-
-						break;
-					case 1:
-						t = new Intent(getApplicationContext (),InscriptionActivity.class);
-						startActivity (t);
-						break;
-					case 2:
-						t = new Intent(getApplicationContext (),AboutActivity.class);
-						Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
-						startActivity (t);
-						break;
-					case 3:
-						t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
-						Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
-						startActivity (t);
-						break;
-					case 4:
-						Toast.makeText (getApplicationContext (), R.string.bye, Toast.LENGTH_LONG).show ();
-						finish ();
-						break;
-				}
-
-				return true;
+            Intent t;
+            switch (groupPosition)
+            {
+                case 0:
+                    break;
+                case 1:
+                    t = new Intent(getApplicationContext (),InscriptionActivity.class);
+                    startActivity (t);
+                    break;
+                case 2:
+                    t = new Intent(getApplicationContext (),AboutActivity.class);
+                    Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
+                    startActivity (t);
+                    break;
+                case 3:
+                    t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
+                    Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
+                    startActivity (t);
+                    break;
+                case 4:
+                    Toast.makeText (getApplicationContext (), R.string.bye, Toast.LENGTH_LONG).show ();
+                    finish ();
+                    break;
+            }
+            return true;
 			}
 		});
 	}
@@ -173,7 +180,6 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 		{
 			groupList.add (listItem[i]);
 		}
-
 	}
 
 	@Override
@@ -186,7 +192,6 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 	*  When using the ActionBarDrawerToggle, you must call it during
 	* onPostCreate() and onConfigurationChanged()...
 	*/
-
 	protected void onPostCreate (Bundle savedInstanceState)
 	{
 		super.onPostCreate (savedInstanceState);

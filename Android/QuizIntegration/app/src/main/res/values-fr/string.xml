@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Serais-je le plus fort !!!!</string>
+    <string name="app_name">Serais-je le Meilleur</string>
     <string name="logo">logo</string>
     <string name="drawer_open">Ouverture du menu</string>
     <string name="drawer_close">Fermeture du menu</string>
@@ -55,7 +55,7 @@
 
     <!-- Strings related to menu -->
     <string name="current">Test en cours</string>
-    <string name="old">Ancien Test</string>
+    <string name="old">Anciens Tests</string>
     <string name="leaveActivity">Sortie du Test</string>
     <string name="aboutText">
        Integration Project is an online quiz developed by 21 students of CS

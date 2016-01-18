@@ -7,18 +7,23 @@ public class AjouterQuizActionTest extends MockStrutsTestCase {
 
 	public AjouterQuizActionTest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public AjouterQuizActionTest(String testName) {
 		super(testName);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
 		super.setUp();
+		setRequestPathInfo("/AjouterQuiz");
+	}
+	
+	public void testWithoutAuthSession_ExpectedBackToLoginPage() {
+		actionPerform();
+		assertEquals(null, getSession().getAttribute("personne"));
+		verifyForwardPath("/indexAdmin.jsp");
+		verifyActionMessages(new String[] {"err.session.auth.notfound"});
 	}
 	
 	public void testTest() {

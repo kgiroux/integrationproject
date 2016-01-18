@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -37,8 +39,6 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  */
-
-
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
 {
 	public static String IPSERVER = "http://176.31.114.109/quiz/";
@@ -52,23 +52,34 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	private Dialog dialog;
 	private Toolbar toolbar;
 	private Personne pers;
+    private Typeface myTypeface;
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
-		super.onCreate (savedInstanceState);
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		pers = SingletonPersonne.getInstance ().getPersonne ();
+
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
         toolbar.setTitleTextColor(ContextCompat.getColor (getApplicationContext(),R.color.white));
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
+		/*toolbar.setTitle(R.string.app_name);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));*/
+		toolbar.setOnMenuItemClickListener(this);
+
+        myTypeface = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
+
+		create_expandable_list();
 		dialog = createAndManageDialog();
 
 		Button button = (Button) findViewById (R.id.start);
-		button.setOnClickListener (this);
-
-		Button quit = (Button) findViewById (R.id.quit);
+        button.setTypeface(myTypeface);
+        button.setOnClickListener (this);
+        Button quit = (Button) findViewById (R.id.quit);
+        quit.setTypeface(myTypeface);
 		quit.setOnClickListener (this);
 	}
 
@@ -132,7 +143,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 						finish ();
 						break;
 				}
-
 				return true;
 			}
 		});
@@ -166,12 +176,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		}
 	}
 
-
 	/**
 	 * When using the ActionBarDrawerToggle, you must call it during
 	 * onPostCreate() and onConfigurationChanged()...
 	 */
-
 	protected void onPostCreate (Bundle savedInstanceState)
 	{
 		super.onPostCreate (savedInstanceState);
@@ -203,13 +211,16 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		return false;
 	}
 
-
-
-
 	private Dialog createAndManageDialog(){
 		final Dialog dialog = new Dialog (MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.login_dialog);
+
+        TextView logText = (TextView) dialog.findViewById(R.id.titleText);
+        logText.setTypeface(myTypeface);
+
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
+        subscribeButton.setTypeface(myTypeface);
 		subscribeButton.setOnClickListener (new View.OnClickListener ()
 		{
 			@Override
@@ -219,7 +230,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 				startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
 			}
 		});
+
 		Button signIn = (Button) dialog.findViewById (R.id.SignIn);
+        signIn.setTypeface(myTypeface);
 		signIn.setOnClickListener (new View.OnClickListener ()
 		{
 			@Override
@@ -247,6 +260,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 				try
 				{
+					//Toast.makeText(getApplicationContext(), pers.PersonneToHashMap().toString(), Toast.LENGTH_LONG).show();
 					JSONObject perJson = new AndroidHTTPRequest().execute(IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
 					if(null != perJson){
 						if(perJson.has("err_code")){
@@ -284,8 +298,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 				}
 			}
 		});
-
-
 		return dialog;
 	}
 }

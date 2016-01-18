@@ -55,7 +55,6 @@ public class GameActivity extends Activity implements View.OnTouchListener
             public void onTick(long millisUntilFinished) {
 					TextView timer = (TextView) findViewById(R.id.timer);
                 int second = Integer.parseInt(timer.getText().toString());
-
                 timer.setText(String.valueOf(second - 1));
             }
 
@@ -64,8 +63,7 @@ public class GameActivity extends Activity implements View.OnTouchListener
                 timer.setText("00");
             }
         }.start();
-	}
-
+    }
 
     private void initIHM(){
         TextView questionText = (TextView) findViewById(R.id.question);
@@ -88,7 +86,6 @@ public class GameActivity extends Activity implements View.OnTouchListener
                 button3.setEnabled(false);
                 button4.setEnabled(false);
                 respGiven = 1;
-
                 return true;
             }
         });

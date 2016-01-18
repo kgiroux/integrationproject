@@ -16,46 +16,23 @@
 </head>
 <body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
 <%
-int count=Integer.parseInt(request.getParameter("compteur"));
+int count=(int)session.getAttribute("compteur");
 
 %>
+
 <%
-Quiz q;
-List<Question> listq;
-if(request.getAttribute("quiz")==null){
-q=(Quiz)request.getAttribute("quiz");
+Quiz q=(Quiz)session.getAttribute("quiz");
+System.out.println(q.toString());
+List<Question> listq=q.getListeQuestions();
 
-listq=setToListConverte<Question>();}
-//List<Question> listq=q.getListeQuestions();
-else{
-Question question = new Question("question1");
-Proposition pro1 = new Proposition("proposition1faux",false);
-Proposition pro2 = new Proposition("proposition2bonne",true);
-List<Proposition> list = new LinkedList<Proposition>();
-list.add(pro1);
-list.add(pro2);
-
-Question question1 = new Question("question2");
-Proposition prop11 = new Proposition("proposition11faux",false);
-Proposition prop22 = new Proposition("proposition22bonne",true);
-List<Proposition> list1 = new LinkedList<Proposition>();
-list1.add(prop11);
-list1.add(prop22);
-
-listq= new LinkedList<Question>();
-listq.add(question);
-listq.add(question1);
-q = new Quiz();
-q.setListeQuestions(listq);
-}
 %>
 <div class="form-center animateur">
-<a href="Stats.do?idQuiz=<%=q.getId()%>"><button class="btn btn-primary" >Afficher statistiques</button></a>
-<a href="Reponse.do?idQuiz=<%=q.getId()%>"><button class="btn btn-primary">Afficher bonne réponse</button></a>	
-<a href="Compteur.do?compteur=<%=count+1%>"><button class="btn btn-primary" id="suivant">Question suivante</button></a>
+<a href="<%=request.getContextPath()%>/Stats.do"><button class="btn btn-primary" >Afficher statistiques</button></a>
+<a href="<%=request.getContextPath()%>/Reponse.do"><button class="btn btn-primary">Afficher bonne réponse</button></a>	
+<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>"><button class="btn btn-primary" id="suivant">Question suivante</button></a>
 
 
-<h1>Question n°<%=count%></h1>
+<h1>Question n°<%=count+1%></h1>
 </div>
 <hr>
 <div class="form-center">
@@ -67,6 +44,8 @@ q.setListeQuestions(listq);
 				<thead>
 					<tr>
 						<th><%=listq.get(count).getLibelle()%></th>
+						<% if(q.getEtape()>1)%><th>Statistiques</th>
+						<% if(q.getEtape()>2)%><th>Reponse</th>
 						
 					</tr>
 				</thead>
@@ -74,14 +53,15 @@ q.setListeQuestions(listq);
 				<%for(int j=0;j<listq.get(count).getListePropositions().size();j++){ %>
 					<tr>
 						<td><a id="test" href="#"><%=listq.get(count).getListePropositions().get(j).getLibelle()%></a></td>
-					</tr>
+					
 					<% if(q.getEtape()>1) {%>
-					<tr>
+					
+					
 						<td>2</td>
-					</tr>
+					
 					<%} %>
 					<% if(q.getEtape()>2) {%>
-					<tr>
+					
 						<td>3</td>
 					</tr>
 					<%} %>

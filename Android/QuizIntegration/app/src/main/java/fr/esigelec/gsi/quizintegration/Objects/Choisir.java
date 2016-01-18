@@ -46,7 +46,6 @@ public class Choisir
         this.id_quiz = quiz;
     }
 
-
     /* Convertion methods */
     public HashMap<String,String> ChoiceToHashMap(){
         HashMap<String, String> returnHashMap = new HashMap<> ();

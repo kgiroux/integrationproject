@@ -9,7 +9,7 @@ import android.view.View;
 import fr.esigelec.gsi.quizintegration.R;
 
 /**
- * Created by kevin on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.adapter Project Name : QuizIntegration
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.adapter Project Name : QuizIntegration
  */
 public class CustomActionBarDrawerToggle extends ActionBarDrawerToggle
 {

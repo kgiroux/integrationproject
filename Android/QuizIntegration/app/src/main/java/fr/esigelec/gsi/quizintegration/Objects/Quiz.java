@@ -1,5 +1,10 @@
 package fr.esigelec.gsi.quizintegration.Objects;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -15,6 +20,8 @@ public class Quiz
     private Timestamp dateFinQuiz;
     private int noQuestionCourante;
     private Timestamp dateDebutQuestion;
+
+    private int nbQuestion;
     private int etape;
     private List<Question> listeQuestions;
 
@@ -28,8 +35,6 @@ public class Quiz
     }
 
     //Constructor de test
-
-
     public Quiz(int id, String libelle, Timestamp dateDebutQuiz, Timestamp dateFinQuiz, int noQuestionCourante, Timestamp dateDebutQuestion, int etape) {
         this.id = id;
         this.libelle = libelle;
@@ -98,5 +103,32 @@ public class Quiz
 
     public void setListeQuestions(List<Question> listeQuestions) {
         this.listeQuestions = listeQuestions;
+    }
+
+    public int getNbQuestion() {
+        return nbQuestion;
+    }
+
+    public void setNbQuestion(int nbQuestion) {
+        this.nbQuestion = nbQuestion;
+    }
+
+    /* Convertion methods */
+    public void JSONObjectToQuiz(JSONObject obj){
+        if(null != obj){
+            try{
+                this.setId( obj.getInt ("id"));
+                this.setLibelle(obj.getString("libelle"));
+                this.setDateDebutQuestion(new Timestamp(obj.getLong("dateDebut")));
+                this.setDateFinQuiz(new Timestamp(obj.getLong("dateFin")));
+                this.setEtape(obj.getInt("etape"));
+                this.setNbQuestion(obj.getInt("nbQuestion"));
+                this.setNoQuestionCourante(obj.getInt("questionCourrante"));
+                this.setDateDebutQuestion(new Timestamp(obj.getLong("dateDebutQuestion")));
+
+            }catch(JSONException jsonE){
+                Log.e("ERREUR", jsonE.getMessage());
+            }
+        }
     }
 }

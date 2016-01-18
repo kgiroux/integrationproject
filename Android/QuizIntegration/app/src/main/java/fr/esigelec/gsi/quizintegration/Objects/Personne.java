@@ -35,7 +35,8 @@ public class Personne
     }
 
     public void setNom(String nom) {
-        this.nom = nom;
+        if(null != nom && "".equals (nom))
+            this.nom = nom;
     }
 
     public int getId() {
@@ -51,11 +52,13 @@ public class Personne
     }
 
     public void setPrenom(String prenom) {
-        this.prenom = prenom;
+        if(null != prenom && "".equals (prenom))
+            this.prenom = prenom;
     }
 
     public void setMail(String mail) {
-        this.mail = mail;
+        if(null != mail && "".equals (mail))
+            this.mail = mail;
     }
 
 

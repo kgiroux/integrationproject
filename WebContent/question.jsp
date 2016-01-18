@@ -36,11 +36,12 @@
 		
 		
 	
-	<%
-	Question q = new Question();
-	//q.setLibelle("De quelle classe doit heriter une servlet ?");
-	//q.setId(1);
-	/*
+	<%--
+	session.getAttribute("question");
+	Question q = (Question)session.getAttribute("question");
+	q.setLibelle("De quelle classe doit heriter une servlet ?");
+	q.setId(1);
+	
 	 Proposition p1 = new Proposition("javax.http.servlet.HttpServlet",q,true);
 	Proposition p2 = new Proposition("javax.servlet.HttpServlet",q,false);
 	Proposition p3 = new Proposition("java.http.servlet.ServletHttp",q,false);
@@ -54,21 +55,23 @@
 	 session.setAttribute("listeProposition",listeProposition);
 	 session.setAttribute("question",q);*/
 	 
-	 session.getAttribute("Question");
 	
-	//q.setBonneReponse(p1);
-	//q.setListePropositions(l);
-	%>
+	
+	q.setBonneReponse(p1);
+	q.setListePropositions(l);
+	--%>
+
 		<table class="table table-bordered table-hover " style="width:70%">
 	    <thead>
 	      <tr >
-	 <th class="question"><c:out value="${q.libelle}" /></th>
+	 <th class="question"><c:out value="${question.libelle}" /></th>
 	      </tr>
 	    </thead>
 	    <tbody>
- <c:forEach var="proposition" items="${sessionScope.listeProposition}">
+ <c:forEach var="proposition" items="${question.listePropositions}">
       <tr class="question">
-        <td><a href="#"><c:out value="${proposition.libelle}" /></a></td>
+ 
+        <td><a href="<%=request.getContextPath()%>/Choisir.do?idProposition=${proposition.id}"><c:out value="${proposition.libelle}" /></a></td>
 
       </tr>
        </c:forEach> 

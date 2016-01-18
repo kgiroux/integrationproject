@@ -32,7 +32,7 @@ public class StatsAction extends Action{
 		Quiz quiz = (Quiz)session.getAttribute("quiz");
 			
 		//OUT 
-		quiz.setEtape(2);
+		//quiz.(2);
 		boolean statut = quizdaoimpl.updateQuiz(quiz);
 		Quiz q = quizdaoimpl.getQuiz(quiz.getId());
 		session.setAttribute("quiz", q);

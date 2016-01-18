@@ -28,6 +28,7 @@ public class VueQuestionQuizAdminAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		vueQuestionQuizAdminAction.info("starting...");
 		ActionErrors errors = new ActionErrors();
 
 		try {

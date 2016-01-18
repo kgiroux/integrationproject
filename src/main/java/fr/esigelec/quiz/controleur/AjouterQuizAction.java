@@ -47,15 +47,15 @@ public class AjouterQuizAction extends Action {
 			
 			/* Verify authentication session */
 			if (p == null || p.getDroits() != Personne.ADMIN) {
-				errors.add("err.session.auth", new ActionMessage("err.session.auth.notfound"));	// TODO: add error message in `mesMessage.properties'
+				errors.add("err.session.auth", new ActionMessage("err.session.auth.notfound"));
 				if (!errors.isEmpty())
 					addErrors(request, errors);
-				return mapping.findForward("login");											// TODO: verify `login' goes well
+				return mapping.findForward("login");
 			}
 			
 			/* Verify inputs (parameter `libelleQuez' && attribute `questions') */
 			if (libelleQuiz == null || "".equals(libelleQuiz) || questionIds.length == 0) {
-				errors.add("err.inputs", new ActionMessage("err.inputs.null"));					// TODO: add error message in `mesMessage.properties'
+				errors.add("err.inputs", new ActionMessage("err.inputs.null"));	
 				if (!errors.isEmpty())
 					addErrors(request, errors);
 				return mapping.findForward("erreur");											// TODO: verify `erreur' goes well
@@ -75,10 +75,8 @@ public class AjouterQuizAction extends Action {
 			// Add to bdd
 			IQuizDAO quizDAO = new QuizDAOImpl();
 			quizDAO.createQuiz(quiz);
-			// Set attributes and return map
-			request.setAttribute("listeQuiz", quizDAO.listQuiz());
 			ajouterQuizActionLogger.debug("Quiz ajout�");
-			return mapping.findForward("succes");												// TODO: verify `succes' goes well
+			return mapping.findForward("succes");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

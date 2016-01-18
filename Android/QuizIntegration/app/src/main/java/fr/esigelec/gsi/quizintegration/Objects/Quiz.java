@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,12 +20,13 @@ public class Quiz
     private Timestamp dateFinQuiz;
     private int noQuestionCourante;
     private Timestamp dateDebutQuestion;
+
     private int nbQuestion;
     private int etape;
+    private List<Question> listeQuestions;
 
     /* Constructor */
     public Quiz() {
-
     }
 
     /* Getters & Setters */
@@ -95,6 +95,14 @@ public class Quiz
 
     public void setDateDebutQuestion(Timestamp dateDebutQuestion) {
         this.dateDebutQuestion = dateDebutQuestion;
+    }
+
+    public List<Question> getListeQuestions() {
+        return listeQuestions;
+    }
+
+    public void setListeQuestions(List<Question> listeQuestions) {
+        this.listeQuestions = listeQuestions;
     }
 
     public int getNbQuestion() {

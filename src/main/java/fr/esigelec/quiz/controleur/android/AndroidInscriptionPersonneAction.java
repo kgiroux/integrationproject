@@ -26,11 +26,13 @@ public class AndroidInscriptionPersonneAction extends Action{
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
 			if("GET".equals(request.getMethod())){
 				JSONObject json = AndroidHelper.DoGetForbiddenException();
 				request.setAttribute("json", json.toString());
 				return mapping.findForward("error");
-			}else if("POST".equals(request.getMethod())){
+			}
+			else if("POST".equals(request.getMethod())){
 			
 				Personne p = new Personne();
 				p.setMail(request.getParameter("mail"));

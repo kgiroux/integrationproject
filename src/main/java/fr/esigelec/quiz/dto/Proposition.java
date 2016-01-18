@@ -146,7 +146,7 @@ public class Proposition implements Comparable<Proposition> {
 	public int compareTo(Proposition p) {
 		if(this.getId() < p.getId())
 			return -1;
-		else if (this.getId() < p.getId())
+		else if (this.getId() == p.getId())
 			return 0;
 		else 
 			return 1;

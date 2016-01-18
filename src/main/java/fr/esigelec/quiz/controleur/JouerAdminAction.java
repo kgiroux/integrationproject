@@ -37,7 +37,8 @@ public class JouerAdminAction extends Action  {
 		
 		session.setAttribute("quiz", quiz);
 		session.setAttribute("question", question);
-		
+		int compteur=0;
+		session.setAttribute("compteur", compteur);
 		
 		return mapping.findForward("succes");
 	}

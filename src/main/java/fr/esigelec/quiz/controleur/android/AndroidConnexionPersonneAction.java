@@ -35,8 +35,9 @@ public class AndroidConnexionPersonneAction extends Action {
 				JSONObject json = AndroidHelper.DoGetForbiddenException();
 				request.setAttribute("json", json.toString());
 				return mapping.findForward("succes");
-				
-			}else if("POST".equals(request.getMethod())){
+			}
+			else if("POST".equals(request.getMethod()))
+			{
 				
 				String mail = null;
 				String mdp = request.getParameter("mdp");
@@ -67,6 +68,7 @@ public class AndroidConnexionPersonneAction extends Action {
 						p.setMail("");
 						p.setMdp("");
 						json = new JSONObject(p);
+						System.out.println("Good credentials!!");
 					}
 				} 
 				else {
@@ -74,6 +76,7 @@ public class AndroidConnexionPersonneAction extends Action {
 				}
 				
 				//Return information to client
+				System.out.println("Android user connection performed!!");
 				request.setAttribute("json",json.toString());
 				return mapping.findForward("succes");
 				

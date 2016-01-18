@@ -40,7 +40,7 @@ public class StatsAction extends Action{
 		//OUT 
 		quiz.setEtape(2);
 		boolean statut = quizdaoimpl.updateQuiz(quiz);
-		Quiz q = quizdaoimpl.getQuiz(quiz.getId());
+		Quiz q = quizdaoimpl.getQuizAvecQuestions(quiz.getId());
 		Question questioncur=(Question) session.getAttribute("questioncur");
 		List<Proposition> listpro=actionService.getPourcentagePropositions(q, questioncur);
 		session.setAttribute("listpro", listpro);

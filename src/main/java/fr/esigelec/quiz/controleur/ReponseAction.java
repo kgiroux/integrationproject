@@ -27,7 +27,7 @@ public class ReponseAction extends Action{
 		//OUT 
 		quiz.setEtape(3);
 		quizdaoimpl.updateQuiz(quiz);
-		Quiz q = quizdaoimpl.getQuiz(quiz.getId());
+		Quiz q = quizdaoimpl.getQuizAvecQuestions(quiz.getId());
 		session.setAttribute("quiz", q);
 		return mapping.findForward("succes");
 		

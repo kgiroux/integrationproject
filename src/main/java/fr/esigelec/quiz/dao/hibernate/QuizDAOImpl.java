@@ -41,10 +41,32 @@ public class QuizDAOImpl implements IQuizDAO {
 		return (q.getId() != 0);
 	}
 
+	@Deprecated
 	public Quiz getQuiz(int id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Quiz quiz = (Quiz)session.get(Quiz.class, id);
+		session.getTransaction().commit();
+		logger.info("get Quiz: " + quiz.toString() + " From id : " + id);
+		session.close();
+		return quiz;
+	}
+	
+	public Quiz getQuizSansQuestions(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Quiz quiz = (Quiz)session.get(Quiz.class, id);
+		session.getTransaction().commit();
+		logger.info("get Quiz: " + quiz.toString() + " From id : " + id);
+		session.close();
+		return quiz;
+	}
+	
+	public Quiz getQuizAvecQuestions(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Quiz quiz = (Quiz)session.get(Quiz.class, id);
+		System.out.println(quiz.getQuestions());
 		session.getTransaction().commit();
 		logger.info("get Quiz: " + quiz.toString() + " From id : " + id);
 		session.close();

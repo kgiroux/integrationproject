@@ -42,7 +42,7 @@ public class JouerAction extends Action {
 		
 		
 		//OUT 
-		Quiz quiz = quizdaoimpl.getQuiz(idQuiz);
+		Quiz quiz = quizdaoimpl.getQuizAvecQuestions(idQuiz);
 		// TODO: 
 		// Salut mon ami, 
 		// Les questions sont déjà stockées dans quiz.

@@ -30,6 +30,8 @@ public interface IQuizDAO {
 	
 	public Quiz getQuiz(int id); 
 	
+	public Quiz getQuizAvecQuestions(int id);
+	
 	/**
 	 * méthode : listQuiz
 	 * @return all the quizs

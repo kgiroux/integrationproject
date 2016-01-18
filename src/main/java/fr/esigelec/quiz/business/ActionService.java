@@ -38,7 +38,7 @@ public class ActionService {
 		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
 		
 		
-		Quiz quiz= quizdaoimpl.getQuiz(idQuiz);	
+		Quiz quiz= quizdaoimpl.getQuizAvecQuestions(idQuiz);	
 		
 		
 		

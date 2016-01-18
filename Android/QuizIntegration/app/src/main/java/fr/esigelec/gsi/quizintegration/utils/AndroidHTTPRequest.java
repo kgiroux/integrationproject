@@ -36,7 +36,7 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
             urlConnection = (HttpURLConnection) uri.openConnection();
 
             //Set execute parameters
-            urlConnection.setReadTimeout(10000);
+            urlConnection.setReadTimeout(15000);
             urlConnection.setConnectTimeout(15000);
             urlConnection.setDoInput(true);
 

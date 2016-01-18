@@ -5,7 +5,7 @@
         android:state_pressed="true" />
     <item
         android:drawable="@drawable/choice_flip_selected"
-        android:state_focused="true" />
+        android:state_selected="true" />
     <item
         android:drawable="@drawable/choice_flip_unselected" />
 </selector>

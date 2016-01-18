@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -27,10 +26,11 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Edited by Kévin PACE on 18/01/2016
  */
 
 
-public class GameActivity extends Activity implements View.OnTouchListener
+public class GameActivity extends Activity implements View.OnClickListener
 {
     private Question question;
     private int respGiven = 0;
@@ -78,10 +78,10 @@ public class GameActivity extends Activity implements View.OnTouchListener
         button3.setText(question.getListePropositions().get(2).getLibelle());
         button4.setText(question.getListePropositions().get(3).getLibelle());
 
-		button1.setOnTouchListener (this);
-		button2.setOnTouchListener (this);
-		button3.setOnTouchListener (this);
-		button4.setOnTouchListener (this);
+		button1.setOnClickListener(this);
+		button2.setOnClickListener(this);
+		button3.setOnClickListener(this);
+		button4.setOnClickListener(this);
 
         ImageButton quit = (ImageButton) findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {
@@ -107,39 +107,46 @@ public class GameActivity extends Activity implements View.OnTouchListener
     }
 
     @Override
-    public boolean onTouch (View v, MotionEvent event)
+    public void onClick (View v)
     {
+        //Change the clicked button color
         int idProposition = -1;
         switch (v.getId()){
             case R.id.choice_one :
-                button1.setPressed(true);
+                button1.setClickable(false);
+                button1.setSelected(true);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
                 button4.setEnabled(false);
                 idProposition =  question.getListePropositions ().get (0).getId ();
                 break;
             case R.id.choice_two :
-                button1.setPressed(false);
-                button2.setEnabled(true);
+                button1.setEnabled(false);
+                button2.setSelected(true);
+                button2.setClickable(false);
                 button3.setEnabled(false);
                 button4.setEnabled(false);
                 idProposition =  question.getListePropositions ().get (1).getId ();
                 break;
             case R.id.choice_three :
-                button1.setPressed(false);
+                button1.setEnabled(false);
                 button2.setEnabled(false);
-                button3.setEnabled(true);
+                button3.setSelected(true);
+                button3.setClickable(false);
                 button4.setEnabled(false);
                 idProposition =  question.getListePropositions ().get (2).getId ();
                 break;
             case R.id.choice_four :
-                button1.setPressed(false);
+                button1.setEnabled(false);
                 button2.setEnabled(false);
                 button3.setEnabled(false);
-                button4.setEnabled(true);
+                button4.setClickable(false);
+                button4.setSelected(true);
                 idProposition =  question.getListePropositions ().get (3).getId ();
                 break;
         }
+
+        //Send answer to the server
         Choisir chx = new Choisir ();
         chx.setPersonne (SingletonPersonne.getInstance ().getPersonne ().getId ());
         chx.setQuiz (1);
@@ -147,27 +154,29 @@ public class GameActivity extends Activity implements View.OnTouchListener
 		boolean send = false;
         try
         {
-            do{
-				JSONObject choiceJSON = new AndroidHTTPRequest ().execute(IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap ())).get();
-				if(choiceJSON.has("err_code")){
+            //do{
+				JSONObject choiceJSON = new AndroidHTTPRequest().execute(IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())).get();
+				if(choiceJSON.has("err_code"))
+                {
 					int err_code = choiceJSON.getInt("err_code");
 					ErrorManager error = SingletonErrorManager.getInstance().getError();
-					if("CHOICE_SAVE".equals(error.errorManager (err_code))){
 
+                    //Choice successfully saved into server database
+					if("CHOICE_SAVE".equals(error.errorManager(err_code))){
 						Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
 						send = true;
-					}else{
+					}
+                    //Error on choice saving
+                    else
+                    {
 						Toast.makeText(getApplicationContext(),error.errorManager(err_code),Toast.LENGTH_LONG).show();
 					}
 				}
-			}while("00".equals(timer.getText ().toString ()) || send );
-
-
+			//}while("00".equals(timer.getText ().toString ()) || send );
         }
         catch(Exception ex)
         {
             Log.e("ERROR",ex.getMessage());
         }
-        return true;
     }
 }

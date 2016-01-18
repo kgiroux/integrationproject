@@ -28,7 +28,7 @@
 		  <div class="form-group">
 		    <label for="inputPassword3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
 		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="mdp" id="inputPassword3" placeholder="Password">
+		      <input type="password" class="form-control" name="password" id="inputPassword3" placeholder="Password">
 		    </div>
 		  </div>
 		  <div class="form-group">

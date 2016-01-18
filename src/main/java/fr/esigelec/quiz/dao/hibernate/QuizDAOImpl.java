@@ -62,6 +62,29 @@ public class QuizDAOImpl implements IQuizDAO {
 		logger.info("get liste Quiz: " + retour.toString());
 		return retour;
 	}
+	
+	/**
+	 * methode qui retourne les quiz avec les questions
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<Quiz> listQuizAvecQuestions() throws SQLException {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Quiz";
+		@SuppressWarnings("unchecked")
+		List<Quiz> retour = session.createQuery(hql).list();
+		//on charge les qestions
+		for(Quiz q:retour)
+			System.out.println(q.getQuestions());
+		session.getTransaction().commit();
+		session.close();
+		logger.info("get liste Quiz: " + retour.toString());
+		return retour;
+	}
+	
+	
+	
 
 	public List<Quiz> getListQuizPublie(){
 		Session session = HibernateUtil.getSessionFactory().openSession();

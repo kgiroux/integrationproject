@@ -38,7 +38,10 @@ public class ConnexionPersonneAction extends Action {
 		
 		IPersonneDAO personneDAO = new PersonneDAOImpl();
 		IQuizDAO quizDAO = new QuizDAOImpl();
-		List<Quiz> listeQuiz = quizDAO.listQuiz();
+		List<Quiz> listeQuiz = quizDAO.listQuizAvecQuestions();
+		
+		
+		
 		Personne personne = personneDAO.getPersonne(mail);
 		
 		if( personne == null ) {

@@ -7,6 +7,7 @@
 	<hr>
 <div class="container">
 	<hr>
+	<form method="POST" action="AjouterQuiz.do">
 	<div class="form-group">
 		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
 		<div class="col-xs-2 col-sm-4">
@@ -30,28 +31,29 @@
 				List<Question> q=(List<Question>)request.getAttribute("listeQuestions");
 						for(Question q1:q){ %>
 					<tr>
-						<td><input type="checkbox" name="check" id="checkbox" value="<%=q1.getId()%>">
+						<td><input type="checkbox" name="<%=q1.getId()%>" id="<%=q1.getId()%>" >
 						</td>
 						<td><%=q1.getLibelle()%></td>
-						<td><a href="EditerQuestion(<% q1.getId();%>)"><span class="glyphicon glyphicon-remove"></span></a></td>
-						<td><a href="SupprimerQuestion(<% q1.getId();%>)"><span class="glyphicon glyphicon-edit"></span></a></td>
+						<td><a href="EditionQuestion.do" ><span class="glyphicon glyphicon-remove"></span></a></td>
+						<td><a href="SupprimerQuestion.do?idQuestion=<%= q1.getId()%>"><span class="glyphicon glyphicon-edit"></span></a></td>
 					</tr>
 						<%} %>
 				</tbody>
 			</table>
-		<script>	
+		 <script>
 		function getAttributes(){
 		$("input[type='checkbox']:checked").each(
 			questions.add(q1)
 			);
-			var libelle = $('#libelleQuiz').val();
+			var libelleQuiz = $('#libelleQuiz').val();
 			request.setAttribute("libelleQuiz", libelle);
 			request.setAttribute("listeQuestionsQuiz", questions);
 		}
-			</script>
-			<a href="AjouterQuiz.do"><button onClick="getAttributes()" class="btn btn-primary">Créer</button></a>
+			</script> 
+			<button class="btn btn-primary">Créer</button>
    
    <a href="VueQuizAdmin.do"><button class="btn btn-primary">Annuler</button></a>
+   </form>
    <hr>
   </div>  
 </div>

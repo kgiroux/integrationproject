@@ -15,6 +15,7 @@
 <script src="Ressources/bootstrap/js/compteur.js"></script>
 </head>
 <body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
+
 <%
 int count=(int)session.getAttribute("compteur");
 
@@ -28,10 +29,9 @@ Question questioncur=listq.get(count);
 session.setAttribute("questioncurrente",questioncur);
 %>
 <div class="form-center animateur">
-<a href="<%=request.getContextPath()%>/Stats.do"><button class="btn btn-primary" >Afficher statistiques</button></a>
-<a href="<%=request.getContextPath()%>/Reponse.do"><button class="btn btn-primary">Afficher bonne réponse</button></a>	
-<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>"><button class="btn btn-primary" id="suivant">Question suivante</button></a>
-
+<a href="<%=request.getContextPath()%>/Stats.do"><button  class="btn btn-primary bouton1" >Afficher statistiques</button></a>
+<a href="<%=request.getContextPath()%>/Reponse.do"><button  class="btn btn-primary bouton2">Afficher bonne réponse</button></a>	
+<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>"><button  class="btn btn-primary bouton3" id="suivant">Question suivante</button></a>
 
 <h1>Question n°<%=count+1%></h1>
 </div>

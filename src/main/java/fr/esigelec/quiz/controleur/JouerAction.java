@@ -34,6 +34,7 @@ public class JouerAction extends Action {
 		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
 		HttpSession session = request.getSession();
 
+		
 		//IN 
 		//Personne personne = (Personne) session.getAttribute("personne");
 		int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
@@ -45,11 +46,12 @@ public class JouerAction extends Action {
 		// Salut mon ami, 
 		// Les questions sont déjà stockées dans quiz.
 		//   - Mincong
-		//Question question = ActionService.getQuestionByQuizId(idQuiz);
-		List<Question> questions = new ArrayList<Question>(quiz.getQuestions());
+		
+		Question question = ActionService.getQuestionByQuizId(idQuiz);
+		//List<Question> questions = new ArrayList<Question>(quiz.getQuestions());
 		
 		session.setAttribute("quiz", quiz);
-		session.setAttribute("questions", questions);
+		session.setAttribute("question", question);
 		
 		
 		return mapping.findForward("succes");

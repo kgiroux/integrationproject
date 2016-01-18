@@ -87,6 +87,18 @@ public class QuizDAOImpl implements IQuizDAO {
 		return listeQuiz;
 	}
 	
+	public Quiz getCurrentQuiz() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Query query = session.createQuery("FROM Quiz WHERE dateDebutQuiz is not null and dateFinQuiz is null");
+		@SuppressWarnings("unchecked")
+		Quiz quiz = query.uniqueResult();
+		session.getTransaction().commit();
+		session.close();
+		logger.info("Current Quiz: " + quiz.toString());
+		return quiz;
+	}
+	
 	public List<Question> listQuestionQuiz(Quiz quiz){
 		Quiz q = getQuiz(quiz.getId());
 		// TODO: use SetToListConverter

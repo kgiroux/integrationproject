@@ -107,19 +107,20 @@ public class PropositionDAOImplTest {
 	@Test
 	public void HtestGetBonneReponse() {
 		Question question = new Question("Proposition Test Get Bonne Reponse");
-		daoQuestion.createQuestion(question);
 		
 		Proposition a = new Proposition("Proposition 1 gbr", false);
-		daoProposition.createProposition(a);
-		
+		question.getPropositions().add(a);
 		System.out.println("a" + question.getId());
-		Proposition b = new Proposition("Proposition 2 gbr", true);
-		daoProposition.createProposition(b);
 		
+		Proposition b = new Proposition("Proposition 2 gbr", true);
+		question.getPropositions().add(b);
 		System.out.println("b" + question.getId());
+		
 		Proposition c = new Proposition("Proposition 3 gbr", false);
-		daoProposition.createProposition(c);
+		question.getPropositions().add(c);
 		System.out.println("c" + question.getId());
+		
+		daoQuestion.createQuestion(question);
 		
 		Proposition p = daoProposition.getBonneReponse(question);
 		System.out.println(p.toString());

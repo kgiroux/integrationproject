@@ -12,6 +12,7 @@ public class ErrorManager {
         MISSING_ARG,
         DB_INSERT_FAIL,
         QUIZ_NOT_FOUND,
+        CHOICE_SAVE,
         NOTHING
     }
 
@@ -34,6 +35,8 @@ public class ErrorManager {
                 return ERROR.DB_INSERT_FAIL;
             case 6 :
                 return ERROR.QUIZ_NOT_FOUND;
+            case 7 :
+                return ERROR.CHOICE_SAVE;
             default :
                 return ERROR.NOTHING;
         }
@@ -51,9 +54,11 @@ public class ErrorManager {
             case MISSING_ARG :
                 return "MISSING ARG";
             case DB_INSERT_FAIL :
-                return "MISSING ARG";
+                return "INSERT DB FAIL";
             case QUIZ_NOT_FOUND :
-                return "MISSING ARG";
+                return "QUIZ NOT FOUND";
+            case CHOICE_SAVE :
+                return "CHOICE SAVE";
             default :
                 return "NOTHING";
         }

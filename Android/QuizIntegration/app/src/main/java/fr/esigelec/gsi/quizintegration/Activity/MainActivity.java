@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
 		toolbar.setTitle (R.string.app_name);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+        toolbar.setTitleTextColor(ContextCompat.getColor (getApplicationContext(),R.color.white));
 		toolbar.setOnMenuItemClickListener (this);
 		create_expandable_list ();
 		/*toolbar.setTitle(R.string.app_name);
@@ -262,15 +262,20 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 				{
 					//Toast.makeText(getApplicationContext(), pers.PersonneToHashMap().toString(), Toast.LENGTH_LONG).show();
 					JSONObject perJson = new AndroidHTTPRequest().execute(IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
-					if(perJson.has("err_code")){
-						int err_code = perJson.getInt("err_code");
-						ErrorManager error = SingletonErrorManager.getInstance().getError();
-						Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
-						isMdpValid = false;
-						isEmailValid = false;
+					if(null != perJson){
+						if(perJson.has("err_code")){
+							int err_code = perJson.getInt("err_code");
+							ErrorManager error = SingletonErrorManager.getInstance().getError();
+							Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
+							isMdpValid = false;
+							isEmailValid = false;
+						}else{
+							pers.JSONObjectToPersonne(perJson);
+							Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
+						}
 					}else{
-						pers.JSONObjectToPersonne(perJson);
-						Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
+						TextView tv = (TextView) dialog.findViewById(R.id.errorText);
+						tv.setText(getString(R.string.error_connection));
 					}
 				}
 				catch(Exception ex)
@@ -287,7 +292,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 				}
 
 
-				if(isEmailValid && isMdpValid){
+				if(isEmailValid && isMdpValid && (pers.getId () != 0)){
 					Intent t = new Intent (getApplicationContext (), MenuActivity.class);
 					startActivity (t);
 				}

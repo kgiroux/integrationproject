@@ -95,6 +95,7 @@
       </action>
       <action scope="request" path="/VueQuestionQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+        <forward name="login" path="/indexAdmin.jsp"/>
       </action>
       <action scope="request" path="/VueQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/quizAdmin.jsp"/>

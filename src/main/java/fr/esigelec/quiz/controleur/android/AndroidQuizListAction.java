@@ -27,13 +27,18 @@ public class AndroidQuizListAction extends Action{
 		
 			if("GET".equals(request.getMethod()))
 			{
+				//Find finished quizz list
 				QuizDAOImpl dao = new QuizDAOImpl();
 				List<Quiz> listQuiz = dao.getListQuizFinish();
 				JSONObject json = new JSONObject();
 				json.put("QuizList", listQuiz);
-				int compteur = 0;
+				
+				//Find current quizz
+				//Quiz currentQuiz = dao.getCurrentQuiz();
+				//json.put("CurrentQuiz", currentQuiz);
 				
 				/*for(Quiz q : listQuiz){
+				int compteur = 0;
 					
 					json.put(String.valueOf(compteur), q);
 					compteur++;

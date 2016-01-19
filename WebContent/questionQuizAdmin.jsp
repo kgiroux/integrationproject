@@ -33,8 +33,7 @@
 					q = (List<Question>)request.getAttribute("listeQuestions");
 					for(Question q1:q){ %>
 					<tr>
-						<td><input type="checkbox" name="<%=q1.getId()%>" id="<%=q1.getId()%>" >
-						</td>
+						<td><input type="checkbox" name="questionId" value="<%=q1.getId()%>"></td>
 						<td><%=q1.getLibelle()%></td>
 						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>" ><span class="glyphicon glyphicon-remove"></span></a></td>
 						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do"><span class="glyphicon glyphicon-edit"></span></a></td>

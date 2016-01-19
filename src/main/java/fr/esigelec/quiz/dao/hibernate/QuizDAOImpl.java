@@ -105,9 +105,6 @@ public class QuizDAOImpl implements IQuizDAO {
 		return retour;
 	}
 	
-	
-	
-
 	public List<Quiz> getListQuizPublie(){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -132,6 +129,11 @@ public class QuizDAOImpl implements IQuizDAO {
 		return listeQuiz;
 	}
 	
+	/**
+	 * 	This doesn't work! And in order to get questions of a quiz, we can use `listQuizAvevQuiestions()'
+	 * 	and `quiz.getListeQuestions()' instead. So this method is not useful, maybe we should remove it.
+	 * 	--thought by Wenfeng.
+	 */
 	public List<Question> listQuestionQuiz(Quiz quiz){
 		Quiz q = getQuiz(quiz.getId());
 		// TODO: use SetToListConverter

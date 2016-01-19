@@ -1,7 +1,9 @@
 package fr.esigelec.quiz.controleur;
 
 import java.sql.SQLException;
-import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
@@ -10,17 +12,16 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import fr.esigelec.quiz.dao.IPersonneDAO;
-import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
-import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
-import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.forms.ConnexionForm;
 import fr.esigelec.quiz.util.SecurityHelper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+/**
+ * Verify authentication then forward to `VueQuizAdmin' directly.
+ * @author 
+ * @modified Wenfeng : forward to `VueQuizAdmin' directly instead of getting `listeQuiz' everywhere.
+ */
 public class ConnexionAdministrateurAction extends Action {
 
 	private final Logger connexionAdministrateurActionLogger = Logger.getLogger(ConnexionAdministrateurAction.class);
@@ -36,12 +37,12 @@ public class ConnexionAdministrateurAction extends Action {
 		String mdp = SecurityHelper.MD5(f.getPassword());
 		
 		IPersonneDAO personneDAO = new PersonneDAOImpl();
-		IQuizDAO quizDAO = new QuizDAOImpl();
-		List<Quiz> listeQuiz = quizDAO.listQuiz();
 		Personne personne = personneDAO.getPersonne(mail);
+//		IQuizDAO quizDAO = new QuizDAOImpl();
+//		List<Quiz> listeQuiz = quizDAO.listQuiz();
 		
 		if( personne == null ) {
-			connexionAdministrateurActionLogger.debug("Action terminee avec erreur : les coordonnees ne correspondent pas à un administrateur");
+			connexionAdministrateurActionLogger.debug("Action terminee avec erreur : les coordonnees ne correspondent pas ï¿½ un administrateur");
 			return mapping.findForward("erreur");
 		}
 		else if(!mdp.equals(personne.getMdp())) {
@@ -49,9 +50,9 @@ public class ConnexionAdministrateurAction extends Action {
 			return mapping.findForward("erreur");
 		}
 		else {
-			request.setAttribute("listeQuiz", listeQuiz);
-			request.setAttribute("personne", personne);
-			connexionAdministrateurActionLogger.debug("Connexion réussie");
+//			request.setAttribute("listeQuiz", listeQuiz);
+			request.getSession().setAttribute("personne", personne);
+			connexionAdministrateurActionLogger.debug("Connexion rï¿½ussie");
 			return mapping.findForward("succes");
 		}
 	}

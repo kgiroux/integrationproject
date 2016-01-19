@@ -32,11 +32,7 @@ session.setAttribute("questioncurrente",questioncur);
 <a href="<%=request.getContextPath()%>/Stats.do"><button id="bouton1" class="btn btn-primary" >Afficher statistiques</button></a>
 <a href="<%=request.getContextPath()%>/Reponse.do"><button id="bouton2"  class="btn btn-primary">Afficher bonne réponse</button></a>	
 <a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>"><button id="bouton3" class="btn btn-primary" id="suivant">Question suivante</button></a>
-<script type="text/javascript">
-afficher_cacher('bouton1');
-afficher_cacher('bouton2');
-afficher_cacher('bouton3');
-</script>
+
 <h1>Question n°<%=count+1%></h1>
 </div>
 <hr>

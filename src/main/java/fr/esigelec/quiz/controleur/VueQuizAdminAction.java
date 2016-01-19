@@ -16,27 +16,23 @@ import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 
 /**
- * SupprimerQuizAction
+ * Verify authentication then get all quiz from db and store into `attribute' for jsp use.
  * @author Wenfeng
  *
  */
-public class SupprimerQuizAction extends Action {
+public class VueQuizAdminAction extends Action {
 	
-	private final Logger supprimerQuizActionLogger = Logger.getLogger(SupprimerQuizAction.class);
-
-	@Override
+	private final Logger vueQuizAdminAction = Logger.getLogger(VueQuizAdminAction.class);
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
-
-		supprimerQuizActionLogger.info("starting..");
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		vueQuizAdminAction.info("start..");
 		ActionErrors errors = new ActionErrors();
 
 		try {
-			/* Get parameters and sessions */
+			/* Verify authentication */
 			Personne p = (Personne) request.getSession().getAttribute("personne");
-			String idQuiz = request.getParameter("idQuiz");
-			
-			/* Verify authentication session */
 			if (p == null || p.getDroits() != Personne.ADMIN) {
 				errors.add("err.session.auth", new ActionMessage("err.session.auth.notfound"));
 				if (!errors.isEmpty())
@@ -44,24 +40,15 @@ public class SupprimerQuizAction extends Action {
 				return mapping.findForward("login");
 			}
 			
-			/* Verify input parameter */
-			if (idQuiz == null || "".equals(idQuiz)) {
-				errors.add("err.inputs", new ActionMessage("err.inputs.null"));	
-				if (!errors.isEmpty())
-					addErrors(request, errors);
-				return mapping.findForward("erreur");
-			}
-			
-			/* Everything goes well; delete quiz by id */
-			int id = Integer.parseInt(idQuiz);
+			/* Store all quiz into attribute for jsp use */
 			IQuizDAO quizDAO = new QuizDAOImpl();
-			quizDAO.deleteQuiz(quizDAO.getQuizAvecQuestions(id));
-			
-			return mapping.findForward("succes");
+			request.setAttribute("listeQuiz", quizDAO.listQuiz());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return mapping.findForward("erreur");
 		}
+		return mapping.findForward("succes");
 	}
+
 }

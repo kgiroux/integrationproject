@@ -322,11 +322,7 @@ public class Quiz {
 			return false;
 		if (noQuestionCourante != other.noQuestionCourante)
 			return false;
-		if (questions == null) {
-			if (other.questions != null)
-				return false;
-		} else if (!questions.equals(other.questions))
-			return false;
+		
 		return true;
 	}
 

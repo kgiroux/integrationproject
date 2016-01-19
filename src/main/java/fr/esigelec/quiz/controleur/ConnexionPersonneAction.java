@@ -52,10 +52,16 @@ public class ConnexionPersonneAction extends Action {
 			connexionPersonneActionLogger.debug("Action terminee avec erreur : mot de passe incorrect");
 			return mapping.findForward("erreur");
 		}
+		else if (personne.getDroits() == Personne.ADMIN) {
+			request.setAttribute("listeQuiz", listeQuiz);
+			session.setAttribute("personne", personne);
+			connexionPersonneActionLogger.debug("Connexion rï¿½ussie");
+			return mapping.findForward("succes-admin");
+		}
 		else {
 			request.setAttribute("listeQuiz", listeQuiz);
 			session.setAttribute("personne", personne);
-			connexionPersonneActionLogger.debug("Connexion réussie");
+			connexionPersonneActionLogger.debug("Connexion rï¿½ussie");
 			return mapping.findForward("succes");
 		}
 	}

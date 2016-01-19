@@ -9,6 +9,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Quiz;
 
@@ -29,6 +30,7 @@ public class ReponseAction extends Action{
 		quizdaoimpl.updateQuiz(quiz);
 		Quiz q = quizdaoimpl.getQuizAvecQuestions(quiz.getId());
 		session.setAttribute("quiz", q);
+		session.setAttribute("listpro", ActionService.getPourcentagePropositions(quiz, ActionService.getQuestionByQuizId(q.getId())));
 		return mapping.findForward("succes");
 		
 		

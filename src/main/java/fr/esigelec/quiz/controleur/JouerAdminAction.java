@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.controleur;
 
+import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,15 +28,16 @@ public class JouerAdminAction extends Action  {
 		HttpSession session = request.getSession();
 
 		
-		//int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
+		int idParam = Integer.parseInt(request.getParameter("idQuiz"));
 		
 		
-		
+		System.out.println("idQuiz " + idParam);
 		//OUT 
-		Quiz quiz = quizdaoimpl.getQuizAvecQuestions(18);
-		
-		int idQuiz = quiz.getId();
+		Quiz quiz = quizdaoimpl.getQuizAvecQuestions(idParam);
+		quiz.setDateDebutQuiz(new Timestamp(System.currentTimeMillis()));
+		quiz.setDateDebutQuestion(new Timestamp(System.currentTimeMillis()));
 		quiz.setEtape(1);
+		quizdaoimpl.updateQuiz(quiz);
 		//Question question = ActionService.getQuestionByQuizId(idQuiz);
 				
 		

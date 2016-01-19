@@ -33,7 +33,7 @@
       </action>
       <action scope="request" path="/ConnexionPersonne" name="connexionForm" type="fr.esigelec.quiz.controleur.ConnexionPersonneAction" input="/">
          <forward name="succes" path="/quiz.jsp"></forward>
-         <forward name="succes-admin" path="/quizAdmin.jsp"/>
+         <forward name="succes-admin" path="/VueQuizAdmin.do"/>
          <forward name="erreur" path="/index.jsp"></forward>
       </action>
       <!-- 

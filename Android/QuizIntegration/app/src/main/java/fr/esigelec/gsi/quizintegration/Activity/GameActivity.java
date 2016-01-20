@@ -1,6 +1,7 @@
 package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -46,11 +47,15 @@ public class GameActivity extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
         IPSERVER = MainActivity.IPSERVER;
+
         //Initialisation pour test
         initTest();
         initIHM();
-		timer = (TextView) findViewById(R.id.timer);
-        new CountDownTimer(30000, 1000) {
+
+        //Find timer
+        timer = (TextView) findViewById(R.id.timer);
+        new Countdown().execute(28);
+        /*new CountDownTimer(30000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 					TextView timer = (TextView) findViewById(R.id.timer);
@@ -62,7 +67,7 @@ public class GameActivity extends Activity implements View.OnClickListener
                 TextView timer = (TextView) findViewById(R.id.timer);
                 timer.setText("00");
             }
-        }.start();
+        }.start();*/
     }
 
     private void initIHM(){
@@ -177,6 +182,43 @@ public class GameActivity extends Activity implements View.OnClickListener
         catch(Exception ex)
         {
             Log.e("ERROR",ex.getMessage());
+        }
+    }
+
+    /**
+     * Timer task class
+     * @param corresponding tho the initial value of the counter
+     * @return if the countdown was successfully made
+     */
+    class Countdown extends AsyncTask<Integer, Integer, Boolean> {
+        Integer count = 30; //Time counter
+
+        @Override
+        protected Boolean doInBackground(Integer... initialValue) {
+            count = initialValue[0];
+            try
+            {
+                do
+                {
+                    //Update the progress value
+                    publishProgress(count);
+
+                    //Countdown
+                    count--;
+                    //Make a pause of 1 seconds
+                    Thread.sleep(1000);
+                    
+                }while (count >= 0);
+            } catch (InterruptedException t) {
+                return false;
+            }
+            return true;
+        }
+
+        //Update IHM with the current counter value
+        @Override
+        protected void onProgressUpdate(Integer... diff) {
+            timer.setText(diff[0].toString());
         }
     }
 }

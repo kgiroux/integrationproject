@@ -28,6 +28,13 @@ public class Personne
     private String prenom;
     private String mail;
     private String mdp;
+    private String noEncryMdp;
+
+    public String getNoEncryMdp(){return noEncryMdp;}
+
+    public void setNoEncryMdp(String noEncryMdp){this.noEncryMdp = noEncryMdp;}
+    public String getMail(){return mail;}
+
 
     /* Getters & Setters */
     public String getNom() {
@@ -151,8 +158,9 @@ public class Personne
             case 4 :
             case 5 :
                 if("".equals(mdp))
+                {
                     this.mdp = value;
-                else{
+                }else{
                     if(!value.equals(this.mdp)){
                         return -1;
                     }else{

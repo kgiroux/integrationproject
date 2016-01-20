@@ -3,9 +3,11 @@ package fr.esigelec.gsi.quizintegration.Activity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -213,11 +215,19 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 	private Dialog createAndManageDialog(){
 		final Dialog dialog = new Dialog (MainActivity.this);
+		SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.login_dialog);
 
         TextView logText = (TextView) dialog.findViewById(R.id.titleText);
         logText.setTypeface(myTypeface);
+
+
+		TextView email = (TextView) dialog.findViewById (R.id.login);
+		email.setText (preferences.getString ("mail",""));
+
+		TextView mdp = (TextView) dialog.findViewById (R.id.password);
+		mdp.setText (preferences.getString ("mdp",""));
 
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
         subscribeButton.setTypeface(myTypeface);
@@ -257,7 +267,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 				pers.setMail(loginValue);
 				pers.setMdp(passwordValue);
-
+				pers.setNoEncryMdp (passwordValue);
 				try
 				{
 					//Toast.makeText(getApplicationContext(), pers.PersonneToHashMap().toString(), Toast.LENGTH_LONG).show();
@@ -293,6 +303,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 
 				if(isEmailValid && isMdpValid && (pers.getId () != 0)){
+					SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+					SharedPreferences.Editor editor = preferences.edit();
+					editor.putString ("mail",pers.getMail ());
+					editor.putString ("mdp",pers.getNoEncryMdp ());
+					editor.apply ();
+
 					Intent t = new Intent (getApplicationContext (), MenuActivity.class);
 					startActivity (t);
 				}

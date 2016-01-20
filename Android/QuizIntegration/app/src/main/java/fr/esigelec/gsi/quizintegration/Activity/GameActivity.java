@@ -155,7 +155,7 @@ public class GameActivity extends Activity implements View.OnClickListener
         try
         {
             //do{
-				JSONObject choiceJSON = new AndroidHTTPRequest().execute(IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())).get();
+				JSONObject choiceJSON = new AndroidHTTPRequest().execute(IPSERVER + "AndroidChoisir.do", "GET", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())).get();
 				if(choiceJSON.has("err_code"))
                 {
 					int err_code = choiceJSON.getInt("err_code");

@@ -207,7 +207,8 @@ public class GameActivity extends Activity implements View.OnClickListener
                     count--;
                     //Make a pause of 1 seconds
                     Thread.sleep(1000);
-                }while (count > 0);
+                    
+                }while (count >= 0);
             } catch (InterruptedException t) {
                 return false;
             }

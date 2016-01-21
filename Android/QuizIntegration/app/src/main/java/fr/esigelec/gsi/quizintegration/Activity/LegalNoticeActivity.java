@@ -20,11 +20,10 @@ public class LegalNoticeActivity extends AppCompatActivity
 	{
 		super.onCreate (savedInstanceState);
 		setContentView (R.layout.activity_legal_notice);
-		String IPSERVER = MainActivity.IPSERVER;
 		TextView legalNoticeText = (TextView) findViewById(R.id.legalNoticeText);
 
 		try {
-			JSONObject legalNotice = new AndroidHTTPRequest().execute(IPSERVER + "LegalNotice.do", "GET",null).get();
+			JSONObject legalNotice = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "LegalNotice.do", "GET",null}).get();
             if(legalNotice != null)
 			    legalNoticeText.setText(legalNotice.toString());
 		} catch (InterruptedException | ExecutionException e) {

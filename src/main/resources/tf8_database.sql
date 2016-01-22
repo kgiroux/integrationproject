@@ -1,4 +1,13 @@
 -- Base de données ir2016 pour le projet quiz de tf8
+DROP DATABASE IF EXISTS `ir2016`;
+CREATE DATABASE `ir2016` CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ir2016`;
+
+DROP USER 'ir2016'@'%';
+CREATE USER 'ir2016'@'%' IDENTIFIED BY 'lesMeilleurs2016*';
+GRANT ALL PRIVILEGES ON `ir2016`.* TO 'ir2016'@'%' IDENTIFIED BY 'lesMeilleurs2016*';
+FLUSH PRIVILEGES;
+
 CREATE TABLE `personne` (
 	`id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	`nom` varchar(255) NOT NULL,

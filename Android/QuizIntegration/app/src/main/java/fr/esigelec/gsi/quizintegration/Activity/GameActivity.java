@@ -46,9 +46,12 @@ public class GameActivity extends Activity implements View.OnTouchListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
         IPSERVER = MainActivity.IPSERVER;
+
         //Initialisation pour test
         initTest();
         initIHM();
+
+
 		timer = (TextView) findViewById(R.id.timer);
         new CountDownTimer(30000, 1000) {
 

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/header.jsp"></jsp:include>
-	<h1>Ajouter une question</h1>
+	<h1>Sauvegarder une question</h1>
 	<hr>
 		<form class="container form-horizontal contform" method="post" action="<%=request.getContextPath()%>/EnregistrerQuestion.do">
 			<br>
@@ -69,7 +69,7 @@
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for=""></label>
 				  <div class="col-md-6">
-				    <button type="submit" class="btn btn-primary">Ajouter</button>
+				    <button type="submit" class="btn btn-primary">Sauvegarder</button>
 				    <button type="reset" class="btn btn-primary">Rétablir</button>
 				    <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
 				  </div>

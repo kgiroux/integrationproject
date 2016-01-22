@@ -75,7 +75,7 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         //initTest();
 
         try {
-            JSONObject quizJson = new AndroidHTTPRequest().execute(MainActivity.IPSERVER + "AndroidInscriptionPersonne.do", "GET", null).get();
+            JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidInscriptionPersonne.do", "GET", null}).get();
 
             JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
             currentQuiz.JSONObjectToQuiz(curQuiz);

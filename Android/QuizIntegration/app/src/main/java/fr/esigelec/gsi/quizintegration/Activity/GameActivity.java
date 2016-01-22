@@ -26,10 +26,9 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
- * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Created by Cyril Lefebvre on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  * Edited by Kévin PACE on 18/01/2016
  */
-
 public class GameActivity extends Activity implements View.OnClickListener
 {
     private Question question;
@@ -51,9 +50,11 @@ public class GameActivity extends Activity implements View.OnClickListener
 
         //Initialisation pour test
         initTest();
+
+        //Initialisation des IHMs
         initIHM();
 
-        //Create time thread
+        //Récupération du timer et lancement du thread
         timer = (TextView) findViewById(R.id.timer);
         //createTimer(28);
 
@@ -63,6 +64,7 @@ public class GameActivity extends Activity implements View.OnClickListener
         }
     }
 
+    //Méthode d'initialisation des IHMs
     private void initIHM(){
         TextView questionText = (TextView) findViewById(R.id.question);
         button1 = (Button) findViewById(R.id.choice_one);
@@ -90,6 +92,7 @@ public class GameActivity extends Activity implements View.OnClickListener
         });
     }
 
+    //Méthode d'initialisation de la question pour test
     protected void initTest() {
         question = new Question(1,"De quelle année date le premier Iphone ?", 3);
         List<Proposition> propositionList = new ArrayList<>();
@@ -107,8 +110,10 @@ public class GameActivity extends Activity implements View.OnClickListener
     @Override
     public void onClick (View v)
     {
-        //Change the clicked button color
+        //Variable récupérant l'id de la proposition sélectionnée
         int idProposition = -1;
+
+        //Changement de la couleur du bouton sélectionné et désactivation des autres boutons
         switch (v.getId()){
             case R.id.choice_one :
                 button1.setClickable(false);
@@ -144,34 +149,35 @@ public class GameActivity extends Activity implements View.OnClickListener
                 break;
         }
 
-        //Send answer to the server
+        //Création de l'objet du choix de l'utilisateur
         Choisir chx = new Choisir ();
         chx.setPersonne(SingletonPersonne.getInstance().getPersonne().getId());
         chx.setQuiz(1);
         chx.setProposition(idProposition);
+
+        //Booléen vérifiant si l'envoie a été effectué
         boolean send = false;
 
+        //Envoie du choix de l'utilisateur au serveur
         try
         {
-            //do{
             JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
             if(choiceJSON.has("err_code"))
             {
                 int err_code = choiceJSON.getInt("err_code");
                 ErrorManager error = SingletonErrorManager.getInstance().getError();
 
-                //Choice successfully saved into server database
+                //Choix sauvegardé, passage de la variable de succés à true
                 if("CHOICE_SAVE".equals(error.errorManager(err_code))){
                     Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
                     send = true;
                 }
-                //Error on choice saving
+                //Si erreur affichage de celle-ci
                 else
                 {
                     Toast.makeText(getApplicationContext(),error.errorManager(err_code),Toast.LENGTH_LONG).show();
                 }
             }
-            //}while("00".equals(timer.getText ().toString ()) || send );
         }
         catch(Exception ex)
         {
@@ -179,6 +185,7 @@ public class GameActivity extends Activity implements View.OnClickListener
         }
     }
 
+    //Méthode de lancement du thread timer
     private void createTimer(final int initialValue)
     {
         new Thread() {
@@ -199,9 +206,7 @@ public class GameActivity extends Activity implements View.OnClickListener
                         e.printStackTrace();
                     }
                 }while(counter > 0);
-
             }
-
         }.start();
     }
 }

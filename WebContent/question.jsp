@@ -17,6 +17,7 @@
 <link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
 <script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
+<!-- GESTION DU COMPTE A REBOURS -->
 <script src="Ressources/bootstrap/js/compteur.js"></script>
 </head>
 <body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
@@ -25,6 +26,8 @@
  <hr><br> 
  <p class="question"><strong>Classement </strong> : 1 er </p>
  <div> 
+ 
+ 
  <p class="question"><strong>Reste</strong> : &nbsp;
  <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
 		<IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
@@ -32,34 +35,6 @@
  </div>
  <br>
  
-
-		
-		
-	
-	<%--
-	session.getAttribute("question");
-	Question q = (Question)session.getAttribute("question");
-	q.setLibelle("De quelle classe doit heriter une servlet ?");
-	q.setId(1);
-	
-	 Proposition p1 = new Proposition("javax.http.servlet.HttpServlet",q,true);
-	Proposition p2 = new Proposition("javax.servlet.HttpServlet",q,false);
-	Proposition p3 = new Proposition("java.http.servlet.ServletHttp",q,false);
-	Proposition p4 = new Proposition("javax.http.servlet.ServletHttp",q,false);
-
-	List<Proposition> listeProposition=new ArrayList<Proposition>();
-	listeProposition.add(p1);
-	listeProposition.add(p2);
-	listeProposition.add(p3);
-	listeProposition.add(p4);
-	 session.setAttribute("listeProposition",listeProposition);
-	 session.setAttribute("question",q);*/
-	 
-	
-	
-	q.setBonneReponse(p1);
-	q.setListePropositions(l);
-	--%>
 
 		<table class="table table-bordered table-hover " style="width:70%">
 	    <thead>

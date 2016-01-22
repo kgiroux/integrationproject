@@ -6,132 +6,136 @@
     android:layout_height="match_parent"
     android:weightSum="100">
 
-
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_container"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background">
-
-        <RelativeLayout
-            android:id="@+id/container"
-            style="@style/NoActionBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <include
-                android:id="@+id/tool_bar"
-                layout="@layout/tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/current"
-                android:id="@+id/current"
-                android:textColor="@color/white" />
-
-            <LinearLayout
-                android:layout_below="@id/current"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/current_test"
-                android:weightSum="1"
-                android:baselineAligned="false"
-                style="@style/Base.Widget.AppCompat.Button.Colored"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:layout_marginTop="5dp"
-                android:id="@+id/current_quiz"
-                android:clickable="true">
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/loading"
-                    android:src="@drawable/current_logo"
-                    android:layout_weight="0.2" />
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.6" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Large Text"
-                        android:id="@+id/title" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/date" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New Text"
-                        android:id="@+id/question" />
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:id="@+id/play"
-                    android:src="@drawable/play"
-                    android:layout_weight="0.2"
-                    android:contentDescription="" />
-
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
+            android:background="@drawable/background">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/old"
-                android:id="@+id/old"
-                android:textColor="@color/white" />
-
-            <ScrollView
+            <RelativeLayout
+                android:id="@+id/container"
+                style="@style/NoActionBar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/scrollView"
-                android:fillViewport="false"
-                android:layout_below="@+id/old">
+                android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <include
+                    android:id="@+id/tool_bar"
+                    layout="@layout/tool_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/old_quiz">
+                    />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/current"
+                    android:id="@+id/current"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_below="@id/current"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/current_test"
+                    android:weightSum="1"
+                    android:baselineAligned="false"
+                    style="@style/Base.Widget.AppCompat.Button.Colored"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/current_quiz"
+                    android:clickable="true">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/loading"
+                        android:src="@drawable/current_logo"
+                        android:layout_weight="0.2" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.6" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Large Text"
+                            android:id="@+id/title" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New Text"
+                            android:id="@+id/date" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="New Text"
+                            android:id="@+id/question" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/play"
+                        android:src="@drawable/play"
+                        android:layout_weight="0.2"
+                        android:contentDescription="" />
 
                 </LinearLayout>
-            </ScrollView>
 
-        </RelativeLayout>
 
-    </LinearLayout>
+            </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/old"
+                    android:id="@+id/old"
+                    android:textColor="@color/white" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/scrollView"
+                    android:fillViewport="false"
+                    android:layout_below="@+id/old">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/old_quiz">
+
+                    </LinearLayout>
+                </ScrollView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <ExpandableListView
         android:id="@+id/drawer_list"
         android:layout_width="match_parent"

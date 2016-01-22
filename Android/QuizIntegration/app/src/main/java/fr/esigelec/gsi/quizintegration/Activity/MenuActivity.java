@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -42,7 +44,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  * Edited by Kevin Pace and Cyril Lefebvre on 22/01/2016
  */
-public class MenuActivity extends Activity implements View.OnClickListener
+public class MenuActivity extends Activity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener
 {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -53,7 +55,7 @@ public class MenuActivity extends Activity implements View.OnClickListener
     private List<Quiz> quizList;
     private Quiz currentQuiz = null;
     private Typeface myTypeface;
-
+	private SwipeRefreshLayout layout;
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
@@ -72,6 +74,14 @@ public class MenuActivity extends Activity implements View.OnClickListener
 		toolbar.setTitle(R.string.app_name);
 		// Définition de la couleur
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
+		 layout = (SwipeRefreshLayout) findViewById (R.id.swipe_container);
+		layout.setOnRefreshListener(this);
+
+		layout.setColorSchemeResources(android.R.color.holo_blue_bright,
+				android.R.color.holo_green_light,
+				android.R.color.holo_orange_light,
+				android.R.color.holo_red_light);
 
 
 		// Définition de la liste
@@ -341,5 +351,17 @@ public class MenuActivity extends Activity implements View.OnClickListener
 			Intent t = new Intent (this,StatistiqueActivity.class);
 			t.putExtra ("idQuiz",v.getId ());
 			startActivity (t);
+	}
+
+	@Override
+	public void onRefresh ()
+	{
+		new Handler ().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				layout.setRefreshing(false);
+				//TODO 
+			}
+		}, 1500);
 	}
 }

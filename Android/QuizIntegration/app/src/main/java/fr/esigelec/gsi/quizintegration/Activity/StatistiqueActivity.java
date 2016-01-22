@@ -16,9 +16,16 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import fr.esigelec.gsi.quizintegration.Objects.Quiz;
 import fr.esigelec.gsi.quizintegration.R;
+import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 
 public class StatistiqueActivity extends AppCompatActivity implements OnChartValueSelectedListener{
 
@@ -33,46 +40,70 @@ public class StatistiqueActivity extends AppCompatActivity implements OnChartVal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistique);
-        mChart = (PieChart) findViewById (R.id.chart1);
-        mChart.setUsePercentValues(true);
-        mChart.setDescription("");
-        mChart.setExtraOffsets(5, 10, 5, 5);
+
+		/*try {
+			JSONObject quizJson = new AndroidHTTPRequest ().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", ""}).get();
+
+			JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
+			if(!"noQuiz".equals(curQuiz.toString()))
+				currentQuiz.JSONObjectToQuiz(curQuiz);
+
+			JSONArray quizListJson = quizJson.getJSONArray("QuizList");
+			for(int i = 0; i<quizListJson.length(); i++) {
+				JSONObject quiz = quizListJson.getJSONObject(i);
+				Quiz q = new Quiz();
+				q.JSONObjectToQuiz(curQuiz);
+				quizList.add(q);
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}*/
 
 
-        mChart.setDragDecelerationFrictionCoef(0.95f);
-        mChart.setDrawHoleEnabled(true);
-        mChart.setHoleColorTransparent(true);
+
+		initChart();
+
+    }
+
+	private void initChart(){
+		mChart = (PieChart) findViewById (R.id.chart1);
+		mChart.setUsePercentValues(true);
+		mChart.setDescription("");
+		mChart.setExtraOffsets(5, 10, 5, 5);
 
 
-        mChart.setTransparentCircleColor(Color.WHITE);
-        mChart.setTransparentCircleAlpha(110);
+		mChart.setDragDecelerationFrictionCoef(0.95f);
+		mChart.setDrawHoleEnabled(true);
+		mChart.setHoleColorTransparent(true);
 
 
-        mChart.setHoleRadius(58f);
-        mChart.setTransparentCircleRadius(61f);
+		mChart.setTransparentCircleColor(Color.WHITE);
+		mChart.setTransparentCircleAlpha(110);
 
 
-        mChart.setDrawCenterText(true);
+		mChart.setHoleRadius(58f);
+		mChart.setTransparentCircleRadius(61f);
 
 
-        mChart.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        mChart.setRotationEnabled(true);
-        mChart.setHighlightPerTapEnabled(true);
+		mChart.setDrawCenterText(true);
 
 
-        // mChart.setUnit(" €");
-        // mChart.setDrawUnitsInChart(true);
+		mChart.setRotationAngle(0);
+		// enable rotation of the chart by touch
+		mChart.setHighlightPerTapEnabled(true);
 
 
-        // add a selection listener
-        mChart.setOnChartValueSelectedListener(this);
+		mChart.setOnChartValueSelectedListener(this);
 
 
-        setData(3, 100);
+		setData(3, 100);
 
 
-        mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+		mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
 
 		Legend l = mChart.getLegend();
@@ -80,8 +111,7 @@ public class StatistiqueActivity extends AppCompatActivity implements OnChartVal
 		l.setXEntrySpace(7f);
 		l.setYEntrySpace(0f);
 		l.setYOffset(0f);
-
-    }
+	}
 
     private void setData(int count, float range) {
 

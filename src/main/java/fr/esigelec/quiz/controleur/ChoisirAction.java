@@ -5,6 +5,8 @@
 
 package fr.esigelec.quiz.controleur;
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,7 +31,7 @@ import fr.esigelec.quiz.dto.Quiz;
 public class ChoisirAction extends Action {
 
 	private final Logger choisirActionLogger = Logger.getLogger(ChoisirAction.class);
-	
+/*	
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -95,8 +97,7 @@ public class ChoisirAction extends Action {
 		choisirActionLogger.debug("Action terminee avec succes");
 		return mapping.findForward("succes");
 	}
-/*
-M.Serais
+*/
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -163,5 +164,4 @@ M.Serais
 		return mapping.findForward("succes");
 
 	}
-*/
 }

@@ -55,12 +55,12 @@ session.setAttribute("questioncurrente",questioncur);
 					<tr>
 						<td><a id="test" href="#"><%=listq.get(count).getListePropositions().get(j).getLibelle()%></a></td>
 					
-									
+								
 					
 					<% if(q.getEtape()>1) {
 						List<Proposition> listpro= (List<Proposition>)session.getAttribute("listpro");
 					%>
-						<td><%=listpro.get(j).getPourcentage()%></td>
+						<td><%--=listpro.get(j).getPourcentage()--%></td>
 					<%} %>
 					<% if(q.getEtape()>2) {
 					if(listq.get(count).getListePropositions().get(j).isEstBonneReponse()){%>

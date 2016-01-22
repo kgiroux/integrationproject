@@ -72,6 +72,7 @@ public class EditerQuizAction extends Action {
 			session.setAttribute("listeQuestions", listeQuestions);
 			session.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
 			session.setAttribute("libelleQuiz", quiz.getLibelle());
+			session.setAttribute("idQuiz", quiz.getId());
 			
 			editerQuizActionLogger.debug("Question �dit�e");
 			return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */

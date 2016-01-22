@@ -3,7 +3,10 @@
 <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
     <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <jsp:include page="/header.jsp"></jsp:include>
-<h1>Créer un nouveau quiz</h1>
+<% if ((String)session.getAttribute("listeQuestions") != null) {
+	session.setAttribute("idQuiz", (int)session.getAttribute("idQuiz"));
+}%>
+<h1>Sauvegarder un quiz</h1>
 	<hr>
 <div class="container">
 	<hr>
@@ -72,7 +75,7 @@
 						%>
 				</tbody>
 			</table>
-			<button type="submit" class="btn btn-primary">Créer</button>
+			<button type="submit" class="btn btn-primary">Sauvegarder</button>
    </form>
    
    			<a href="<%=request.getContextPath()%>/VueQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>

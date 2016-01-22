@@ -106,4 +106,16 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		logger.info("get Choix: " + retour.toString() + " From id : " + id);
 		return retour;
 	}
+	
+	public List<Personne> getClassement(Quiz quiz){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		
+		String hql = "from Choisir where quiz.id = "+ quiz.getId();
+		
+		
+		
+		
+		return null;
+	}
 }

@@ -34,4 +34,6 @@ public interface IChoisirDAO {
 	
 	public Choisir getChoix(int id);
 	
+	public List<Personne> getClassement(Quiz q);
+	
 }

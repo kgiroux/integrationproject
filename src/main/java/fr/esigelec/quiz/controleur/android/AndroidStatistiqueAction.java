@@ -46,7 +46,7 @@ public class AndroidStatistiqueAction extends Action{
 						break;
 					}
 				}
-				
+				JSONObject object = new JSONObject();
 				ChoisirDAOImpl choixDao = new ChoisirDAOImpl();
 				ArrayList<Integer> listChoisir = new ArrayList<>();
 				if(currentQuestion != null){

@@ -40,6 +40,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Edited by Kevin Pace and Cyril Lefebvre on 22/01/2016
  */
 public class MenuActivity extends Activity implements View.OnClickListener
 {

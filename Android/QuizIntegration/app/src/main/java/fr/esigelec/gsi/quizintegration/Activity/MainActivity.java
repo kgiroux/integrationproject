@@ -40,8 +40,9 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Edited by Cyril Lefebvre on 16/01/2016
  */
-public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
+public class MainActivity extends Activity implements View.OnClickListener
 {
 	public static String IPSERVER = "http://10.0.2.2:8080/quiz/";
 	public static boolean DEBUG = WelcomeActivity.DEBUG;
@@ -61,22 +62,25 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		//Création de l'instance unique de la personne connecté
 		pers = SingletonPersonne.getInstance ().getPersonne ();
 
+        //Mise en forme de la Toolbar
 		toolbar = (Toolbar) findViewById (R.id.tool_bar);
-		toolbar.setTitle (R.string.app_name);
-        toolbar.setTitleTextColor(ContextCompat.getColor (getApplicationContext(),R.color.white));
-		toolbar.setOnMenuItemClickListener (this);
-		create_expandable_list ();
-		/*toolbar.setTitle(R.string.app_name);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));*/
-		toolbar.setOnMenuItemClickListener(this);
+		toolbar.setTitle(R.string.app_name);
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
-        myTypeface = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
-
+        //Affichage des items dans le menu
 		create_expandable_list();
+
+        //Création de l'object popUp de connexion
 		dialog = createAndManageDialog();
 
+        //Chargement de la police de caractère
+        myTypeface = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
+
+        //Mise en forme des boutons et ajout du listener
 		Button button = (Button) findViewById (R.id.start);
         button.setTypeface(myTypeface);
         button.setOnClickListener (this);
@@ -85,12 +89,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		quit.setOnClickListener (this);
 	}
 
+    //Méthode d'ouverture du menu
 	public void create_drawer ()
 	{
 		mDrawerLayout = (DrawerLayout) findViewById (R.id.drawer_layout);
 		mDrawerToggle = new CustomActionBarDrawerToggle (this, mDrawerLayout,toolbar);
 	}
 
+    //Méthode d'affichage des items dans le menu
 	public void create_expandable_list ()
 	{
 		final ExpandableListView mDrawerExpandableList;
@@ -150,11 +156,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		});
 	}
 
+    //Méthode de remplissage des sous-niveaux du menu
 	private void createCollection ()
 	{
 		ItemCollection = new LinkedHashMap<> ();
 	}
 
+    //Méthode de création des groupe d'item du menu
 	private void createGroupList ()
 	{
 		String listItem[] = getResources ().getStringArray (R.array.listMenu);
@@ -178,16 +186,14 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		}
 	}
 
-	/**
-	 * When using the ActionBarDrawerToggle, you must call it during
-	 * onPostCreate() and onConfigurationChanged()...
-	 */
+	//Méthode qui change l'état du menu (open, close)
 	protected void onPostCreate (Bundle savedInstanceState)
 	{
-		super.onPostCreate (savedInstanceState);
-		mDrawerToggle.syncState ();
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
 	}
 
+    //Méthode qui associe la toolbar au menu
 	public void onConfigurationChanged (Configuration newConfig)
 	{
 		super.onConfigurationChanged (newConfig);
@@ -197,8 +203,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 	@Override
 	public void onClick (View v)
 	{
+        //Gestion des boutons de la page
 		switch(v.getId ()){
 			case R.id.start :
+                //Affichage de la boite de dialogue de connexion
 				dialog.show ();
 				break;
 			case R.id.quit :
@@ -207,38 +215,38 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 		}
 	}
 
-	@Override
-	public boolean onMenuItemClick (MenuItem item)
-	{
-		return false;
-	}
-
+    //Méthode d'initialisation et de gestion de la boite de dialogue de connexion
 	private Dialog createAndManageDialog(){
 		final Dialog dialog = new Dialog (MainActivity.this);
 		SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.login_dialog);
 
+        //Application de la police sur les TextView
         TextView logText = (TextView) dialog.findViewById(R.id.titleText);
         logText.setTypeface(myTypeface);
 
+		TextView email = (TextView) dialog.findViewById(R.id.login);
+        email.setText (preferences.getString ("mail",""));
 
-		TextView email = (TextView) dialog.findViewById (R.id.login);
-		email.setText (preferences.getString ("mail",""));
+		TextView mdp = (TextView) dialog.findViewById(R.id.password);
+        mdp.setText (preferences.getString ("mdp",""));
 
-		TextView mdp = (TextView) dialog.findViewById (R.id.password);
-		mdp.setText (preferences.getString ("mdp",""));
+        //Mise en forme et action des boutons
 
+        //Subscribe
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
         subscribeButton.setTypeface(myTypeface);
 		subscribeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+                //Lancement de l'activité d'inscription
 				Intent t = new Intent(getApplicationContext(), InscriptionActivity.class);
 				startActivityForResult(t, REQUEST_CODE_INSCRIPTION);
 			}
 		});
 
+        //Log In
 		Button signIn = (Button) dialog.findViewById (R.id.SignIn);
         signIn.setTypeface(myTypeface);
 		signIn.setOnClickListener (new View.OnClickListener ()
@@ -246,42 +254,61 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 			@Override
 			public void onClick (View v)
 			{
+                //Variable définissant si les informations de connexion sont bonnes
 				boolean isEmailValid = true;
 				boolean isMdpValid = true;
+
+                /*
+                Définition et récupération de l'EditText Email
+                en vérifiant que celui-ci n'est pas vide
+                 */
 				EditText emailOrPseudo = (EditText)dialog.findViewById (R.id.login);
 				String loginValue = emailOrPseudo.getText ().toString ();
 				if("".equals (loginValue)){
+                    //Affichage d'un logo d'erreur et passage de la variable de validité de l'email à faux
 					emailOrPseudo.setError (getString (R.string.error_invalid_email));
 					isEmailValid = false;
 				}
 
+                /*
+                Définition et récupération de l'EditText Password
+                en vérifiant que celui-ci n'est pas vide
+                 */
 				EditText password = (EditText) dialog.findViewById (R.id.password);
 				String passwordValue = password.getText ().toString ();
-
 				if("".equals (passwordValue)){
+                    //Affichage d'un logo d'erreur et passage de la variable de validité du password à faux
 					password.setError (getString (R.string.error_invalid_password));
 					isMdpValid = false;
 				}
 
-				pers.setMail(loginValue);
+                //On set les variable du singleton personne avec les variable entrées
+                pers.setMail(loginValue);
 				pers.setMdp(passwordValue);
 				pers.setNoEncryMdp (passwordValue);
+
+                //Envois du singleton personne au serveur via JSON pour vérifier les identifiants
 				try
 				{
-					//Toast.makeText(getApplicationContext(), pers.PersonneToHashMap().toString(), Toast.LENGTH_LONG).show();
 					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
 					if(null != perJson){
 						if(perJson.has("err_code")){
+                            /*
+                            Affichage d'un message d'erreur en cas d'échec de connexion et
+                            passage des variable de connexion à faux
+                            */
 							int err_code = perJson.getInt("err_code");
 							ErrorManager error = SingletonErrorManager.getInstance().getError();
 							Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
 							isMdpValid = false;
 							isEmailValid = false;
 						}else{
+                            //Affichage d'un message d'erreur un cas de conneion réussie
 							pers.JSONObjectToPersonne(perJson);
 							Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
 						}
 					}else{
+                        //On affiche un message d'erreue en cas de non réponse du serveur
 						TextView tv = (TextView) dialog.findViewById(R.id.errorText);
 						tv.setText(getString(R.string.error_connection));
 					}
@@ -299,7 +326,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 					isMdpValid = true;
 				}
 
-
+                /*
+                Si les variables sont restées à true et que l'ide de la personne a été récupéré,
+                on renseigne les variable renvoyé par le serveur dans la personne et on lance le menu
+                */
 				if(isEmailValid && isMdpValid && (pers.getId () != 0)){
 					SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
 					SharedPreferences.Editor editor = preferences.edit();

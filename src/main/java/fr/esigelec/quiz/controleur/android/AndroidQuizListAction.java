@@ -35,6 +35,15 @@ public class AndroidQuizListAction extends Action{
 				json.put("QuizList", listQuiz);
 				
 				//Find current quizz
+				//Quiz currentQuiz = dao.getCurrentQuiz();
+				//json.put("CurrentQuiz", currentQuiz);
+				
+				/*for(Quiz q : listQuiz){
+				int compteur = 0;
+					
+					json.put(String.valueOf(compteur), q);
+					compteur++;
+				}*/
 				List<Quiz> currentQuiz = new ArrayList<Quiz>();
 				currentQuiz.add(dao.getCurrentQuiz());
 				

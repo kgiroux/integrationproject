@@ -32,6 +32,13 @@ public interface IQuizDAO {
 	
 	public Quiz getQuizAvecQuestions(int id);
 	
+    
+    /**
+     * méthode : getListQuizFinish
+     * @return all the quizs finished
+     */
+    public Quiz getCurrentQuiz();
+	
 	/**
 	 * mÃ©thode : listQuiz
 	 * @return all the quizs

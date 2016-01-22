@@ -72,7 +72,8 @@ public class PersonneDAOImpl implements IPersonneDAO{
 				.uniqueResult();
 		session.getTransaction().commit();
 		session.close();
-		logger.info("get Personne: " + retour.toString() + " From mail : " + mail);
+		if(retour != null)
+			logger.info("get Personne: " + retour.toString() + " From mail : " + mail);
 		return retour;
 	}
 

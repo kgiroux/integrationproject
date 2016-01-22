@@ -49,21 +49,6 @@ public class Choisir implements Serializable {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (personne == null) {
-			if (other.personne != null)
-				return false;
-		} else if (!personne.equals(other.personne))
-			return false;
-		if (proposition == null) {
-			if (other.proposition != null)
-				return false;
-		} else if (!proposition.equals(other.proposition))
-			return false;
-		if (quiz == null) {
-			if (other.quiz != null)
-				return false;
-		} else if (!quiz.equals(other.quiz))
-			return false;
 		return true;
 	}
 

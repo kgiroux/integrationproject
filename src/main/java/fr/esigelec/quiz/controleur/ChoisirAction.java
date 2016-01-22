@@ -65,10 +65,13 @@ public class ChoisirAction extends Action {
 	    	}
 	    
 	    
+	    boolean choose=false;
 		Choisir choisir=new Choisir(new Timestamp(System.currentTimeMillis()),proposition,quiz,personne);
 	    
 	  
 	  
+		
+	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
 	    
 	    
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
@@ -82,7 +85,15 @@ public class ChoisirAction extends Action {
 		if ( currentTime.before(cal.getTime())){
 			
 			//OUT 
+	    if(choose){
+	    	choisirDAO.updateChoix(choisir);
+	    }
+	    else{
+	    	choisirDAO.createChoix(choisir);	
+	    	choose= true;
 			session.setAttribute("idProposition", idProposition);
+	    }
+	    	
 			
 			
 			for(Choisir c:listeChoix){

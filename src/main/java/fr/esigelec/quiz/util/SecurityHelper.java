@@ -17,7 +17,7 @@ public class SecurityHelper {
         try{
             digest = MessageDigest.getInstance ("MD5");
             byte[] arrayreturn = digest.digest(plaintext.getBytes());
-            ciphertext = String.format("%032X",new BigInteger (1, arrayreturn));
+            ciphertext = String.format("%032X",new BigInteger (1, arrayreturn)).toUpperCase();
         }catch(Exception e){
         	logger.error(e.getMessage());
         }

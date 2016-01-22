@@ -70,7 +70,7 @@ public class Personne implements Comparable<Personne>{
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;
-		this.mdp = mdp;
+		this.mdp = mdp.toUpperCase();
 		this.droits = droits;
 		this.score = 0;
 	}
@@ -166,7 +166,7 @@ public class Personne implements Comparable<Personne>{
 	 * @param mdp
 	 */
 	public void setMdp(String mdp) {
-		this.mdp = mdp;
+		this.mdp = mdp.toUpperCase();
 	}
 
 	/**

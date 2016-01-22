@@ -11,8 +11,8 @@
 	<div class="form-group">
 		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
 		<div class="col-xs-2 col-sm-4">
-				<% if  ((List<Question>)request.getAttribute("listeQuestions") != null) {
-						String libelleQuiz = (String)request.getAttribute("libelleQuiz");
+				<% if  ((List<Question>)session.getAttribute("listeQuestions") != null) {
+						String libelleQuiz = (String)session.getAttribute("libelleQuiz");
 						%><input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" value="<%= libelleQuiz%>"><%
 					}
 					else %><input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" placeholder="JEE,Android,etc"><%
@@ -35,8 +35,8 @@
 				<% 				
 				List<Question> qtotale= null;
 				List<Question> listeQuestionQuiz = null;
-				if  ((List<Question>)request.getAttribute("listeQuestions") != null && (List<Question>)request.getAttribute("listeQuestionsQuiz") == null) {	
-					qtotale = (List<Question>)request.getAttribute("listeQuestions");
+				if  ((List<Question>)session.getAttribute("listeQuestions") != null && (List<Question>)session.getAttribute("listeQuestionsQuiz") == null) {	
+					qtotale = (List<Question>)session.getAttribute("listeQuestions");
 					for(Question q1:qtotale){ %>
 					<tr>
 						<td><input type="checkbox" name="questionId" value="<%=q1.getId()%>"></td>
@@ -46,10 +46,10 @@
 					</tr>
 						<%} 
 						}
-				if  ((List<Question>)request.getAttribute("listeQuestions") != null && (List<Question>)request.getAttribute("listeQuestionsQuiz") != null) {	
-					qtotale = (List<Question>)request.getAttribute("listeQuestions");
+				if  ((List<Question>)session.getAttribute("listeQuestions") != null && (List<Question>)session.getAttribute("listeQuestionsQuiz") != null) {	
+					qtotale = (List<Question>)session.getAttribute("listeQuestions");
 					System.out.println(qtotale.toString());
-					listeQuestionQuiz = (List<Question>)request.getAttribute("listeQuestionsQuiz");
+					listeQuestionQuiz = (List<Question>)session.getAttribute("listeQuestionsQuiz");
 					for(Question q1:qtotale){ %>
 						<tr>
 				

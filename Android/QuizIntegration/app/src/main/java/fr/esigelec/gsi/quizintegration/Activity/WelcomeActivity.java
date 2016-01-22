@@ -15,8 +15,9 @@ import fr.esigelec.gsi.quizintegration.R;
  * Created by Yuhuang, Tang on 13/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  */
 public class WelcomeActivity extends AppCompatActivity {
-
-    private final long SPLASH_LENGTH = 3000;
+    public static boolean DEBUG = true;
+    public static boolean DEV = true;
+    private long SPLASH_LENGTH = 3000;
     Handler handler = new Handler();
 
     @Override
@@ -30,6 +31,9 @@ public class WelcomeActivity extends AppCompatActivity {
             versionNumber.setText (version);
         }catch (PackageManager.NameNotFoundException e ){
             e.printStackTrace ();
+        }
+        if(DEV){
+            SPLASH_LENGTH = 500;
         }
 
         handler.postDelayed(new Runnable() {

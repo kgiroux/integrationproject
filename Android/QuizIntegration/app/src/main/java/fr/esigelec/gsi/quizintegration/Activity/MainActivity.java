@@ -44,8 +44,8 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
 {
 	public static String IPSERVER = "http://10.0.2.2:8080/quiz/";
-	public static boolean DEBUG = true;
-	public static boolean DEV = false;
+	public static boolean DEBUG = WelcomeActivity.DEBUG;
+	public static boolean DEV = WelcomeActivity.DEV;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	List<String> groupList;

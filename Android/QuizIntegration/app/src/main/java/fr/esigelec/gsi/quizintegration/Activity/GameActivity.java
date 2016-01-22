@@ -58,12 +58,7 @@ public class GameActivity extends Activity implements View.OnClickListener
         timer = (TextView) findViewById(R.id.timer);
         //createTimer(28);
 
-        if(TEST){
-            Intent t = new Intent (this,StatistiqueActivity.class);
-            t.putExtra ("idQuestion",question.getId ());
-			t.putExtra ("idQuiz",idQuiz);
-            startActivity (t);
-        }
+
     }
 
     private void initIHM(){

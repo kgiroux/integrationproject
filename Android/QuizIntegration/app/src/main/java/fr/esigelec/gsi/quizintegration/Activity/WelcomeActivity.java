@@ -24,21 +24,30 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+
+        /* Récupération du numéro de version de l'application */
         try{
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
+
+			// Récupération du TextView permettant l'affichage de la version
             TextView versionNumber = (TextView) findViewById (R.id.versionNumber);
             versionNumber.setText (version);
         }catch (PackageManager.NameNotFoundException e ){
             e.printStackTrace ();
         }
+
+        //TODO EN PROD
         if(DEV){
             SPLASH_LENGTH = 500;
         }
 
+
+		/* Affichage du SplashScreen pendant la durée SPLASH_LENGTH */
         handler.postDelayed(new Runnable() {
 
             public void run() {
+				// On Lance l'activité MainActivity lorsqu'on a atteint le temps SPLASH_LENGTH
                 Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

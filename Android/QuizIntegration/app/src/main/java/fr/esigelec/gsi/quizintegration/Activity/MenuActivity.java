@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -42,7 +41,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 /**
  * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
  */
-public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickListener
+public class MenuActivity extends Activity implements View.OnClickListener
 {
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -59,17 +58,25 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_menu);
-
+		// Récupération de l'unique instance de Personne
 		pers = SingletonPersonne.getInstance ().getPersonne();
 
+		// Chargement de la Police pour l'application
         myTypeface = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
 
-		toolbar = (Toolbar) findViewById (R.id.tool_bar);
-		toolbar.setTitle(R.string.app_name);
-        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-		toolbar.setOnMenuItemClickListener(this);
 
+		// Chargement de la toolbar via récupération dans le layoute
+		toolbar = (Toolbar) findViewById (R.id.tool_bar);
+		// Définition du titre
+		toolbar.setTitle(R.string.app_name);
+		// Définition de la couleur
+        toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
+
+
+		// Définition de la liste
 		create_expandable_list();
+
+
 
         //Initialisation pour test
         //initTest();
@@ -130,13 +137,15 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
             for (Quiz quiz : quizList) {
                 LayoutInflater curQuizLayout = this.getLayoutInflater();
                 View view = curQuizLayout.inflate(R.layout.old_quiz, null);
-
+				view.setId (quiz.getId ());
                 TextView title = (TextView) view.findViewById(R.id.title);
                 TextView date = (TextView) view.findViewById(R.id.date);
 
                 title.setText(quiz.getLibelle());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
+
+				view.setOnClickListener (this);
 
                 LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
                 oldQuiz.addView(view);
@@ -207,17 +216,11 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 		String listItem[] = getResources ().getStringArray (R.array.listMenuActivity);
 		groupList = new ArrayList<> ();
 
-		groupList.add (pers.getNom () + " " + pers.getPrenom () );
+		groupList.add (pers.getNom () + " " + pers.getPrenom ());
 		for (int i = 1; i != listItem.length; i++)
 		{
 			groupList.add (listItem[i]);
 		}
-	}
-
-	@Override
-	public boolean onMenuItemClick (MenuItem item)
-	{
-		return false;
 	}
 
 	/*
@@ -330,4 +333,12 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         quizList.add(quiz1);
         quizList.add(quiz2);
     }
+
+	@Override
+	public void onClick (View v)
+	{
+			Intent t = new Intent (this,StatistiqueActivity.class);
+			t.putExtra ("idQuiz",v.getId ());
+			startActivity (t);
+	}
 }

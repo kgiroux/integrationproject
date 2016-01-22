@@ -78,7 +78,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		List<Choisir> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
-		logger.info("getNombrePersonneParQuiz" + retour.toString() + " for quiz : " + q.toString());
+		//logger.info("getNombrePersonneParQuiz" + retour.toString() + " for quiz : " + q.toString());
 		return retour.size();
 	}
 	

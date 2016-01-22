@@ -23,6 +23,10 @@
 <body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
 <div >
   <h2 class="question">CONSULTER LES QUIZ</h2>
+  
+  
+  <a href="<%=request.getContextPath() %>/Jouer.do">rafraichir</a>
+  
  <hr><br> 
  <p class="question"><strong>Classement </strong> : 1 er </p>
  <div> 

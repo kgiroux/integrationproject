@@ -31,7 +31,7 @@ public class Choisir implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Choisir [date=" + date + ", proposition=" + proposition + ", quiz=" + quiz + ", personne=" + personne
+		return "Choisir [date=" + date + ", proposition=" + proposition + ",  personne=" + personne
 				+ "]";
 	}
 

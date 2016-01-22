@@ -39,11 +39,15 @@ public class StatsAction extends Action{
 		
 		//OUT 
 		//quiz.(2);
+		
+		quiz.setEtape(2);
+		
+		
 		boolean statut = quizdaoimpl.updateQuiz(quiz);
 		Quiz q = quizdaoimpl.getQuizAvecQuestions(quiz.getId());
-		Question questioncur=(Question) session.getAttribute("questioncur");
+	/*	Question questioncur=(Question) session.getAttribute("questioncur");
 		List<Proposition> listpro=actionService.getPourcentagePropositions(q, questioncur);
-		session.setAttribute("listpro", listpro);
+		session.setAttribute("listpro", listpro);*/
 		session.setAttribute("quiz", q);
 		
 		return mapping.findForward("succes");

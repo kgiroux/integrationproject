@@ -37,7 +37,7 @@ public class JouerAdminAction extends Action  {
 		quiz.setDateDebutQuiz(new Timestamp(System.currentTimeMillis()));
 		quiz.setDateDebutQuestion(new Timestamp(System.currentTimeMillis()));
 		quiz.setEtape(1);
-		quiz.setNoQuestionCourante(1);
+		quiz.setNoQuestionCourante(0);
 		quizdaoimpl.updateQuiz(quiz);
 		//Question question = ActionService.getQuestionByQuizId(idQuiz);
 				

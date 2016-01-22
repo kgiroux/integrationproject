@@ -1,10 +1,10 @@
 /**
  * @author Rodolphe AGUIDISSOU - ESIGELEC 2016
+ * @author Mincong HUANG
  */
 
 package fr.esigelec.quiz.controleur;
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +15,6 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-
-import java.util.List;
 
 import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.IChoisirDAO;
@@ -35,90 +33,66 @@ public class ChoisirAction extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-
+	
+		// UTILS
 		choisirActionLogger.debug("Execute");
-		
-		
-		//UTILS
 		HttpSession session = request.getSession();
+	    IChoisirDAO choisirDAO = new ChoisirDAOImpl();
 		
-		Personne personne=(Personne)session.getAttribute("personne");
-		//IN 
+		// init des variables
 		int idProposition = Integer.parseInt(request.getParameter("idProposition"));
+		Personne personne = (Personne) session.getAttribute("personne");
 	    Quiz quiz  = (Quiz) session.getAttribute("quiz");
-	    Proposition proposition = new Proposition();
-	    proposition.setId(idProposition);
-	    boolean dejaChoisi=false;
-	    
-	    Question question=ActionService.getQuestionByQuizId(quiz.getId());
-	    List<Proposition> propositions=question.getListePropositions();
-	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
-	    List<Choisir> listeChoix=choisirDAO.getChoixPersonneParQuiz(personne,quiz);
-	    
-	    
-	    //recherche si on a deja voté pour cette question
-	    for(Proposition p:propositions)
-	    	if(p.getId()==idProposition)
-	    	{
-	    		dejaChoisi=true;
-	    		break;
-	    	}
-	    
-	    
-	    boolean choose=false;
-		Choisir choisir=new Choisir(new Timestamp(System.currentTimeMillis()),proposition,quiz,personne);
-	    
-	  
-	  
-		
-	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
-	    
-	    
-		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-		
-        Timestamp questionStartTime = quiz.getDateDebutQuestion() ;
-        
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(questionStartTime);
-        cal.add(Calendar.SECOND, 30);
-       		
-		if ( currentTime.before(cal.getTime())){
-			
-			//OUT 
-	    if(choose){
-	    	choisirDAO.updateChoix(choisir);
+	    Question question = ActionService.getQuestionByQuizId(quiz.getId());
+	    Choisir ancienChoix = choisirDAO.getChoix(personne, quiz, question);
+	    boolean dejaChoisi = false;
+	    if (ancienChoix != null) {
+	    	dejaChoisi = true;
 	    }
-	    else{
-	    	choisirDAO.createChoix(choisir);	
-	    	choose= true;
-			session.setAttribute("idProposition", idProposition);
-	    }
-	    	
+	    
+	    // calcule le temps pour la reponse
+	    long now = System.currentTimeMillis();
+		long debut = quiz.getDateDebutQuestion().getTime();
+        long duree = now - debut;
+	    
+        // TIME_OUT
+		if (duree > 30 * 1000L) {
 			
-			
-			for(Choisir c:listeChoix){
-				
-				if(c.getProposition().)
-				
-				
-			}
-			
-			dejaChoisi=choisirDAO.createChoix(choisir);
-			
-			if(dejaChoisi)
-				choisirDAO.updateChoix(choisir);
-					
-			
-		}
-		else {
 			session.setAttribute("idProposition", -1);
-		}
+			choisirActionLogger.debug("Time out, duree = " + duree + "ms.");
+			return mapping.findForward("erreur-time-out");
+				
+		} else {
 
+		    Proposition proposition = new Proposition();
+		    proposition.setId(idProposition);
+			Choisir nvChoix = new Choisir(new Timestamp(now), proposition, quiz, personne);
+			
+		    // DEJA CHOISI
+			if (dejaChoisi) {
+				// log
+				String msg = "Choix existes deja pour (quiz, propo, personne) = ("
+						+ quiz.getId() + ", " + proposition.getId() + ", "
+						+ personne.getId() +  ").";
+				choisirActionLogger.info(msg);
+				// nouveau choix possede la meme id que l'ancien choix
+				nvChoix.setId(ancienChoix.getId());
+		    	choisirDAO.updateChoix(nvChoix);
+		    
+		    // NEW
+			} else {
+				// log
+		    	String msg = "Insertion pour le choix (quiz, propo, personne) = ("
+						+ quiz.getId() + ", " + proposition.getId() + ", "
+						+ personne.getId() +  ").";
+				choisirActionLogger.info(msg);
+		    	// Le resultat de l'insertion est enregistre dans la vairable
+		    	// dejaChoisi pour le traitement plus tard
+		    	dejaChoisi = choisirDAO.createChoix(nvChoix);
+				session.setAttribute("idProposition", idProposition);
+		    }
+		}
 		choisirActionLogger.debug("Action terminee avec succes");
 		return mapping.findForward("succes");
-		
-		
-		
 	}
-
 }

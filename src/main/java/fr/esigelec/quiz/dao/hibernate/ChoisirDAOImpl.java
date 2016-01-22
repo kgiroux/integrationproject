@@ -6,16 +6,21 @@ package fr.esigelec.quiz.dao.hibernate;
 * @author DELAUNAY Brice
 * @author NGANE Pascale
 */
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import fr.esigelec.quiz.controleur.TestLogger;
 import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -41,7 +46,6 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.update(c);
 		session.getTransaction().commit();
 		session.close();
-		
 		return true;
 	}
 
@@ -106,16 +110,38 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		logger.info("get Choix: " + retour.toString() + " From id : " + id);
 		return retour;
 	}
+
+	/**
+	 * @author minconghuang
+	 * 
+	 */
+	public Choisir getChoix(Personne p, Quiz quiz, Question q) {
+		// get liste de proposition-id à partir de question
+		List<Integer> propoIds = new ArrayList<Integer>();
+		for (Proposition propo: q.getListePropositions()) {
+			propoIds.add(propo.getId());
+		}
+		// hibernate
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(Choisir.class);
+		criteria.add(Restrictions.in("proposition.id", propoIds));
+		criteria.add(Restrictions.eq("quiz.id", quiz.getId()));
+		criteria.add(Restrictions.eq("personne.id", p.getId()));
+		Choisir retour = (Choisir) criteria.uniqueResult();
+		if (retour != null) {
+			logger.info("get Choix: " + retour.toString());
+		}
+		session.getTransaction().commit();
+		session.close();
+		return retour;
+	}
 	
 	public List<Personne> getClassement(Quiz quiz){
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
 		String hql = "from Choisir where quiz.id = "+ quiz.getId();
-		
-		
-		
-		
 		return null;
 	}
 }

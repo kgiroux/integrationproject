@@ -69,7 +69,7 @@ public class EditerQuizAction extends Action {
 			
 			request.setAttribute("listeQuestions", listeQuestions);
 			request.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
-
+			request.setAttribute("libelleQuiz", quiz.getLibelle());
 			editerQuizActionLogger.debug("Question �dit�e");
 			return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			

@@ -114,8 +114,7 @@ public class EnregistrerQuestionAction extends Action {
 			question.setPropositions(listeProposition);
 			questionDAO.createQuestion(question);
 			
-			// TODO ... enregistrer les questions ???? 
-			request.setAttribute("listeQuiz", questionDAO.listQuestion());
+			request.setAttribute("listeQuestion", questionDAO.listQuestion());
 		}
 
 		enregistrerQuestionActionLogger.debug("Question enregistree");

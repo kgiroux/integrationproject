@@ -1,6 +1,7 @@
 package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -46,13 +47,20 @@ public class GameActivity extends Activity implements View.OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
 
+        boolean TEST = true;
+
         //Initialisation pour test
         initTest();
         initIHM();
 
         //Create time thread
         timer = (TextView) findViewById(R.id.timer);
-        createTimer(28);
+        //createTimer(28);
+
+        if(TEST){
+            Intent t = new Intent (this,StatistiqueActivity.class);
+            startActivity (t);
+        }
     }
 
     private void initIHM(){
@@ -191,7 +199,9 @@ public class GameActivity extends Activity implements View.OnClickListener
                         e.printStackTrace();
                     }
                 }while(counter > 0);
+
             }
+
         }.start();
     }
 }

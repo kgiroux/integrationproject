@@ -9,4 +9,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="fr.esigelec.gsi.quizintegration.Activity.StatistiqueActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/TitleQuestion"
+        android:textSize="25sp"
+        />
+
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_below="@id/TitleQuestion"
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+     />
+
+
 </RelativeLayout>

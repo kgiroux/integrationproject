@@ -30,7 +30,18 @@ public class Proposition implements Comparable<Proposition> {
 	
 	private double pourcentage;
 	
+	
+	private Question question;
+	
 	/*Constructeurs*/
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
 
 	/**
 	 * Constructeur sans paramétres

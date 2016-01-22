@@ -95,4 +95,73 @@ public class ChoisirAction extends Action {
 		choisirActionLogger.debug("Action terminee avec succes");
 		return mapping.findForward("succes");
 	}
+/*
+M.Serais
+	@Override
+	public ActionForward execute(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+
+		choisirActionLogger.debug("Execute");
+
+		// recuperation session
+		HttpSession session = request.getSession();
+		// recuperation personne en session
+		Personne personne = (Personne) session.getAttribute("personne");
+		// recuperation de l'id de la proposition qui a �t� selectionn�e
+		int idProposition = Integer.parseInt(request
+				.getParameter("idProposition"));
+		// recuperation quiz
+		Quiz quiz = (Quiz) session.getAttribute("quiz");
+
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+		Timestamp questionStartTime = quiz.getDateDebutQuestion();
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(questionStartTime);
+		cal.add(Calendar.SECOND, 30);
+		
+		//si on vote dans le temps imparti
+		//ATTENTION : controle du temps non activ� pour le moment pour faciliter le debugage
+		if (true || currentTime.before(cal.getTime())) {
+
+			choisirActionLogger.debug("vote dans les 30s");
+
+			// creation d'un objet proposition
+			Proposition proposition = new Proposition();
+			proposition.setId(idProposition);
+
+			// on recupere la question courante
+			Question question = ActionService.getQuestionByQuizId(quiz.getId());
+
+			IChoisirDAO choisirDAO = new ChoisirDAOImpl();
+			// liste des choix dej� faits pour cette question et ce joueur
+			List<Choisir> listeChoix = choisirDAO
+					.getChoixPersonneParQuizPersonneEtQuestion(personne, quiz,
+							question);
+
+			// on cr�e le nouveau choix
+			Choisir choisir = new Choisir(listeChoix.get(0).getId(),
+					new Timestamp(System.currentTimeMillis()), proposition,
+					quiz, personne);
+
+			// si la personne avait d�j� choisi , on remplace son choix par le
+			// nouveau
+			if (listeChoix.size() > 0)
+				choisirDAO.updateChoix(choisir);
+			else
+				// sinon on l'ajoute
+				choisirDAO.createChoix(choisir);
+
+		} else {
+			//le temps est depass�
+			choisirActionLogger.debug("vote apr�s les 30s");
+			session.setAttribute("idProposition", -1);
+		}
+
+		choisirActionLogger.debug("Action terminee avec succes");
+		return mapping.findForward("succes");
+
+	}
+*/
 }

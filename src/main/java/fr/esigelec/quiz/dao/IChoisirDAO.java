@@ -30,6 +30,8 @@ public interface IChoisirDAO {
 	
 	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q);
 
+	public List<Choisir> getChoixPersonneParQuizPersonneEtQuestion(Personne p, Quiz q,Question question);
+
 	public int getNombrePersonneParQuiz(Quiz q);
 
 	public int getNombrePersonneParProposition(Quiz q, Proposition p);

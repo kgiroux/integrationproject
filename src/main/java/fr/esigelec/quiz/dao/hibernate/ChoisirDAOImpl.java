@@ -74,6 +74,19 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 	}
 	
 	@Override
+	public List<Choisir> getChoixPersonneParQuizPersonneEtQuestion(Personne p, Quiz q,Question question) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Choisir where quiz.id = " + q.getId() + " and personne.id = " + p.getId()+ " and proposition.question.id = "+question.getId();
+		@SuppressWarnings("unchecked")
+		List<Choisir> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		logger.info("getChoixPersonneParQuizPersonneEtQuestion: " + " for personne : " + p.toString() + " and quiz : " + q.toString());
+		return retour;
+	}
+	
+	@Override
 	public int getNombrePersonneParQuiz(Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();

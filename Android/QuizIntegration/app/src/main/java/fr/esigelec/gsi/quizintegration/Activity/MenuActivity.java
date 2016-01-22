@@ -75,19 +75,21 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         //initTest();
 
         try {
-            JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", ""}).get();
+            JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
 
-            JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
-            if(!"noQuiz".equals(curQuiz.toString()))
-                currentQuiz.JSONObjectToQuiz(curQuiz);
-
+            quizList = new ArrayList<Quiz>();
             JSONArray quizListJson = quizJson.getJSONArray("QuizList");
             for(int i = 0; i<quizListJson.length(); i++) {
                 JSONObject quiz = quizListJson.getJSONObject(i);
                 Quiz q = new Quiz();
-                q.JSONObjectToQuiz(curQuiz);
+                q.JSONObjectToQuiz(quiz);
                 quizList.add(q);
             }
+
+            JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
+            if(curQuiz != null)
+                currentQuiz.JSONObjectToQuiz(curQuiz);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -123,20 +125,22 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 				startActivity(intent);
 			}
 		});
+        if(quizList != null)
+        {
+            for (Quiz quiz : quizList) {
+                LayoutInflater curQuizLayout = this.getLayoutInflater();
+                View view = curQuizLayout.inflate(R.layout.old_quiz, null);
 
-        for (Quiz quiz : quizList) {
-            LayoutInflater curQuizLayout = this.getLayoutInflater();
-            View view = curQuizLayout.inflate(R.layout.old_quiz, null);
+                TextView title = (TextView) view.findViewById(R.id.title);
+                TextView date = (TextView) view.findViewById(R.id.date);
 
-            TextView title = (TextView) view.findViewById(R.id.title);
-            TextView date = (TextView) view.findViewById(R.id.date);
+                title.setText(quiz.getLibelle());
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
 
-            title.setText(quiz.getLibelle());
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
-
-            LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
-            oldQuiz.addView(view);
+                LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
+                oldQuiz.addView(view);
+            }
         }
 	}
 

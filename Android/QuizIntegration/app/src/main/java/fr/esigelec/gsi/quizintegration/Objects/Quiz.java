@@ -6,6 +6,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -117,16 +119,23 @@ public class Quiz
     public void JSONObjectToQuiz(JSONObject obj){
         if(null != obj){
             try{
+                //Parsing datestring
+                Date debut,fin,debutQuestion;
+                SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+                debut = formater.parse(obj.getString("dateDebutQuiz"));
+                fin = formater.parse(obj.getString("dateFinQuiz"));
+                debutQuestion = formater.parse(obj.getString("dateDebutQuestion"));
+
                 this.setId( obj.getInt ("id"));
                 this.setLibelle(obj.getString("libelle"));
-                this.setDateDebutQuestion(new Timestamp(obj.getLong("dateDebut")));
-                this.setDateFinQuiz(new Timestamp(obj.getLong("dateFin")));
+                this.setDateDebutQuiz(new Timestamp(debut.getTime()));
+                this.setDateFinQuiz(new Timestamp(fin.getTime()));
                 this.setEtape(obj.getInt("etape"));
                 this.setNbQuestion(obj.getInt("nbQuestion"));
                 this.setNoQuestionCourante(obj.getInt("questionCourrante"));
-                this.setDateDebutQuestion(new Timestamp(obj.getLong("dateDebutQuestion")));
+                this.setDateDebutQuestion(new Timestamp(debutQuestion.getTime()));
 
-            }catch(JSONException jsonE){
+            }catch(Exception jsonE){
                 Log.e("ERREUR", jsonE.getMessage());
             }
         }

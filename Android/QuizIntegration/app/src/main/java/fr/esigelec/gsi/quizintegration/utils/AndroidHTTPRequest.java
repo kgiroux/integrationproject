@@ -41,11 +41,11 @@ public class AndroidHTTPRequest extends AsyncTask<String[], Void, JSONObject>
             urlConnection.setReadTimeout(15000);
             urlConnection.setConnectTimeout(15000);
             urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
 
             //Send parameters to the request
             if("POST".equals(method) && paramsStr != null) {
                 urlConnection.setRequestMethod("POST");
+                urlConnection.setDoOutput(true);
 
                 //Write params to the request
                 os = urlConnection.getOutputStream();

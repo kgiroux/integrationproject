@@ -52,7 +52,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.delete(c);
 		session.getTransaction().commit();
 		session.close();
-		logger.info("deletePersonne: " + c);
+		logger.info("deleteChoix: " + c);
 		return (c == null);
 	}
 
@@ -93,5 +93,17 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.close();
 		logger.info("getNombrePersonneParProposition" + retour.size() + " for quiz : " + q.toString() + " and Proposition : " + p.toString());
 		return retour.size();
+	}
+	
+	@Override
+	public Choisir getChoix(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Choisir retour = (Choisir) session.get(Choisir.class, id);
+		System.out.println(retour.toString());
+		session.getTransaction().commit();
+		session.close();
+		logger.info("get Choix: " + retour.toString() + " From id : " + id);
+		return retour;
 	}
 }

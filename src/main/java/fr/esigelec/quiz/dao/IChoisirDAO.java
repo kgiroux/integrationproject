@@ -28,8 +28,10 @@ public interface IChoisirDAO {
 	
 	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q);
 
-	int getNombrePersonneParQuiz(Quiz q);
+	public int getNombrePersonneParQuiz(Quiz q);
 
-	int getNombrePersonneParProposition(Quiz q, Proposition p);
+	public int getNombrePersonneParProposition(Quiz q, Proposition p);
+	
+	public Choisir getChoix(int id);
 	
 }

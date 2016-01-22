@@ -16,6 +16,7 @@ import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -60,7 +61,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		String hql = "from Proposition where quiz.id = " + q.getId() + " and personne.id = " + p.getId();
+		String hql = "from Choisir where quiz.id = " + q.getId() + " and personne.id = " + p.getId();
 		@SuppressWarnings("unchecked")
 		List<Choisir> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();
@@ -68,6 +69,22 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		logger.info("getChoixPersonneParQuiz: " + " for personne : " + p.toString() + " and quiz : " + q.toString());
 		return retour;
 	}
+	
+	@Override
+	public List<Choisir> getChoixPersonneParQuizPersonneEtQuestion(Personne p, Quiz q,Question question) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Choisir where quiz.id = " + q.getId() + " and personne.id = " + p.getId()+ " and proposition.question.id = "+question.getId();
+		@SuppressWarnings("unchecked")
+		List<Choisir> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		logger.info("getChoixPersonneParQuizPersonneEtQuestion: " + " for personne : " + p.toString() + " and quiz : " + q.toString());
+		return retour;
+	}
+	
+	
+	
 	
 	@Override
 	public int getNombrePersonneParQuiz(Quiz q) {

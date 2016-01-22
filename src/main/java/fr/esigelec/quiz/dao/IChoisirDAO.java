@@ -1,9 +1,11 @@
 package fr.esigelec.quiz.dao;
 
 import java.util.List;
+
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 /**Projet d'integration
@@ -27,6 +29,8 @@ public interface IChoisirDAO {
 	public boolean deleteChoix(Choisir c);
 	
 	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q);
+	
+	public List<Choisir> getChoixPersonneParQuizPersonneEtQuestion(Personne p, Quiz q,Question question);
 
 	public int getNombrePersonneParQuiz(Quiz q);
 

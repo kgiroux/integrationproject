@@ -1,10 +1,8 @@
-/**
- * @author Rodolphe AGUIDISSOU - ESIGELEC 2016
- */
-
 package fr.esigelec.quiz.controleur;
+
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,98 +25,82 @@ import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
-
+/**
+ * Action appelée lorsqu'un jour clique sur une proposition
+ * 
+ * @author rodolphe - serais
+ *
+ */
 public class ChoisirAction extends Action {
 
-	private final Logger choisirActionLogger = Logger.getLogger(ChoisirAction.class);
-	
+	private final Logger choisirActionLogger = Logger
+			.getLogger(ChoisirAction.class);
+
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		choisirActionLogger.debug("Execute");
-		
-		
-		//UTILS
+
+		// recuperation session
 		HttpSession session = request.getSession();
-		
-		Personne personne=(Personne)session.getAttribute("personne");
-		//IN 
-		int idProposition = Integer.parseInt(request.getParameter("idProposition"));
-	    Quiz quiz  = (Quiz) session.getAttribute("quiz");
-	    Proposition proposition = new Proposition();
-	    proposition.setId(idProposition);
-	    boolean dejaChoisi=false;
-	    
-	    Question question=ActionService.getQuestionByQuizId(quiz.getId());
-	    List<Proposition> propositions=question.getListePropositions();
-	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
-	    List<Choisir> listeChoix=choisirDAO.getChoixPersonneParQuiz(personne,quiz);
-	    
-	    
-	    //recherche si on a deja voté pour cette question
-	    for(Proposition p:propositions)
-	    	if(p.getId()==idProposition)
-	    	{
-	    		dejaChoisi=true;
-	    		break;
-	    	}
-	    
-	    
-	    boolean choose=false;
-		Choisir choisir=new Choisir(new Timestamp(System.currentTimeMillis()),proposition,quiz,personne);
-	    
-	  
-	  
-		
-	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
-	    
-	    
+		// recuperation personne en session
+		Personne personne = (Personne) session.getAttribute("personne");
+		// recuperation de l'id de la proposition qui a été selectionnée
+		int idProposition = Integer.parseInt(request
+				.getParameter("idProposition"));
+		// recuperation quiz
+		Quiz quiz = (Quiz) session.getAttribute("quiz");
+
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+		Timestamp questionStartTime = quiz.getDateDebutQuestion();
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(questionStartTime);
+		cal.add(Calendar.SECOND, 30);
 		
-        Timestamp questionStartTime = quiz.getDateDebutQuestion() ;
-        
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(questionStartTime);
-        cal.add(Calendar.SECOND, 30);
-       		
-		if ( currentTime.before(cal.getTime())){
-			
-			//OUT 
-	    if(choose){
-	    	choisirDAO.updateChoix(choisir);
-	    }
-	    else{
-	    	choisirDAO.createChoix(choisir);	
-	    	choose= true;
-			session.setAttribute("idProposition", idProposition);
-	    }
-	    	
-			
-			
-			for(Choisir c:listeChoix){
-				
-				if(c.getProposition().)
-				
-				
-			}
-			
-			dejaChoisi=choisirDAO.createChoix(choisir);
-			
-			if(dejaChoisi)
+		//si on vote dans le temps imparti
+		//ATTENTION : controle du temps non activé pour le moment pour faciliter le debugage
+		if (true || currentTime.before(cal.getTime())) {
+
+			choisirActionLogger.debug("vote dans les 30s");
+
+			// creation d'un objet proposition
+			Proposition proposition = new Proposition();
+			proposition.setId(idProposition);
+
+			// on recupere la question courante
+			Question question = ActionService.getQuestionByQuizId(quiz.getId());
+
+			IChoisirDAO choisirDAO = new ChoisirDAOImpl();
+			// liste des choix dejà faits pour cette question et ce joueur
+			List<Choisir> listeChoix = choisirDAO
+					.getChoixPersonneParQuizPersonneEtQuestion(personne, quiz,
+							question);
+
+			// on crée le nouveau choix
+			Choisir choisir = new Choisir(listeChoix.get(0).getId(),
+					new Timestamp(System.currentTimeMillis()), proposition,
+					quiz, personne);
+
+			// si la personne avait déjà choisi , on remplace son choix par le
+			// nouveau
+			if (listeChoix.size() > 0)
 				choisirDAO.updateChoix(choisir);
-					
-			
-		}
-		else {
+			else
+				// sinon on l'ajoute
+				choisirDAO.createChoix(choisir);
+
+		} else {
+			//le temps est depassé
+			choisirActionLogger.debug("vote après les 30s");
 			session.setAttribute("idProposition", -1);
 		}
 
 		choisirActionLogger.debug("Action terminee avec succes");
 		return mapping.findForward("succes");
-		
-		
-		
+
 	}
 
 }

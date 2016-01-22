@@ -11,7 +11,12 @@
 	<div class="form-group">
 		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
 		<div class="col-xs-2 col-sm-4">
-			<input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" placeholder="JEE,Android,etc">
+				<% if  ((List<Question>)request.getAttribute("listeQuestions") != null) {
+						String libelleQuiz = (String)request.getAttribute("libelleQuiz");
+						%><input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" value="<%= libelleQuiz%>"><%
+					}
+					else %><input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" placeholder="JEE,Android,etc"><%
+					%>
 		</div> 
 		   
 	</div>
@@ -28,10 +33,11 @@
 				</thead>
 				<tbody>
 				<% 				
-				List<Question> q= null;
-				if  ((List<Question>)request.getAttribute("listeQuestions") != null) {	
-					q = (List<Question>)request.getAttribute("listeQuestions");
-					for(Question q1:q){ %>
+				List<Question> qtotale= null;
+				List<Question> listeQuestionQuiz = null;
+				if  ((List<Question>)request.getAttribute("listeQuestions") != null && (List<Question>)request.getAttribute("listeQuestionsQuiz") == null) {	
+					qtotale = (List<Question>)request.getAttribute("listeQuestions");
+					for(Question q1:qtotale){ %>
 					<tr>
 						<td><input type="checkbox" name="questionId" value="<%=q1.getId()%>"></td>
 						<td><%=q1.getLibelle()%></td>
@@ -40,11 +46,35 @@
 					</tr>
 						<%} 
 						}
+				if  ((List<Question>)request.getAttribute("listeQuestions") != null && (List<Question>)request.getAttribute("listeQuestionsQuiz") != null) {	
+					qtotale = (List<Question>)request.getAttribute("listeQuestions");
+					System.out.println(qtotale.toString());
+					listeQuestionQuiz = (List<Question>)request.getAttribute("listeQuestionsQuiz");
+					for(Question q1:qtotale){ %>
+						<tr>
+				
+						<td><input type="checkbox" id="<%=q1.getId()%>" name="questionId11" value="<%=q1.getId()%>"></td>
+						<td><%=q1.getLibelle()%></td>
+						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>" ><span class="glyphicon glyphicon-remove"></span></a></td>
+						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do"><span class="glyphicon glyphicon-edit"></span></a></td>
+					</tr>
+					<%	for (Question qq1:listeQuestionQuiz) {%>
+					<%		if (qq1.equals(q1)) { %>
+						<script>
+							var el=document.getElementById("<%=q1.getId()%>");
+							el.setAttribute("checked", "checked");
+						</script>
+						
+						<% } %>
+						<%} 
+					}
+				}
 						%>
 				</tbody>
 			</table>
 			<button type="submit" class="btn btn-primary">Créer</button>
    </form>
+   
    			<a href="<%=request.getContextPath()%>/VueQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
    <hr>
   </div>  

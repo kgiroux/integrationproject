@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
@@ -70,7 +72,28 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
 		create_expandable_list();
 
         //Initialisation pour test
-        initTest();
+        //initTest();
+
+        try {
+            JSONObject quizJson = new AndroidHTTPRequest().execute(MainActivity.IPSERVER + "AndroidInscriptionPersonne.do", "GET", null).get();
+
+            JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
+            currentQuiz.JSONObjectToQuiz(curQuiz);
+
+            JSONArray quizListJson = quizJson.getJSONArray("QuizList");
+            for(int i = 0; i<quizListJson.length(); i++) {
+                JSONObject quiz = quizListJson.getJSONObject(i);
+                Quiz q = new Quiz();
+                q.JSONObjectToQuiz(curQuiz);
+                quizList.add(q);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         TextView curText = (TextView) findViewById(R.id.current);
         TextView oldText = (TextView) findViewById(R.id.old);

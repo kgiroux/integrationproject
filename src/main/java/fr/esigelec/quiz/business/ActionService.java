@@ -28,8 +28,8 @@ import fr.esigelec.quiz.dto.Quiz;
 public class ActionService {
 	
 	/**
-	 * retourne la question courante
-	 * @param idQuiz
+	 * retourne la question courante 
+	 * @param idQuiz id du quiz
 	 * @return
 	 */
 	public static  Question  getQuestionByQuizId(int idQuiz){
@@ -40,10 +40,7 @@ public class ActionService {
 		
 		Quiz quiz= quizdaoimpl.getQuizAvecQuestions(idQuiz);	
 		
-		
-		
-		
-		
+	
 		Question question = quiz.getListeQuestions().get(quiz.getNoQuestionCourante());
 		
 		return question;

@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.controleur.android;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,6 +44,17 @@ public class AndroidQuizListAction extends Action{
 					json.put(String.valueOf(compteur), q);
 					compteur++;
 				}*/
+				List<Quiz> currentQuiz = new ArrayList<Quiz>();
+				currentQuiz.add(dao.getCurrentQuiz());
+				
+				//Find questions count for the current quizz
+				if(currentQuiz != null)
+				{
+					Quiz questionQuiz = dao.getQuizAvecQuestions((currentQuiz.get(0).getId()));
+					int nbQuestion = questionQuiz.getQuestions().size();
+					json.put("CurrentQuiz", currentQuiz);
+					json.put("nbQuestions", nbQuestion);
+				}
 				
 				//Return informations to client
 				request.setAttribute("json",json.toString());

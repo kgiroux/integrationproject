@@ -119,21 +119,26 @@ public class Quiz
     public void JSONObjectToQuiz(JSONObject obj){
         if(null != obj){
             try{
+
                 //Parsing datestring
-                Date debut,fin,debutQuestion;
+                Date fin = null, debut, debutQuestion = null;
                 SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
                 debut = formater.parse(obj.getString("dateDebutQuiz"));
-                fin = formater.parse(obj.getString("dateFinQuiz"));
-                debutQuestion = formater.parse(obj.getString("dateDebutQuestion"));
+                if(!obj.isNull("dateFinQuiz"))
+                    fin = formater.parse(obj.getString("dateFinQuiz"));
+                if(!obj.isNull("dateDebutQuestion"))
+                    debutQuestion = formater.parse(obj.getString("dateDebutQuestion"));
 
-                this.setId( obj.getInt ("id"));
+                this.setId(obj.getInt("id"));
                 this.setLibelle(obj.getString("libelle"));
                 this.setDateDebutQuiz(new Timestamp(debut.getTime()));
-                this.setDateFinQuiz(new Timestamp(fin.getTime()));
+                if(fin != null)
+                    this.setDateFinQuiz(new Timestamp(fin.getTime()));
                 this.setEtape(obj.getInt("etape"));
                 this.setNbQuestion(obj.getInt("nbQuestion"));
-                this.setNoQuestionCourante(obj.getInt("questionCourrante"));
-                this.setDateDebutQuestion(new Timestamp(debutQuestion.getTime()));
+                this.setNoQuestionCourante(obj.getInt("noQuestionCourante"));
+                if(debutQuestion != null)
+                    this.setDateDebutQuestion(new Timestamp(debutQuestion.getTime()));
 
             }catch(Exception jsonE){
                 Log.e("ERREUR", jsonE.getMessage());

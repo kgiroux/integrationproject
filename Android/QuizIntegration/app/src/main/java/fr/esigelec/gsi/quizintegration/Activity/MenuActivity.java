@@ -77,6 +77,7 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
         try {
             JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
 
+            //Get the list of all finished quiz from request
             quizList = new ArrayList<Quiz>();
             JSONArray quizListJson = quizJson.getJSONArray("QuizList");
             for(int i = 0; i<quizListJson.length(); i++) {
@@ -86,9 +87,17 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
                 quizList.add(q);
             }
 
-            JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
-            if(curQuiz != null)
-                currentQuiz.JSONObjectToQuiz(curQuiz);
+            //Save current quizz if exist
+            JSONArray curQuiz = quizJson.getJSONArray("CurrentQuiz");
+            if(curQuiz != null) {
+                currentQuiz = new Quiz();
+                JSONObject quiz = curQuiz.getJSONObject(0);
+                currentQuiz.JSONObjectToQuiz(quiz);
+            }
+
+            //Save number of questions for the current quiz
+            int nbQuestion = quizJson.getInt("nbQuestions");
+            currentQuiz.setNbQuestion(nbQuestion);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -109,7 +118,8 @@ public class MenuActivity extends Activity implements Toolbar.OnMenuItemClickLis
             TextView titre = (TextView) findViewById(R.id.title);
             titre.setText(currentQuiz.getLibelle());
             TextView date = (TextView) findViewById(R.id.date);
-            date.setText(currentQuiz.getDateDebutQuestion().toString());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            date.setText(simpleDateFormat.format(currentQuiz.getDateDebutQuiz()));
             TextView nbQuest = (TextView) findViewById(R.id.question);
             String text = getString(R.string.question) + currentQuiz.getNoQuestionCourante() + getString(R.string.separator) + currentQuiz.getNbQuestion();
             nbQuest.setText(text);

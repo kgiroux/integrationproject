@@ -8,7 +8,7 @@
             android:pivotY="50%"
             android:drawable="@drawable/choice_flip_selected" />
     </item>
-    <item android:state_focused="true">
+    <item android:state_selected="true">
         <rotate
             android:fromDegrees="180"
             android:toDegrees="180"

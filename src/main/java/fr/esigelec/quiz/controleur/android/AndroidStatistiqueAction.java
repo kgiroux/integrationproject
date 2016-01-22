@@ -12,9 +12,13 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.json.JSONObject;
 
+import fr.esigelec.quiz.dao.hibernate.ChoisirDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
+import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.AndroidHelper;
 /**
@@ -28,22 +32,34 @@ public class AndroidStatistiqueAction extends Action{
 		
 			if("POST".equals(request.getMethod()))
 			{
-				//TODO
 				int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
+				int idQuestion = Integer.parseInt(request.getParameter("idQuestion"));
+				
 				
 				//List<Quiz> quizList
 				QuizDAOImpl daoQuiz = new QuizDAOImpl();
-				Quiz quiz = daoQuiz.getQuiz(idQuiz);
-				if(quiz == null){
-					JSONObject json = AndroidHelper.DoGetForbiddenException();
-					request.setAttribute("json", json.toString());
-					return mapping.findForward("succes");
+				Quiz quiz = daoQuiz.getQuizAvecQuestions(idQuiz);
+				Question currentQuestion = null;
+				for(Question q : quiz.getListeQuestions()){
+					if(q.getId() == idQuestion){
+						currentQuestion = q;
+						break;
+					}
 				}
-				QuestionDAOImpl daoQuestion = new QuestionDAOImpl();
-				JSONObject json = new JSONObject(quiz);
+				
+				ChoisirDAOImpl choixDao = new ChoisirDAOImpl();
+				ArrayList<Integer> listChoisir = new ArrayList<>();
+				if(currentQuestion != null){
+					for(Proposition p : currentQuestion.getListePropositions()){
+						listChoisir.add(choixDao.getNombrePersonneParProposition(quiz, p));
+					}
+				}else{
+					// TODO error no question Found
+				}
+				
+				JSONObject json = new JSONObject(listChoisir);
 				System.out.println(json.toString());
 				request.setAttribute("json",json.toString());
-				
 				return mapping.findForward("succes");
 			}
 			return mapping.findForward("error");

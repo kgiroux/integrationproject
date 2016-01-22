@@ -2,7 +2,7 @@ package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,40 +29,30 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
  * Edited by Kévin PACE on 18/01/2016
  */
 
-
 public class GameActivity extends Activity implements View.OnClickListener
 {
     private Question question;
     private int respGiven = 0;
-    private String IPSERVER;
     private Button button1;
     private Button button2;
     private Button button3;
     private Button button4;
 	private TextView timer;
+    private final Handler timerHandler = new Handler();
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-        IPSERVER = MainActivity.IPSERVER;
+
         //Initialisation pour test
         initTest();
         initIHM();
-		timer = (TextView) findViewById(R.id.timer);
-        new CountDownTimer(30000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-					TextView timer = (TextView) findViewById(R.id.timer);
-                int second = Integer.parseInt(timer.getText().toString());
-                timer.setText(String.valueOf(second - 1));
-            }
-
-            public void onFinish() {
-                TextView timer = (TextView) findViewById(R.id.timer);
-                timer.setText("00");
-            }
-        }.start();
+        //Create time thread
+        timer = (TextView) findViewById(R.id.timer);
+        createTimer(28);
     }
 
     private void initIHM(){
@@ -142,41 +132,66 @@ public class GameActivity extends Activity implements View.OnClickListener
                 button3.setEnabled(false);
                 button4.setClickable(false);
                 button4.setSelected(true);
-                idProposition =  question.getListePropositions ().get (3).getId ();
+                idProposition = question.getListePropositions().get(3).getId ();
                 break;
         }
 
         //Send answer to the server
         Choisir chx = new Choisir ();
-        chx.setPersonne (SingletonPersonne.getInstance ().getPersonne ().getId ());
-        chx.setQuiz (1);
-        chx.setProposition (idProposition);
-		boolean send = false;
+        chx.setPersonne(SingletonPersonne.getInstance().getPersonne().getId());
+        chx.setQuiz(1);
+        chx.setProposition(idProposition);
+        boolean send = false;
+
         try
         {
             //do{
-				JSONObject choiceJSON = new AndroidHTTPRequest().execute(IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())).get();
-				if(choiceJSON.has("err_code"))
-                {
-					int err_code = choiceJSON.getInt("err_code");
-					ErrorManager error = SingletonErrorManager.getInstance().getError();
+            JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
+            if(choiceJSON.has("err_code"))
+            {
+                int err_code = choiceJSON.getInt("err_code");
+                ErrorManager error = SingletonErrorManager.getInstance().getError();
 
-                    //Choice successfully saved into server database
-					if("CHOICE_SAVE".equals(error.errorManager(err_code))){
-						Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
-						send = true;
-					}
-                    //Error on choice saving
-                    else
-                    {
-						Toast.makeText(getApplicationContext(),error.errorManager(err_code),Toast.LENGTH_LONG).show();
-					}
-				}
-			//}while("00".equals(timer.getText ().toString ()) || send );
+                //Choice successfully saved into server database
+                if("CHOICE_SAVE".equals(error.errorManager(err_code))){
+                    Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
+                    send = true;
+                }
+                //Error on choice saving
+                else
+                {
+                    Toast.makeText(getApplicationContext(),error.errorManager(err_code),Toast.LENGTH_LONG).show();
+                }
+            }
+            //}while("00".equals(timer.getText ().toString ()) || send );
         }
         catch(Exception ex)
         {
             Log.e("ERROR",ex.getMessage());
         }
+    }
+
+    private void createTimer(final int initialValue)
+    {
+        new Thread() {
+            int counter = initialValue;
+            @Override
+            public void run() {
+                do {
+                    timerHandler.post(new Runnable(){
+                        @Override
+                        public void run() {
+                            timer.setText(Integer.toString(counter));
+                        }
+                    });
+                    counter--;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }while(counter > 0);
+            }
+        }.start();
     }
 }

@@ -20,7 +20,7 @@ import java.util.Map;
  * Created by Kevin PACE
  */
 
-public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
+public class AndroidHTTPRequest extends AsyncTask<String[], Void, JSONObject>
 {
     public JSONObject executeRequest(String url, String method, String paramsStr)
     {
@@ -28,6 +28,8 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
         HttpURLConnection urlConnection = null;
         String str;
         JSONObject json = null;
+        OutputStream os = null;
+        InputStream in = null;
 
         try
         {
@@ -39,15 +41,14 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
             urlConnection.setReadTimeout(15000);
             urlConnection.setConnectTimeout(15000);
             urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
 
             //Send parameters to the request
-            if("POST".equals(method))
-            {
+            if("POST".equals(method) && paramsStr != null) {
                 urlConnection.setRequestMethod("POST");
-                urlConnection.setDoOutput(true);
 
                 //Write params to the request
-                OutputStream os = urlConnection.getOutputStream();
+                os = urlConnection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
                 writer.write(paramsStr);
@@ -60,8 +61,9 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
 
             //Retrive information from the URL
             urlConnection.connect();
-            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            in = new BufferedInputStream(urlConnection.getInputStream());
             str = streamToString(in);
+            in.close();
 
             json = new JSONObject(str);
 
@@ -113,7 +115,7 @@ public class AndroidHTTPRequest extends AsyncTask<String, Void, JSONObject>
     }
 
     @Override
-    protected JSONObject doInBackground(String... params) {
-        return executeRequest(params[0],params[1],params[2]);
+    protected JSONObject doInBackground(String[]... params) {
+        return executeRequest(params[0][0],params[0][1],params[0][2]);
     }
 }

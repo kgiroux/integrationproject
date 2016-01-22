@@ -43,7 +43,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
  */
 public class MainActivity extends Activity implements View.OnClickListener, Toolbar.OnMenuItemClickListener
 {
-	public static String IPSERVER = "http://176.31.114.109/quiz/";
+	public static String IPSERVER = "http://10.0.2.2:8080/quiz/";
 	public static boolean DEBUG = true;
 	public static boolean DEV = false;
 	private DrawerLayout mDrawerLayout;
@@ -231,13 +231,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
         subscribeButton.setTypeface(myTypeface);
-		subscribeButton.setOnClickListener (new View.OnClickListener ()
-		{
+		subscribeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick (View v)
-			{
-				Intent t = new Intent (getApplicationContext (), InscriptionActivity.class);
-				startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
+			public void onClick(View v) {
+				Intent t = new Intent(getApplicationContext(), InscriptionActivity.class);
+				startActivityForResult(t, REQUEST_CODE_INSCRIPTION);
 			}
 		});
 
@@ -271,7 +269,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Tool
 				try
 				{
 					//Toast.makeText(getApplicationContext(), pers.PersonneToHashMap().toString(), Toast.LENGTH_LONG).show();
-					JSONObject perJson = new AndroidHTTPRequest().execute(IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())).get();
+					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
 					if(null != perJson){
 						if(perJson.has("err_code")){
 							int err_code = perJson.getInt("err_code");

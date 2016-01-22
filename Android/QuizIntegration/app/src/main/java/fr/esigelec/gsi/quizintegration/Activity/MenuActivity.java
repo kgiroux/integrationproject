@@ -92,87 +92,92 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
         //Initialisation pour test
         //initTest();
 
-        try {
-            JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
+		initIHM();
 
-            //Get the list of all finished quiz from request
-            quizList = new ArrayList<Quiz>();
-            JSONArray quizListJson = quizJson.getJSONArray("QuizList");
-            for(int i = 0; i<quizListJson.length(); i++) {
-                JSONObject quiz = quizListJson.getJSONObject(i);
-                Quiz q = new Quiz();
-                q.JSONObjectToQuiz(quiz);
-                quizList.add(q);
-            }
+	}
 
-            //Save current quizz if exist
-            JSONArray curQuiz = quizJson.getJSONArray("CurrentQuiz");
-            if(curQuiz != null) {
-                currentQuiz = new Quiz();
-                JSONObject quiz = curQuiz.getJSONObject(0);
-                currentQuiz.JSONObjectToQuiz(quiz);
-            }
+	public void initIHM(){
+		try {
+			JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
 
-            //Save number of questions for the current quiz
-            int nbQuestion = quizJson.getInt("nbQuestions");
-            currentQuiz.setNbQuestion(nbQuestion);
+			//Get the list of all finished quiz from request
+			quizList = new ArrayList<Quiz>();
+			JSONArray quizListJson = quizJson.getJSONArray("QuizList");
+			for(int i = 0; i<quizListJson.length(); i++) {
+				JSONObject quiz = quizListJson.getJSONObject(i);
+				Quiz q = new Quiz();
+				q.JSONObjectToQuiz(quiz);
+				quizList.add(q);
+			}
+			//Save current quizz if exist
+			JSONArray curQuiz = quizJson.getJSONArray("CurrentQuiz");
+			if(curQuiz != null) {
+				currentQuiz = new Quiz();
+				JSONObject quiz = curQuiz.getJSONObject(0);
+				currentQuiz.JSONObjectToQuiz(quiz);
+			}
+			//Save number of questions for the current quiz
+			int nbQuestion = quizJson.getInt("nbQuestions");
+			currentQuiz.setNbQuestion(nbQuestion);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+		TextView curText = (TextView) findViewById(R.id.current);
+		TextView oldText = (TextView) findViewById(R.id.old);
+		curText.setTypeface(myTypeface);
+		oldText.setTypeface(myTypeface);
 
-        TextView curText = (TextView) findViewById(R.id.current);
-        TextView oldText = (TextView) findViewById(R.id.old);
-        curText.setTypeface(myTypeface);
-        oldText.setTypeface(myTypeface);
+		final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
+		currentQuizLayout.removeAllViews ();
 
-        final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
+		if (currentQuiz != null){
+			TextView titre = (TextView) findViewById(R.id.title);
+			titre.setText(currentQuiz.getLibelle());
+			TextView date = (TextView) findViewById(R.id.date);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			date.setText(simpleDateFormat.format(currentQuiz.getDateDebutQuiz()));
+			TextView nbQuest = (TextView) findViewById(R.id.question);
+			String text = getString(R.string.question) + currentQuiz.getNoQuestionCourante() + getString(R.string.separator) + currentQuiz.getNbQuestion();
+			nbQuest.setText(text);
+		} else {
+			currentQuizLayout.setVisibility(View.GONE);
+		}
 
-        if (currentQuiz != null){
-            TextView titre = (TextView) findViewById(R.id.title);
-            titre.setText(currentQuiz.getLibelle());
-            TextView date = (TextView) findViewById(R.id.date);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            date.setText(simpleDateFormat.format(currentQuiz.getDateDebutQuiz()));
-            TextView nbQuest = (TextView) findViewById(R.id.question);
-            String text = getString(R.string.question) + currentQuiz.getNoQuestionCourante() + getString(R.string.separator) + currentQuiz.getNbQuestion();
-            nbQuest.setText(text);
-        } else {
-            currentQuizLayout.setVisibility(View.GONE);
-        }
-
-        currentQuizLayout.setOnClickListener(new View.OnClickListener() {
+		currentQuizLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),GameActivity.class);
-                intent.putExtra("idQuiz", currentQuiz.getId());
+				Intent intent = new Intent(v.getContext(),GameActivity.class);
+				intent.putExtra("idQuiz", currentQuiz.getId());
 				startActivity(intent);
 			}
 		});
-        if(quizList != null)
-        {
-            for (Quiz quiz : quizList) {
-                LayoutInflater curQuizLayout = this.getLayoutInflater();
-                View view = curQuizLayout.inflate(R.layout.old_quiz, null);
+		if(quizList != null)
+		{
+			for (Quiz quiz : quizList) {
+				LayoutInflater curQuizLayout = this.getLayoutInflater();
+				View view = curQuizLayout.inflate(R.layout.old_quiz, null);
 				view.setId (quiz.getId ());
-                TextView title = (TextView) view.findViewById(R.id.title);
-                TextView date = (TextView) view.findViewById(R.id.date);
+				TextView title = (TextView) view.findViewById(R.id.title);
+				TextView date = (TextView) view.findViewById(R.id.date);
 
-                title.setText(quiz.getLibelle());
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
+				title.setText(quiz.getLibelle());
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
 
 				view.setOnClickListener (this);
 
-                LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
-                oldQuiz.addView(view);
-            }
-        }
+				LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
+				oldQuiz.removeAllViews ();
+				oldQuiz.addView(view);
+			}
+		}
 	}
+
 
 	public void create_drawer ()
 	{
@@ -370,7 +375,7 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 			@Override
 			public void run() {
 				layout.setRefreshing(false);
-				//TODO 
+				initIHM();
 			}
 		}, 1500);
 	}

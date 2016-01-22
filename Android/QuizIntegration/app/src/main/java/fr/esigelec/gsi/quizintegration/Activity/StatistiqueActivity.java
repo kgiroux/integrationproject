@@ -21,9 +21,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 import fr.esigelec.gsi.quizintegration.Objects.Quiz;
+import fr.esigelec.gsi.quizintegration.Objects.ResultQuestion;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 
@@ -31,7 +33,6 @@ public class StatistiqueActivity extends AppCompatActivity implements OnChartVal
 
 
     private PieChart mChart;
-
 	protected String[] mParties = new String[] {
 			"Réponse A", "Réponse B", "Réponse C", "Réponse D"
 	};
@@ -40,28 +41,37 @@ public class StatistiqueActivity extends AppCompatActivity implements OnChartVal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistique);
+		int idQuestion = getIntent ().getIntExtra ("idQuestion",0);
+		int idQuiz= getIntent ().getIntExtra ("idQuestion",0);
+		ResultQuestion resultQuestion = new ResultQuestion(idQuestion,idQuiz);
 
-		/*try {
-			JSONObject quizJson = new AndroidHTTPRequest ().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", ""}).get();
+		if(idQuestion == 0){
+			//TODO error
+		}else{
+			try {
+				JSONObject quizJson = new AndroidHTTPRequest ().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "POST",AndroidHTTPRequest.createParamString (resultQuestion.ResultQuestionToHashMap ()) }).get();
 
-			JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
-			if(!"noQuiz".equals(curQuiz.toString()))
-				currentQuiz.JSONObjectToQuiz(curQuiz);
+				JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
+				//if(!"noQuiz".equals(curQuiz.toString()))
+					//	currentQuiz.JSONObjectToQuiz(curQuiz);
 
-			JSONArray quizListJson = quizJson.getJSONArray("QuizList");
-			for(int i = 0; i<quizListJson.length(); i++) {
-				JSONObject quiz = quizListJson.getJSONObject(i);
-				Quiz q = new Quiz();
-				q.JSONObjectToQuiz(curQuiz);
-				quizList.add(q);
+				JSONArray quizListJson = quizJson.getJSONArray("QuizList");
+				for(int i = 0; i<quizListJson.length(); i++) {
+					JSONObject quiz = quizListJson.getJSONObject(i);
+					Quiz q = new Quiz();
+					q.JSONObjectToQuiz(curQuiz);
+					//quizList.add(q);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}*/
+		}
+
+
 
 
 

@@ -46,6 +46,7 @@ public class GameActivity extends Activity implements View.OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
+		int idQuiz = getIntent ().getIntExtra ("idQuiz",0);
 
         boolean TEST = true;
 
@@ -59,6 +60,8 @@ public class GameActivity extends Activity implements View.OnClickListener
 
         if(TEST){
             Intent t = new Intent (this,StatistiqueActivity.class);
+            t.putExtra ("idQuestion",question.getId ());
+			t.putExtra ("idQuiz",idQuiz);
             startActivity (t);
         }
     }

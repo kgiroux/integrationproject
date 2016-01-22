@@ -70,7 +70,6 @@ public class QuizDAOImpl implements IQuizDAO {
         Quiz quiz = (Quiz) query.uniqueResult();
         session.getTransaction().commit();
         session.close();
-        logger.info("Current Quiz: " + quiz.toString());
         return quiz;
     }
 	

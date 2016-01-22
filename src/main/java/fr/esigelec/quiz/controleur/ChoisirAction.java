@@ -16,11 +16,15 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import java.util.List;
+
+import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dao.hibernate.ChoisirDAOImpl;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 
@@ -44,14 +48,33 @@ public class ChoisirAction extends Action {
 	    Quiz quiz  = (Quiz) session.getAttribute("quiz");
 	    Proposition proposition = new Proposition();
 	    proposition.setId(idProposition);
+	    boolean dejaChoisi=false;
 	    
+	    Question question=ActionService.getQuestionByQuizId(quiz.getId());
+	    List<Proposition> propositions=question.getListePropositions();
+	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
+	    List<Choisir> listeChoix=choisirDAO.getChoixPersonneParQuiz(personne,quiz);
+	    
+	    
+	    //recherche si on a deja voté pour cette question
+	    for(Proposition p:propositions)
+	    	if(p.getId()==idProposition)
+	    	{
+	    		dejaChoisi=true;
+	    		break;
+	    	}
+	    
+	    
+	    boolean choose=false;
 		Choisir choisir=new Choisir(new Timestamp(System.currentTimeMillis()),proposition,quiz,personne);
 	    
+	  
+	  
+		
 	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
-	    choisirDAO.createChoix(choisir);
 	    
 	    
-		/*Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
 		
         Timestamp questionStartTime = quiz.getDateDebutQuestion() ;
         
@@ -60,15 +83,37 @@ public class ChoisirAction extends Action {
         cal.add(Calendar.SECOND, 30);
        		
 		if ( currentTime.before(cal.getTime())){
-			*/
-			//OUT 
-			session.setAttribute("idProposition", idProposition);
 			
-		/*}
+			//OUT 
+	    if(choose){
+	    	choisirDAO.updateChoix(choisir);
+	    }
+	    else{
+	    	choisirDAO.createChoix(choisir);	
+	    	choose= true;
+			session.setAttribute("idProposition", idProposition);
+	    }
+	    	
+			
+			
+			for(Choisir c:listeChoix){
+				
+				if(c.getProposition().)
+				
+				
+			}
+			
+			dejaChoisi=choisirDAO.createChoix(choisir);
+			
+			if(dejaChoisi)
+				choisirDAO.updateChoix(choisir);
+					
+			
+		}
 		else {
 			session.setAttribute("idProposition", -1);
 		}
-*/
+
 		choisirActionLogger.debug("Action terminee avec succes");
 		return mapping.findForward("succes");
 		

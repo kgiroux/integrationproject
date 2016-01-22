@@ -52,7 +52,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.delete(c);
 		session.getTransaction().commit();
 		session.close();
-		logger.info("deletePersonne: " + c);
+		logger.info("deleteChoix: " + c);
 		return (c == null);
 	}
 
@@ -78,7 +78,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		List<Choisir> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
-		logger.info("getNombrePersonneParQuiz" + retour.toString() + " for quiz : " + q.toString());
+		//logger.info("getNombrePersonneParQuiz" + retour.toString() + " for quiz : " + q.toString());
 		return retour.size();
 	}
 	
@@ -93,5 +93,29 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.close();
 		logger.info("getNombrePersonneParProposition" + retour.size() + " for quiz : " + q.toString() + " and Proposition : " + p.toString());
 		return retour.size();
+	}
+	
+	@Override
+	public Choisir getChoix(int id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Choisir retour = (Choisir) session.get(Choisir.class, id);
+		System.out.println(retour.toString());
+		session.getTransaction().commit();
+		session.close();
+		logger.info("get Choix: " + retour.toString() + " From id : " + id);
+		return retour;
+	}
+	
+	public List<Personne> getClassement(Quiz quiz){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		
+		String hql = "from Choisir where quiz.id = "+ quiz.getId();
+		
+		
+		
+		
+		return null;
 	}
 }

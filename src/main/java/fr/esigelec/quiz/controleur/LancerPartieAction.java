@@ -39,9 +39,16 @@ public class LancerPartieAction extends Action {
 			quiz.setDateDebutQuiz(currentTime);
 			quiz.setDateDebutQuestion(currentTime);
 			quiz.setNoQuestionCourante(0);
+			
+			quiz.setEtape(1);
+			
 			quizDAO.updateQuiz(quiz);
 			
 			Question question = ActionService.getQuestionByQuizId(idQuiz);
+			
+			
+			
+			
 			
 			
 			session.setAttribute("quiz", quiz);

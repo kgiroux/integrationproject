@@ -35,14 +35,24 @@ public class JouerAction extends Action {
 		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
 		HttpSession session = request.getSession();
 
-		
+		int idQuiz =0;
+		Quiz quiz =null;
 		//IN 
 		//Personne personne = (Personne) session.getAttribute("personne");
-		int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
+		if(request.getParameter("idQuiz")!=null){
 		
+		 idQuiz=Integer.parseInt(request.getParameter("idQuiz"));
+		 quiz = quizdaoimpl.getQuizAvecQuestions(idQuiz);
+		}
+		else
+			{
+			quiz=(Quiz)session.getAttribute("quiz");
+			idQuiz=quiz.getId();
+			}
+			
 		
 		//OUT 
-		Quiz quiz = quizdaoimpl.getQuizAvecQuestions(idQuiz);
+		
 		// TODO: 
 		// Salut mon ami, 
 		// Les questions sont déjà stockées dans quiz.

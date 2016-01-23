@@ -110,5 +110,6 @@
 	  </c:forEach>
     </tbody>
   </table>
+  <a href="${pageContext.request.contextPath}/Jouer.do" class="btn btn-primary">question suivante</a>
 </div>
 <jsp:include page="/footer.jsp" />

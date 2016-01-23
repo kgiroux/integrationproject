@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.apache.commons.collections.map.LinkedMap;
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
@@ -164,8 +165,6 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		
 		String hql = "from Choisir where quiz.id = " + quiz.getId();
 		List<Choisir> listChoix = session.createQuery(hql).list();
-
-		
 		return listChoix;
 	}
 }

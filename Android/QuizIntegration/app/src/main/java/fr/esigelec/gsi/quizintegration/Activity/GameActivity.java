@@ -1,7 +1,6 @@
 package fr.esigelec.gsi.quizintegration.Activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -20,7 +20,6 @@ import fr.esigelec.gsi.quizintegration.Objects.Choisir;
 import fr.esigelec.gsi.quizintegration.Objects.Proposition;
 import fr.esigelec.gsi.quizintegration.Objects.Question;
 import fr.esigelec.gsi.quizintegration.R;
-import fr.esigelec.gsi.quizintegration.adapter.ListenerQuestion;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
@@ -33,57 +32,70 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 public class GameActivity extends Activity implements View.OnClickListener
 {
     private Question question;
-    private final ListenerQuestion listner = new ListenerQuestion();
-    private int respGiven = 0;
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Button button4;
+    private int idQuiz = -1;
+    private Button buttons[] = new Button[4];
 	private TextView timer;
-    private final Handler timerHandler = new Handler();
+    private final Handler gameHandler = new Handler();
+
+    //Thread pour la récupération d'infos
+    Thread requestThread;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-		int idQuiz = getIntent ().getIntExtra ("idQuiz",0);
+		idQuiz = getIntent ().getIntExtra ("idQuiz",0);
 
-        boolean TEST = true;
+        //Récupération des boutons
+        buttons[0] = (Button) findViewById(R.id.choice_one);
+        buttons[1] = (Button) findViewById(R.id.choice_two);
+        buttons[2] = (Button) findViewById(R.id.choice_three);
+        buttons[3] = (Button) findViewById(R.id.choice_four);
 
-        //Initialisation pour test
+        //Create question
+        question = new Question();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        //Chargement des informations de la question
+        onQuizListener(0);
         //initTest();
+        super.onResume();
+    }
 
-        //Initialisation des IHMs
-        createQuestion(listner.OnListener(0));
-        initIHM();
+    @Override
+    protected void onPause() {
 
-        //Récupération du timer et lancement du thread
-        timer = (TextView) findViewById(R.id.timer);
-        createTimer(28);
+        //Désactivation des threads de la partie jouer
+        requestThread.interrupt();
+        requestThread = null;
+
+        super.onPause();
     }
 
     //Méthode d'initialisation des IHMs
-    private void initIHM(){
+    private void initQuestionIHM(){
         TextView titleQuestion = (TextView) findViewById(R.id.quest_number);
-        titleQuestion.setText("Question ");
+        titleQuestion.setText("Question " + (question.getNumQuestion() + 1) + ":");
 
         TextView questionText = (TextView) findViewById(R.id.question);
-        button1 = (Button) findViewById(R.id.choice_one);
-        button2 = (Button) findViewById(R.id.choice_two);
-        button3 = (Button) findViewById(R.id.choice_three);
-        button4 = (Button) findViewById(R.id.choice_four);
 
         questionText.setText(question.getLibelle());
-        button1.setText(question.getListePropositions().get(0).getLibelle());
-        button2.setText(question.getListePropositions().get(1).getLibelle());
-        button3.setText(question.getListePropositions().get(2).getLibelle());
-        button4.setText(question.getListePropositions().get(3).getLibelle());
+        for(int i=0; i < 4;i++)
+        {
+            //Reset butons
+            buttons[i].setClickable(true);
+            buttons[i].setEnabled(true);
+            buttons[i].setSelected(false);
+            buttons[i].setActivated(false);
 
-		button1.setOnClickListener(this);
-		button2.setOnClickListener(this);
-		button3.setOnClickListener(this);
-		button4.setOnClickListener(this);
+            //Définition du contenu des boutons
+            buttons[i].setText(question.getListePropositions().get(i).getLibelle());
+            buttons[i].setOnClickListener(this);
+        }
 
         ImageButton quit = (ImageButton) findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {
@@ -113,12 +125,41 @@ public class GameActivity extends Activity implements View.OnClickListener
     protected void createQuestion(JSONObject qtJson)
     {
         //Remplissage de l'objet question de l'interface courante
-        question.JSONObjectToQuestion(qtJson);
+        if(qtJson != null)
+            question.JSONObjectToQuestion(qtJson);
+
+        //Réactivation des bouttons
+        for(int i=0;i<4;i++)
+            buttons[i].setClickable(true);
+
+        //Initialisation des IHMs
+        initQuestionIHM();
+
+        //Récupération du timer et lancement du thread
+        timer = (TextView) findViewById(R.id.timer);
+        try {
+            createTimer(qtJson.getInt("timer"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
-    //Methode d'affichage de la réponse
-    protected void displayReponse()
+
+    //Méthode d'affichage de la réponse
+    protected void displayResponse(int idProp)
     {
-        listner.OnListener(1);
+        //Affichage de la réponse en surbrillant vert
+        List<Proposition> props = question.getListePropositions();
+        for(int i=0; i<props.size();i++) {
+            if (props.get(i).getId() == idProp)
+            {
+                buttons[i].setActivated(true);
+                buttons[i].setEnabled(true);
+                break;
+            }
+        }
+
+        //Attente de la question suivante
+        onQuizListener(0);
     }
 
     @Override
@@ -131,35 +172,35 @@ public class GameActivity extends Activity implements View.OnClickListener
             //Changement de la couleur du bouton sélectionné et désactivation des autres boutons
             switch (v.getId()) {
                 case R.id.choice_one:
-                    button1.setClickable(false);
-                    button1.setSelected(true);
-                    button2.setEnabled(false);
-                    button3.setEnabled(false);
-                    button4.setEnabled(false);
+                    buttons[0].setClickable(false);
+                    buttons[0].setSelected(true);
+                    buttons[1].setEnabled(false);
+                    buttons[2].setEnabled(false);
+                    buttons[3].setEnabled(false);
                     idProposition = question.getListePropositions().get(0).getId();
                     break;
                 case R.id.choice_two:
-                    button1.setEnabled(false);
-                    button2.setSelected(true);
-                    button2.setClickable(false);
-                    button3.setEnabled(false);
-                    button4.setEnabled(false);
+                    buttons[0].setEnabled(false);
+                    buttons[1].setSelected(true);
+                    buttons[1].setClickable(false);
+                    buttons[2].setEnabled(false);
+                    buttons[3].setEnabled(false);
                     idProposition = question.getListePropositions().get(1).getId();
                     break;
                 case R.id.choice_three:
-                    button1.setEnabled(false);
-                    button2.setEnabled(false);
-                    button3.setSelected(true);
-                    button3.setClickable(false);
-                    button4.setEnabled(false);
+                    buttons[0].setEnabled(false);
+                    buttons[1].setEnabled(false);
+                    buttons[2].setSelected(true);
+                    buttons[2].setClickable(false);
+                    buttons[3].setEnabled(false);
                     idProposition = question.getListePropositions().get(2).getId();
                     break;
                 case R.id.choice_four:
-                    button1.setEnabled(false);
-                    button2.setEnabled(false);
-                    button3.setEnabled(false);
-                    button4.setClickable(false);
-                    button4.setSelected(true);
+                    buttons[0].setEnabled(false);
+                    buttons[1].setEnabled(false);
+                    buttons[2].setEnabled(false);
+                    buttons[3].setClickable(false);
+                    buttons[3].setSelected(true);
                     idProposition = question.getListePropositions().get(3).getId();
                     break;
             }
@@ -167,7 +208,7 @@ public class GameActivity extends Activity implements View.OnClickListener
             //Création de l'objet du choix de l'utilisateur
             Choisir chx = new Choisir();
             chx.setPersonne(SingletonPersonne.getInstance().getPersonne().getId());
-            chx.setQuiz(1);
+            chx.setQuiz(idQuiz);
             chx.setProposition(idProposition);
 
             //Booléen vérifiant si l'envoie a été effectué
@@ -204,20 +245,103 @@ public class GameActivity extends Activity implements View.OnClickListener
             @Override
             public void run() {
                 do {
-                    timerHandler.post(new Runnable(){
+                    gameHandler.post(new Runnable(){
                         @Override
                         public void run() {
                             timer.setText(Integer.toString(counter));
                         }
                     });
-                    counter--;
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }while(counter > 0);
+                    counter--;
+                } while (counter >= 0);
+
+                //Récupération de la réponse à la fin du timer
+                gameHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        onQuizListener(1);
+
+                        //Désactivation des boutons
+                        for (int i=0; i<4 ;i++)
+                        {
+                            buttons[i].setClickable(false);
+                            buttons[i].setEnabled(false);
+                        }
+                    }
+                });
             }
         }.start();
+    }
+
+    /** Méthode de lancement de l'écoute d'un changement d'état du quiz
+     * @param requestType Indique si ce que l'on souhaite récupérer
+     *                    0-> Récupération de la question
+     *                    1-> Récupération de la réponse
+     */
+    private void onQuizListener(final int requestType)
+    {
+        requestThread = new Thread() {
+            JSONObject objJson = null;
+            boolean resend = true;
+            int requestCode = requestType;
+
+            @Override
+            public void run() {
+                do {
+                    try {
+                        objJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&idQuestion=" + question.getId()}).get();
+
+                        //Vérification si le JSON contient les informations désirées
+                        if (objJson != null)
+                            if (objJson.has("Question") || objJson.has("Reponse"))
+                                resend = false;
+
+                        //Attendre 500ms avant le renvoie d'une autre requête
+                        try {
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (Exception ex) {
+                        Log.e("ERROR", ex.getMessage());
+                    }
+                } while (resend && !this.isInterrupted());
+
+                //Exécution de la méthode en lien avec la réponse
+                if(!this.isInterrupted())
+                {
+                    try {
+                        switch (requestCode) {
+                            case 0: //On veut la question
+                                final JSONObject qt = objJson.getJSONObject("Question");
+                                gameHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        createQuestion(qt);
+                                    }
+                                });
+                                break;
+                            case 1: //On veut la réponse
+                                final int rp = objJson.getInt("Reponse");
+                                gameHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        displayResponse(rp);
+                                    }
+                                });
+                                break;
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        requestThread.start();
     }
 }

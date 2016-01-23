@@ -19,6 +19,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import fr.esigelec.quiz.business.ActionService;
+import fr.esigelec.quiz.dao.IQuizDAO;
+import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
@@ -33,10 +35,20 @@ public class VueQuestionAction extends Action {
 		HttpSession session = request.getSession();
 		
 		//IN
-		Question question = (Question) session.getAttribute("question");
+		//Question question = (Question) session.getAttribute("question");
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
+		
+		Question question = ActionService.getQuestionByQuizId(quiz.getId());
+		
 		int idBonneReponse = 0;
 		Set<Proposition> listProposition = question.getPropositions();
+		
+		
+		IQuizDAO quizDAO=new QuizDAOImpl();
+		//on rafraichit le quiz à partir de la BDD
+		quiz=quizDAO.getQuizAvecQuestions(quiz.getId());
+		
+		
 		
 		for(Proposition proposition : listProposition){
 			if(proposition.isEstBonneReponse()){
@@ -44,17 +56,25 @@ public class VueQuestionAction extends Action {
 			}
 		}
 		
+		//on ne calcule les % et le classement que quand c'est necessaire
+		if(quiz.getEtape()==3){
 		List<Personne> classement = ActionService.getClassement(quiz);
-		
+		session.setAttribute("classement", classement);
+		}
+		if(quiz.getEtape()>=2){
 		List<Proposition> pourcentage = ActionService.getPourcentagePropositions(quiz, question);
+		session.setAttribute("pourcentage", pourcentage);
+		}
 		
 		
 		
 		
 		//OUT
+		session.setAttribute("quiz", quiz);
+		session.setAttribute("question", question);
 		session.setAttribute("idBonneReponse", idBonneReponse);
-		session.setAttribute("classement", classement);
-		session.setAttribute("pourcentage", pourcentage);
+		
+		
 		
 		
 		return mapping.findForward("succes");

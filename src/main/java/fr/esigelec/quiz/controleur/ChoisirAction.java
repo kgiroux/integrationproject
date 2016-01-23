@@ -168,6 +168,7 @@ public class ChoisirAction extends Action {
 				choisirDAO.createChoix(choisir);
 			}
 			choisirActionLogger.debug("Action terminee avec succes");
+			session.setAttribute("idProposition", idProposition);
 			return mapping.findForward("succes");
 		} else {
 			//le temps est depass�

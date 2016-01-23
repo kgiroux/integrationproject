@@ -68,13 +68,24 @@ session.setAttribute("questioncurrente",questioncur);
 
 <%--affichage du bouton pour passer a la question suivante seulement si on est pas a la derniere question --%>
 <c:if test="${compteur+1<quiz.questions.size()}">
-<%=count+1 %> / <%=quiz.getQuestions().size() %>
 <a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>" class="btn btn-primary
 <c:if test="${quiz.etape != 3}"> disabled</c:if>
 " id="suivant">Question suivante</a>
 </c:if>
 
 <h1>Question n°<%=count+1%>/<%=quiz.getQuestions().size() %></h1>
+
+  <%--DEBUT Barre de progression --%>
+  <div class="progress">
+    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
+     style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
+       <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+    </div>
+</div>
+
+  <%--FIN Barre de progression --%>
+
+
 </div>
 <hr>
 <div class="form-center">

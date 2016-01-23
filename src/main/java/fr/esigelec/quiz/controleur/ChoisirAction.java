@@ -62,7 +62,7 @@ public class ChoisirAction extends Action {
 			
 			session.setAttribute("idProposition", -1);
 			choisirActionLogger.debug("Time out, duree = " + duree + "ms.");
-			return mapping.findForward("erreur-time-out");
+			return mapping.findForward("time-out");
 				
 		} else {
 
@@ -124,7 +124,7 @@ public class ChoisirAction extends Action {
 		
 		//si on vote dans le temps imparti
 		//ATTENTION : controle du temps non activ� pour le moment pour faciliter le debugage
-		if (true || currentTime.before(cal.getTime())) {
+		if (currentTime.before(cal.getTime())) {
 
 			choisirActionLogger.debug("vote dans les 30s");
 
@@ -154,14 +154,13 @@ public class ChoisirAction extends Action {
 				// sinon on l'ajoute
 				choisirDAO.createChoix(choisir);
 
+			choisirActionLogger.debug("Action terminee avec succes");
+			return mapping.findForward("succes");
 		} else {
 			//le temps est depass�
 			choisirActionLogger.debug("vote apr�s les 30s");
 			session.setAttribute("idProposition", -1);
+			return mapping.findForward("time-out");
 		}
-
-		choisirActionLogger.debug("Action terminee avec succes");
-		return mapping.findForward("succes");
-
 	}
 }

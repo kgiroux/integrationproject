@@ -1,9 +1,10 @@
-<!-- @author : TIONO KEVIN  -->
+<!-- @author : TIONO KEVIN & HUANG Mincong -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import="java.util.*" %> 
-<jsp:include page="/header.jsp"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<jsp:include page="/header.jsp"/>
 <div >
   <h2 class="question">CONSULTER LES QUIZ</h2>
  <hr><br> 
@@ -99,4 +100,4 @@
     </tbody>
   </table>
 </div>
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="/footer.jsp"/>

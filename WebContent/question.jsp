@@ -15,6 +15,16 @@
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script>
+  <%
+    // load timestamp du dateDebutQuestion
+    Quiz quiz = (Quiz) request.getSession().getAttribute("quiz");
+    long t_ms = quiz.getDateDebutQuestion().getTime(); // millisecond
+    long t_s = t_ms / 1000; // second
+  %>
+  // cette variable est utilisee dans le compteur.js
+  var timestampDebutQuestion = <%=t_s %>;
+</script>
 <script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 <!-- GESTION DU COMPTE A REBOURS -->
@@ -57,4 +67,4 @@
     </tbody>
   </table>
 </div>
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="/footer.jsp"/>

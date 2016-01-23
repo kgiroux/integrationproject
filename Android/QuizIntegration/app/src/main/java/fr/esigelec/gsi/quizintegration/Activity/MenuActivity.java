@@ -52,7 +52,7 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 	Map<String, List<String>> ItemCollection;
 	private Toolbar toolbar;
 	private Personne pers;
-    private List<Quiz> quizList;
+    private List<Quiz> quizList = null;
     private Quiz currentQuiz = null;
     private Typeface myTypeface;
 	private SwipeRefreshLayout layout;
@@ -92,39 +92,42 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
         //Initialisation pour test
         //initTest();
 
-		initIHM();
-
 	}
 
-	public void initIHM(){
+	public void initIHM()
+	{
 		try {
+
 			JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
 
-			//Get the list of all finished quiz from request
-			quizList = new ArrayList<Quiz>();
-			JSONArray quizListJson = quizJson.getJSONArray("QuizList");
-			for(int i = 0; i<quizListJson.length(); i++) {
-				JSONObject quiz = quizListJson.getJSONObject(i);
-				Quiz q = new Quiz();
-				q.JSONObjectToQuiz(quiz);
-				quizList.add(q);
+			if(quizJson != null) {
+				//Get the list of all finished quiz from request
+				if(quizJson.has("QuizList")) {
+					quizList = new ArrayList<Quiz>();
+					JSONArray quizListJson = quizJson.getJSONArray("QuizList");
+					for (int i = 0; i < quizListJson.length(); i++) {
+						JSONObject quiz = quizListJson.getJSONObject(i);
+						Quiz q = new Quiz();
+						q.JSONObjectToQuiz(quiz);
+						quizList.add(q);
+					}
+				}
+
+				//Save current quizz if exist
+				if(quizJson.has("CurrentQuiz")) {
+					JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
+					currentQuiz = new Quiz();
+					currentQuiz.JSONObjectToQuiz(curQuiz);
+				}else
+					currentQuiz = null;
 			}
-			//Save current quizz if exist
-			JSONArray curQuiz = quizJson.getJSONArray("CurrentQuiz");
-			if(curQuiz != null) {
-				currentQuiz = new Quiz();
-				JSONObject quiz = curQuiz.getJSONObject(0);
-				currentQuiz.JSONObjectToQuiz(quiz);
-			}
-			//Save number of questions for the current quiz
-			int nbQuestion = quizJson.getInt("nbQuestions");
-			currentQuiz.setNbQuestion(nbQuestion);
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 		TextView curText = (TextView) findViewById(R.id.current);
@@ -133,9 +136,13 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		oldText.setTypeface(myTypeface);
 
 		final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
-		currentQuizLayout.removeAllViews ();
-
 		if (currentQuiz != null){
+
+			//Montrer la vue affichant le quiz en cours
+			currentQuizLayout.setVisibility(View.VISIBLE);
+			curText.setVisibility(View.VISIBLE);
+
+			//Remplissage de l'objet affichant le quiz courant
 			TextView titre = (TextView) findViewById(R.id.title);
 			titre.setText(currentQuiz.getLibelle());
 			TextView date = (TextView) findViewById(R.id.date);
@@ -145,36 +152,44 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 			String text = getString(R.string.question) + currentQuiz.getNoQuestionCourante() + getString(R.string.separator) + currentQuiz.getNbQuestion();
 			nbQuest.setText(text);
 		} else {
+			//Masquage du champs pour le quiz courant
 			currentQuizLayout.setVisibility(View.GONE);
+			curText.setVisibility(View.GONE);
 		}
 
 		currentQuizLayout.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(),GameActivity.class);
+				Intent intent = new Intent(v.getContext(), GameActivity.class);
 				intent.putExtra("idQuiz", currentQuiz.getId());
 				startActivity(intent);
 			}
 		});
+
+		LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
+		oldQuiz.removeAllViews();
+
 		if(quizList != null)
 		{
-			for (Quiz quiz : quizList) {
-				LayoutInflater curQuizLayout = this.getLayoutInflater();
-				View view = curQuizLayout.inflate(R.layout.old_quiz, null);
-				view.setId (quiz.getId ());
-				TextView title = (TextView) view.findViewById(R.id.title);
-				TextView date = (TextView) view.findViewById(R.id.date);
+			if(quizList.size() >= 1) {
+				oldText.setVisibility(View.VISIBLE);
+				for (Quiz quiz : quizList) {
+					LayoutInflater curQuizLayout = this.getLayoutInflater();
+					View view = curQuizLayout.inflate(R.layout.old_quiz, null);
+					view.setId(quiz.getId());
+					TextView title = (TextView) view.findViewById(R.id.title);
+					TextView date = (TextView) view.findViewById(R.id.date);
 
-				title.setText(quiz.getLibelle());
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-				date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
+					title.setText(quiz.getLibelle());
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+					date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
 
-				view.setOnClickListener (this);
-
-				LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
-				oldQuiz.removeAllViews ();
-				oldQuiz.addView(view);
+					view.setOnClickListener(this);
+					oldQuiz.addView(view);
+				}
 			}
+			else
+				oldText.setVisibility(View.GONE);
 		}
 	}
 
@@ -183,6 +198,9 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 	{
 		mDrawerLayout = (DrawerLayout) findViewById (R.id.drawer_layout);
 		mDrawerToggle = new CustomActionBarDrawerToggle (this, mDrawerLayout,toolbar);
+
+		//Initialisation des informations sur les quiz
+		initIHM();
 	}
 
 	public void create_expandable_list ()
@@ -272,17 +290,17 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
         Quiz quiz1 = new Quiz(1,"Geek", new Timestamp(115,5,5,5,5,5,0), new Timestamp(115,5,5,6,5,5,0),0,null,0);
         Quiz quiz2 = new Quiz(2,"Espace", new Timestamp(115,4,5,5,5,5,0), new Timestamp(115,4,5,6,5,5,0),0,null,0);
         List<Question> questionListQuiz1 = new ArrayList<>();
-        Question question1 = new Question(1,"En quelle année date le premier Iphone ?", 2);
-        Question question2 = new Question(2,"rlihgseldhgistghsh ?", 3);
-        Question question3 = new Question(3,"mkllkl ?", 1);
+        Question question1 = new Question(1,"En quelle année date le premier Iphone ?");
+        Question question2 = new Question(2,"rlihgseldhgistghsh ?");
+        Question question3 = new Question(3,"mkllkl ?");
         List<Question> questionListQuiz2 = new ArrayList<>();
-        Question question4 = new Question(4,"mshnklslkkkbkl ?", 1);
-        Question question5 = new Question(5,"pppppppppppppp ?", 4);
-        Question question6 = new Question(6,"ddd ?", 4);
+        Question question4 = new Question(4,"mshnklslkkkbkl ?");
+        Question question5 = new Question(5,"pppppppppppppp ?");
+        Question question6 = new Question(6,"ddd ?");
         List<Question> questionListQuizCur = new ArrayList<>();
-        Question question7 = new Question(7,"oooooooooooooooooooooooooooooooo ?", 4);
-        Question question8 = new Question(8,"PPPPPPPPPPFFFFFFFFFFFFFFFf ?", 2);
-        Question question9 = new Question(9,"rgoisroigjsdrogj ?", 3);
+        Question question7 = new Question(7,"oooooooooooooooooooooooooooooooo ?");
+        Question question8 = new Question(8,"PPPPPPPPPPFFFFFFFFFFFFFFFf ?");
+        Question question9 = new Question(9,"rgoisroigjsdrogj ?");
         List<Proposition> propositionListquestion1 = new ArrayList<>();
         Proposition proposition1 = new Proposition(1, "dsgfseg");
         Proposition proposition2 = new Proposition(2, "dsfqgq");

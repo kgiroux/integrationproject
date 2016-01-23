@@ -33,21 +33,21 @@ public class AndroidHTTPRequest extends AsyncTask<String[], Void, JSONObject>
 
         try
         {
-            //Client to execute request on the server
+            //Création de la connection et de l'url de la requête
             uri = new URL(url);
             urlConnection = (HttpURLConnection) uri.openConnection();
 
-            //Set execute parameters
+            //Définition des paramètres de connexion
             urlConnection.setReadTimeout(15000);
             urlConnection.setConnectTimeout(15000);
             urlConnection.setDoInput(true);
 
-            //Send parameters to the request
+            //Envoie des paramètre dans la requête au serveur
             if("POST".equals(method) && paramsStr != null) {
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoOutput(true);
 
-                //Write params to the request
+                //Ecriture dans le flux de la chaîne des paramètres
                 os = urlConnection.getOutputStream();
                 BufferedWriter writer = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
@@ -59,7 +59,7 @@ public class AndroidHTTPRequest extends AsyncTask<String[], Void, JSONObject>
             else
                 urlConnection.setRequestMethod("GET");
 
-            //Retrive information from the URL
+            //Récupération des iformations de retour du serveur
             urlConnection.connect();
             in = new BufferedInputStream(urlConnection.getInputStream());
             str = streamToString(in);
@@ -76,6 +76,7 @@ public class AndroidHTTPRequest extends AsyncTask<String[], Void, JSONObject>
         return json;
     }
 
+    //Fonction permettant de parser une HashMap en châine de caractère pour la requête
     public static String createParamString(Map<String,String> params)
     {
         StringBuilder result = new StringBuilder();
@@ -83,11 +84,13 @@ public class AndroidHTTPRequest extends AsyncTask<String[], Void, JSONObject>
 
         for(Map.Entry<String, String> entry : params.entrySet())
         {
+            //Si premier element ne pas ajouter le signe &
             if(!isFirst)
                 result.append("&");
             else
                 isFirst = false;
 
+            //Encodade des informations du paramètre en UTF (clé, valeur)
             try {
                 result.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
                 result.append("=");
@@ -97,6 +100,7 @@ public class AndroidHTTPRequest extends AsyncTask<String[], Void, JSONObject>
         return result.toString();
     }
 
+    //Fonction permettant la conversion en chaîne de caractère du flux reçu en retour de requête
     private String streamToString(InputStream in)
     {
         InputStreamReader rd = new InputStreamReader(in);

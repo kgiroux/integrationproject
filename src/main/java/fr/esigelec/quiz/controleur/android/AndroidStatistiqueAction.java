@@ -27,32 +27,33 @@ import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.SetToListConverter;
 /**
  * @author K�vin Giroux;
- * 
+ * Action permettant l'affichage des statistiques sur ANdroid
  */
 public class AndroidStatistiqueAction extends Action{
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-			if("GET".equals(request.getMethod()))
+			if("POST".equals(request.getMethod()))
 			{
+				// Récupération de l'id du QUIZ
 				int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
 				
-				//List<Quiz> quizList
 				QuizDAOImpl daoQuiz = new QuizDAOImpl();
+				// Récupération du QUIZ
 				Quiz quiz = daoQuiz.getQuizAvecQuestions(idQuiz);
 				
+				
 				ChoisirDAOImpl choixDao = new ChoisirDAOImpl();
-				PersonneDAOImpl personneDao = new PersonneDAOImpl();
 				List<Choisir> listChoix = choixDao.getChoixByQuiz(quiz);
-								
+				// Calcul du score
 				for (Choisir c : listChoix){
 					if(c.getProposition().isEstBonneReponse()){
 						c.getPersonne().setScore(c.getPersonne().getScore()+1);
 					}
-					System.out.println(c.toString() + c.getPersonne().toString());
 				}
-				ArrayList<Personne> personnes = new ArrayList<>();
+				
+				// Récupération uniquement des personnes et donc du classement
 				Set<Personne> setPersonne = new HashSet<Personne>();
 				for (Choisir c : listChoix){
 					c.getPersonne().setMail("");
@@ -60,12 +61,14 @@ public class AndroidStatistiqueAction extends Action{
 					setPersonne.add(c.getPersonne());
 				}
 				
-				
-				System.out.println("______________________________________________");
-				
-
+				// Ajout dans un JSONOBject
 				JSONObject json = new JSONObject();
-				json.put("Scores", setPersonne);
+				JSONArray array = new JSONArray();
+				for(Personne p : setPersonne){
+					array.put(p.toJson());
+				}
+				
+				json.put("Scores", array);
 				
 				System.out.println(json);
 				request.setAttribute("json",json.toString());

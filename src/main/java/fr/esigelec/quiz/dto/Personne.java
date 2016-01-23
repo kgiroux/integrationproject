@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.dto;
 
+import org.json.JSONObject;
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -250,7 +251,23 @@ public class Personne implements Comparable<Personne>{
 		return "Personne [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mail=" + mail + ", mdp=" + mdp
 				+ ", droits=" + droits + ", score=" + score + "]";
 	}
-
+	/**
+	 * 
+	 * Create a JSON format for Personne
+	 * @author kevin Giroux
+	 * @return String
+	 */
+	
+	
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+		json.put("id", id);
+		json.put("nom", nom);
+		json.put("prenom", prenom);
+		json.put("score", score);
+		return json;
+	}
+	
 	@Override
 	public int compareTo(Personne p) {
 		if(this.getScore() < p.getScore())

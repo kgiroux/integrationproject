@@ -50,7 +50,7 @@
       </action>
       <action scope="request" path="/Choisir" name="" type="fr.esigelec.quiz.controleur.ChoisirAction" input="/">
          <forward name="succes" path="/question.jsp"/>
-         <forward name="time-out" path="/questionBR.jsp"/>
+         <forward name="time-out" path="/VueQuestion.do"/>
       </action>
       <action scope="request" path="/SupprimerQuiz" name="" type="fr.esigelec.quiz.controleur.SupprimerQuizAction" input="/">
          <forward name="succes" path="/VueQuizAdmin.do"/>
@@ -97,7 +97,7 @@
         <forward name="succes" path="/inscription.jsp"/>
       </action>
       <action scope="request" path="/VueQuestion"  type="fr.esigelec.quiz.controleur.VueQuestionAction">
-        <forward name="succes" path="/question.jsp"/>
+        <forward name="succes" path="/questionBR.jsp"/>
       </action>
       <action scope="request" path="/VueQuestionQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/questionQuizAdmin.jsp"/>

@@ -171,8 +171,6 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		
 		String hql = "from Choisir where quiz.id = " + quiz.getId();
 		List<Choisir> listChoix = session.createQuery(hql).list();
-
-		
 		return listChoix;
 	}
 }

@@ -40,5 +40,6 @@ public interface IChoisirDAO {
 
 	public Choisir getChoix(Personne p, Quiz quiz, Question q);
 	
-	public List<Personne> getClassement(Quiz q);
+	public List<Choisir> getChoixByQuiz(Quiz q);
+	
 }

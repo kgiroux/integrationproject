@@ -1,5 +1,8 @@
 package fr.esigelec.quiz.dao.hibernate;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 /**
 * @author BOSSO BOSSO Ghyslaine
 * @author  CHOUAKRIA Farid
@@ -8,10 +11,12 @@ package fr.esigelec.quiz.dao.hibernate;
 */
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import org.apache.commons.collections.map.LinkedMap;
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -22,6 +27,7 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.SetToListConverter;
 
 
 public class ChoisirDAOImpl implements IChoisirDAO {
@@ -156,11 +162,16 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		return retour;
 	}
 	
-	public List<Personne> getClassement(Quiz quiz){
+	public List<Choisir> getChoixByQuiz(Quiz quiz){
+		
+		ArrayList<Personne> toReturn = new ArrayList<>();
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		
-		String hql = "from Choisir where quiz.id = "+ quiz.getId();
-		return null;
+		String hql = "from Choisir where quiz.id = " + quiz.getId();
+		List<Choisir> listChoix = session.createQuery(hql).list();
+
+		
+		return listChoix;
 	}
 }

@@ -10,12 +10,14 @@
                 tools:context="fr.esigelec.gsi.quizintegration.Activity.StatistiqueActivity"
                 android:touchscreenBlocksFocus="true">
 
-    <de.codecrafters.tableview.TableView
+    <fr.esigelec.gsi.quizintegration.utils.SortablePersonneTableView
         xmlns:table="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tableView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        table:columnCount="4" />
+        table:columnCount="4"
+        table:headerElevation="10"
+        table:headerColor="@color/colorPrimary"/>
 
 
 </RelativeLayout>

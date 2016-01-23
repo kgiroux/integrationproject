@@ -7,12 +7,13 @@ import org.json.JSONObject;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
  * Created by Kevin PACE
  */
-public class Personne
+public class Personne implements Comparator<Personne> , Comparable<Personne>
 {
     public Personne ()
     {
@@ -29,8 +30,30 @@ public class Personne
     private String mail;
     private String mdp;
     private String noEncryMdp;
+    private int score;
+	private int classement;
 
-    public String getNoEncryMdp(){return noEncryMdp;}
+	public int getClassement ()
+	{
+		return classement;
+	}
+
+	public void setClassement (int classement)
+	{
+		this.classement = classement;
+	}
+
+	public int getScore ()
+	{
+		return score;
+	}
+
+	public void setScore (int score)
+	{
+		this.score = score;
+	}
+
+	public String getNoEncryMdp(){return noEncryMdp;}
 
     public void setNoEncryMdp(String noEncryMdp){this.noEncryMdp = noEncryMdp;}
     public String getMail(){return mail;}
@@ -67,6 +90,7 @@ public class Personne
         if(null != mail && !"".equals (mail))
             this.mail = mail;
     }
+
 
 
     public void setMdp(String mdp) {
@@ -171,4 +195,16 @@ public class Personne
         }
         return 0;
     }
+
+	@Override
+	public int compare (Personne lhs, Personne rhs)
+	{
+		return rhs.getScore () - lhs.getScore ();
+	}
+
+	@Override
+	public int compareTo (Personne another)
+	{
+		return another.getScore () - this.getScore ();
+	}
 }

@@ -23,10 +23,10 @@ public class StatistiqueActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistique);
 
-		int idQuiz= getIntent ().getIntExtra ("idQuestion",0);
+		int idQuiz= getIntent ().getIntExtra ("idQuiz",0);
 
 		Quiz q = new Quiz ();
-		q.setId (idQuiz);
+		q.setId (1);
 
 		if(idQuiz == 0){
 			//TODO error

@@ -22,7 +22,12 @@ public class Choisir implements Serializable {
 
 	public Choisir() {}
 	
-	@Deprecated
+	//
+	// @Deprecated
+	// Deprecation annulee suite au changement au controlleur
+	//     fr.esigelec.quiz.controleur.ChoisirAction
+	//													marque par @mincong-h
+	//
 	public Choisir(Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
 		this.date = date;
 		this.proposition = proposition;

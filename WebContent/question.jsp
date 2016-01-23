@@ -15,6 +15,9 @@
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
+<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
+<!-- GESTION DU COMPTE A REBOURS -->
 <script>
   <%
     // load timestamp du dateDebutQuestion
@@ -25,9 +28,6 @@
   // cette variable est utilisee dans le compteur.js
   var timestampDebutQuestion = <%=t_s %>;
 </script>
-<script src="Ressources/Jquery/jquery.min.js"></script>
-<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
-<!-- GESTION DU COMPTE A REBOURS -->
 <script src="Ressources/bootstrap/js/compteur.js"></script>
 </head>
 <body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
@@ -66,5 +66,6 @@
        </c:forEach> 
     </tbody>
   </table>
+  <a id="btn-stats" href="<%=request.getContextPath()%>/VueQuestion.do" class="btn btn-success hidden">Confirmer et voir résultat</a>
 </div>
 <jsp:include page="/footer.jsp"/>

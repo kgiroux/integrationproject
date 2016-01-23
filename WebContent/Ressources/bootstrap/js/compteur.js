@@ -35,6 +35,7 @@
 			alert('Trop tard !!!')
 			interval=null
 			//reste=30
+			$('#btn-stats').removeClass('hidden');
 		}
 		reste--
 	}

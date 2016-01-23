@@ -71,7 +71,13 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		String hql = "from Proposition where quiz.id = " + q.getId() + " and personne.id = " + p.getId();
+		//
+		// ERROR !!
+		// The table shoud be Choisir instead of Proposition.
+		// Marked by @mincong-h
+		//
+		// String hql = "from Proposition where quiz.id = " + q.getId() + " and personne.id = " + p.getId();
+		String hql = "from Choisir where quiz.id = " + q.getId() + " and personne.id = " + p.getId();
 		@SuppressWarnings("unchecked")
 		List<Choisir> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();

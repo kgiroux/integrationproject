@@ -1,17 +1,16 @@
 /**
- * @author Rodolphe AGUIDISSOU - ESIGELEC 2016
+ * @author Rodolphe AGUIDISSOU - Mincong HUANG ESIGELEC 2016
  */
 package fr.esigelec.quiz.controleur;
 
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.Action;
@@ -36,7 +35,8 @@ public class VueQuestionAction extends Action {
 		//IN
 		Question question = (Question) session.getAttribute("question");
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
-		
+		Hashtable<Integer, Float> hashtablePourcentage = 
+				new Hashtable<Integer, Float>();
 		int idBonneReponse = 0;
 		Set<Proposition> listProposition = question.getPropositions();
 		
@@ -45,7 +45,6 @@ public class VueQuestionAction extends Action {
 				idBonneReponse = proposition.getId();
 			}
 		}
-		
 		
 		List<Personne> classement = ActionService.getClassement(quiz);
 		
@@ -58,7 +57,6 @@ public class VueQuestionAction extends Action {
 		session.setAttribute("idBonneReponse", idBonneReponse);
 		session.setAttribute("classement", classement);
 		session.setAttribute("pourcentage", pourcentage);
-		
 		
 		
 		return mapping.findForward("succes");

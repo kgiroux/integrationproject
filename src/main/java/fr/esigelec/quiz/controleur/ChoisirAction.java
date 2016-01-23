@@ -141,19 +141,32 @@ public class ChoisirAction extends Action {
 					.getChoixPersonneParQuizPersonneEtQuestion(personne, quiz,
 							question);
 
+			//
+			// Si le choix n'existe pas encore, listeChoix.get(0).getId()
+			// génère l'exception suivante : 
+			//     java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+			//
+			// 										marque par @mincong-h
+			//
 			// on cr�e le nouveau choix
-			Choisir choisir = new Choisir(listeChoix.get(0).getId(),
-					new Timestamp(System.currentTimeMillis()), proposition,
-					quiz, personne);
+//			Choisir choisir = new Choisir(listeChoix.get(0).getId(),
+//					new Timestamp(System.currentTimeMillis()), proposition,
+//					quiz, personne);
 
 			// si la personne avait d�j� choisi , on remplace son choix par le
 			// nouveau
-			if (listeChoix.size() > 0)
+			if (listeChoix.size() > 0) {
+				Choisir choisir = new Choisir(listeChoix.get(0).getId(),
+						new Timestamp(System.currentTimeMillis()), proposition,
+						quiz, personne);
 				choisirDAO.updateChoix(choisir);
-			else
+			} else {
+				Choisir choisir = new Choisir(
+						new Timestamp(System.currentTimeMillis()), proposition,
+						quiz, personne);
 				// sinon on l'ajoute
 				choisirDAO.createChoix(choisir);
-
+			}
 			choisirActionLogger.debug("Action terminee avec succes");
 			return mapping.findForward("succes");
 		} else {

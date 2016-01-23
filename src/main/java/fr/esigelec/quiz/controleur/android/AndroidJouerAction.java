@@ -49,6 +49,7 @@ public class AndroidJouerAction extends Action {
 				 *  1 -> return answer
 				 * */
 				int queryType = Integer.parseInt(request.getParameter("queryType"));
+				int questionId = Integer.parseInt(request.getParameter("idQuestion"));
 				
 				//Get current quiz informations (currentQuestion & quizState)
 				Quiz currentQuiz = quizDAO.getCurrentQuiz();
@@ -58,7 +59,7 @@ public class AndroidJouerAction extends Action {
 				System.out.println("CurrentQuiz values =>"+currentQuiz.toString());
 				
 				//Perform action to return the question because question is open an waiting answers
-				if(queryType == 0 && currentQuiz.getEtape() >= 1)
+				if(queryType == 0 && currentQuiz.getEtape() >= 1 && qt.getId() != questionId)
 				{					
 					//Calculate timer start
 					Timestamp qtStart = currentQuiz.getDateDebutQuestion();

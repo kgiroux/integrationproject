@@ -23,10 +23,10 @@
 
     <string-array name="listMenuActivity">
         <item>""</item>
-        <item>Quiz List</item>
         <item>Disconnect</item>
-        <item>Quit</item>
+        <item>About</item>
         <item>Legal Notice</item>
+        <item>Quit</item>
     </string-array>
     <string name="title_activity_login">Sign in</string>
 

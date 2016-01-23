@@ -44,9 +44,6 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
  */
 public class MainActivity extends Activity implements View.OnClickListener
 {
-	public static String IPSERVER = "http://10.0.2.2:8080/quiz/";
-	public static boolean DEBUG = WelcomeActivity.DEBUG;
-	public static boolean DEV = WelcomeActivity.DEV;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
 	List<String> groupList;
@@ -55,7 +52,6 @@ public class MainActivity extends Activity implements View.OnClickListener
 	private Dialog dialog;
 	private Toolbar toolbar;
 	private Personne pers;
-    private Typeface myTypeface;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
@@ -74,18 +70,15 @@ public class MainActivity extends Activity implements View.OnClickListener
         //Affichage des items dans le menu
 		create_expandable_list();
 
-        //Création de l'object popUp de connexion
+		//Création de l'object popUp de connexion
 		dialog = createAndManageDialog();
-
-        //Chargement de la police de caractère
-        myTypeface = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
 
         //Mise en forme des boutons et ajout du listener
 		Button button = (Button) findViewById (R.id.start);
-        button.setTypeface(myTypeface);
+        button.setTypeface(WelcomeActivity.quizFont);
         button.setOnClickListener (this);
         Button quit = (Button) findViewById (R.id.quit);
-        quit.setTypeface(myTypeface);
+        quit.setTypeface(WelcomeActivity.quizFont);
 		quit.setOnClickListener (this);
 	}
 
@@ -121,28 +114,28 @@ public class MainActivity extends Activity implements View.OnClickListener
 					case 0:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						dialog.show ();
-						if(DEBUG)
+						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
 						break;
 					case 1:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),InscriptionActivity.class);
 						startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
-						if(DEBUG)
+						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.inscription, Toast.LENGTH_LONG).show ();
 						break;
 
 					case 2:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),AboutActivity.class);
-						if(DEBUG)
+						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
 						startActivity (t);
 						break;
 					case 3:
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
-						if(DEBUG)
+						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
 						startActivity (t);
 						break;
@@ -224,7 +217,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 
         //Application de la police sur les TextView
         TextView logText = (TextView) dialog.findViewById(R.id.titleText);
-        logText.setTypeface(myTypeface);
+        logText.setTypeface(WelcomeActivity.quizFont);
 
 		TextView email = (TextView) dialog.findViewById(R.id.login);
         email.setText (preferences.getString ("mail",""));
@@ -236,7 +229,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 
         //Subscribe
 		Button subscribeButton = (Button) dialog.findViewById (R.id.Register);
-        subscribeButton.setTypeface(myTypeface);
+        subscribeButton.setTypeface(WelcomeActivity.quizFont);
 		subscribeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -248,7 +241,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 
         //Log In
 		Button signIn = (Button) dialog.findViewById (R.id.SignIn);
-        signIn.setTypeface(myTypeface);
+        signIn.setTypeface(WelcomeActivity.quizFont);
 		signIn.setOnClickListener (new View.OnClickListener ()
 		{
 			@Override
@@ -290,7 +283,7 @@ public class MainActivity extends Activity implements View.OnClickListener
                 //Envois du singleton personne au serveur via JSON pour vérifier les identifiants
 				try
 				{
-					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
+					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
 					if(null != perJson){
 						if(perJson.has("err_code")){
                             /*
@@ -321,7 +314,7 @@ public class MainActivity extends Activity implements View.OnClickListener
                     isEmailValid = false;
                     isMdpValid = false;
 				}
-				if(DEV){
+				if(WelcomeActivity.DEV){
 					isEmailValid = true;
 					isMdpValid = true;
 				}
@@ -333,12 +326,13 @@ public class MainActivity extends Activity implements View.OnClickListener
 				if(isEmailValid && isMdpValid && (pers.getId () != 0)){
 					SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
 					SharedPreferences.Editor editor = preferences.edit();
-					editor.putString ("mail",pers.getMail ());
-					editor.putString ("mdp",pers.getNoEncryMdp ());
-					editor.apply ();
+					editor.putString ("mail",pers.getMail());
+					editor.putString("mdp", pers.getNoEncryMdp());
+					editor.apply();
 
 					Intent t = new Intent (getApplicationContext (), MenuActivity.class);
 					startActivity (t);
+					finish();
 				}
 			}
 		});

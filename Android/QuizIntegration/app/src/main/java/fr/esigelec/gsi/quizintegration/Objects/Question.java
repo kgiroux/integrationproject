@@ -16,7 +16,7 @@ public class Question
 {
     /* Attributes */
     private int id;
-    private int nbQuestion;
+    private int numQuestion;
     private String libelle;
     private List<Proposition> listePropositions;
 
@@ -24,6 +24,9 @@ public class Question
     public Question(int id, String libelle) {
         this.id = id;
         this.libelle = libelle;
+        this.listePropositions = new ArrayList<> ();
+    }
+    public Question() {
         this.listePropositions = new ArrayList<> ();
     }
 
@@ -44,12 +47,12 @@ public class Question
         this.libelle = libelle;
     }
 
-    public int getNbQuestion() {
-        return nbQuestion;
+    public int getNumQuestion() {
+        return numQuestion;
     }
 
-    public void setNbQuestion(int nbQuestion) {
-        this.nbQuestion = nbQuestion;
+    public void setNumQuestion(int numQuestion) {
+        this.numQuestion = numQuestion;
     }
 
     public int getId() {
@@ -67,10 +70,12 @@ public class Question
 
                 this.id = obj.getInt("id");
                 this.libelle = obj.getString ("libelle");
+                this.numQuestion = obj.getInt("numQuestion");
 
                 //Remplissage de la liste des propositions
                 JSONArray array = obj.getJSONArray ("propositions");
-                for(int i=0; i<array.length(); i=i+2){
+                listePropositions.clear();
+                for(int i=0; i<array.length(); i++){
                     JSONObject item = array.getJSONObject(i);
                     Proposition p = new Proposition(item.getInt("id"),item.getString("libelle"));
                     listePropositions.add(p);

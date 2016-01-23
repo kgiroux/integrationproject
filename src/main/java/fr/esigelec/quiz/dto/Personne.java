@@ -254,11 +254,11 @@ public class Personne implements Comparable<Personne>{
 	@Override
 	public int compareTo(Personne p) {
 		if(this.getScore() < p.getScore())
-			return -1;
+			return 1;
 		else if (this.getScore() == p.getScore())
 			return 0;
 		else 
-			return 1;
+			return -1;
 	}
 }
 

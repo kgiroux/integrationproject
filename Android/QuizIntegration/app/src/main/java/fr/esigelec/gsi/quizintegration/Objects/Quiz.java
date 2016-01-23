@@ -115,6 +115,14 @@ public class Quiz
         this.nbQuestion = nbQuestion;
     }
 
+    //Only for the Statistique Result
+    public HashMap<String,String> QuizToHashMap(){
+        HashMap<String,String> returnHashMap = new HashMap<> ();
+        if(this.id != -1){
+            returnHashMap.put ("idQuiz",String.valueOf (this.id));
+        }
+        return returnHashMap;
+    }
     /* Convertion methods */
     public void JSONObjectToQuiz(JSONObject obj){
         if(null != obj){

@@ -95,7 +95,7 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
 					// Méthode envoyant un requete post pour l'inscription vers le serveur
 					try{
 
-						JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidInscriptionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
+						JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidInscriptionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
 						if(null != perJson)
 						{
 							if (perJson.has ("err_code"))

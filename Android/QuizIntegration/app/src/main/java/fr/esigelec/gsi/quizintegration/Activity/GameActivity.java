@@ -62,7 +62,6 @@ public class GameActivity extends Activity implements View.OnClickListener
     {
         //Chargement des informations de la question
         onQuizListener(0);
-        //initTest();
         super.onResume();
     }
 
@@ -80,6 +79,7 @@ public class GameActivity extends Activity implements View.OnClickListener
     private void initQuestionIHM(){
         TextView titleQuestion = (TextView) findViewById(R.id.quest_number);
         titleQuestion.setText("Question " + (question.getNumQuestion() + 1) + ":");
+        titleQuestion.setTypeface(WelcomeActivity.quizFont);
 
         TextView questionText = (TextView) findViewById(R.id.question);
 
@@ -104,21 +104,6 @@ public class GameActivity extends Activity implements View.OnClickListener
                 finish();
             }
         });
-    }
-
-    //Méthode d'initialisation de la question pour test
-    protected void initTest() {
-        question = new Question(1,"De quelle année date le premier Iphone ?");
-        List<Proposition> propositionList = new ArrayList<>();
-        Proposition proposition1 = new Proposition(1, "2001");
-        Proposition proposition2 = new Proposition(2, "2005");
-        Proposition proposition3 = new Proposition(3, "2007");
-        Proposition proposition4 = new Proposition(4, "2010");
-        propositionList.add(proposition1);
-        propositionList.add(proposition2);
-        propositionList.add(proposition3);
-        propositionList.add(proposition4);
-        question.setListePropositions(propositionList);
     }
 
     //Méthode de création de la question
@@ -216,7 +201,7 @@ public class GameActivity extends Activity implements View.OnClickListener
 
             //Envoie du choix de l'utilisateur au serveur
             try {
-                JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
+                JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
                 if (choiceJSON.has("err_code")) {
                     int err_code = choiceJSON.getInt("err_code");
                     ErrorManager error = SingletonErrorManager.getInstance().getError();
@@ -293,7 +278,7 @@ public class GameActivity extends Activity implements View.OnClickListener
             public void run() {
                 do {
                     try {
-                        objJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&idQuestion=" + question.getId()}).get();
+                        objJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&idQuestion=" + question.getId()}).get();
 
                         //Vérification si le JSON contient les informations désirées
                         if (objJson != null)

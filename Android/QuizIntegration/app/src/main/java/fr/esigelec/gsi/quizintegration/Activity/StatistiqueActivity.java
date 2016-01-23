@@ -49,7 +49,7 @@ public class StatistiqueActivity extends AppCompatActivity implements OnChartVal
 			//TODO error
 		}else{
 			try {
-				JSONObject quizJson = new AndroidHTTPRequest ().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "POST",AndroidHTTPRequest.createParamString (resultQuestion.ResultQuestionToHashMap ()) }).get();
+				JSONObject quizJson = new AndroidHTTPRequest ().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidQuizList.do", "POST",AndroidHTTPRequest.createParamString (resultQuestion.ResultQuestionToHashMap ()) }).get();
 
 				JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
 				//if(!"noQuiz".equals(curQuiz.toString()))

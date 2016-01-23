@@ -19,10 +19,10 @@
 
     <string-array name="listMenuActivity">
         <item>""</item>
-        <item>Liste Quiz</item>
         <item>Déconnexion</item>
+        <item>A propos de </item>
+        <item>Mentions legales</item>
         <item>Quitter</item>
-        <item>Legal Notice</item>
     </string-array>
 
 

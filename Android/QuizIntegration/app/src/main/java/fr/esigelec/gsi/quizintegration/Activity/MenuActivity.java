@@ -54,8 +54,8 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 	private Personne pers;
     private List<Quiz> quizList = null;
     private Quiz currentQuiz = null;
-    private Typeface myTypeface;
 	private SwipeRefreshLayout layout;
+	
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
 	{
@@ -63,9 +63,6 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		setContentView(R.layout.activity_menu);
 		// Récupération de l'unique instance de Personne
 		pers = SingletonPersonne.getInstance ().getPersonne();
-
-		// Chargement de la Police pour l'application
-        myTypeface = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
 
 
 		// Chargement de la toolbar via récupération dans le layoute
@@ -87,18 +84,13 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		// Définition de la liste
 		create_expandable_list();
 
-
-
-        //Initialisation pour test
-        //initTest();
-
 	}
 
 	public void initIHM()
 	{
 		try {
 
-			JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
+			JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
 
 			if(quizJson != null) {
 				//Get the list of all finished quiz from request
@@ -132,8 +124,8 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 
 		TextView curText = (TextView) findViewById(R.id.current);
 		TextView oldText = (TextView) findViewById(R.id.old);
-		curText.setTypeface(myTypeface);
-		oldText.setTypeface(myTypeface);
+		curText.setTypeface(WelcomeActivity.quizFont);
+		oldText.setTypeface(WelcomeActivity.quizFont);
 
 		final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
 		if (currentQuiz != null){
@@ -227,17 +219,22 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
                 case 0:
                     break;
                 case 1:
-                    t = new Intent(getApplicationContext (),InscriptionActivity.class);
+                    t = new Intent(getApplicationContext (),MainActivity.class);
                     startActivity (t);
+					if(WelcomeActivity.DEBUG)
+						Toast.makeText (getApplicationContext (), R.string.bye, Toast.LENGTH_LONG).show ();
+					finish();
                     break;
                 case 2:
                     t = new Intent(getApplicationContext (),AboutActivity.class);
-                    Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
+					if(WelcomeActivity.DEBUG)
+						Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
                     startActivity (t);
                     break;
                 case 3:
                     t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
-                    Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
+					if(WelcomeActivity.DEBUG)
+						Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
                     startActivity (t);
                     break;
                 case 4:
@@ -250,6 +247,11 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		});
 	}
 
+	@Override
+	public void onBackPressed() {
+		//super.onBackPressed(); Empêcher le retour à l'activité précédente
+	}
+
 	private void createCollection ()
 	{
 		ItemCollection = new LinkedHashMap<> ();
@@ -260,7 +262,7 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		String listItem[] = getResources ().getStringArray (R.array.listMenuActivity);
 		groupList = new ArrayList<> ();
 
-		groupList.add (pers.getNom () + " " + pers.getPrenom ());
+		groupList.add(pers.getNom() + " " + pers.getPrenom());
 		for (int i = 1; i != listItem.length; i++)
 		{
 			groupList.add (listItem[i]);
@@ -273,8 +275,8 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 	*/
 	protected void onPostCreate (Bundle savedInstanceState)
 	{
-		super.onPostCreate (savedInstanceState);
-		mDrawerToggle.syncState ();
+		super.onPostCreate(savedInstanceState);
+		mDrawerToggle.syncState();
 	}
 
 	public void onConfigurationChanged (Configuration newConfig)
@@ -282,101 +284,6 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		super.onConfigurationChanged(newConfig);
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
-
-    protected void initTest ()
-    {
-        quizList= new ArrayList<>();
-        currentQuiz = new Quiz(3,"Animaux", new Timestamp(System.currentTimeMillis()),null,1,new Timestamp(System.currentTimeMillis()),1);
-        Quiz quiz1 = new Quiz(1,"Geek", new Timestamp(115,5,5,5,5,5,0), new Timestamp(115,5,5,6,5,5,0),0,null,0);
-        Quiz quiz2 = new Quiz(2,"Espace", new Timestamp(115,4,5,5,5,5,0), new Timestamp(115,4,5,6,5,5,0),0,null,0);
-        List<Question> questionListQuiz1 = new ArrayList<>();
-        Question question1 = new Question(1,"En quelle année date le premier Iphone ?");
-        Question question2 = new Question(2,"rlihgseldhgistghsh ?");
-        Question question3 = new Question(3,"mkllkl ?");
-        List<Question> questionListQuiz2 = new ArrayList<>();
-        Question question4 = new Question(4,"mshnklslkkkbkl ?");
-        Question question5 = new Question(5,"pppppppppppppp ?");
-        Question question6 = new Question(6,"ddd ?");
-        List<Question> questionListQuizCur = new ArrayList<>();
-        Question question7 = new Question(7,"oooooooooooooooooooooooooooooooo ?");
-        Question question8 = new Question(8,"PPPPPPPPPPFFFFFFFFFFFFFFFf ?");
-        Question question9 = new Question(9,"rgoisroigjsdrogj ?");
-        List<Proposition> propositionListquestion1 = new ArrayList<>();
-        Proposition proposition1 = new Proposition(1, "dsgfseg");
-        Proposition proposition2 = new Proposition(2, "dsfqgq");
-        Proposition proposition3 = new Proposition(3, "jytyy,");
-        Proposition proposition4 = new Proposition(4, "tyrty");
-        propositionListquestion1.add(proposition1);
-        propositionListquestion1.add(proposition2);
-        propositionListquestion1.add(proposition3);
-        propositionListquestion1.add(proposition4);
-        List<Proposition> propositionListquestion2 = new ArrayList<>();
-        propositionListquestion2.add(proposition1);
-        propositionListquestion2.add(proposition2);
-        propositionListquestion2.add(proposition3);
-        propositionListquestion2.add(proposition4);
-        List<Proposition> propositionListquestion3 = new ArrayList<>();
-        propositionListquestion3.add(proposition1);
-        propositionListquestion3.add(proposition2);
-        propositionListquestion3.add(proposition3);
-        propositionListquestion3.add(proposition4);
-        List<Proposition> propositionListquestion4 = new ArrayList<>();
-        propositionListquestion4.add(proposition1);
-        propositionListquestion4.add(proposition2);
-        propositionListquestion4.add(proposition3);
-        propositionListquestion4.add(proposition4);
-        List<Proposition> propositionListquestion5 = new ArrayList<>();
-        propositionListquestion5.add(proposition1);
-        propositionListquestion5.add(proposition2);
-        propositionListquestion5.add(proposition3);
-        propositionListquestion5.add(proposition4);
-        List<Proposition> propositionListquestion6 = new ArrayList<>();
-        propositionListquestion6.add(proposition1);
-        propositionListquestion6.add(proposition2);
-        propositionListquestion6.add(proposition3);
-        propositionListquestion6.add(proposition4);
-        List<Proposition> propositionListquestion7 = new ArrayList<>();
-        propositionListquestion7.add(proposition1);
-        propositionListquestion7.add(proposition2);
-        propositionListquestion7.add(proposition3);
-        propositionListquestion7.add(proposition4);
-        List<Proposition> propositionListquestion8 = new ArrayList<>();
-        propositionListquestion8.add(proposition1);
-        propositionListquestion8.add(proposition2);
-        propositionListquestion8.add(proposition3);
-        propositionListquestion8.add(proposition4);
-        List<Proposition> propositionListquestion9 = new ArrayList<>();
-        propositionListquestion9.add(proposition1);
-        propositionListquestion9.add(proposition2);
-        propositionListquestion9.add(proposition3);
-        propositionListquestion9.add(proposition4);
-
-        question1.setListePropositions(propositionListquestion1);
-        question2.setListePropositions(propositionListquestion2);
-        question3.setListePropositions(propositionListquestion3);
-        question4.setListePropositions(propositionListquestion4);
-        question5.setListePropositions(propositionListquestion5);
-        question6.setListePropositions(propositionListquestion6);
-        question7.setListePropositions(propositionListquestion7);
-        question8.setListePropositions(propositionListquestion8);
-        question9.setListePropositions(propositionListquestion9);
-        questionListQuiz1.add(question1);
-        questionListQuiz1.add(question2);
-        questionListQuiz1.add(question3);
-        questionListQuiz2.add(question4);
-        questionListQuiz2.add(question5);
-        questionListQuiz2.add(question6);
-        questionListQuizCur.add(question7);
-        questionListQuizCur.add(question8);
-        questionListQuizCur.add(question9);
-
-        quiz1.setListeQuestions(questionListQuiz1);
-        quiz2.setListeQuestions(questionListQuiz2);
-        currentQuiz.setListeQuestions(questionListQuizCur);
-
-        quizList.add(quiz1);
-        quizList.add(quiz2);
-    }
 
 	@Override
 	public void onClick (View v)

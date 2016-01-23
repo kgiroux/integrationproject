@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
@@ -35,6 +36,7 @@ public class EditerQuizAction extends Action {
 		
 		editerQuizActionLogger.debug("Execute");
 		ActionErrors errors = new ActionErrors();
+		HttpSession session = request.getSession();
 		
 		try {
 			/* Get parameters and sessions */
@@ -67,9 +69,11 @@ public class EditerQuizAction extends Action {
 			}
 			List <Question> listeQuestions = questionDAO.listQuestion();
 			
-			request.setAttribute("listeQuestions", listeQuestions);
-			request.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
-			request.setAttribute("libelleQuiz", quiz.getLibelle());
+			session.setAttribute("listeQuestions", listeQuestions);
+			session.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
+			session.setAttribute("libelleQuiz", quiz.getLibelle());
+			session.setAttribute("idQuiz", quiz.getId());
+			
 			editerQuizActionLogger.debug("Question �dit�e");
 			return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			

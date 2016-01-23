@@ -42,7 +42,7 @@ public class Quiz {
 	private Timestamp dateFinQuiz;
 
 	/**
-	 * Identifiant de la question en cours du quiz
+	 * no de la question en cours du quiz, commence à 0 pour la premiere question 
 	 */
 	private int noQuestionCourante;
 

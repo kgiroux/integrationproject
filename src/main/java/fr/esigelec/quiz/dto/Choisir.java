@@ -22,7 +22,16 @@ public class Choisir implements Serializable {
 
 	public Choisir() {}
 	
+	@Deprecated
 	public Choisir(Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
+		this.date = date;
+		this.proposition = proposition;
+		this.quiz = quiz;
+		this.personne = personne;
+	}
+	
+	public Choisir(int id,Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
+		this.id=id;
 		this.date = date;
 		this.proposition = proposition;
 		this.quiz = quiz;
@@ -31,7 +40,7 @@ public class Choisir implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Choisir [date=" + date + ", proposition=" + proposition + ", quiz=" + quiz + "]";
+		return "Choisir [id=" + id + "]";
 	}
 
 	@Override

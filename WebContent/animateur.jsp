@@ -33,7 +33,12 @@
 </script>
 <script src="Ressources/bootstrap/js/compteur.js"></script>
 </head>
-<body onload="if (!interval) { interval=setInterval(Ecoule, 1000) }">
+<body
+<%--on declenche le compteur que si on est en etape 1--%>
+ <c:if test="${quiz.etape == 1}">
+ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
+ </c:if>
+ >
 
 <%
 int count=(int)session.getAttribute("compteur");
@@ -56,11 +61,15 @@ session.setAttribute("questioncurrente",questioncur);
 </div>
 <hr>
 <div class="form-center">
+
+<%-- on affiche le compteur que si on est en etape 1 --%>
+<c:if test="${quiz.etape == 1}">
   <p class="paraanimateur"><strong>Reste :</strong>  &nbsp;
     <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
     <IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
     &nbsp;secondes
   </p>
+  </c:if>
   <table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr>

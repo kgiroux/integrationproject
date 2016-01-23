@@ -52,12 +52,6 @@ public class JouerAction extends Action {
 			
 		
 		//OUT 
-		
-		// TODO: 
-		// Salut mon ami, 
-		// Les questions sont déjà stockées dans quiz.
-		//   - Mincong
-		
 		Question question = ActionService.getQuestionByQuizId(idQuiz);
 		//List<Question> questions = new ArrayList<Question>(quiz.getQuestions());
 		

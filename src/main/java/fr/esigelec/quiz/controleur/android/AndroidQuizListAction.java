@@ -1,6 +1,7 @@
 package fr.esigelec.quiz.controleur.android;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.json.JSONObject;
 
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Quiz;
+import fr.esigelec.quiz.util.AndroidHelper;
 
 /**
  * @author K�vin Giroux;
@@ -28,37 +30,49 @@ public class AndroidQuizListAction extends Action{
 		
 			if("GET".equals(request.getMethod()))
 			{
-				//Find finished quizz list
-				QuizDAOImpl dao = new QuizDAOImpl();
-				List<Quiz> listQuiz = dao.getListQuizFinish();
-				JSONObject json = new JSONObject();
-				json.put("QuizList", listQuiz);
-				
-				//Find current quizz
-				//Quiz currentQuiz = dao.getCurrentQuiz();
-				//json.put("CurrentQuiz", currentQuiz);
-				
-				/*for(Quiz q : listQuiz){
-				int compteur = 0;
-					
-					json.put(String.valueOf(compteur), q);
-					compteur++;
-				}*/
-				List<Quiz> currentQuiz = new ArrayList<Quiz>();
-				currentQuiz.add(dao.getCurrentQuiz());
-				
-				//Find questions count for the current quizz
-				if(currentQuiz != null)
+				try
 				{
-					Quiz questionQuiz = dao.getQuizAvecQuestions((currentQuiz.get(0).getId()));
-					int nbQuestion = questionQuiz.getQuestions().size();
-					json.put("CurrentQuiz", currentQuiz);
-					json.put("nbQuestions", nbQuestion);
+					//Find finished quizz list
+					QuizDAOImpl dao = new QuizDAOImpl();
+					List<Quiz> listQuiz = dao.getListQuizFinish();
+					JSONObject json = new JSONObject();
+					if(listQuiz != null)
+						json.put("QuizList", listQuiz);
+					
+					//Find current quizz
+					Quiz currentQuiz = dao.getCurrentQuiz();
+					
+					//Find questions count for the current quizz
+					if(currentQuiz != null)
+					{
+						//Calculate question number
+						Quiz questionQuiz = dao.getQuizAvecQuestions(currentQuiz.getId());
+						int nbQuestions = questionQuiz.getQuestions().size();
+						
+						//Generate quizMap to share informations
+						HashMap<String,Object> quizMap = new HashMap<String,Object>();
+						quizMap.put("id", currentQuiz.getId());
+						quizMap.put("libelle", currentQuiz.getLibelle());
+						quizMap.put("dateDebutQuiz", currentQuiz.getDateDebutQuiz());
+						quizMap.put("dateDebutQuestion", currentQuiz.getDateDebutQuestion());
+						quizMap.put("noQuestionCourante", currentQuiz.getNoQuestionCourante());
+						quizMap.put("etape", currentQuiz.getEtape());
+						quizMap.put("nbQuestions", nbQuestions);
+						
+						//Post result
+						json.put("CurrentQuiz", quizMap);
+					}
+					
+					//Return informations to client
+					request.setAttribute("json",json.toString());
+					return mapping.findForward("succes");
+					
+				}catch(Exception ex)
+				{
+					ex.printStackTrace();
+					request.setAttribute("json",AndroidHelper.TimeOutExeception());
+					return mapping.findForward("succes");
 				}
-				
-				//Return informations to client
-				request.setAttribute("json",json.toString());
-				return mapping.findForward("succes");
 			}
 			return mapping.findForward("error");
 	}

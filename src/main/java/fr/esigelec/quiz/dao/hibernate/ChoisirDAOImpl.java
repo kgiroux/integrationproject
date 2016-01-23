@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 * @author DELAUNAY Brice
 * @author NGANE Pascale
 */
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -17,12 +18,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import fr.esigelec.quiz.controleur.TestLogger;
 import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.SetToListConverter;
 
@@ -49,7 +52,6 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.update(c);
 		session.getTransaction().commit();
 		session.close();
-		
 		return true;
 	}
 
@@ -74,6 +76,19 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.getTransaction().commit();
 		session.close();
 		logger.info("getChoixPersonneParQuiz: " + " for personne : " + p.toString() + " and quiz : " + q.toString());
+		return retour;
+	}
+	
+	@Override
+	public List<Choisir> getChoixPersonneParQuizPersonneEtQuestion(Personne p, Quiz q,Question question) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "from Choisir where quiz.id = " + q.getId() + " and personne.id = " + p.getId()+ " and proposition.question.id = "+question.getId();
+		@SuppressWarnings("unchecked")
+		List<Choisir> retour = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		logger.info("getChoixPersonneParQuizPersonneEtQuestion: " + " for personne : " + p.toString() + " and quiz : " + q.toString());
 		return retour;
 	}
 	
@@ -112,6 +127,32 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		session.getTransaction().commit();
 		session.close();
 		logger.info("get Choix: " + retour.toString() + " From id : " + id);
+		return retour;
+	}
+
+	/**
+	 * @author minconghuang
+	 * 
+	 */
+	public Choisir getChoix(Personne p, Quiz quiz, Question q) {
+		// get liste de proposition-id à partir de question
+		List<Integer> propoIds = new ArrayList<Integer>();
+		for (Proposition propo: q.getListePropositions()) {
+			propoIds.add(propo.getId());
+		}
+		// hibernate
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		Criteria criteria = session.createCriteria(Choisir.class);
+		criteria.add(Restrictions.in("proposition.id", propoIds));
+		criteria.add(Restrictions.eq("quiz.id", quiz.getId()));
+		criteria.add(Restrictions.eq("personne.id", p.getId()));
+		Choisir retour = (Choisir) criteria.uniqueResult();
+		if (retour != null) {
+			logger.info("get Choix: " + retour.toString());
+		}
+		session.getTransaction().commit();
+		session.close();
 		return retour;
 	}
 	

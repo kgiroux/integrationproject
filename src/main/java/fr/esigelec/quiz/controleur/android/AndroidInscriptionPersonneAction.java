@@ -18,8 +18,6 @@ import fr.esigelec.quiz.util.AndroidHelper;
  * @author Kévin Giroux;
  * 
  */
-
-
 public class AndroidInscriptionPersonneAction extends Action{
 	
 	

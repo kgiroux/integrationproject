@@ -252,6 +252,9 @@ public class Personne implements Comparable<Personne>{
 	}
 
 	@Override
+	/** permet de trier par ordre de score decroissant
+	 * 
+	 */
 	public int compareTo(Personne p) {
 		if(this.getScore() < p.getScore())
 			return 1;

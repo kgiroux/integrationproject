@@ -12,25 +12,31 @@ import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 
 /**
  * Created by kevin on 22/01/2016. Package : fr.esigelec.gsi.quizintegration.adapter Project Name : QuizIntegration
+ * Implemented by Kévin PACE
  */
 public class ListenerQuestion
 {
-	public JSONObject OnListener(){
-		JSONObject quizJson = null;
-		do{
+	/***
+	 * Fonction permettant le retour de la question ou de la réponse pour le quiz en cours
+	 * @param requestType = valeur permettant d'identifier le type de requête envoyé au serveur
+	 *                 0 -> Récupération de la question
+	 *                 1 -> Récupération de la réponse
+	 * @return un objet JSON contenant les informations de retour
+	 */
+	public JSONObject OnListener(int requestType) {
+		JSONObject objJson = null;
+		boolean resend = true;
+		do {
 			try
 			{
-				quizJson = new AndroidHTTPRequest ().execute (new String[]{MainActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get ();
+				objJson = new AndroidHTTPRequest ().execute (new String[]{MainActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType="+requestType}).get ();
 
 			}catch(Exception ex)
 			{
 				Log.e("ERROR",ex.getMessage());
 			}
+		}while(objJson == null && objJson.isNull("Question") && objJson.isNull("Reponse"));
 
-
-
-		}while(quizJson.has ("noQuestion") && null != quizJson);
-
-		return quizJson;
+		return objJson;
 	}
 }

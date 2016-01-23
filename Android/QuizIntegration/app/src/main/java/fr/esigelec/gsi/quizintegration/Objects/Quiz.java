@@ -135,11 +135,11 @@ public class Quiz
                 if(fin != null)
                     this.setDateFinQuiz(new Timestamp(fin.getTime()));
                 this.setEtape(obj.getInt("etape"));
-                this.setNbQuestion(obj.getInt("nbQuestion"));
-                this.setNoQuestionCourante(obj.getInt("noQuestionCourante"));
+                this.setNoQuestionCourante(obj.getInt("noQuestionCourante") + 1);
                 if(debutQuestion != null)
                     this.setDateDebutQuestion(new Timestamp(debutQuestion.getTime()));
-
+                if(!obj.isNull("nbQuestions"))
+                    this.setNbQuestion(obj.getInt("nbQuestions"));
             }catch(Exception jsonE){
                 Log.e("ERREUR", jsonE.getMessage());
             }

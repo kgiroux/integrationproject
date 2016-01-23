@@ -16,15 +16,15 @@ public class Question
 {
     /* Attributes */
     private int id;
+    private int nbQuestion;
     private String libelle;
-    private int idBonneReponse;
     private List<Proposition> listePropositions;
 
     //Constructeur pour test
-    public Question(int id, String libelle, int idBonneReponse) {
+    public Question(int id, String libelle) {
         this.id = id;
         this.libelle = libelle;
-        this.idBonneReponse = idBonneReponse;
+        this.listePropositions = new ArrayList<> ();
     }
 
     /* Getters & Setters */
@@ -36,20 +36,20 @@ public class Question
         this.listePropositions = listePropositions;
     }
 
-    public int getIdBonneReponse() {
-        return idBonneReponse;
-    }
-
-    public void setIdBonneReponse(int idBonneReponse) {
-        this.idBonneReponse = idBonneReponse;
-    }
-
     public String getLibelle() {
         return libelle;
     }
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
+    }
+
+    public int getNbQuestion() {
+        return nbQuestion;
+    }
+
+    public void setNbQuestion(int nbQuestion) {
+        this.nbQuestion = nbQuestion;
     }
 
     public int getId() {
@@ -65,17 +65,15 @@ public class Question
         if(null != obj){
             try{
 
-                this.id = obj.getInt ("id");
+                this.id = obj.getInt("id");
                 this.libelle = obj.getString ("libelle");
-                this.listePropositions = new ArrayList<> ();
-                Proposition p = new Proposition ();
+
+                //Remplissage de la liste des propositions
                 JSONArray array = obj.getJSONArray ("propositions");
-                for (int i = 0; i<array.length (); i++){
-                    JSONObject item = array.getJSONObject (i);
-                    p.setId (item.getInt ("id"));
-                    p.setLibelle (item.getString ("libelle"));
-                    listePropositions.add (p);
-                    p = new Proposition ();
+                for(int i=0; i<array.length(); i=i+2){
+                    JSONObject item = array.getJSONObject(i);
+                    Proposition p = new Proposition(item.getInt("id"),item.getString("libelle"));
+                    listePropositions.add(p);
                 }
             }catch(JSONException jsonE){
                 Log.e ("ERREUR",jsonE.getMessage ());

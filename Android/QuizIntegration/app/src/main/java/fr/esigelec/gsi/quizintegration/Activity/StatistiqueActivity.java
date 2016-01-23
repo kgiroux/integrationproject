@@ -80,7 +80,7 @@ public class StatistiqueActivity extends AppCompatActivity implements OnChartVal
     }
 
 	private void initChart(){
-		mChart = (PieChart) findViewById (R.id.chart1);
+		//mChart = (PieChart) findViewById (R.id.chart1);
 		mChart.setUsePercentValues(true);
 		mChart.setDescription("");
 		mChart.setExtraOffsets(5, 10, 5, 5);

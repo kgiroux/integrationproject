@@ -20,6 +20,7 @@ import fr.esigelec.gsi.quizintegration.Objects.Choisir;
 import fr.esigelec.gsi.quizintegration.Objects.Proposition;
 import fr.esigelec.gsi.quizintegration.Objects.Question;
 import fr.esigelec.gsi.quizintegration.R;
+import fr.esigelec.gsi.quizintegration.adapter.ListenerQuestion;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
@@ -32,6 +33,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 public class GameActivity extends Activity implements View.OnClickListener
 {
     private Question question;
+    private final ListenerQuestion listner = new ListenerQuestion();
     private int respGiven = 0;
     private Button button1;
     private Button button2;
@@ -50,20 +52,22 @@ public class GameActivity extends Activity implements View.OnClickListener
         boolean TEST = true;
 
         //Initialisation pour test
-        initTest();
+        //initTest();
 
         //Initialisation des IHMs
+        createQuestion(listner.OnListener(0));
         initIHM();
 
         //Récupération du timer et lancement du thread
         timer = (TextView) findViewById(R.id.timer);
-        //createTimer(28);
-
-
+        createTimer(28);
     }
 
     //Méthode d'initialisation des IHMs
     private void initIHM(){
+        TextView titleQuestion = (TextView) findViewById(R.id.quest_number);
+        titleQuestion.setText("Question ");
+
         TextView questionText = (TextView) findViewById(R.id.question);
         button1 = (Button) findViewById(R.id.choice_one);
         button2 = (Button) findViewById(R.id.choice_two);
@@ -92,7 +96,7 @@ public class GameActivity extends Activity implements View.OnClickListener
 
     //Méthode d'initialisation de la question pour test
     protected void initTest() {
-        question = new Question(1,"De quelle année date le premier Iphone ?", 3);
+        question = new Question(1,"De quelle année date le premier Iphone ?");
         List<Proposition> propositionList = new ArrayList<>();
         Proposition proposition1 = new Proposition(1, "2001");
         Proposition proposition2 = new Proposition(2, "2005");
@@ -105,81 +109,90 @@ public class GameActivity extends Activity implements View.OnClickListener
         question.setListePropositions(propositionList);
     }
 
+    //Méthode de création de la question
+    protected void createQuestion(JSONObject qtJson)
+    {
+        //Remplissage de l'objet question de l'interface courante
+        question.JSONObjectToQuestion(qtJson);
+    }
+    //Methode d'affichage de la réponse
+    protected void displayReponse()
+    {
+        listner.OnListener(1);
+    }
+
     @Override
     public void onClick (View v)
     {
         //Variable récupérant l'id de la proposition sélectionnée
         int idProposition = -1;
 
-        //Changement de la couleur du bouton sélectionné et désactivation des autres boutons
-        switch (v.getId()){
-            case R.id.choice_one :
-                button1.setClickable(false);
-                button1.setSelected(true);
-                button2.setEnabled(false);
-                button3.setEnabled(false);
-                button4.setEnabled(false);
-                idProposition =  question.getListePropositions ().get (0).getId ();
-                break;
-            case R.id.choice_two :
-                button1.setEnabled(false);
-                button2.setSelected(true);
-                button2.setClickable(false);
-                button3.setEnabled(false);
-                button4.setEnabled(false);
-                idProposition =  question.getListePropositions ().get (1).getId ();
-                break;
-            case R.id.choice_three :
-                button1.setEnabled(false);
-                button2.setEnabled(false);
-                button3.setSelected(true);
-                button3.setClickable(false);
-                button4.setEnabled(false);
-                idProposition =  question.getListePropositions ().get (2).getId ();
-                break;
-            case R.id.choice_four :
-                button1.setEnabled(false);
-                button2.setEnabled(false);
-                button3.setEnabled(false);
-                button4.setClickable(false);
-                button4.setSelected(true);
-                idProposition = question.getListePropositions().get(3).getId ();
-                break;
-        }
-
-        //Création de l'objet du choix de l'utilisateur
-        Choisir chx = new Choisir ();
-        chx.setPersonne(SingletonPersonne.getInstance().getPersonne().getId());
-        chx.setQuiz(1);
-        chx.setProposition(idProposition);
-
-        //Booléen vérifiant si l'envoie a été effectué
-        boolean send = false;
-
-        //Envoie du choix de l'utilisateur au serveur
-        try
-        {
-            JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
-            if(choiceJSON.has("err_code"))
-            {
-                int err_code = choiceJSON.getInt("err_code");
-                ErrorManager error = SingletonErrorManager.getInstance().getError();
-
-                //Choix sauvegardé, passage de la variable de succés à true
-                if("CHOICE_SAVE".equals(error.errorManager(err_code))){
-                    Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
-                    send = true;
-                }
-                //Si erreur affichage de celle-ci
-                else
-                {
-                    Toast.makeText(getApplicationContext(),error.errorManager(err_code),Toast.LENGTH_LONG).show();
-                }
+        if(!"0".equals(timer.getText())) {
+            //Changement de la couleur du bouton sélectionné et désactivation des autres boutons
+            switch (v.getId()) {
+                case R.id.choice_one:
+                    button1.setClickable(false);
+                    button1.setSelected(true);
+                    button2.setEnabled(false);
+                    button3.setEnabled(false);
+                    button4.setEnabled(false);
+                    idProposition = question.getListePropositions().get(0).getId();
+                    break;
+                case R.id.choice_two:
+                    button1.setEnabled(false);
+                    button2.setSelected(true);
+                    button2.setClickable(false);
+                    button3.setEnabled(false);
+                    button4.setEnabled(false);
+                    idProposition = question.getListePropositions().get(1).getId();
+                    break;
+                case R.id.choice_three:
+                    button1.setEnabled(false);
+                    button2.setEnabled(false);
+                    button3.setSelected(true);
+                    button3.setClickable(false);
+                    button4.setEnabled(false);
+                    idProposition = question.getListePropositions().get(2).getId();
+                    break;
+                case R.id.choice_four:
+                    button1.setEnabled(false);
+                    button2.setEnabled(false);
+                    button3.setEnabled(false);
+                    button4.setClickable(false);
+                    button4.setSelected(true);
+                    idProposition = question.getListePropositions().get(3).getId();
+                    break;
             }
-        }
-        catch(Exception ex)
-        {
-            Log.e("ERROR",ex.getMessage());
+
+            //Création de l'objet du choix de l'utilisateur
+            Choisir chx = new Choisir();
+            chx.setPersonne(SingletonPersonne.getInstance().getPersonne().getId());
+            chx.setQuiz(1);
+            chx.setProposition(idProposition);
+
+            //Booléen vérifiant si l'envoie a été effectué
+            boolean send = false;
+
+            //Envoie du choix de l'utilisateur au serveur
+            try {
+                JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{MainActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
+                if (choiceJSON.has("err_code")) {
+                    int err_code = choiceJSON.getInt("err_code");
+                    ErrorManager error = SingletonErrorManager.getInstance().getError();
+
+                    //Choix sauvegardé, passage de la variable de succés à true
+                    if ("CHOICE_SAVE".equals(error.errorManager(err_code))) {
+                        Toast.makeText(getApplicationContext(), error.errorManager(err_code), Toast.LENGTH_LONG).show();
+                        send = true;
+                    }
+                    //Si erreur affichage de celle-ci
+                    else {
+                        Toast.makeText(getApplicationContext(), error.errorManager(err_code), Toast.LENGTH_LONG).show();
+                    }
+                }
+            } catch (Exception ex) {
+                Log.e("ERROR", ex.getMessage());
+            }
         }
     }
 

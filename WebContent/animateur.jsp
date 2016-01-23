@@ -53,11 +53,28 @@ Question questioncur=listq.get(count);
 session.setAttribute("questioncurrente",questioncur);
 --%>
 <div class="form-center animateur">
-<a href="<%=request.getContextPath()%>/Stats.do"><button id="bouton1" class="btn btn-primary" >Afficher statistiques</button></a>
-<a href="<%=request.getContextPath()%>/Reponse.do"><button id="bouton2"  class="btn btn-primary">Afficher bonne réponse</button></a>	
-<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>"><button id="bouton3" class="btn btn-primary" id="suivant">Question suivante</button></a>
 
-<h1>Question n°<%=count+1%></h1>
+
+<a href="<%=request.getContextPath()%>/VueQuizAdmin.do" class="btn btn-danger" >Liste des quiz</a>
+
+
+<a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary
+<c:if test="${quiz.etape != 1}"> disabled</c:if>
+" >Afficher %</a>
+
+<a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary
+<c:if test="${quiz.etape != 2}"> disabled</c:if>
+">Afficher la bonne réponse<br> et nouveau classement</a>	
+
+<%--affichage du bouton pour passer a la question suivante seulement si on est pas a la derniere question --%>
+<c:if test="${compteur+1<quiz.questions.size()}">
+<%=count+1 %> / <%=quiz.getQuestions().size() %>
+<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>" class="btn btn-primary
+<c:if test="${quiz.etape != 3}"> disabled</c:if>
+" id="suivant">Question suivante</a>
+</c:if>
+
+<h1>Question n°<%=count+1%>/<%=quiz.getQuestions().size() %></h1>
 </div>
 <hr>
 <div class="form-center">
@@ -124,6 +141,39 @@ session.setAttribute("questioncurrente",questioncur);
         </c:choose>
     </tbody>
   </table>
+  
+  
+  <%--affichage du classement seulement en etape 3 --%>
+   <c:if test="${quiz.etape==3}">
+    <br>
+  <h2 class="question">Classement</h2>
+  <hr>
+  <br>
+  <table class="table table-bordered table-hover " style="width:70%">
+    <thead>
+      <tr style="background-color:#D8D8D8">
+        <th class="question">N°</th>
+        <th class="question">Nom</th>
+        <th class="question">Prénom</th>
+		<th class="question">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+	  <c:forEach var="personne" items="${classement}">
+        <tr class="question">
+          <td><c:out value="${personne.id}" /></td>
+          <td><c:out value="${personne.nom}" /></td>
+          <td><c:out value="${personne.prenom}" /></td>
+          <td><c:out value="${personne.score}" /></td>
+        </tr>
+	  </c:forEach>
+    </tbody>
+  </table>
+  </c:if>
+  
+  
+  
+  
 </div>
 </body>
 </html>

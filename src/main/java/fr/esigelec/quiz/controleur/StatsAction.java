@@ -4,6 +4,7 @@
 package fr.esigelec.quiz.controleur;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +16,9 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import fr.esigelec.quiz.business.ActionService;
+import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
+import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
@@ -23,7 +26,7 @@ import fr.esigelec.quiz.dto.Quiz;
 /**
  * 
  * @author minconghuang
- * @deprecated
+ * 
  */
 public class StatsAction extends Action{
 	
@@ -31,29 +34,34 @@ public class StatsAction extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		
+		// init
 		HttpSession session = request.getSession();
-		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
+		IQuizDAO quizDAO = new QuizDAOImpl();
+		ActionService service = new ActionService();
 		
-		Quiz quiz = (Quiz)session.getAttribute("quiz");
-		ActionService actionService = new ActionService();
+		// get params
+		Quiz quiz = (Quiz) session.getAttribute("quiz");
+		Question question = (Question) session.getAttribute("question");
+		List<Personne> classement = ActionService.getClassement(quiz);
+		@SuppressWarnings("static-access")
+		List<Proposition> pourcentage = service.getPourcentagePropositions(quiz, question);
+		int idBonneReponse = 0;
 		
-		//OUT 
-		//quiz.(2);
-		
+		// compute
+		for(Proposition proposition : question.getPropositions()){
+			if(proposition.isEstBonneReponse()){
+				idBonneReponse = proposition.getId();
+			}
+		}
 		quiz.setEtape(2);
+		boolean statut = quizDAO.updateQuiz(quiz);
+		Quiz q = quizDAO.getQuizAvecQuestions(quiz.getId());
 		
-		
-		boolean statut = quizdaoimpl.updateQuiz(quiz);
-		Quiz q = quizdaoimpl.getQuizAvecQuestions(quiz.getId());
-	/*	Question questioncur=(Question) session.getAttribute("questioncur");
-		List<Proposition> listpro=actionService.getPourcentagePropositions(q, questioncur);
-		session.setAttribute("listpro", listpro);*/
+		// send back
 		session.setAttribute("quiz", q);
-		
+		session.setAttribute("idBonneReponse", idBonneReponse);
+		session.setAttribute("classement", classement);
+		session.setAttribute("pourcentage", pourcentage);
 		return mapping.findForward("succes");
-		
-		
 	}
-	
-
 }

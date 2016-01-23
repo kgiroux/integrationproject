@@ -32,7 +32,7 @@
 			// Si joueur clique une proposition, le controlleur ChoisirAction
 			// va nous rediriger vers le bon JSP en cas TIME_OUT
 			clearInterval(interval)
-			alert('Trop tard !!!')
+			// alert('Trop tard !!!')
 			interval=null
 			//reste=30
 			$('#btn-stats').removeClass('hidden');

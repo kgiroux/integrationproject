@@ -11,8 +11,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.IQuizDAO;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 public class CompteurAction extends Action {
@@ -22,12 +24,12 @@ public class CompteurAction extends Action {
 		
 		//UTILS
 				HttpSession session = request.getSession();
-				//compteur correspond au no de la question courante qui commence à zero.
+				//compteur correspond au no de la question courante qui commence ï¿½ zero.
 				int compteur = Integer.parseInt(request.getParameter("compteur"));
 				
 				QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
 				Quiz quiz = (Quiz)session.getAttribute("quiz");
-				
+				Question question;
 				if(compteur<quiz.getListeQuestions().size()-1)
 						compteur++;
 				
@@ -46,7 +48,11 @@ public class CompteurAction extends Action {
 				quiz.setEtape(1);
 				quizdaoimpl.updateQuiz(quiz);
 				Quiz q = quizdaoimpl.getQuizAvecQuestions(quiz.getId());
+				question = ActionService.getQuestionByQuizId(quiz.getId());
+				
+				// OUT: send back
 				session.setAttribute("quiz", q);
+				session.setAttribute("question", question);
 		return mapping.findForward("succes");
 		
 	}

@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import="java.util.*" %>  
-        <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>

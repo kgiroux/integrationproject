@@ -35,8 +35,6 @@ public class VueQuestionAction extends Action {
 		//IN
 		Question question = (Question) session.getAttribute("question");
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
-		Hashtable<Integer, Float> hashtablePourcentage = 
-				new Hashtable<Integer, Float>();
 		int idBonneReponse = 0;
 		Set<Proposition> listProposition = question.getPropositions();
 		

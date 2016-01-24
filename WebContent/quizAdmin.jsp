@@ -8,7 +8,7 @@
 	<h1>Administrer les quiz</h1>
   </div>
   <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do"><button class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button></a>
-  <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Déconnection</button></a>
+  <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Déconnexion</button></a>
   <hr>
   <div class="row">
     <table class="table table-bordered table-hover col-xs-12">

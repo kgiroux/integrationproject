@@ -45,7 +45,7 @@ public class VueQuestionAction extends Action {
 		
 		
 		IQuizDAO quizDAO=new QuizDAOImpl();
-		//on rafraichit le quiz à partir de la BDD
+		//on rafraichit le quiz ï¿½ partir de la BDD
 		quiz=quizDAO.getQuizAvecQuestions(quiz.getId());
 		
 		
@@ -73,7 +73,7 @@ public class VueQuestionAction extends Action {
 		session.setAttribute("quiz", quiz);
 		session.setAttribute("question", question);
 		session.setAttribute("idBonneReponse", idBonneReponse);
-		
+		request.setAttribute("currentTimestamp", System.currentTimeMillis());
 		
 		
 		

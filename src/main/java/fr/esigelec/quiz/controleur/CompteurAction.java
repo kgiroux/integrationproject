@@ -53,6 +53,7 @@ public class CompteurAction extends Action {
 				// OUT: send back
 				session.setAttribute("quiz", q);
 				session.setAttribute("question", question);
+				request.setAttribute("currentTimestamp", System.currentTimeMillis());
 		return mapping.findForward("succes");
 		
 	}

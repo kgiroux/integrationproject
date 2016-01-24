@@ -71,7 +71,6 @@ public class ChoisirAction extends Action {
 	  
 	  
 		
-	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
 	    
 	    
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
@@ -96,7 +95,7 @@ public class ChoisirAction extends Action {
 	    	
 			
 			
-			for(Choisir c:listeChoix){
+		/*	for(Choisir c:listeChoix){
 				
 				if(c.getProposition().)
 				
@@ -107,7 +106,7 @@ public class ChoisirAction extends Action {
 			
 			if(dejaChoisi)
 				choisirDAO.updateChoix(choisir);
-					
+			*/		
 			
 		}
 		else {

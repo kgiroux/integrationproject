@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %>  
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import ="java.sql.Timestamp" %>  
-    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <jsp:include page="/header.jsp"></jsp:include>
 <body>
 <div class="container">
@@ -66,5 +66,6 @@ q3.setDateDebutQuiz(t);
       </c:forEach> 
     </tbody>
   </table>
+  <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Quit</button></a>
 </div>
 <jsp:include page="/footer.jsp"></jsp:include>

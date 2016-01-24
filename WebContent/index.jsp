@@ -11,19 +11,19 @@
   <form id="loginForm" class="form-horizontal" method="post" action="<%=request.getContextPath()%>/ConnexionPersonne.do">
 	  <div class="form-center">
 		  <div class="form-group">
-		    <label for="inputEmail3" class="col-sm-2 col-lg-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
-		    <div class="col-sm-8 col-lg-5 ">
+		    <label for="inputEmail3" class="col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
+		    <div class="col-sm-6 col-lg-5">
 		    <input type="email" value="j@j.j" class="form-control " name="mail" id="inputEmail3" placeholder="nom@domain.com">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputPassword3" class="col-sm-2 col-lg-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
-		    <div class="col-sm-8 col-lg-5">
+		    <label for="inputPassword3" class="col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
+		    <div class="col-sm-6 col-lg-5">
 		      <input type="password" value="j" class="form-control" name="password" id="inputPassword3" placeholder="Password">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-lg-offset-4 col-sm-10 col-lg-8">
+		    <div class="col-sm-offset-4 col-sm-10 col-lg-8">
 		      <div class="checkbox">
 		        <label>
 		          <input type="checkbox"> Remember me
@@ -32,7 +32,7 @@
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-lg-offset-4 col-sm-10 col-lg-8">
+		    <div class="col-sm-offset-4 col-sm-10 col-lg-8">
 		     <button type="submit" class="btn btn-primary">Connexion </button> ou
 			  <a href ="<%=request.getContextPath()%>/VueInscription.do">Inscription</a>
 		    </div>

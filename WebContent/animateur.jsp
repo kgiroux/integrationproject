@@ -54,17 +54,17 @@ session.setAttribute("questioncurrente",questioncur);
 <!-- <div class="form-center animateur"> -->
 <div class="container">
 
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
+  <div class="row" style="margin-top:10px">
+    <div class="col-sm-3">
       <a href="<%=request.getContextPath()%>/VueQuizAdmin.do" class="btn btn-danger btn-block">Liste des quiz</a>
     </div>
-    <div class="col-xs-8 col-xs-offset-2">
-      <a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 1}"> disabled</c:if>">Afficher %</a>
+    <div class="col-sm-3">
+      <a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 1}"> disabled</c:if>">Ratio de réponse</a>
     </div>
-    <div class="col-xs-8 col-xs-offset-2">
-      <a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 2}"> disabled</c:if>">Afficher la bonne réponse<br> et nouveau classement</a>	
+    <div class="col-sm-3">
+      <a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 2}"> disabled</c:if>">Réponse et classement</a>	
     </div>
-    <div class="col-xs-8 col-xs-offset-2">
+    <div class="col-sm-3">
       <%--affichage du bouton pour passer a la question suivante seulement si on est pas a la derniere question --%>
       <c:if test="${compteur+1<quiz.questions.size()}">
         <a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>" class="btn btn-primary btn-block <c:if test="${quiz.etape != 3}"> disabled</c:if>" id="suivant">Question suivante</a>
@@ -150,35 +150,37 @@ session.setAttribute("questioncurrente",questioncur);
       </tbody>
     </table>
     </div><!-- /.col -->
-  </div><!-- /.row -->
-  
-  <%--affichage du classement seulement en etape 3 --%>
-   <c:if test="${quiz.etape==3}">
-    <br>
-  <h2 class="question">Classement</h2>
-  <hr>
-  <br>
-  <table class="table table-bordered table-hover " style="width:70%">
-    <thead>
-      <tr style="background-color:#D8D8D8">
-        <th class="question">N°</th>
-        <th class="question">Nom</th>
-        <th class="question">Prénom</th>
-		<th class="question">Score</th>
-      </tr>
-    </thead>
-    <tbody>
-	  <c:forEach var="personne" items="${classement}">
-        <tr class="question">
-          <td><c:out value="${personne.id}" /></td>
-          <td><c:out value="${personne.nom}" /></td>
-          <td><c:out value="${personne.prenom}" /></td>
-          <td><c:out value="${personne.score}" /></td>
-        </tr>
-	  </c:forEach>
-    </tbody>
-  </table>
-  </c:if>
+    
+    <%--affichage du classement seulement en etape 3 --%>
+    <c:if test="${quiz.etape==3}">
+      <div class="col-xs-12">
+        <div class="page-header"> 
+          <h2 class="question">Classement</h2>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr style="background-color:#D8D8D8">
+              <th class="question">N°</th>
+              <th class="question">Nom</th>
+              <th class="question">Prénom</th>
+              <th class="question">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+	        <c:forEach var="personne" items="${classement}" varStatus="loop">
+              <tr class="question">
+                <td><c:out value="${loop.index + 1}" /></td>
+                <td><c:out value="${personne.nom}" /></td>
+                <td><c:out value="${personne.prenom}" /></td>
+                <td><c:out value="${personne.score}" /></td>
+              </tr>
+	        </c:forEach>
+          </tbody>
+        </table>
+      </div>
+    </c:if>
   </div>
 </div>
 <jsp:include page="/footer.jsp"/>

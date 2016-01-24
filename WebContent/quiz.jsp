@@ -58,8 +58,19 @@ q3.setDateDebutQuiz(t);
         <td><c:out value="${quiz.libelle}" /></td>
         <td><c:out value="${quiz.questions.size()}" /></td>
         <td><c:out value="${quiz.dateDebutQuiz}" /></td>
-		<td><a href="<%=request.getContextPath()%>/Jouer.do?idQuiz=${quiz.id}"><img src="Ressources/images/jouer.png" width="8%"/></a></td>
-		<td><a href="<%=request.getContextPath()%>/Stats.do?idQuiz=${quiz.id}"><img src="Ressources/images/stats.png" width="8%"/></a></td>
+		
+		<td>
+		<%-- on affiche le bouton jouer que si le quiz a commencé --%>
+		<c:if test="${quiz.dateDebutQuiz != null}" >
+			<a href="<%=request.getContextPath()%>/Jouer.do?idQuiz=${quiz.id}"><img src="Ressources/images/jouer.png" width="8%"/></a>
+		</c:if>
+		</td>
+		<td>
+		<%-- on affiche le bouton resultat que si le quiz a commencé --%>
+		<c:if test="${quiz.dateDebutQuiz != null}" >
+			<a href="<%=request.getContextPath()%>/Stats.do?idQuiz=${quiz.id}"><img src="Ressources/images/stats.png" width="8%"/></a>
+		</c:if>
+		</td>
       </tr>
       </c:forEach> 
 	

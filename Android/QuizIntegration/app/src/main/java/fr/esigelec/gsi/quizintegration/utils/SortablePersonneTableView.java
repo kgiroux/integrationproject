@@ -8,7 +8,7 @@ import de.codecrafters.tableview.SortableTableView;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 import de.codecrafters.tableview.toolkit.SortStateViewProviders;
 import de.codecrafters.tableview.toolkit.TableDataRowColorizers;
-import fr.esigelec.gsi.quizintegration.Objects.Personne;
+import fr.esigelec.gsi.quizintegration.objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
 
 /**

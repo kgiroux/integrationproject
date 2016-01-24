@@ -1,4 +1,4 @@
-package fr.esigelec.gsi.quizintegration.Activity;
+package fr.esigelec.gsi.quizintegration.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,12 +13,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.esigelec.gsi.quizintegration.Objects.Choisir;
-import fr.esigelec.gsi.quizintegration.Objects.Proposition;
-import fr.esigelec.gsi.quizintegration.Objects.Question;
+import fr.esigelec.gsi.quizintegration.objects.Choisir;
+import fr.esigelec.gsi.quizintegration.objects.Proposition;
+import fr.esigelec.gsi.quizintegration.objects.Question;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
@@ -26,8 +25,9 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
- * Created by Cyril Lefebvre on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
- * Edited by Kévin PACE on 18/01/2016
+ * Created by Cyril Lefebvre on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.activity Project Name : QuizIntegration
+ * Edited by Kévin PACE  on 18/01/2016
+ * Edited by Kévin GIROUX  on 24/01/2016
  */
 public class GameActivity extends Activity implements View.OnClickListener
 {
@@ -78,7 +78,8 @@ public class GameActivity extends Activity implements View.OnClickListener
     //Méthode d'initialisation des IHMs
     private void initQuestionIHM(){
         TextView titleQuestion = (TextView) findViewById(R.id.quest_number);
-        titleQuestion.setText("Question " + (question.getNumQuestion() + 1) + ":");
+        String questionValueText = "Question " + (question.getNumQuestion() + 1) + ":";
+        titleQuestion.setText(questionValueText);
         titleQuestion.setTypeface(WelcomeActivity.quizFont);
 
         TextView questionText = (TextView) findViewById(R.id.question);
@@ -196,9 +197,6 @@ public class GameActivity extends Activity implements View.OnClickListener
             chx.setQuiz(idQuiz);
             chx.setProposition(idProposition);
 
-            //Booléen vérifiant si l'envoie a été effectué
-            boolean send = false;
-
             //Envoie du choix de l'utilisateur au serveur
             try {
                 JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
@@ -209,7 +207,6 @@ public class GameActivity extends Activity implements View.OnClickListener
                     //Choix sauvegardé, passage de la variable de succés à true
                     if ("CHOICE_SAVE".equals(error.errorManager(err_code))) {
                         Toast.makeText(getApplicationContext(), error.errorManager(err_code), Toast.LENGTH_LONG).show();
-                        send = true;
                     }
                     //Si erreur affichage de celle-ci
                     else {
@@ -233,7 +230,7 @@ public class GameActivity extends Activity implements View.OnClickListener
                     gameHandler.post(new Runnable(){
                         @Override
                         public void run() {
-                            timer.setText(Integer.toString(counter));
+                            timer.setText(String.valueOf(counter));
                         }
                     });
                     try {

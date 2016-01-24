@@ -1,6 +1,5 @@
-package fr.esigelec.gsi.quizintegration.Objects;
+package fr.esigelec.gsi.quizintegration.objects;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 
 /**

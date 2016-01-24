@@ -1,8 +1,7 @@
-package fr.esigelec.gsi.quizintegration.Activity;
+package fr.esigelec.gsi.quizintegration.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.style.SuperscriptSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,15 +13,14 @@ import org.json.JSONObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import fr.esigelec.gsi.quizintegration.Objects.Personne;
+import fr.esigelec.gsi.quizintegration.objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
-import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
- * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.activity Project Name : QuizIntegration
  * Edited by Cyril Lefebvre on 13/01/2016
  */
 public class InscriptionActivity extends AppCompatActivity implements View.OnClickListener

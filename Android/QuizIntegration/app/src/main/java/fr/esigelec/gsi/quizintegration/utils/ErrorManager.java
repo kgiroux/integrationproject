@@ -13,6 +13,8 @@ public class ErrorManager {
         DB_INSERT_FAIL,
         QUIZ_NOT_FOUND,
         CHOICE_SAVE,
+        INCORRECT_VALUE,
+        BAD_REQUEST,
         NOTHING
     }
 
@@ -37,6 +39,10 @@ public class ErrorManager {
                 return ERROR.QUIZ_NOT_FOUND;
             case 7 :
                 return ERROR.CHOICE_SAVE;
+            case 8 :
+                return ERROR.INCORRECT_VALUE;
+            case 9 :
+                return ERROR.BAD_REQUEST;
             default :
                 return ERROR.NOTHING;
         }
@@ -59,6 +65,10 @@ public class ErrorManager {
                 return "QUIZ NOT FOUND";
             case CHOICE_SAVE :
                 return "CHOICE SAVE";
+            case INCORRECT_VALUE:
+                return "AN ERROR OCCURED";
+            case BAD_REQUEST:
+                return "AN ERROR OCCURED";
             default :
                 return "NOTHING";
         }

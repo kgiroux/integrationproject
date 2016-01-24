@@ -9,8 +9,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import de.codecrafters.tableview.TableDataAdapter;
-import fr.esigelec.gsi.quizintegration.Activity.WelcomeActivity;
-import fr.esigelec.gsi.quizintegration.Objects.Personne;
+import fr.esigelec.gsi.quizintegration.activity.WelcomeActivity;
+import fr.esigelec.gsi.quizintegration.objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
 
 /**

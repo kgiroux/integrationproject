@@ -1,4 +1,4 @@
-package fr.esigelec.gsi.quizintegration.Activity;
+package fr.esigelec.gsi.quizintegration.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import java.util.concurrent.ExecutionException;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
 /**
- * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.activity Project Name : QuizIntegration
  */
 public class LegalNoticeActivity extends AppCompatActivity
 {

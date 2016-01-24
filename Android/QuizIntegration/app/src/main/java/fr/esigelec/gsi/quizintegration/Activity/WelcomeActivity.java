@@ -1,10 +1,9 @@
-package fr.esigelec.gsi.quizintegration.Activity;
+package fr.esigelec.gsi.quizintegration.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,14 +12,14 @@ import android.widget.TextView;
 import fr.esigelec.gsi.quizintegration.R;
 
 /**
- * Created by Yuhuang, Tang on 13/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Created by Yuhuang, Tang on 13/01/2016. Package : fr.esigelec.gsi.quizintegration.activity Project Name : QuizIntegration
  */
 public class WelcomeActivity extends AppCompatActivity {
 
     public static String IPSERVER = "http://10.0.2.2:8080/quiz/";
     public static Typeface quizFont;
-    public static boolean DEBUG = true;
-    public static boolean DEV = true;
+    public static boolean DEBUG = false;
+    public static boolean DEV = false;
     private long SPLASH_LENGTH = 3000;
     Handler handler = new Handler();
 
@@ -44,7 +43,6 @@ public class WelcomeActivity extends AppCompatActivity {
         //Chargement de la police d'écriture
         quizFont = Typeface.createFromAsset(getAssets(), "fonts/show.ttf");
 
-        //TODO EN PROD
         if(DEV){
             SPLASH_LENGTH = 500;
         }

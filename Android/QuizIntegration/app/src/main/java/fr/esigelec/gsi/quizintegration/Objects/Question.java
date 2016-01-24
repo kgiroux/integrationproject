@@ -1,4 +1,4 @@
-package fr.esigelec.gsi.quizintegration.Objects;
+package fr.esigelec.gsi.quizintegration.objects;
 
 import android.util.Log;
 

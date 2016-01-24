@@ -1,11 +1,10 @@
-package fr.esigelec.gsi.quizintegration.Activity;
+package fr.esigelec.gsi.quizintegration.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
@@ -13,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -29,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import fr.esigelec.gsi.quizintegration.Objects.Personne;
+import fr.esigelec.gsi.quizintegration.objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
@@ -39,7 +37,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
- * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.activity Project Name : QuizIntegration
  * Edited by Cyril Lefebvre on 16/01/2016
  */
 public class MainActivity extends Activity implements View.OnClickListener
@@ -96,8 +94,10 @@ public class MainActivity extends Activity implements View.OnClickListener
 		ExpandableListAdapter expListAdapter;
 		createGroupList ();
 		createCollection ();
+		// récupération des différents élements pour le menu
 		mDrawerLayout = (DrawerLayout) findViewById (R.id.drawer_layout);
 		mDrawerExpandableList = (ExpandableListView) findViewById (R.id.drawer_list);
+		// Création de l'adapter
 		expListAdapter = new ExpandableListAdapter (this, groupList, ItemCollection);
 		mDrawerExpandableList.setGroupIndicator (null);
 		mDrawerExpandableList.setAdapter (expListAdapter);
@@ -112,34 +112,44 @@ public class MainActivity extends Activity implements View.OnClickListener
 				switch (groupPosition)
 				{
 					case 0:
+						// On clique sur connexion
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
+						// On ouvre une boite de dialogue demande la connexion
 						dialog.show ();
 						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
 						break;
 					case 1:
+						// On clique sur inscription
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),InscriptionActivity.class);
+
+						// On lance l'application mais on attend un résultat
 						startActivityForResult (t,REQUEST_CODE_INSCRIPTION);
 						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.inscription, Toast.LENGTH_LONG).show ();
 						break;
 
 					case 2:
+						// On clique sur About
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),AboutActivity.class);
 						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
+						// On lance l'activité
 						startActivity (t);
 						break;
 					case 3:
+						// On clique sur Légales Notices
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
 						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
+						// On lance l'activité pour les légales Notices
 						startActivity (t);
 						break;
 					case 4:
+						// On quite l'application;
 						Toast.makeText (getApplicationContext (), R.string.bye, Toast.LENGTH_LONG).show ();
 						finish ();
 						break;
@@ -158,28 +168,34 @@ public class MainActivity extends Activity implements View.OnClickListener
     //Méthode de création des groupe d'item du menu
 	private void createGroupList ()
 	{
+		// On charge le menu disponible dans string.xml
 		String listItem[] = getResources ().getStringArray (R.array.listMenu);
 		groupList = new ArrayList<> ();
 
 		for (int i = 0; i != listItem.length; i++)
 		{
-			Log.e ("DEBUG",listItem[i]);
+			if(WelcomeActivity.DEBUG)
+				Log.e ("DEBUG",listItem[i]);
 			groupList.add (listItem[i]);
 		}
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		// Après le retour de l'activité Inscription
+
+		// Si l'utilisateur n'a pas annuler
 		if(resultCode != RESULT_CANCELED){
 			switch (requestCode){
 				case REQUEST_CODE_INSCRIPTION :
+					// On ouvre la fenetre de connexion
 					dialog.show();
 					break;
 			}
 		}
 	}
 
-	//Méthode qui change l'état du menu (open, close)
+	//Méthode qui change l'état du menu (open, close) après la création (OnCreate)
 	protected void onPostCreate (Bundle savedInstanceState)
 	{
 		super.onPostCreate(savedInstanceState);

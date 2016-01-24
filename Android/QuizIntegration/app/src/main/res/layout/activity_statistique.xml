@@ -7,7 +7,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="fr.esigelec.gsi.quizintegration.Activity.StatistiqueActivity"
+                tools:context="fr.esigelec.gsi.quizintegration.activity.StatistiqueActivity"
                 android:touchscreenBlocksFocus="true">
 
     <fr.esigelec.gsi.quizintegration.utils.SortablePersonneTableView

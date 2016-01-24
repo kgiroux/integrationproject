@@ -1,12 +1,4 @@
-package fr.esigelec.gsi.quizintegration.Objects;
-
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
+package fr.esigelec.gsi.quizintegration.objects;
 
 /**
  * Created by Kevin PACE

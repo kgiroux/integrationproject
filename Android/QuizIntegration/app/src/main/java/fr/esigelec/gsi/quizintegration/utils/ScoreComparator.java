@@ -2,7 +2,7 @@ package fr.esigelec.gsi.quizintegration.utils;
 
 import java.util.Comparator;
 
-import fr.esigelec.gsi.quizintegration.Objects.Personne;
+import fr.esigelec.gsi.quizintegration.objects.Personne;
 
 /**
  * Created by kevin on 24/01/2016. Package : fr.esigelec.gsi.quizintegration.utils Project Name : QuizIntegration

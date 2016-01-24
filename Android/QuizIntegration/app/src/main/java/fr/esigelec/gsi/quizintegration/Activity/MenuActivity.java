@@ -1,9 +1,8 @@
-package fr.esigelec.gsi.quizintegration.Activity;
+package fr.esigelec.gsi.quizintegration.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
@@ -22,7 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -30,18 +28,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import fr.esigelec.gsi.quizintegration.Objects.Personne;
-import fr.esigelec.gsi.quizintegration.Objects.Proposition;
-import fr.esigelec.gsi.quizintegration.Objects.Question;
-import fr.esigelec.gsi.quizintegration.Objects.Quiz;
+import fr.esigelec.gsi.quizintegration.objects.Personne;
+import fr.esigelec.gsi.quizintegration.objects.Quiz;
 import fr.esigelec.gsi.quizintegration.R;
 import fr.esigelec.gsi.quizintegration.adapter.CustomActionBarDrawerToggle;
 import fr.esigelec.gsi.quizintegration.adapter.ExpandableListAdapter;
 import fr.esigelec.gsi.quizintegration.utils.AndroidHTTPRequest;
+import fr.esigelec.gsi.quizintegration.utils.ErrorManager;
+import fr.esigelec.gsi.quizintegration.utils.SingletonErrorManager;
 import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
- * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.Activity Project Name : QuizIntegration
+ * Created by Kevin-Giroux on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.activity Project Name : QuizIntegration
  * Edited by Kevin Pace and Cyril Lefebvre on 22/01/2016
  */
 public class MenuActivity extends Activity implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener
@@ -95,7 +93,7 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 			if(quizJson != null) {
 				//Get the list of all finished quiz from request
 				if(quizJson.has("QuizList")) {
-					quizList = new ArrayList<Quiz>();
+					quizList = new ArrayList<>();
 					JSONArray quizListJson = quizJson.getJSONArray("QuizList");
 					for (int i = 0; i < quizListJson.length(); i++) {
 						JSONObject quiz = quizListJson.getJSONObject(i);
@@ -114,12 +112,10 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 					currentQuiz = null;
 			}
 
-		} catch (InterruptedException e) {
+		} catch (InterruptedException | ExecutionException | JSONException e) {
+			ErrorManager errorManager = SingletonErrorManager.getInstance().getError();
+			Toast.makeText(getApplicationContext(),errorManager.errorManager(9), Toast.LENGTH_LONG).show();
 			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
 
 		TextView curText = (TextView) findViewById(R.id.current);
@@ -217,27 +213,35 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
             switch (groupPosition)
             {
                 case 0:
+					// On clique sur le nom de la personne
                     break;
                 case 1:
+					// On se déconnecte
                     t = new Intent(getApplicationContext (),MainActivity.class);
+					// On revient à l'activité précédente
                     startActivity (t);
 					if(WelcomeActivity.DEBUG)
 						Toast.makeText (getApplicationContext (), R.string.bye, Toast.LENGTH_LONG).show ();
 					finish();
                     break;
                 case 2:
+					// On affiche le About de l'application
                     t = new Intent(getApplicationContext (),AboutActivity.class);
 					if(WelcomeActivity.DEBUG)
 						Toast.makeText (getApplicationContext (), R.string.about, Toast.LENGTH_LONG).show ();
-                    startActivity (t);
+                    // On lance l'activité About
+					startActivity (t);
                     break;
                 case 3:
+					//On affiche les mentions légales de l'application
                     t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
 					if(WelcomeActivity.DEBUG)
 						Toast.makeText (getApplicationContext (), R.string.mentionlegales, Toast.LENGTH_LONG).show ();
-                    startActivity (t);
+                    // On lance l'activité concernant les mentions légales
+					startActivity (t);
                     break;
                 case 4:
+					// On quitte l'application
                     Toast.makeText (getApplicationContext (), R.string.bye, Toast.LENGTH_LONG).show ();
                     finish ();
                     break;
@@ -246,22 +250,17 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 			}
 		});
 	}
-
-	@Override
-	public void onBackPressed() {
-		//super.onBackPressed(); Empêcher le retour à l'activité précédente
-	}
-
+	//Méthode de remplissage des sous-niveaux du menu
 	private void createCollection ()
 	{
 		ItemCollection = new LinkedHashMap<> ();
 	}
-
+	//Méthode de création des groupe d'item du menu
 	private void createGroupList ()
 	{
 		String listItem[] = getResources ().getStringArray (R.array.listMenuActivity);
 		groupList = new ArrayList<> ();
-
+		// On ajoute le nom de la personne qui vient de se connecter
 		groupList.add(pers.getNom() + " " + pers.getPrenom());
 		for (int i = 1; i != listItem.length; i++)
 		{
@@ -269,16 +268,13 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		}
 	}
 
-	/*
-	*  When using the ActionBarDrawerToggle, you must call it during
-	* onPostCreate() and onConfigurationChanged()...
-	*/
+	//Méthode qui change l'état du menu (open, close) après la création (OnCreate)
 	protected void onPostCreate (Bundle savedInstanceState)
 	{
 		super.onPostCreate(savedInstanceState);
 		mDrawerToggle.syncState();
 	}
-
+	//Méthode qui associe la toolbar au menu
 	public void onConfigurationChanged (Configuration newConfig)
 	{
 		super.onConfigurationChanged(newConfig);
@@ -288,6 +284,8 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 	@Override
 	public void onClick (View v)
 	{
+			// Gestion de la liste des quiz terminés
+			// On affiche les statistiques du quiz
 			Intent t = new Intent (this,StatistiqueActivity.class);
 			t.putExtra ("idQuiz",v.getId ());
 			startActivity (t);
@@ -296,6 +294,7 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 	@Override
 	public void onRefresh ()
 	{
+		// On rafraichit la liste
 		new Handler ().postDelayed(new Runnable() {
 			@Override
 			public void run() {

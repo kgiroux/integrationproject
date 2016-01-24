@@ -1,8 +1,7 @@
-package fr.esigelec.gsi.quizintegration.Objects;
+package fr.esigelec.gsi.quizintegration.objects;
 
 import android.util.Log;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;

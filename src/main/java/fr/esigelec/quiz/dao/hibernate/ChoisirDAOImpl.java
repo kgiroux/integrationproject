@@ -99,11 +99,17 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		return retour;
 	}
 	
-	@Override
+	/**
+	 * 
+	 * @author HUANG Mincong
+	 * @see https://docs.jboss.org/hibernate/orm/3.3/reference/en/html/queryhql.html#queryhql-grouping
+	 */
 	public int getNombrePersonneParQuiz(Quiz q) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		String hql = "from Choisir where quiz.id = " + q.getId();
+		String hql = "select count(personne) from Choisir "
+				+ "where quiz.id = " + q.getId() + " "
+				+ "group by personne";
 		@SuppressWarnings("unchecked")
 		List<Choisir> retour = session.createQuery(hql).list();
 		session.getTransaction().commit();

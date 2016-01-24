@@ -57,6 +57,15 @@ public interface IPersonneDAO {
 	public List<Personne> listPersonnes();
 	
 	/**
+	 * Get la liste des participants pour un quiz
+	 * 
+	 * @author HUANG Mincong
+	 * @param quiz quiz ciblé
+	 * @return la liste des participants
+	 */
+	public List<Personne> getParticipants(Quiz quiz);
+	
+	/**
 	 * Methode : updatePersonne
 	 * Met a jour une personne placee en entree dans la bdd
 	 * si elle a ete enregistree avant

@@ -2,6 +2,7 @@
  * @author Rodolphe AGUIDISSOU - ESIGELEC 2016
  * @author BOSSO BOSSO Ghyslaine
  * @author DELAUNAY Brice
+ * @author HUANG Mincong
  *
  *Classe utiliser par les Classe Actions
  * pour gerer des traitements specifiques
@@ -13,6 +14,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import fr.esigelec.quiz.dao.IPersonneDAO;
 import fr.esigelec.quiz.dao.hibernate.ChoisirDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.HibernateUtil;
 import fr.esigelec.quiz.dao.hibernate.PersonneDAOImpl;
@@ -52,11 +54,14 @@ public class ActionService {
 	
 	/**
 	 * Méthode renvoyant le classement des personnes pour un quiz
+	 * 
+	 * @author HUANG Mincong
 	 * @param q : Le quiz demandé
 	 * @return Le classement de toutes les personnes
 	 */
 	public static List<Personne> getClassement(Quiz q) {
-		List<Personne> listePersonne = new PersonneDAOImpl().listPersonnes();
+		IPersonneDAO personneDAO = new PersonneDAOImpl();
+		List<Personne> listePersonne = personneDAO.getParticipants(q);
 		for (Personne p : listePersonne) {
 			p.setScore(scoreParPersonne(p, q));
 		}
@@ -90,7 +95,11 @@ public class ActionService {
 		double pourcentage = 0;
 		List<Proposition> listeProposition = ques.getListePropositions();//propositions de la question
 		for (Proposition p : listeProposition) {
-			pourcentage =((new ChoisirDAOImpl().getNombrePersonneParProposition(quiz, p)) *100)/nbPersonne; //pourcentage par proposition
+			if (nbPersonne > 0) {
+				pourcentage =((new ChoisirDAOImpl().getNombrePersonneParProposition(quiz, p)) *100)/nbPersonne; //pourcentage par proposition	
+			} else {
+				pourcentage = 0;
+			}
 			p.setPourcentage(pourcentage);
 		}
 		

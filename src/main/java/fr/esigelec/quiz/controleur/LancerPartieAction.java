@@ -12,19 +12,23 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import fr.esigelec.quiz.business.ActionService;
+import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dao.IQuizDAO;
+import fr.esigelec.quiz.dao.hibernate.ChoisirDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
 /**
- * action appelée quand l'animateur lance une partie
+ * cette action n'est plus utilisée ???
  * 
  * @author Damien BELLENGER et Rodolphe AGUIDISSOU
  *
  */
+@Deprecated
 public class LancerPartieAction extends Action {
+	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -55,7 +59,11 @@ public class LancerPartieAction extends Action {
 
 			// letape est 1 (etape où les joueurs peuvent repondre)
 			quiz.setEtape(1);
-
+			
+			//on efface tous les anciens votes associés à ce quiz
+			IChoisirDAO choixDAO=new ChoisirDAOImpl();
+			choixDAO.deleteChoix(quiz);
+			
 			// mise à jour du quiz dans la BDD
 			quizDAO.updateQuiz(quiz);
 

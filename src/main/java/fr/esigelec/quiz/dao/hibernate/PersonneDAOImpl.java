@@ -17,13 +17,13 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import fr.esigelec.quiz.controleur.TestLogger;
 import fr.esigelec.quiz.dao.IPersonneDAO;
 import fr.esigelec.quiz.dto.Personne; 
+import fr.esigelec.quiz.dto.Quiz;
 
 public class PersonneDAOImpl implements IPersonneDAO{
 
-	private static final Logger logger = Logger.getLogger(TestLogger.class);
+	private static final Logger logger = Logger.getLogger(PersonneDAOImpl.class);
 
 	
 	/**
@@ -142,5 +142,21 @@ public class PersonneDAOImpl implements IPersonneDAO{
 		}
 		logger.info("connexion: " + etat);
 		return p;
+	}
+	
+	public List<Personne> getParticipants(Quiz quiz) {
+		logger.debug("Getting participants pour quiz.id=" + quiz.getId());
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "select p from Personne p, Choisir choix inner join choix.personne p "
+				+ "where choix.quiz.id = " + quiz.getId() + " "
+				+ "group by p.id";
+		@SuppressWarnings("unchecked")
+		List<Personne> participants = session.createQuery(hql).list();
+		session.getTransaction().commit();
+		session.close();
+		logger.info("Liste des participants pour quiz.id=" + quiz.getId()
+				+ " est: " + participants.toString());
+		return participants;
 	}
 }

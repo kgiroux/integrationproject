@@ -22,7 +22,21 @@ public class Choisir implements Serializable {
 
 	public Choisir() {}
 	
+	//
+	// @Deprecated
+	// Deprecation annulee suite au changement au controlleur
+	//     fr.esigelec.quiz.controleur.ChoisirAction
+	//													marque par @mincong-h
+	//
 	public Choisir(Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
+		this.date = date;
+		this.proposition = proposition;
+		this.quiz = quiz;
+		this.personne = personne;
+	}
+	
+	public Choisir(int id,Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
+		this.id=id;
 		this.date = date;
 		this.proposition = proposition;
 		this.quiz = quiz;
@@ -31,8 +45,7 @@ public class Choisir implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Choisir [date=" + date + ", proposition=" + proposition + ",  personne=" + personne
-				+ "]";
+		return "Choisir [id=" + id + "]";
 	}
 
 	@Override

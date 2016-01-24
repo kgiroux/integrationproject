@@ -1,10 +1,13 @@
 /**
  * @author Rodolphe AGUIDISSOU - ESIGELEC 2016
+ * @author Mincong HUANG
  */
 
 package fr.esigelec.quiz.controleur;
+
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +19,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import java.util.List;
-
 import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.IChoisirDAO;
 import fr.esigelec.quiz.dao.hibernate.ChoisirDAOImpl;
@@ -26,98 +27,85 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
-
-
+/**
+ * l'Action Choisir correspon au clic du joueur sur une proposition
+ * 
+ */
 public class ChoisirAction extends Action {
 
-	private final Logger choisirActionLogger = Logger.getLogger(ChoisirAction.class);
-	
+	private final Logger choisirActionLogger = Logger
+			.getLogger(ChoisirAction.class);
+
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		choisirActionLogger.debug("Execute");
-		
-		
-		//UTILS
+		// ENTREE
+		// recuperation session
 		HttpSession session = request.getSession();
-		
-		Personne personne=(Personne)session.getAttribute("personne");
-		//IN 
-		int idProposition = Integer.parseInt(request.getParameter("idProposition"));
-	    Quiz quiz  = (Quiz) session.getAttribute("quiz");
-	    Proposition proposition = new Proposition();
-	    proposition.setId(idProposition);
-	    boolean dejaChoisi=false;
-	    
-	    Question question=ActionService.getQuestionByQuizId(quiz.getId());
-	    List<Proposition> propositions=question.getListePropositions();
-	    IChoisirDAO choisirDAO = new ChoisirDAOImpl() ;
-	    List<Choisir> listeChoix=choisirDAO.getChoixPersonneParQuiz(personne,quiz);
-	    
-	    
-	    //recherche si on a deja voté pour cette question
-	    for(Proposition p:propositions)
-	    	if(p.getId()==idProposition)
-	    	{
-	    		dejaChoisi=true;
-	    		break;
-	    	}
-	    
-	    
-	    boolean choose=false;
-		Choisir choisir=new Choisir(new Timestamp(System.currentTimeMillis()),proposition,quiz,personne);
-	    
-	  
-	  
-		
-	    
-	    
+		// recuperation personne en session
+		Personne personne = (Personne) session.getAttribute("personne");
+		// recuperation de l'id de la proposition qui a eteselectionnee
+		int idProposition = Integer.parseInt(request
+				.getParameter("idProposition"));
+		// recuperation quiz
+		Quiz quiz = (Quiz) session.getAttribute("quiz");
+		// DAO choisir
+		IChoisirDAO choisirDAO = new ChoisirDAOImpl();
+
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-		
-        Timestamp questionStartTime = quiz.getDateDebutQuestion() ;
-        
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(questionStartTime);
-        cal.add(Calendar.SECOND, 30);
-       		
-		if ( currentTime.before(cal.getTime())){
-			
-			//OUT 
-	    if(choose){
-	    	choisirDAO.updateChoix(choisir);
-	    }
-	    else{
-	    	choisirDAO.createChoix(choisir);	
-	    	choose= true;
-			session.setAttribute("idProposition", idProposition);
-	    }
-	    	
-			
-			
-		/*	for(Choisir c:listeChoix){
-				
-				if(c.getProposition().)
-				
-				
-			}
-			
-			dejaChoisi=choisirDAO.createChoix(choisir);
-			
-			if(dejaChoisi)
+		Timestamp questionStartTime = quiz.getDateDebutQuestion();
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(questionStartTime);
+		cal.add(Calendar.SECOND, 30);
+
+		// si on vote dans le temps imparti
+		if (currentTime.before(cal.getTime())) {
+
+			choisirActionLogger.debug("vote dans les 30s");
+
+			// creation d'un objet proposition correspondant au choix du joueur
+			Proposition proposition = new Proposition();
+			proposition.setId(idProposition);
+
+			// on recupere la question courante
+			Question question = ActionService.getQuestionByQuizId(quiz.getId());
+
+			// liste des choix dejï¿½ faits pour cette question et ce joueur
+			List<Choisir> listeChoix = choisirDAO
+					.getChoixPersonneParQuizPersonneEtQuestion(personne, quiz,
+							question);
+
+			// si la personne avait deja choisi , on remplace son choix par le
+			// nouveau
+			if (listeChoix.size() > 0) {
+				Choisir choisir = new Choisir(listeChoix.get(0).getId(),
+						new Timestamp(System.currentTimeMillis()), proposition,
+						quiz, personne);
 				choisirDAO.updateChoix(choisir);
-			*/		
-			
-		}
-		else {
-			session.setAttribute("idProposition", -1);
-		}
+			}
+			// sinon on cree le nouveau choix et on l'ajoute
+			else {
 
-		choisirActionLogger.debug("Action terminee avec succes");
-		return mapping.findForward("succes");
-		
-		
-		
+				Choisir choisir = new Choisir(new Timestamp(
+						System.currentTimeMillis()), proposition, quiz,
+						personne);
+				// on l'ajoute
+				choisirDAO.createChoix(choisir);
+			}
+			choisirActionLogger.debug("Action terminee avec succes");
+
+			// envoi de l'id pour la vue qui mettra en avant le choix
+			// selectionné
+			session.setAttribute("idProposition", idProposition);
+			return mapping.findForward("succes");
+		} else {
+			// le temps est depassï¿½
+			choisirActionLogger.debug("vote apres les 30s");
+			// session.setAttribute("idProposition", -1);
+			return mapping.findForward("time-out");
+		}
 	}
-
 }

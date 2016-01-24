@@ -1,14 +1,30 @@
-<!-- @author : TIONO KEVIN  -->
+<!-- @author : TIONO KEVIN & HUANG Mincong -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
-<%@ page import="java.util.*" %> 
-<jsp:include page="/header.jsp"></jsp:include>
+<%@ page import="java.util.*" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<jsp:include page="/header.jsp" />
 <div >
   <h2 class="question">CONSULTER LES QUIZ</h2>
  <hr><br> 
- <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
- <p class="question"><strong>Reste</strong> : 0 secondes</p>
+ <%
+	// TODO: change to JSTL if possible
+	List<Personne> personnes = (List<Personne>) session.getAttribute("classement");
+	Personne joueur = (Personne) session.getAttribute("personne");
+	// cherche joueur's rank
+	int rank = -1;
+	int size = personnes.size();
+	for(int i = 0; i < size; i++) {
+	    if (personnes.get(i).getId() == joueur.getId()) {
+	        int index = i;    // index starts at 0
+	        rank = index + 1; // rank starts at 1
+	    }
+	}
+ %>
+ <p class="question"><strong>Classement </strong> : <%=rank %> / <%=size %> joueurs</p> 
+ <!-- <p class="question"><strong>Reste</strong> : 0 secondes</p> -->
  <br>
  <%--
 	
@@ -53,50 +69,47 @@
 	--%>
   <table class="table table-bordered table-hover " style="width:70%">
     <thead>
-      <tr >
- <th class="question">De quelle classe doit hériter une servlet ?</th>
- <th class="question">%</th>
- <th class="question">Résultat</th>
+      <tr>
+        <th class="question"><c:out value="${question.libelle}" /></th>
+        <th class="question">%</th>
+        <th class="question">Résultat</th>
       </tr>
     </thead>
     <tbody>
-	
-	
-      <%-- for(int i=0; i<q.getListePropositions().size(); i++){--%>
-
-      <tr class="question">
-        <td><a href="#"><%--=q.getListePropositions().get(i).getLibelle().toString()--%></a></td><td>30%</td><td style="background-color:red"></td>
-
-      </tr>
-	<%--  }--%>
+      <c:forEach var="proposition" items="${question.listePropositions}">
+        <tr class="question">
+          <td><c:out value="${proposition.libelle}" /></td>
+          <td><c:out value="${proposition.pourcentage}" />%</td>
+          <c:if test="${proposition.estBonneReponse == false}"><td style="background-color:red"></td></c:if>
+          <c:if test="${proposition.estBonneReponse == true}"><td style="background-color:green"></td></c:if>
+        </tr>
+      </c:forEach>
     </tbody>
-  </table><br>
+  </table>
+  <br>
   <h2 class="question">RESULTATS</h2>
   <hr>
- <br>
-<table class="table table-bordered table-hover " style="width:70%">
+  <br>
+  <table class="table table-bordered table-hover " style="width:70%">
     <thead>
       <tr style="background-color:#D8D8D8">
         <th class="question">N°</th>
         <th class="question">Nom</th>
         <th class="question">Prénom</th>
 		<th class="question">Score</th>
-	
       </tr>
     </thead>
     <tbody>
-	
-	<%-- for(int i=0; i<le.size(); i++){--%>
-      <tr class="question">
-      <td><%--=le.get(i).getId() --%></td>
-        <td><%--=le.get(i).getNom() --%></td>
-        <td><%--=le.get(i).getPrenom() --%></td>
-        <td>30</td>
-		
-
-      </tr>
-	<%--  }--%>
+	  <c:forEach var="personne" items="${classement}">
+        <tr class="question">
+          <td><c:out value="${personne.id}" /></td>
+          <td><c:out value="${personne.nom}" /></td>
+          <td><c:out value="${personne.prenom}" /></td>
+          <td><c:out value="${personne.score}" /></td>
+        </tr>
+	  </c:forEach>
     </tbody>
   </table>
+  <a href="${pageContext.request.contextPath}/Jouer.do" class="btn btn-primary">question suivante</a>
 </div>
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="/footer.jsp" />

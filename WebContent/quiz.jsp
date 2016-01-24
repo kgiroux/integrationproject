@@ -4,13 +4,13 @@
 <%@ page import="java.util.*" %>  
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import ="java.sql.Timestamp" %>  
-    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <jsp:include page="/header.jsp"></jsp:include>
 <body>
-<div >
-  <h2 class="question">CONSULTER LES QUIZ</h2>
-  <hr>
- <br> 
+<div class="container">
+  <div class="page-header">
+    <h2 class="question">CONSULTER LES QUIZ</h2>
+  </div>
  
  <%-- 
  //Simulation de données
@@ -34,9 +34,9 @@ q3.setDateDebutQuiz(t);
  --%>   
  
       
-  <table class="table table-bordered table-hover ">
+  <table class="table table-striped">
     <thead>
-      <tr style="background-color:#D8D8D8">
+      <tr>
         <th>Libellé</th>
         <th>Questions</th>
         <th>Date</th>
@@ -45,25 +45,27 @@ q3.setDateDebutQuiz(t);
       </tr>
     </thead>
     <tbody>
-	
-	
-<!--
-    Hi, Kevin.
-    You should use sessionScope to read session scope level attribute.
-    - Mincong
- -->
- <c:forEach var="quiz" items="${listeQuiz}">
-
+      <c:forEach var="quiz" items="${listeQuiz}">
       <tr class="question">
         <td><c:out value="${quiz.libelle}" /></td>
         <td><c:out value="${quiz.questions.size()}" /></td>
-        <td><c:out value="${quiz.dateDebutQuiz}" /></td>
-		<td><a href="<%=request.getContextPath()%>/Jouer.do?idQuiz=${quiz.id}"><img src="Ressources/images/jouer.png" width="8%"/></a></td>
-		<td><a href="<%=request.getContextPath()%>/Stats.do?idQuiz=${quiz.id}"><img src="Ressources/images/stats.png" width="8%"/></a></td>
+        <td><c:out value="${quiz.dateDebutQuiz}" /></td>	
+		<td>
+		<%-- on affiche le bouton jouer que si le quiz a commencé --%>
+		<c:if test="${quiz.dateDebutQuiz != null}" >
+			<a href="<%=request.getContextPath()%>/Jouer.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></a>
+		</c:if>
+		</td>
+		<td>
+		<%-- on affiche le bouton resultat que si le quiz a commencé --%>
+		<c:if test="${quiz.dateDebutQuiz != null}" >
+			<a href="<%=request.getContextPath()%>/Stats.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span></a>
+		</c:if>
+		</td>
       </tr>
       </c:forEach> 
-	
     </tbody>
   </table>
+  <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Quit</button></a>
 </div>
 <jsp:include page="/footer.jsp"></jsp:include>

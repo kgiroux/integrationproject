@@ -107,7 +107,7 @@ public class QuizDAOImpl implements IQuizDAO {
 		String hql = "from Quiz";
 		@SuppressWarnings("unchecked")
 		List<Quiz> retour = session.createQuery(hql).list();
-		//on charge les qestions
+		//on charge les qestions NE pa SUPPRIMER!
 		for(Quiz q:retour)
 			System.out.println(q.getQuestions());
 		session.getTransaction().commit();

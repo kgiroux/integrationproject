@@ -32,6 +32,9 @@ public interface IQuizDAO {
 	
 	public Quiz getQuizAvecQuestions(int id);
 	
+	
+	public Quiz getQuizSansQuestions(int id);
+	
     
     /**
      * méthode : getListQuizFinish

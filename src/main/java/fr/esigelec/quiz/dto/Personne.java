@@ -1,4 +1,7 @@
 package fr.esigelec.quiz.dto;
+import org.json.JSONObject;
+
+
 
 
 /**Projet d'integration
@@ -252,13 +255,41 @@ public class Personne implements Comparable<Personne>{
 	}
 
 	@Override
+	/** permet de trier par ordre de score decroissant
+	 * 
+	 */
 	public int compareTo(Personne p) {
 		if(this.getScore() < p.getScore())
-			return -1;
+			return 1;
 		else if (this.getScore() == p.getScore())
 			return 0;
 		else 
-			return 1;
+			return -1;
 	}
+	
+	
+	/**
+	 * 
+	 * Create a JSON format for Personne
+	 * @author kevin Giroux
+	 * @return String
+	 */
+	
+	
+	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
+		json.put("id", id);
+		json.put("nom", nom);
+		json.put("prenom", prenom);
+		json.put("score", score);
+		return json;
+	}
+	
 }
+
+
+
+	
+
+
 

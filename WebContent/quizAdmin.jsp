@@ -3,22 +3,25 @@
     pageEncoding="UTF-8"%>
  <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <jsp:include page="/header.jsp"></jsp:include>
+<div class="container">
+  <div class="page-header">
 	<h1>Administrer les quiz</h1>
-	<hr>
-	 <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do"><button class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button></a>
-	<hr>
- <table class="table table-bordered table-hover ">
-    <thead>
-      <tr>
- 	<th>Libellé</th>
- 	<th>Date</th>
- 	<th>Supprimer</th>
- 	<th>Editer</th>
- 	<th>(Re)Lancer</th>
-      </tr>
-    
-    </thead>
-    <tbody>
+  </div>
+  <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do"><button class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button></a>
+  <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Déconnexion</button></a>
+  <hr>
+  <div class="row">
+    <table class="table table-bordered table-hover col-xs-12">
+      <thead>
+        <tr>
+ 	      <th>Libellé</th>
+          <th>Date</th>
+ 	      <th>Supprimer</th>
+ 	      <th>Editer</th>
+ 	      <th>(Re)Lancer</th>
+        </tr>
+      </thead>
+      <tbody>
     <% 
     List<Quiz> quiz = null;
 		if(request.getAttribute("listeQuiz")!=null) {
@@ -41,6 +44,8 @@
 		} 
       		}
 						%>
-	 </tbody>
-  </table>	
+      </tbody>
+    </table>
+  </div>
+</div>
 <jsp:include page="/footer.jsp"></jsp:include>

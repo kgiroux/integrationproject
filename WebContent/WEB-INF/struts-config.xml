@@ -50,6 +50,7 @@
       </action>
       <action scope="request" path="/Choisir" name="" type="fr.esigelec.quiz.controleur.ChoisirAction" input="/">
          <forward name="succes" path="/question.jsp"/>
+         <forward name="time-out" path="/VueQuestion.do"/>
       </action>
       <action scope="request" path="/SupprimerQuiz" name="" type="fr.esigelec.quiz.controleur.SupprimerQuizAction" input="/">
          <forward name="succes" path="/VueQuizAdmin.do"/>
@@ -139,7 +140,7 @@
          <forward name="error" path="/json.jsp"/>
          <forward name="succes" path="/json.jsp"/>
        </action>
-       <action scope="request" path="/AndroidStatistiques" type="fr.esigelec.quiz.controleur.android.AndroidStatistiqueAction" input="/">
+       <action scope="request" path="/AndroidStatistique" type="fr.esigelec.quiz.controleur.android.AndroidStatistiqueAction" input="/">
          <forward name="error" path="/json.jsp"/>
          <forward name="succes" path="/json.jsp"/>
        </action>

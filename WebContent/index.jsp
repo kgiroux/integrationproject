@@ -16,14 +16,14 @@
 <script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #1976D2;">
+<body style="background-color: #03A9F4;">
 <div class="container">
   <div class="row" style="margin: 50px 0;">
     <div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
       <img src="<%=request.getContextPath() %>/Ressources/images/quiz-gsi.png" alt="Quiz GSI logo" class="img-rounded img-responsive">
     </div>
   </div>
-  <div class="jumbotron" style="background-color: rgba(255, 255, 255, .5); box-shadow: 2px 2px 5px black;">
+  <div class="jumbotron" style="background-color: rgba(255, 255, 255, .9); box-shadow: 2px 2px 5px black;">
 	<!-- <h1 style="text-align:center">Bienvenue</h1>
 
 	<hr> -->
@@ -52,7 +52,7 @@
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-4 col-sm-10 col-lg-8">
-		     <button type="submit" class="btn btn-primary">Connexion </button> ou
+		     <button type="submit" class="btn" style="background-color: #FF4081; color: #FFF">Connexion </button> ou
 			  <a href ="<%=request.getContextPath()%>/VueInscription.do">Inscription</a>
 		    </div>
 		  </div>

@@ -91,8 +91,8 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
  <div class="row">
  <div class="col-xs-12">
   <p class="question text-center"><strong>Reste</strong> : &nbsp;
- <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
-		<IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
+ <IMG HSPACE=0 NAME="dizaine" SRC="<%--Ressources/images/3.gif--%>">
+		<IMG HSPACE=0 NAME="unite" SRC="<%--Ressources/images/0.gif--%>">
  &nbsp;secondes
  </div>
  </div>

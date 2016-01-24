@@ -8,11 +8,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Animateur</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
+<!-- <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css"> -->
 <link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
 <script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
@@ -50,61 +51,59 @@ List<Question> listq=q.getListeQuestions();
 Question questioncur=listq.get(count);
 session.setAttribute("questioncurrente",questioncur);
 --%>
-<div class="form-center animateur">
+<!-- <div class="form-center animateur"> -->
+<div class="container">
 
-
-<a href="<%=request.getContextPath()%>/VueQuizAdmin.do" class="btn btn-danger" >Liste des quiz</a>
-
-
-<a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary
-<c:if test="${quiz.etape != 1}"> disabled</c:if>
-" >Afficher %</a>
-
-<a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary
-<c:if test="${quiz.etape != 2}"> disabled</c:if>
-">Afficher la bonne réponse<br> et nouveau classement</a>	
-
-<%--affichage du bouton pour passer a la question suivante seulement si on est pas a la derniere question --%>
-<c:if test="${compteur+1<quiz.questions.size()}">
-<a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>" class="btn btn-primary
-<c:if test="${quiz.etape != 3}"> disabled</c:if>
-" id="suivant">Question suivante</a>
-</c:if>
-
-<h1>Question n°<%=count+1%>/<%=((Quiz) session.getAttribute("quiz")).getQuestions().size() %></h1>
-
-  <%--DEBUT Barre de progression --%>
-  <div class="progress">
-    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
-     style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
-       <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <a href="<%=request.getContextPath()%>/VueQuizAdmin.do" class="btn btn-danger btn-block">Liste des quiz</a>
     </div>
-</div>
+    <div class="col-xs-8 col-xs-offset-2">
+      <a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 1}"> disabled</c:if>">Afficher %</a>
+    </div>
+    <div class="col-xs-8 col-xs-offset-2">
+      <a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 2}"> disabled</c:if>">Afficher la bonne réponse<br> et nouveau classement</a>	
+    </div>
+    <div class="col-xs-8 col-xs-offset-2">
+      <%--affichage du bouton pour passer a la question suivante seulement si on est pas a la derniere question --%>
+      <c:if test="${compteur+1<quiz.questions.size()}">
+        <a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>" class="btn btn-primary btn-block <c:if test="${quiz.etape != 3}"> disabled</c:if>" id="suivant">Question suivante</a>
+      </c:if>
+    </div>
+  </div>
+  <div class="page-header">
+    <h1>Question n°<%=count+1%>&nbsp;/&nbsp;<%=((Quiz) session.getAttribute("quiz")).getQuestions().size() %></h1>
+    <%--DEBUT Barre de progression --%>
+    <div class="progress">
+      <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
+       style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
+       <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+      </div>
+    </div>
+    <%--FIN Barre de progression --%>
+  </div><!-- /.row -->
 
-  <%--FIN Barre de progression --%>
-
-
-</div>
-<hr>
-<div class="form-center">
-
-<%-- on affiche le compteur que si on est en etape 1 --%>
-<c:if test="${quiz.etape == 1}">
-  <p class="paraanimateur"><strong>Reste :</strong>  &nbsp;
-    <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
-    <IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
-    &nbsp;secondes
-  </p>
-  </c:if>
-  <table class="table table-bordered table-hover " style="width:70%">
-    <thead>
-      <tr>
-        <th><c:out value="${question.libelle}" /></th>
-        <c:if test="${quiz.etape > 1}"><th>%</th></c:if>
-        <c:if test="${quiz.etape > 2}"><th>Réponse</th></c:if>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="row">
+    <%-- on affiche le compteur que si on est en etape 1 --%>
+    <c:if test="${quiz.etape == 1}">
+      <div class="col-xs-12">
+        <p class="paraanimateur text-center"><strong>Reste :</strong>  &nbsp;
+          <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
+          <IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
+          &nbsp;secondes
+        </p>
+      </div>
+    </c:if>
+    <div class="col-xs-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th><c:out value="${question.libelle}" /></th>
+            <c:if test="${quiz.etape > 1}"><th>%</th></c:if>
+            <c:if test="${quiz.etape > 2}"><th>Réponse</th></c:if>
+          </tr>
+        </thead>
+      <tbody>
         <c:choose>
           <%--
               Etape 1 Jouer
@@ -148,9 +147,10 @@ session.setAttribute("questioncurrente",questioncur);
             </c:forEach>
           </c:when>
         </c:choose>
-    </tbody>
-  </table>
-  
+      </tbody>
+    </table>
+    </div><!-- /.col -->
+  </div><!-- /.row -->
   
   <%--affichage du classement seulement en etape 3 --%>
    <c:if test="${quiz.etape==3}">
@@ -179,10 +179,6 @@ session.setAttribute("questioncurrente",questioncur);
     </tbody>
   </table>
   </c:if>
-  
-  
-  
-  
+  </div>
 </div>
-</body>
-</html>
+<jsp:include page="/footer.jsp"/>

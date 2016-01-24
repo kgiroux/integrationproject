@@ -9,11 +9,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Question</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
+<!-- <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css"> -->
 <link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
 <script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
@@ -42,24 +43,26 @@
 onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
 </c:if>
 >
-<div>
-  <h2 class="question">Question n°<c:out value="${quiz.noQuestionCourante+1}"/>/<c:out value="${quiz.questions.size()}"/></h2>
-  
+<div class="container">
+  <div class="page-header">
+    <p class="h1">
+      Question n°<c:out value="${quiz.noQuestionCourante+1}"/>&nbsp;/&nbsp;<c:out value="${quiz.questions.size()}"/>
+    </p>
+  </div>
   
   
   <%--DEBUT Barre de progression --%>
-  <div class="progress">
-    <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
-     style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
-       <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1">
+      <div class="progress">
+        <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
+         style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
+         <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+        </div>
+      </div>
     </div>
-</div>
-
-  <%--FIN Barre de progression --%>
-  
-  <a href="<%=request.getContextPath() %>/VueQuestion.do" class="btn btn-primary">rafraichir</a>
-  
- <hr><br> 
+    <%--FIN Barre de progression --%>
+  </div>
  
  <%--affichage de la position du joueur dans le classement seulement en etape 3 --%>
  <c:if test="${quiz.etape==3}">
@@ -85,22 +88,25 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
  
  <%--DEBUT compteur affiche que si etape 1 --%>
 <c:if test="${quiz.etape==1 }"> 
- <div> 
-  <p class="question"><strong>Reste</strong> : &nbsp;
+ <div class="row">
+ <div class="col-xs-12">
+  <p class="question text-center"><strong>Reste</strong> : &nbsp;
  <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
 		<IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
  &nbsp;secondes
+ </div>
  </div>
  </c:if>
   <%--FIN compteur --%>
   
   
- <br>
+ 
 
-
-		<table class="table table-bordered table-hover " style="width:70%">
-	    <thead>
-	      <tr >
+<div class="row">
+  <div class="col-xs-12">
+    <table class="table table-bordered table-hover ">
+      <thead>
+	    <tr>
 	 <th class="question"><c:out value="${question.libelle}" /></th>
 	 <c:if test="${quiz.etape>=2}">
 	  <th class="question">%</th>
@@ -140,12 +146,12 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
 						</tr>
 					</c:forEach>
 				</c:if>
-
-
-
 			</tbody>
-  </table>
-  
+    </table>
+  </div><!-- /.col-lg-12 -->
+  <div class="col-xs-4 col-xs-offset-4">
+    <a href="<%=request.getContextPath() %>/VueQuestion.do" class="btn btn-primary">rafraichir</a>
+  </div>
   <%--afficahge du calssement si etape 3 --%>
   <c:if test="${quiz.etape==3}">
    <h2 class="question">CLASSEMENT</h2>
@@ -173,8 +179,7 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
   </table>
   </c:if>
   
-  
-  
+</div><!-- /.row -->
  <%-- <a id="btn-stats" href="<%=request.getContextPath()%>/VueQuestion.do" class="btn btn-success hidden">Confirmer et voir résultat</a> --%>
 </div>
 <jsp:include page="/footer.jsp"/>

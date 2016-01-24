@@ -167,10 +167,10 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
       </tr>
     </thead>
     <tbody>
-    <% int position=1; %>
-	  <c:forEach var="personne" items="${classement}">
+    
+	  <c:forEach var="personne" items="${classement}" varStatus="loop">
         <tr class="question">
-          <td><c:out value="position++" /></td>
+            <td><c:out value="${loop.index + 1}" /></td>
           <td><c:out value="${personne.nom}" /></td>
           <td><c:out value="${personne.prenom}" /></td>
           <td><c:out value="${personne.score}" /></td>

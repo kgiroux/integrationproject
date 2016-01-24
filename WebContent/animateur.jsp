@@ -54,17 +54,17 @@ session.setAttribute("questioncurrente",questioncur);
 <!-- <div class="form-center animateur"> -->
 <div class="container">
 
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
+  <div class="row" style="margin-top:10px">
+    <div class="col-sm-3">
       <a href="<%=request.getContextPath()%>/VueQuizAdmin.do" class="btn btn-danger btn-block">Liste des quiz</a>
     </div>
-    <div class="col-xs-8 col-xs-offset-2">
-      <a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 1}"> disabled</c:if>">Afficher %</a>
+    <div class="col-sm-3">
+      <a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 1}"> disabled</c:if>">Ratio de réponse</a>
     </div>
-    <div class="col-xs-8 col-xs-offset-2">
-      <a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 2}"> disabled</c:if>">Afficher la bonne réponse<br> et nouveau classement</a>	
+    <div class="col-sm-3">
+      <a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 2}"> disabled</c:if>">Réponse et classement</a>	
     </div>
-    <div class="col-xs-8 col-xs-offset-2">
+    <div class="col-sm-3">
       <%--affichage du bouton pour passer a la question suivante seulement si on est pas a la derniere question --%>
       <c:if test="${compteur+1<quiz.questions.size()}">
         <a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>" class="btn btn-primary btn-block <c:if test="${quiz.etape != 3}"> disabled</c:if>" id="suivant">Question suivante</a>

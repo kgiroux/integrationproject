@@ -66,5 +66,6 @@ q3.setDateDebutQuiz(t);
       </c:forEach> 
     </tbody>
   </table>
+  <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Quit</button></a>
 </div>
 <jsp:include page="/footer.jsp"></jsp:include>

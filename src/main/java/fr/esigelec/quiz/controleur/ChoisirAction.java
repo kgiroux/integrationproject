@@ -100,8 +100,12 @@ public class ChoisirAction extends Action {
 			// envoi de l'id pour la vue qui mettra en avant le choix
 			// selectionné
 			session.setAttribute("idProposition", idProposition);
+			//on envoie la date actuelle
+			request.setAttribute("currentTimestamp", System.currentTimeMillis());
 			return mapping.findForward("succes");
 		} else {
+			//on envoie la date actuelle
+			request.setAttribute("currentTimestamp", System.currentTimeMillis());
 			// le temps est depassï¿½
 			choisirActionLogger.debug("vote apres les 30s");
 			// session.setAttribute("idProposition", -1);

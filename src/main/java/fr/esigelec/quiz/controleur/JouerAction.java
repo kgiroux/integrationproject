@@ -56,6 +56,9 @@ public class JouerAction extends Action {
 		Question question = ActionService.getQuestionByQuizId(idQuiz);
 
 		// SORTIE
+		// on efface lancien vote qui pourrait etre encore en session
+		session.removeAttribute("idProposition");
+
 		// on envoi le quiz et la question
 		session.setAttribute("quiz", quiz);
 		session.setAttribute("question", question);

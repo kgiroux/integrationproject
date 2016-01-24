@@ -41,5 +41,12 @@ public interface IChoisirDAO {
 	public Choisir getChoix(Personne p, Quiz quiz, Question q);
 	
 	public List<Choisir> getChoixByQuiz(Quiz q);
+
+	/**
+	 * supprime tous les choix associés à un quiz
+	 * @param q le quiz
+	 * @return le nb de lignes supprimées
+	 */
+	public int deleteChoix(Quiz q);
 	
 }

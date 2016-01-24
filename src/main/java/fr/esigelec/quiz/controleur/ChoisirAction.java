@@ -4,6 +4,7 @@
  */
 
 package fr.esigelec.quiz.controleur;
+
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -26,154 +27,84 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
-
-
+/**
+ * l'Action Choisir correspon au clic du joueur sur une proposition
+ * 
+ */
 public class ChoisirAction extends Action {
 
-	private final Logger choisirActionLogger = Logger.getLogger(ChoisirAction.class);
-/*	
-	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response) {
-	
-		// UTILS
-		choisirActionLogger.debug("Execute");
-		HttpSession session = request.getSession();
-	    IChoisirDAO choisirDAO = new ChoisirDAOImpl();
-		
-		// init des variables
-		int idProposition = Integer.parseInt(request.getParameter("idProposition"));
-		Personne personne = (Personne) session.getAttribute("personne");
-	    Quiz quiz  = (Quiz) session.getAttribute("quiz");
-	    Question question = ActionService.getQuestionByQuizId(quiz.getId());
-	    Choisir ancienChoix = choisirDAO.getChoix(personne, quiz, question);
-	    boolean dejaChoisi = false;
-	    if (ancienChoix != null) {
-	    	dejaChoisi = true;
-	    }
-	    
-	    // calcule le temps pour la reponse
-	    long now = System.currentTimeMillis();
-		long debut = quiz.getDateDebutQuestion().getTime();
-        long duree = now - debut;
-	    
-        // TIME_OUT
-		if (duree > 30 * 1000L) {
-			
-			session.setAttribute("idProposition", -1);
-			choisirActionLogger.debug("Time out, duree = " + duree + "ms.");
-			return mapping.findForward("time-out");
-				
-		} else {
+	private final Logger choisirActionLogger = Logger
+			.getLogger(ChoisirAction.class);
 
-		    Proposition proposition = new Proposition();
-		    proposition.setId(idProposition);
-			Choisir nvChoix = new Choisir(new Timestamp(now), proposition, quiz, personne);
-			
-		    // DEJA CHOISI
-			if (dejaChoisi) {
-				// log
-				String msg = "Choix existes deja pour (quiz, propo, personne) = ("
-						+ quiz.getId() + ", " + proposition.getId() + ", "
-						+ personne.getId() +  ").";
-				choisirActionLogger.info(msg);
-				// nouveau choix possede la meme id que l'ancien choix
-				nvChoix.setId(ancienChoix.getId());
-		    	choisirDAO.updateChoix(nvChoix);
-		    
-		    // NEW
-			} else {
-				// log
-		    	String msg = "Insertion pour le choix (quiz, propo, personne) = ("
-						+ quiz.getId() + ", " + proposition.getId() + ", "
-						+ personne.getId() +  ").";
-				choisirActionLogger.info(msg);
-		    	// Le resultat de l'insertion est enregistre dans la vairable
-		    	// dejaChoisi pour le traitement plus tard
-		    	dejaChoisi = choisirDAO.createChoix(nvChoix);
-				session.setAttribute("idProposition", idProposition);
-		    }
-		}
-		choisirActionLogger.debug("Action terminee avec succes");
-		return mapping.findForward("succes");
-	}
-*/
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		choisirActionLogger.debug("Execute");
-
+		// ENTREE
 		// recuperation session
 		HttpSession session = request.getSession();
 		// recuperation personne en session
 		Personne personne = (Personne) session.getAttribute("personne");
-		// recuperation de l'id de la proposition qui a �t� selectionn�e
+		// recuperation de l'id de la proposition qui a eteselectionnee
 		int idProposition = Integer.parseInt(request
 				.getParameter("idProposition"));
 		// recuperation quiz
 		Quiz quiz = (Quiz) session.getAttribute("quiz");
+		// DAO choisir
+		IChoisirDAO choisirDAO = new ChoisirDAOImpl();
 
 		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-
 		Timestamp questionStartTime = quiz.getDateDebutQuestion();
 
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(questionStartTime);
 		cal.add(Calendar.SECOND, 30);
-		
-		//si on vote dans le temps imparti
-		//ATTENTION : controle du temps non activ� pour le moment pour faciliter le debugage
+
+		// si on vote dans le temps imparti
 		if (currentTime.before(cal.getTime())) {
 
 			choisirActionLogger.debug("vote dans les 30s");
 
-			// creation d'un objet proposition
+			// creation d'un objet proposition correspondant au choix du joueur
 			Proposition proposition = new Proposition();
 			proposition.setId(idProposition);
 
 			// on recupere la question courante
 			Question question = ActionService.getQuestionByQuizId(quiz.getId());
 
-			IChoisirDAO choisirDAO = new ChoisirDAOImpl();
 			// liste des choix dej� faits pour cette question et ce joueur
 			List<Choisir> listeChoix = choisirDAO
 					.getChoixPersonneParQuizPersonneEtQuestion(personne, quiz,
 							question);
 
-			//
-			// Si le choix n'existe pas encore, listeChoix.get(0).getId()
-			// génère l'exception suivante : 
-			//     java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-			//
-			// 										marque par @mincong-h
-			//
-			// on cr�e le nouveau choix
-//			Choisir choisir = new Choisir(listeChoix.get(0).getId(),
-//					new Timestamp(System.currentTimeMillis()), proposition,
-//					quiz, personne);
-
-			// si la personne avait d�j� choisi , on remplace son choix par le
+			// si la personne avait deja choisi , on remplace son choix par le
 			// nouveau
 			if (listeChoix.size() > 0) {
 				Choisir choisir = new Choisir(listeChoix.get(0).getId(),
 						new Timestamp(System.currentTimeMillis()), proposition,
 						quiz, personne);
 				choisirDAO.updateChoix(choisir);
-			} else {
-				Choisir choisir = new Choisir(
-						new Timestamp(System.currentTimeMillis()), proposition,
-						quiz, personne);
-				// sinon on l'ajoute
+			}
+			// sinon on cree le nouveau choix et on l'ajoute
+			else {
+
+				Choisir choisir = new Choisir(new Timestamp(
+						System.currentTimeMillis()), proposition, quiz,
+						personne);
+				// on l'ajoute
 				choisirDAO.createChoix(choisir);
 			}
 			choisirActionLogger.debug("Action terminee avec succes");
+
+			// envoi de l'id pour la vue qui mettra en avant le choix
+			// selectionn�
 			session.setAttribute("idProposition", idProposition);
 			return mapping.findForward("succes");
 		} else {
-			//le temps est depass�
-			choisirActionLogger.debug("vote apr�s les 30s");
-			session.setAttribute("idProposition", -1);
+			// le temps est depass�
+			choisirActionLogger.debug("vote apres les 30s");
+			// session.setAttribute("idProposition", -1);
 			return mapping.findForward("time-out");
 		}
 	}

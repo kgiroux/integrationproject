@@ -66,6 +66,23 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		logger.info("deleteChoix: " + c);
 		return (c == null);
 	}
+	
+	
+	@Override
+	public int deleteChoix(Quiz q) {
+		int retour=0;
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		String hql = "delete from Choisir where quiz.id= :quizId";
+		retour=session.createQuery(hql).setInteger("quizId", q.getId()).executeUpdate();
+				
+		session.getTransaction().commit();
+		session.close();
+		logger.info("deleteChoix du quiz: " + q.getId());
+		return retour;
+	}
+	
+	
 
 	@Override
 	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q) {

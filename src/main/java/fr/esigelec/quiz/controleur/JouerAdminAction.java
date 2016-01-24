@@ -51,6 +51,7 @@ public class JouerAdminAction extends Action  {
 		session.setAttribute("question", question);
 		int compteur=0;
 		session.setAttribute("compteur", compteur);
+		request.setAttribute("currentTimestamp", System.currentTimeMillis());
 		return mapping.findForward("succes");
 	}
 }

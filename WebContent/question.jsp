@@ -20,18 +20,18 @@
 
 <%--compteur affiche que si etape 1 --%>
 <c:if test="${quiz.etape==1 }"> 
-	<!-- GESTION DU COMPTE A REBOURS -->
-	<script>
-	  <%
-	    // load timestamp du dateDebutQuestion
-	    Quiz quiz = (Quiz) request.getSession().getAttribute("quiz");
-	    long t_ms = quiz.getDateDebutQuestion().getTime(); // millisecond
-	    long t_s = t_ms / 1000; // second
-	  %>
-	  // cette variable est utilisee dans le compteur.js
-	  var timestampDebutQuestion = <%=t_s %>;
-	</script>
-	<script src="Ressources/bootstrap/js/compteur.js"></script>
+  <!-- GESTION DU COMPTE A REBOURS -->
+  <script>
+    /**
+     * Ce script est pour gérer le compteur
+     * Les variables sont utilisees dans le compteur.js
+     * @author mincong-h
+     *
+     */
+    var debut = ${quiz.dateDebutQuestion.time};
+    var now = ${currentTimestamp};
+  </script>
+  <script src="Ressources/bootstrap/js/compteur.js"></script>
 </c:if>
 
 </head>

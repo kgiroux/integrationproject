@@ -4,10 +4,9 @@
 
 // Declaration des variables
 
-	var debut = timestampDebutQuestion; // debut de la question, unit=s
-	var fin = debut + 30;               // fin de la question, unit=s
-	var now = Date.now() / 1000;        // maintenant, unit=s
-	var reste = Math.round(fin - now);  // reste de la question, unit=s
+    // Les 2 variables @debut et @now sont définis dans le page JSP
+	var fin = debut + 30 * 1000;    // fin de la question, unit=ms
+	var reste = Math.floor((fin - now) / 1000); // reste de la question, unit=s
 	console.log('reste=' + reste);
 	// var reste = 30
 	if (reste < 0)

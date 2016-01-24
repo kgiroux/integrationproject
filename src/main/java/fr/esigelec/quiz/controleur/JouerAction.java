@@ -57,6 +57,7 @@ public class JouerAction extends Action {
 		
 		session.setAttribute("quiz", quiz);
 		session.setAttribute("question", question);
+		request.setAttribute("currentTimestamp", System.currentTimeMillis());
 		
 		
 		return mapping.findForward("succes");

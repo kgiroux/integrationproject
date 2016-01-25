@@ -16,7 +16,7 @@ public class Question
 {
     /* Attributes */
     private int id;
-    private int numQuestion;
+    private int numQuestion = -1;
     private String libelle;
     private List<Proposition> listePropositions;
 

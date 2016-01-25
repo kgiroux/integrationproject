@@ -275,19 +275,20 @@ public class GameActivity extends Activity implements View.OnClickListener
                 do {
                     try {
 
-                        //Attendre 500ms avant le renvoie d'une autre requête
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-
-                        objJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&idQuestion=" + question.getId()}).get();
+                        objJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&numQuestion=" + question.getNumQuestion()}).get();
 
                         //Vérification si le JSON contient les informations désirées
                         if (objJson != null)
                             if (objJson.has("Question") || objJson.has("Reponse"))
                                 resend = false;
+
+                        //Attendre 500ms avant le renvoie d'une autre requête
+                        try {
+                            if(resend)
+                                Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
                     } catch (Exception ex) {
                         Log.e("ERROR", ex.getMessage());

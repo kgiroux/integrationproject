@@ -61,6 +61,11 @@
          <forward name="login"  path="/index.jsp" redirect="true"/>
          <forward name="erreur" path="/VueQuestionQuizAdmin.do" redirect="true"/>
       </action>
+      <action scope="request" path="/UpdateQuiz" name="" type="fr.esigelec.quiz.controleur.UpdateQuizAction" input="/">
+         <forward name="succes" path="/VueQuizAdmin.do" redirect="true"/>
+         <forward name="login"  path="/index.jsp" redirect="true"/>
+         <forward name="erreur" path="/VueQuestionQuizAdmin.do" redirect="true"/>
+      </action>
       <action scope="request" path="/EditerQuiz" name="" type="fr.esigelec.quiz.controleur.EditerQuizAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
          <forward name="login" path="/index.jsp"/>

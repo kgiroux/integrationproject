@@ -21,7 +21,12 @@
   <!--
       Error messages 
    -->
-  <form method="POST" action="<%=request.getContextPath()%>/AjouterQuiz.do">
+  <c:if test="${quiz.id != null}">
+    <form method="POST" action="<%=request.getContextPath()%>/UpdateQuiz.do?quizId=${quiz.id}">
+  </c:if>
+  <c:if test="${quiz.id == null}">
+  	<form method="POST" action="<%=request.getContextPath()%>/AjouterQuiz.do">
+  </c:if>
     <div class="form-group">
       <c:if test="${listeQuestions == null}">
         <div class="jumbotron">

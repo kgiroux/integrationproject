@@ -68,9 +68,9 @@
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p7">Proposition 8 : </label>  
+				  <label class="col-md-2 control-label" for="p8">Proposition 8 : </label>  
 				  <div class="col-md-8">
-				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" type="text">    
+				  <input id="p8" name="p8" placeholder="proposition 8" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">

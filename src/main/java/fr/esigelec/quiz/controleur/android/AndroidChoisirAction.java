@@ -1,6 +1,7 @@
 package fr.esigelec.quiz.controleur.android;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author Kévin Giroux;
@@ -29,6 +30,7 @@ import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 import fr.esigelec.quiz.util.AndroidHelper;
 
@@ -62,10 +64,26 @@ public class AndroidChoisirAction extends Action{
 				Choisir choix = new Choisir(new Timestamp(System.currentTimeMillis()),prop,quiz,pers);
 				JSONObject json = new JSONObject();
 				
-				if(choisirDAO.createChoix(choix))
-					json = AndroidHelper.ChoiceSaveSuccess();	
+				//Check if a choice exist
+				Quiz currentQuizWithQuestions = quizDAO.getQuizAvecQuestions(quiz.getId());
+				Question qt = currentQuizWithQuestions.getListeQuestions().get(quiz.getNoQuestionCourante());
+				List<Choisir> listeChoix = choisirDAO.getChoixPersonneParQuizPersonneEtQuestion(pers,quiz,qt);
+				
+				if(listeChoix.size() != 0)
+				{
+					choix.setId(listeChoix.get(0).getId());					
+					if(choisirDAO.updateChoix(choix))
+						json = AndroidHelper.ChoiceSaveSuccess();
+					else
+						json = AndroidHelper.DatabaseInsertFail();
+				}
 				else
-					json = AndroidHelper.DatabaseInsertFail();
+				{
+					if(choisirDAO.createChoix(choix))
+						json = AndroidHelper.ChoiceSaveSuccess();
+					else
+						json = AndroidHelper.DatabaseInsertFail();
+				}
 				
 				//Return error code to client
 				request.setAttribute("json", json.toString());

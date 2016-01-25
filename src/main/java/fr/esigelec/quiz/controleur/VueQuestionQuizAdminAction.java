@@ -30,6 +30,8 @@ public class VueQuestionQuizAdminAction extends Action {
 			throws Exception {
 		vueQuestionQuizAdminAction.info("starting...");
 		ActionErrors errors = new ActionErrors();
+		// reset quiz in session
+		request.getSession().setAttribute("quiz", null);
 
 		try {
 			// Get parameters and sessions

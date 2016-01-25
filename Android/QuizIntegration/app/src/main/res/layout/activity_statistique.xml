@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                tools:context="fr.esigelec.gsi.quizintegration.activity.StatistiqueActivity"
+                android:touchscreenBlocksFocus="true">
+
+    <fr.esigelec.gsi.quizintegration.utils.SortablePersonneTableView
+        xmlns:table="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tableView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        table:columnCount="4"
+        table:headerElevation="10"
+        table:headerColor="@color/colorPrimary"/>
+
+
+</RelativeLayout>

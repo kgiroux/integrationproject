@@ -1,0 +1,90 @@
+<resources>
+    <string name="app_name">Would I be the Best</string>
+    <string name="logo">logo</string>
+    <string name="start">Start</string>
+    <string name="quit">Quit</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="bye">Bye Bye. See you soon</string>
+    <string name="connexion">Connection</string>
+    <string name="inscription">Subscribe</string>
+    <string name="about">About</string>
+    <string name="mentionlegales">Legal notice</string>
+    <string name="welcome">Welcome to TF8 - Quiz</string>
+
+
+    <string-array name="listMenu">
+        <item>Connection</item>
+        <item>Subscribe</item>
+        <item>About</item>
+        <item>Legal Notice</item>
+        <item>Quit</item>
+    </string-array>
+
+    <string-array name="listMenuActivity">
+        <item>""</item>
+        <item>Disconnect</item>
+        <item>About</item>
+        <item>Legal Notice</item>
+        <item>Quit</item>
+    </string-array>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_email_pseudo">Email or pseudo</string>
+    <string name="prompt_password">Password</string>
+    <string name="password">Password :</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="register">Register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_connection">Cannot connect to the quizz server.</string>
+
+    <!-- Strings related to subscribe -->
+    <string name="subscribe">Subscribe</string>
+    <string name="name">Name : </string>
+    <string name="surname">Surname : </string>
+    <string name="mail">Email : </string>
+    <string name="pwd">Password : </string>
+    <string name="confirm">Confirm password : </string>
+    <string name="valid">Validate</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Strings related to menu -->
+    <string name="current">Current Test</string>
+    <string name="old">Old Test</string>
+    <string name="leaveActivity">Leave the Test</string>
+    <string name="aboutText">Integration Project is an online quiz developed by 21 students of CS
+        major in ESIGELEC. \nThere\'re 2 parts for this project.
+        \n
+        \nThe Android\'s app is mainly developed by :
+        \n\t \u2022 Kévin Giroux,
+        \n\t \u2022 Cyril Lefebvre
+        \n\t \u2022 Kévin Pace
+        \n
+        \n
+        This App is composed of many activities :
+        \n\t \u2022 MainActivity : This activity is the LAUNCHER. Inside this activity, there is a ExpandableListView (with its custom adapter) and a CustomActionBarDrawerToogle
+        \n\t\t \u2192 Action :
+        \n\t\t\t\t \u2022 Connection
+        \n\t\t\t\t \u2022 Subscribe
+        \n\t\t\t\t \u2022 About
+        \n\t\t\t\t \u2022 Legal Notice
+        \n\t\t\t\t \u2022 Quit
+        \n\t \u2022 InscriptionActivity : This activity allow user to create a account for playing to the test.
+        \n\t \u2022 LegalNoticeActivity : This activity allow user to read the legal notice of this app
+        \n\t \u2022 MenuActivity : This activity allow user (after connection) to choose a quizz and play it. You can also have a access to the old quizzes and see the result.
+        \n\t \u2022 GameActivity : This activity is the game. User have to choose the correct answer between 4 choices. After validate his choice, he have to wait the result from the animator.
+
+    </string>
+    <string name="error_occur_sub">An error occur during subscription</string>
+    <string name="seconds">30</string>
+    <string name="finish">finish</string>
+
+    <string name="question">Question : </string>
+    <string name="separator">/</string>
+</resources>

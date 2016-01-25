@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+
+    <RelativeLayout
+        android:id="@+id/container"
+        style="@style/NoActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:background="@drawable/background"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/titre"
+            android:layout_below="@+id/tool_bar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="60dp"
+            android:id="@+id/imageView2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:id="@+id/textView" />
+
+        <include
+            android:id="@+id/tool_bar"
+            layout="@layout/tool_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/start"
+            android:fontFamily="a"
+            android:id="@+id/start"
+            android:background="@drawable/button_start"
+            android:textColor="#ffffff"
+            android:textSize="22dp"
+            android:layout_marginTop="81dp"
+            android:layout_below="@+id/imageView2"
+            android:layout_alignLeft="@+id/quit"
+            android:layout_alignStart="@+id/quit" />
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/quit"
+            android:id="@+id/quit"
+            android:background="@drawable/button_quit"
+            android:textColor="#ffffff"
+            android:textSize="22dp"
+            android:layout_below="@+id/start"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="44dp" />
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:id="@+id/drawer_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_weight="25"
+        android:background="#111"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/white"
+        android:dividerHeight="0dp"
+        android:groupIndicator="@null"/>
+
+</android.support.v4.widget.DrawerLayout>

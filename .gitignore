@@ -12,3 +12,42 @@ hs_err_pid*
 
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+
+#built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Windows thumbnail db
+Thumbs.db
+
+# Android Studio
+*.iml
+.idea/
+#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
+.gradle
+build/
+
+#NDK
+obj/
+/bin/
+/bin/
+/bin/
+/bin/
+/bin/
+/bin/
+/bin/
+/bin/

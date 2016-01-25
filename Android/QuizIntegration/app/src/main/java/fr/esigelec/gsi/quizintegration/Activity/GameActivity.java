@@ -69,7 +69,15 @@ public class GameActivity extends Activity implements View.OnClickListener
     protected void onPause() {
 
         //Désactivation des threads de la partie jouer
-        requestThread.interrupt();
+        //requestThread.interrupt();
+        try
+        {
+            requestThread.join ();
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace ();
+        }
         requestThread = null;
 
         super.onPause();

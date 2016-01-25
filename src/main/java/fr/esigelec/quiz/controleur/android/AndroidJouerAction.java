@@ -42,25 +42,25 @@ public class AndroidJouerAction extends Action {
 				
 				//DAO elements
 				IQuizDAO quizDAO = new QuizDAOImpl();
-				IPropositionDAO propDAO = new PropositionDAOImpl();
 				
 				/* Get query type from the request
 				 * 	0 -> return question
 				 *  1 -> return answer
 				 * */
 				int queryType = Integer.parseInt(request.getParameter("queryType"));
-				int questionId = Integer.parseInt(request.getParameter("idQuestion"));
+				int questionNum = Integer.parseInt(request.getParameter("numQuestion"));
 				
 				//Get current quiz informations (currentQuestion & quizState)
 				Quiz currentQuiz = quizDAO.getCurrentQuiz();
-				Quiz currentQuizWithQuestions = quizDAO.getQuizAvecQuestions(currentQuiz.getId());
-				int qtNum = currentQuiz.getNoQuestionCourante();
-				Question qt = currentQuizWithQuestions.getListeQuestions().get(qtNum);
-				System.out.println("CurrentQuiz values =>"+currentQuiz.toString());
 				
 				//Perform action to return the question because question is open an waiting answers
-				if(queryType == 0 && currentQuiz.getEtape() >= 1 && qt.getId() != questionId)
-				{					
+				if(queryType == 0 && currentQuiz.getEtape() >= 1 && currentQuiz.getNoQuestionCourante() != questionNum)
+				{		
+					//Get question informations
+					Quiz currentQuizWithQuestions = quizDAO.getQuizAvecQuestions(currentQuiz.getId());
+					int qtNum = currentQuiz.getNoQuestionCourante();
+					Question qt = currentQuizWithQuestions.getListeQuestions().get(qtNum);
+					
 					//Calculate timer start
 					Timestamp qtStart = currentQuiz.getDateDebutQuestion();
 					Timestamp now = new Timestamp(System.currentTimeMillis());
@@ -91,6 +91,11 @@ public class AndroidJouerAction extends Action {
 				//Return the answer because it was published on the server
 				else if(queryType == 1 && currentQuiz.getEtape() == 3)
 				{
+					//Get question informations
+					Quiz currentQuizWithQuestions = quizDAO.getQuizAvecQuestions(currentQuiz.getId());
+					int qtNum = currentQuiz.getNoQuestionCourante();
+					Question qt = currentQuizWithQuestions.getListeQuestions().get(qtNum);
+					
 					for(Proposition prop : qt.getListePropositions())
 					{
 						if(prop.isEstBonneReponse())

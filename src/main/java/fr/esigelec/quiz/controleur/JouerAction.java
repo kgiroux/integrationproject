@@ -3,6 +3,8 @@
  */
 package fr.esigelec.quiz.controleur;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,39 +17,55 @@ import org.apache.struts.action.ActionMapping;
 
 import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
-//import fr.esigelec.quiz.dto.Personne;
+
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
 
+/**
+ * Action appelée quend le joueur lance un quiz et uniquement à ce moment là
+ * 
+ *
+ */
 public class JouerAction extends Action {
-	
+
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		
-		
-		//UTILS
-		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
+		// recuperation session
 		HttpSession session = request.getSession();
+		QuizDAOImpl quizdaoimpl = new QuizDAOImpl();
+		int idQuiz = 0; // id du quiz
+		Quiz quiz = null; // quiz courant
 
-		//IN 
-		//Personne personne = (Personne) session.getAttribute("personne");
-		int idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
-		
-		
-		//OUT 
-		Quiz quiz = quizdaoimpl.getQuiz(idQuiz);
+		// ENTREE
+		// si on a bien recu l'idQuiz
+		if (request.getParameter("idQuiz") != null) {
+
+			idQuiz = Integer.parseInt(request.getParameter("idQuiz"));
+			// on recupere le quiz
+			quiz = quizdaoimpl.getQuizAvecQuestions(idQuiz);
+		}
+		// cette partie là n'est plus utilisée normalement..
+		else {
+			quiz = (Quiz) session.getAttribute("quiz");
+			idQuiz = quiz.getId();
+		}
+
+		// on recupere la question courante
 		Question question = ActionService.getQuestionByQuizId(idQuiz);
-		
-		
-		
+
+		// SORTIE
+		// on efface lancien vote qui pourrait etre encore en session
+		session.removeAttribute("idProposition");
+
+		// on envoi le quiz et la question
 		session.setAttribute("quiz", quiz);
 		session.setAttribute("question", question);
-		
-		
+		// Utile ???? à priori non
+		request.setAttribute("currentTimestamp", System.currentTimeMillis());
+
 		return mapping.findForward("succes");
 	}
-	
 
 }

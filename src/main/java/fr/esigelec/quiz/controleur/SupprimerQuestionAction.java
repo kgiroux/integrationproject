@@ -15,6 +15,12 @@ import fr.esigelec.quiz.dao.hibernate.QuestionDAOImpl;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.Personne;
 
+/**
+ * 
+ * @author Vincent Marion & Damien Bellenger
+ *
+ */
+
 public class SupprimerQuestionAction extends Action {
 	private static final Logger supprimerQuestionActionLogger = Logger.getLogger(SupprimerQuestionAction.class);
 	

@@ -4,6 +4,7 @@ package fr.esigelec.quiz.dao;
 import java.util.List;
 
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Quiz;
 
 
 /**Projet d'integration
@@ -54,6 +55,15 @@ public interface IPersonneDAO {
 	 * @return la liste de toutes les personnes enregistrees dans la base de donnees
 	 */
 	public List<Personne> listPersonnes();
+	
+	/**
+	 * Get la liste des participants pour un quiz
+	 * 
+	 * @author HUANG Mincong
+	 * @param quiz quiz ciblé
+	 * @return la liste des participants
+	 */
+	public List<Personne> getParticipants(Quiz quiz);
 	
 	/**
 	 * Methode : updatePersonne

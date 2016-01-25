@@ -1,4 +1,8 @@
+
 package fr.esigelec.quiz.controleur.android;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,8 +19,8 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.util.AndroidHelper;
 
 /**
- * @author Kévin Giroux;
- * 
+ * @author Kï¿½vin Giroux;
+ * @edited by Kevin PACE
  */
 
 
@@ -27,37 +31,62 @@ public class AndroidConnexionPersonneAction extends Action {
 			HttpServletRequest request, HttpServletResponse response) {
 			
 			if("GET".equals(request.getMethod())){
+				
 				JSONObject json = AndroidHelper.DoGetForbiddenException();
 				request.setAttribute("json", json.toString());
 				return mapping.findForward("succes");
-		
-			}else if("POST".equals(request.getMethod())){
-			
-				String mail = request.getParameter("mail");
+			}
+			else if("POST".equals(request.getMethod()))
+			{
+				
+				String mail = null;
 				String mdp = request.getParameter("mdp");
 				JSONObject json = new JSONObject();
+				
+				try {
+					mail = URLDecoder.decode(request.getParameter("mail"), "UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//Check information into Database
 				IPersonneDAO personneDAO = new PersonneDAOImpl();
 				if (mail != null && mdp != null) {
-					Personne p = personneDAO.getPersonne(mail);
-					// check login
+					
+					Personne p = personneDAO.getPersonne(mail); // check login
+					
 					// user not found
 					if (p == null) {
 						json = AndroidHelper.UserNotFoundException();
+						
 					// password incorrect
 					} else if (!mdp.equals(p.getMdp())) {
 						json = AndroidHelper.PassIncorrectException();
-					} else {
+					} 
+					else {
 						p.setMail("");
 						p.setMdp("");
 						json = new JSONObject(p);
+						System.out.println("Good credentials!!");
 					}
-				} else {
+				} 
+				else {
 					json = AndroidHelper.MissingArgException();
 				}
+				
+				//Return information to client
+				System.out.println("Android user connection performed!!");
 				request.setAttribute("json",json.toString());
 				return mapping.findForward("succes");
+				
 			}else{
+				
+				JSONObject json = new JSONObject();
+				json = AndroidHelper.TimeOutExeception();
+				request.setAttribute("json", json);
 				return mapping.findForward("error");
+				
 			}
 		}
 }

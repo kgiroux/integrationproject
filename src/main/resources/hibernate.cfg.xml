@@ -4,10 +4,18 @@
 	<session-factory>
 		<!--Databaseconnectionsettings -->
 		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://localhost/ir2016</property>
-		<property name="connection.username">root</property>
-		<property name="connection.password"></property>
-		
+		<!--
+		    Mincong MySQL database: 176.31.114.109
+		    Serais MySQL database: 193.52.189.17
+		    Your MySQL database: localhost
+		 -->
+		<property name="connection.url">jdbc:mysql://193.52.189.17/ir2016?useUnicode=true&amp;characterEncoding=utf-8</property>
+		<property name="connection.username">ir2016</property>
+		<property name="connection.password">lesMeilleurs2016*</property>	
+        <property name="connection.useUnicode">true</property>
+        <property name="connection.characterEncoding">utf8</property>
+        <property name="connection.CharSet">utf8</property>
+        
 		<!--JDBC connectionpool (use the built-in) -->
 		<property name="connection.pool_size">1</property>
 		
@@ -25,7 +33,7 @@
 		<!-- 
 		    /!\ DEBUG ONLY
 		 -->
-        <property name="hibernate.enable_lazy_load_no_trans">true</property>
+        <!--  <property name="hibernate.enable_lazy_load_no_trans">true</property> -->
 		
 		<mapping resource="Quiz.hbm.xml"/>
 		<mapping resource="Proposition.hbm.xml"/>

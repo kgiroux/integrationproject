@@ -32,33 +32,46 @@
          <forward name="erreur" path="/inscription.jsp"></forward>
       </action>
       <action scope="request" path="/ConnexionPersonne" name="connexionForm" type="fr.esigelec.quiz.controleur.ConnexionPersonneAction" input="/">
-         <forward name="succes" path="/quiz.jsp"></forward>
+         <forward name="succes" path="/quiz.jsp"/>
+         <forward name="succes-admin" path="/VueQuizAdmin.do" redirect="true"/>
+         <forward name="erreur" path="/index.jsp"/>
+      </action>
+      <!-- 
+      <action scope="request" path="/ConnexionAdministrateur" name="connexionForm" type="fr.esigelec.quiz.controleur.ConnexionAdministrateurAction" input="/">
+         <forward name="succes" path="/VueQuizAdmin.do"></forward>
          <forward name="erreur" path="/index.jsp"></forward>
       </action>
-      <action scope="request" path="/ConnexionAdministrateur" name="connexionForm" type="fr.esigelec.quiz.controleur.ConnexionAdministrateurAction" input="/">
-         <forward name="succes" path="/quizAdmin.jsp"></forward>
-         <forward name="erreur" path="/indexAdmin.jsp"></forward>
-      </action>
+      -->
       <action scope="request" path="/Jouer" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
          <forward name="succes" path="/question.jsp"/>
       </action>
-      <action scope="request" path="/JouerAdmin" name="" type="fr.esigelec.quiz.controleur.JouerAction" input="/">
+      <action scope="request" path="/JouerAdmin" name="" type="fr.esigelec.quiz.controleur.JouerAdminAction" input="/">
          <forward name="succes" path="/animateur.jsp"/>
       </action>
       <action scope="request" path="/Choisir" name="" type="fr.esigelec.quiz.controleur.ChoisirAction" input="/">
          <forward name="succes" path="/question.jsp"/>
+         <forward name="time-out" path="/VueQuestion.do"/>
       </action>
       <action scope="request" path="/SupprimerQuiz" name="" type="fr.esigelec.quiz.controleur.SupprimerQuizAction" input="/">
-         <forward name="succes" path="/quizAdmin.jsp"/>
+         <forward name="succes" path="/VueQuizAdmin.do"/>
+         <forward name="login"  path="/index.jsp"/>
       </action>
       <action scope="request" path="/AjouterQuiz" name="" type="fr.esigelec.quiz.controleur.AjouterQuizAction" input="/">
-         <forward name="succes" path="/quizAdmin.jsp"/>
+         <forward name="succes" path="/VueQuizAdmin.do" redirect="true"/>
+         <forward name="login"  path="/index.jsp" redirect="true"/>
+         <forward name="erreur" path="/VueQuestionQuizAdmin.do" redirect="true"/>
+      </action>
+      <action scope="request" path="/UpdateQuiz" name="" type="fr.esigelec.quiz.controleur.UpdateQuizAction" input="/">
+         <forward name="succes" path="/VueQuizAdmin.do" redirect="true"/>
+         <forward name="login"  path="/index.jsp" redirect="true"/>
+         <forward name="erreur" path="/VueQuestionQuizAdmin.do" redirect="true"/>
       </action>
       <action scope="request" path="/EditerQuiz" name="" type="fr.esigelec.quiz.controleur.EditerQuizAction" input="/">
          <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/SupprimerQuestion" name="" type="fr.esigelec.quiz.controleur.SupprimerQuestionAction" input="/">
-         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="succes" path="/VueQuestionQuizAdmin.do" redirect="true"/>
          <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EditerQuestion" name="" type="fr.esigelec.quiz.controleur.EditerQuestionAction" input="/">
@@ -67,9 +80,19 @@
          <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EnregistrerQuestion" name="" type="fr.esigelec.quiz.controleur.EnregistrerQuestionAction" input="/">
-         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="succes" path="/VueQuestionQuizAdmin.do" redirect="true"/>
+         <forward name="erreur" path="/VueQuestionAdmin.do"/>
       </action>
       <action scope="request" path="/LancerPartie"  type="fr.esigelec.quiz.controleur.LancerPartieAction" input="/">
+        <forward name="succes" path="/animateur.jsp"/>
+      </action>
+      <action scope="request" path="/Compteur"  type="fr.esigelec.quiz.controleur.CompteurAction" input="/">
+        <forward name="succes" path="/animateur.jsp"/>
+      </action>
+       <action scope="request" path="/Stats"  type="fr.esigelec.quiz.controleur.StatsAction" input="/">
+        <forward name="succes" path="/animateur.jsp"/>
+      </action>
+      <action scope="request" path="/Reponse"  type="fr.esigelec.quiz.controleur.ReponseAction" input="/">
         <forward name="succes" path="/animateur.jsp"/>
       </action>
       <!--
@@ -82,14 +105,22 @@
       <action scope="request" path="/VueQuestion"  type="fr.esigelec.quiz.controleur.VueQuestionAction">
         <forward name="succes" path="/question.jsp"/>
       </action>
-      <action scope="request" path="/VueQuestionsQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
+      <action scope="request" path="/VueQuestionQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+        <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/VueQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionQuizAdminAction">
         <forward name="succes" path="/quizAdmin.jsp"/>
       </action>
       <action scope="request" path="/VueAnimateur"  type="fr.esigelec.quiz.controleur.VueAnimateurAction">
         <forward name="succes" path="/animateur.jsp"/>
+      </action>
+      <action scope="request" path="/VueQuestionAdmin"  type="fr.esigelec.quiz.controleur.VueQuestionAdminAction">
+        <forward name="succes" path="/questionAdmin.jsp"/>
+      </action>
+      <action scope="request" path="/VueQuizAdmin"  type="fr.esigelec.quiz.controleur.VueQuizAdminAction">
+        <forward name="succes" path="/quizAdmin.jsp"/>
+        <forward name="login" path="/index.jsp"/>
       </action>
       <!--
           Android actions
@@ -115,7 +146,7 @@
          <forward name="error" path="/json.jsp"/>
          <forward name="succes" path="/json.jsp"/>
        </action>
-       <action scope="request" path="/AndroidStatistiques" type="fr.esigelec.quiz.controleur.android.AndroidStatistiqueAction" input="/">
+       <action scope="request" path="/AndroidStatistique" type="fr.esigelec.quiz.controleur.android.AndroidStatistiqueAction" input="/">
          <forward name="error" path="/json.jsp"/>
          <forward name="succes" path="/json.jsp"/>
        </action>

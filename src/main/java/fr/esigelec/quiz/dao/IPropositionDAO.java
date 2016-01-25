@@ -38,14 +38,6 @@ public interface IPropositionDAO {
 	public List<Proposition> listProposition(); 
 
 	/**
-	 * m�thode : getPropositionParQuestion
-	 * @param  q the Question 
-	 * @return the list of proposition
-	 */
-
-	public List<Proposition> getPropositionParQuestion(Question q);
-
-	/**
 	 * m�thode : updateProposition
 	 * @param  q the proposition which should be updated
 	 */

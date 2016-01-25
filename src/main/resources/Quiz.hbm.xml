@@ -15,17 +15,10 @@
 		<property name="etape" column="etape" type="integer"/>
 		
 		
-		<set name="questions" table="quiz_question">
+		<set name="questions" table="quiz_question" lazy="true">
 			<key column="id_quiz"/>
 			<many-to-many column="id_question" class="Question"/>
 		</set>
-		
-		<!--
-		<list name="questions" table="quiz_question">
-        	<key column="id_quiz"/>
-        	<list-index column="id_question" />
-        	<many-to-many class="Question"/>
-    	</list>
-    	-->
+	
 	</class>
 </hibernate-mapping>

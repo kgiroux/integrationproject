@@ -4,6 +4,9 @@ import java.util.List;
 
 import fr.esigelec.quiz.dto.Choisir;
 import fr.esigelec.quiz.dto.Personne;
+import fr.esigelec.quiz.dto.Proposition;
+import fr.esigelec.quiz.dto.Question;
+import fr.esigelec.quiz.dto.Quiz;
 
 /**Projet d'integration
  * Le jeu de TF8
@@ -19,19 +22,31 @@ import fr.esigelec.quiz.dto.Personne;
 public interface IChoisirDAO {
 	
 	
-	public boolean faireChoix(Choisir c);
+	public boolean createChoix(Choisir c);
 	
-	public boolean modifierChoix(Choisir c);
+	public boolean updateChoix(Choisir c);
 	
 	public boolean deleteChoix(Choisir c);
 	
-	public List<Choisir> getChoixPersonne(Personne P);
-	
-	public int scorePersonne(Personne P);
-	
-	public List<Choisir> getChoixQuiz(Personne P);
-	
-	public boolean updatePersonne(Personne p);
-	
+	public List<Choisir> getChoixPersonneParQuiz(Personne p, Quiz q);
 
+	public List<Choisir> getChoixPersonneParQuizPersonneEtQuestion(Personne p, Quiz q,Question question);
+
+	public int getNombrePersonneParQuiz(Quiz q);
+
+	public int getNombrePersonneParProposition(Quiz q, Proposition p);
+	
+	public Choisir getChoix(int id);
+
+	public Choisir getChoix(Personne p, Quiz quiz, Question q);
+	
+	public List<Choisir> getChoixByQuiz(Quiz q);
+
+	/**
+	 * supprime tous les choix associés à un quiz
+	 * @param q le quiz
+	 * @return le nb de lignes supprimées
+	 */
+	public int deleteChoix(Quiz q);
+	
 }

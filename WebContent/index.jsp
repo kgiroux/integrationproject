@@ -6,38 +6,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Index</title>
+<title>Quiz Game</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<script type="text/javascript" src="Ressources/js/jquery-1.12.0.min.js"></script>
+<!-- <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css"> -->
+<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
+<script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
-<script src="Ressources/js/formValidation.min.js"></script>
-<script src="Ressources/js/bootstrap.min.js"></script>
-<script src="Ressources/js/script.js"></script>
 </head>
-<body>
+<body style="background-color: #03A9F4;">
 <div class="container">
-	<h1>Bienvenue</h1>
-	<hr>
+  <div class="row" style="margin: 50px 0;">
+    <div class="col-xs-12 col-md-6 col-md-offset-3 text-center">
+      <img src="<%=request.getContextPath() %>/Ressources/images/quiz-gsi.png" alt="Quiz GSI logo" class="img-rounded img-responsive">
+    </div>
+  </div>
+  <div class="jumbotron" style="background-color: rgba(255, 255, 255, .9); box-shadow: 2px 2px 5px black;">
+	<!-- <h1 style="text-align:center">Bienvenue</h1>
+
+	<hr> -->
   <form id="loginForm" class="form-horizontal" method="post" action="<%=request.getContextPath()%>/ConnexionPersonne.do">
 	  <div class="form-center">
 		  <div class="form-group">
-		    <label for="inputEmail3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
-		    <div class="col-xs-6 col-sm-4">
-		      <input type="email" class="form-control" name="mail" id="inputEmail3" placeholder="nom@domain.com">
+		    <label for="inputEmail3" class="col-sm-4 control-label"><span class ="glyphicon glyphicon-user"></span> Adresse mail</label>
+		    <div class="col-sm-6 col-lg-5">
+		    <input type="email" value="j@j.j" class="form-control " name="mail" id="inputEmail3" placeholder="nom@domain.com">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="inputPassword3" class="col-xs-6 col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
-		    <div class="col-xs-6 col-sm-4">
-		      <input type="password" class="form-control" name="mdp" id="inputPassword3" placeholder="Password">
+		    <label for="inputPassword3" class="col-sm-4 control-label"><span class ="glyphicon glyphicon-lock"></span> Mot de passe</label>
+		    <div class="col-sm-6 col-lg-5">
+		      <input type="password" value="j" class="form-control" name="password" id="inputPassword3" placeholder="Password">
 		    </div>
 		  </div>
-		  <span class="col-xs-6 col-sm-4"></span>
 		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-xs-6">
+		    <div class="col-sm-offset-4 col-sm-10 col-lg-8">
 		      <div class="checkbox">
 		        <label>
 		          <input type="checkbox"> Remember me
@@ -46,13 +51,20 @@
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-xs-6">
-		      <button type="submit" class="btn btn-primary">Connexion </button> ou
+		    <div class="col-sm-offset-4 col-sm-10 col-lg-8">
+		     <button type="submit" class="btn" style="background-color: #FF4081; color: #FFF">Connexion </button> ou
 			  <a href ="<%=request.getContextPath()%>/VueInscription.do">Inscription</a>
 		    </div>
 		  </div>
 	  </div>
-</form>
+    </form>
+  </div>
 </div>
 </body>
+  <footer>
+    <div class="container">
+      <hr>
+      <p class="text-center" style="color: white;"> Projet d'intégration, GSI-IR &#169; 2016 ESIGELEC</p>
+    </div>
+  </footer>
 </html>

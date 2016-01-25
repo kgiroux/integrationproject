@@ -3,7 +3,6 @@
 */
 body
 {
-	background-color:#E0F8F7;
 	text-align::center;
 }
 
@@ -88,3 +87,10 @@ hr {
 	text-align:center;	
 }
 
+.rouge{
+	background-color: red;
+}
+
+.vert{
+	background-color: green;
+}

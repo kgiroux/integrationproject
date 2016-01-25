@@ -7,7 +7,7 @@ package fr.esigelec.quiz.dto;
  * Classe Question
  * */
 
-public class Proposition {
+public class Proposition implements Comparable<Proposition> {
 
 
 	/**Attributs de la classe Proposition*/
@@ -23,17 +23,25 @@ public class Proposition {
 	 */
 	private String libelle; 
 
-	/**
-	 * La question
-	 */
-	private Question question;
-	
 	/*
 	 * Si c'est la bonne réponse au quiz
 	 */
 	boolean estBonneReponse;
 	
+	private double pourcentage;
+	
+	
+	private Question question;
+	
 	/*Constructeurs*/
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
+	}
 
 	/**
 	 * Constructeur sans paramétres
@@ -42,8 +50,8 @@ public class Proposition {
 		super();
 		this.id = 0;
 		this.libelle = "";
-		this.question = null;
 		this.estBonneReponse = false;
+		this.pourcentage = 0;
 	}
 
 	/**
@@ -51,12 +59,12 @@ public class Proposition {
 	 * @param id
 	 * @param libelle
 	 */
-	public Proposition(String libelle, Question question, boolean estBonneReponse) {
+	public Proposition(String libelle, boolean estBonneReponse) {
 		super();
 		this.id = 0;
-		this.question = question;
 		this.libelle = libelle;
 		this.estBonneReponse = estBonneReponse;
+		this.pourcentage = 0;
 	}
 
 
@@ -69,6 +77,7 @@ public class Proposition {
 		this.id = p.id;
 		this.libelle = p.libelle;
 		this.estBonneReponse = p.estBonneReponse;
+		this.pourcentage = p.pourcentage;
 	}
 
 	/*Getters et setters*/
@@ -97,6 +106,14 @@ public class Proposition {
 		return libelle;
 	}
 
+	public double getPourcentage() {
+		return pourcentage;
+	}
+
+	public void setPourcentage(double pourcentage) {
+		this.pourcentage = pourcentage;
+	}
+
 	/**
 	 * méthode: setLibelle()
 	 * @param libelle the libelle to set
@@ -104,15 +121,6 @@ public class Proposition {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-	
 
 	public boolean isEstBonneReponse() {
 		return estBonneReponse;
@@ -122,13 +130,6 @@ public class Proposition {
 		this.estBonneReponse = estBonneReponse;
 	}
 
-	
-	@Override
-	public String toString() {
-		return "Proposition [id=" + id + ", libelle=" + libelle + ", question=" + question + ", estBonneReponse="
-				+ estBonneReponse + "]";
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -136,7 +137,6 @@ public class Proposition {
 		result = prime * result + (estBonneReponse ? 1231 : 1237);
 		result = prime * result + id;
 		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
-		result = prime * result + ((question == null) ? 0 : question.hashCode());
 		return result;
 	}
 
@@ -158,12 +158,21 @@ public class Proposition {
 				return false;
 		} else if (!libelle.equals(other.libelle))
 			return false;
-		if (question == null) {
-			if (other.question != null)
-				return false;
-		} else if (!question.equals(other.question))
-			return false;
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Proposition [id=" + id + ", libelle=" + libelle + ", estBonneReponse=" + estBonneReponse + "]";
+	}
+
+	@Override
+	public int compareTo(Proposition p) {
+		if(this.getId() < p.getId())
+			return -1;
+		else if (this.getId() == p.getId())
+			return 0;
+		else 
+			return 1;
+	}
 }

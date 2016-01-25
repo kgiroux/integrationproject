@@ -1,82 +1,186 @@
+<%--
+@author maxmon13 mincong-h THouet DamienBellenger
+ --%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
-    <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
+<%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Animateur</title>
 <link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
 <link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
+<!-- <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css"> -->
 <link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
 <script src="Ressources/Jquery/jquery.min.js"></script>
 <script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
+<%--compteur affiche que si etape 1 --%>
+<c:if test="${quiz.etape == 1}"> 
+  <script>
+    /**
+     * Ce script est pour gérer le compteur
+     * Les variables sont utilisees dans le compteur.js
+     * @author mincong-h
+     *
+     */
+    var debut = ${quiz.dateDebutQuestion.time};
+    var now = ${currentTimestamp};
+  </script>
+  <script src="Ressources/bootstrap/js/compteur.js"></script>
+</c:if>
 </head>
-<body>
-<div class="form-center animateur">
-<button class="btn btn-primary">Afficher statistiques</button>
-<button class="btn btn-primary">Afficher bonne réponse</button>	
-<button class="btn btn-primary" id="suivant" onclick="Increment()">Question suivante</button>
+<body
+<%--on declenche le compteur que si on est en etape 1--%>
+ <c:if test="${quiz.etape == 1}">
+ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
+ </c:if>
+ >
+
 <%
-//Quiz q=(Quiz)request.getAttribute("quiz");
-//List<Question> listq=q.getListeQuestions();
-Proposition pro1 = new Proposition("proposition1");
-Proposition pro2 = new Proposition("proposition2");
-List<Proposition> list = new LinkedList<Proposition>();
-list.add(pro1);
-list.add(pro2);
-Question question = new Question("question1",pro1,list);
-Proposition prop11 = new Proposition("proposition11");
-Proposition prop22 = new Proposition("proposition22");
-List<Proposition> list1 = new LinkedList<Proposition>();
-list1.add(prop11);
-list1.add(prop22);
-Question question1 = new Question("question1",prop11,list1);
-List<Question> listq= new LinkedList<Question>();
-listq.add(question);
-listq.add(question1);
-int i=0;
+int count=(int)session.getAttribute("compteur");
+
 %>
-<script>
-/*
-$("#suivant").click(function(){
-		
-	i++;
-	window.location.reload();
-}
-		);*/
-</script>
-<h1>Question n°<%=i%></h1>	
+
+<%--
+Quiz q=(Quiz)session.getAttribute("quiz");
+System.out.println(q.toString());
+List<Question> listq=q.getListeQuestions();
+Question questioncur=listq.get(count);
+session.setAttribute("questioncurrente",questioncur);
+--%>
+<!-- <div class="form-center animateur"> -->
+<div class="container">
+
+  <div class="row" style="margin-top:10px">
+    <div class="col-sm-3">
+      <a href="<%=request.getContextPath()%>/VueQuizAdmin.do" class="btn btn-danger btn-block">Liste des quiz</a>
+    </div>
+    <div class="col-sm-3">
+      <a href="<%=request.getContextPath()%>/Stats.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 1}"> disabled</c:if>">Ratio de réponse</a>
+    </div>
+    <div class="col-sm-3">
+      <a href="<%=request.getContextPath()%>/Reponse.do" class="btn btn-primary btn-block <c:if test="${quiz.etape != 2}"> disabled</c:if>">Réponse et classement</a>	
+    </div>
+    <div class="col-sm-3">
+      <%--affichage du bouton pour passer a la question suivante seulement si on est pas a la derniere question --%>
+      <c:if test="${compteur+1<quiz.questions.size()}">
+        <a href="<%=request.getContextPath()%>/Compteur.do?compteur=<%=count%>" class="btn btn-primary btn-block <c:if test="${quiz.etape != 3}"> disabled</c:if>" id="suivant">Question suivante</a>
+      </c:if>
+    </div>
+  </div>
+  <div class="page-header">
+    <h1>Question n°<%=count+1%>&nbsp;/&nbsp;<%=((Quiz) session.getAttribute("quiz")).getQuestions().size() %></h1>
+    <%--DEBUT Barre de progression --%>
+    <div class="progress">
+      <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
+       style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
+       <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+      </div>
+    </div>
+    <%--FIN Barre de progression --%>
+  </div><!-- /.row -->
+
+  <div class="row">
+    <%-- on affiche le compteur que si on est en etape 1 --%>
+    <c:if test="${quiz.etape == 1}">
+      <div class="col-xs-12">
+        <p class="paraanimateur text-center"><strong>Reste :</strong>  &nbsp;
+          <IMG HSPACE=0 NAME="dizaine" SRC="Ressources/images/3.gif">
+          <IMG HSPACE=0 NAME="unite" SRC="Ressources/images/0.gif">
+          &nbsp;secondes
+        </p>
+      </div>
+    </c:if>
+    <div class="col-xs-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th><c:out value="${question.libelle}" /></th>
+            <c:if test="${quiz.etape > 1}"><th>%</th></c:if>
+            <c:if test="${quiz.etape > 2}"><th>Réponse</th></c:if>
+          </tr>
+        </thead>
+      <tbody>
+        <c:choose>
+          <%--
+              Etape 1 Jouer
+              Dans cette etape, les libelles seront affiches.
+          --%>
+          <c:when test="${quiz.etape == 1}">
+            <c:forEach var="proposition" items="${question.listePropositions}">
+              <tr class="question">
+                <td><c:out value="${proposition.libelle}" /></td>
+              </tr>
+            </c:forEach>
+          </c:when>
+          <%--
+              Etape 2 Affichage du pourcentage
+              Dans cette etape, les libelles et les pourcentages soront affiches
+          --%>
+          <c:when test="${quiz.etape == 2}">
+            <c:forEach var="proposition" items="${pourcentage}">
+              <tr class="question">
+                <td><c:out value="${proposition.libelle}" /></td>
+                <td><c:out value="${proposition.pourcentage}" />%</td>
+              </tr>
+            </c:forEach>
+          </c:when>
+          <%--
+              Etape 3 Affichage de la reponse
+              Dans cette etape, la bonne response sera affichee aussi.
+          --%>
+          <c:when test="${quiz.etape == 3}">
+            <c:forEach var="proposition" items="${pourcentage}">
+              <tr class="question">
+                <td><c:out value="${proposition.libelle}" /></td>
+                <td><c:out value="${proposition.pourcentage}" />%</td>
+                <c:if test="${proposition.estBonneReponse == false}">
+                  <td style="background-color:red"></td>
+                </c:if>
+                <c:if test="${proposition.estBonneReponse == true}">
+                  <td style="background-color:green"></td>
+                </c:if>
+              </tr>
+            </c:forEach>
+          </c:when>
+        </c:choose>
+      </tbody>
+    </table>
+    </div><!-- /.col -->
+    
+    <%--affichage du classement seulement en etape 3 --%>
+    <c:if test="${quiz.etape==3}">
+      <div class="col-xs-12">
+        <div class="page-header"> 
+          <h2 class="question">Classement</h2>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr style="background-color:#D8D8D8">
+              <th class="question">N°</th>
+              <th class="question">Nom</th>
+              <th class="question">Prénom</th>
+              <th class="question">Score</th>
+            </tr>
+          </thead>
+          <tbody>
+	        <c:forEach var="personne" items="${classement}" varStatus="loop">
+              <tr class="question">
+                <td><c:out value="${loop.index + 1}" /></td>
+                <td><c:out value="${personne.nom}" /></td>
+                <td><c:out value="${personne.prenom}" /></td>
+                <td><c:out value="${personne.score}" /></td>
+              </tr>
+	        </c:forEach>
+          </tbody>
+        </table>
+      </div>
+    </c:if>
+  </div>
 </div>
-<hr>
-<div class="form-center">
-<p class="paraanimateur"><strong>Reste :</strong> 0 seconde</p>
-			<table id="tab" class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th><%=listq.get(i).getLibelle()%></th>
-						
-					</tr>
-				</thead>
-				<tbody>
-				<%for(int j=0;j<listq.get(i).getListePropositions().size();j++){ %>
-					<tr>
-						<td><a id="test" href="#"><%=listq.get(i).getListePropositions().get(j).getLibelle()%></a></td>
-					</tr>
-					<%} %>
-				</tbody>
-			</table>
-			</div>
-</body>
-</html>
-
-<script>
-
-$('#suivant').on('click', function() {
-	var refresh = window.getElementById('test');
-	alert("hello");
-	i++
-    location.reload();
-});
-</script>
+<jsp:include page="/footer.jsp"/>

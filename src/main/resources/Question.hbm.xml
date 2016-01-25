@@ -6,5 +6,13 @@
 			<generator class="native"/>
 		</id>		
 		<property name="libelle" column="libelle" type="string"/>
+		
+		<!--  <many-to-one name="propositions" column="id_question" class="Proposition" cascade="all" lazy="false"/>-->
+		
+		<set name="propositions" lazy="false" cascade="all">
+			<key column="id_question"/>
+			<one-to-many class="Proposition"/>
+		</set>
+		
     </class>
 </hibernate-mapping>

@@ -14,6 +14,10 @@ public class AndroidHelper {
 	private static final int MISSING_ARG = 4;
 	private static final int DB_INSERT_FAIL = 5;
 	private static final int QUIZ_NOT_FOUND = 6;
+	private static final int TIME_OUT = 7;
+	
+	//SUCCESS CODE 
+	private static final int CHOICE_SAVE = -1;
 	
 	public static JSONObject DoGetForbiddenException() {
 		JSONObject json = new JSONObject();
@@ -57,5 +61,18 @@ public class AndroidHelper {
 		return json;
 	}
 	
+	public static JSONObject TimeOutExeception(){
+		JSONObject json = new JSONObject();
+		json.put(KEY_ERR_CODE,TIME_OUT);
+		json.put(KEY_ERR_MSG, "Time out connection.");
+		return json;
+	}
 	
+	
+	public static JSONObject ChoiceSaveSuccess(){
+		JSONObject json = new JSONObject();
+		json.put(KEY_ERR_CODE,CHOICE_SAVE);
+		json.put(KEY_ERR_MSG, "choice correctly save into database");
+		return json;
+	}
 }

@@ -9,6 +9,8 @@ public class Choisir implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private int id;
 
 	private Timestamp date;
 	
@@ -18,7 +20,23 @@ public class Choisir implements Serializable {
 	
 	private Personne personne;
 
+	public Choisir() {}
+	
+	//
+	// @Deprecated
+	// Deprecation annulee suite au changement au controlleur
+	//     fr.esigelec.quiz.controleur.ChoisirAction
+	//													marque par @mincong-h
+	//
 	public Choisir(Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
+		this.date = date;
+		this.proposition = proposition;
+		this.quiz = quiz;
+		this.personne = personne;
+	}
+	
+	public Choisir(int id,Timestamp date, Proposition proposition, Quiz quiz, Personne personne) {
+		this.id=id;
 		this.date = date;
 		this.proposition = proposition;
 		this.quiz = quiz;
@@ -27,8 +45,7 @@ public class Choisir implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Choisir [date=" + date + ", proposition=" + proposition + ", quiz=" + quiz + ", personne=" + personne
-				+ "]";
+		return "Choisir [id=" + id + "]";
 	}
 
 	@Override
@@ -45,22 +62,15 @@ public class Choisir implements Serializable {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (personne == null) {
-			if (other.personne != null)
-				return false;
-		} else if (!personne.equals(other.personne))
-			return false;
-		if (proposition == null) {
-			if (other.proposition != null)
-				return false;
-		} else if (!proposition.equals(other.proposition))
-			return false;
-		if (quiz == null) {
-			if (other.quiz != null)
-				return false;
-		} else if (!quiz.equals(other.quiz))
-			return false;
 		return true;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Timestamp getDate() {

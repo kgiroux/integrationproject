@@ -1,21 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Administrer quiz</title>
-<link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
-<script src="Ressources/Jquery/jquery.min.js"></script>
-<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
-</head>
-<body>
-	<h1>Ajouter une question</h1>
-	<hr>
-		<form class="container form-horizontal contform" method="post" action="EnregistrerQuestion">
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+<jsp:include page="/header.jsp"/>
+<div class="container">
+  <div class="page-header">
+	<h1>Sauvegarder une question</h1>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <p class="text-danger h4"><html:errors property="err.inputs"/></p>
+    </div>
+  </div>
+		<form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/EnregistrerQuestion.do">
 			<br>
 			<fieldset>
 				<div class="form-group">
@@ -73,23 +68,20 @@
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p7">Proposition 8 : </label>  
+				  <label class="col-md-2 control-label" for="p8">Proposition 8 : </label>  
 				  <div class="col-md-8">
-				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" type="text">    
+				  <input id="p8" name="p8" placeholder="proposition 8" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for=""></label>
 				  <div class="col-md-6">
-				    <button type="submit" class="btn btn-primary">Ajouter</button>
-				    <button type="reset" class="btn btn-primary">Rétablir</button>
-				    <a href="VueQuestionQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
+				    <button type="submit" class="btn btn-success">Sauvegarder</button>
+				    <button type="reset" class="btn btn-warning">Rétablir</button>
+				    <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do" class="btn btn-default">Annuler</a>
 				  </div>
 				</div>
-				<hr>
 			</fieldset>
 		</form>
-	
-	<br>
-</body>
-</html>
+</div>
+<jsp:include page="/footer.jsp"/>

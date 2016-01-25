@@ -267,18 +267,13 @@ public class GameActivity extends Activity implements View.OnClickListener
         requestThread = new Thread() {
             JSONObject objJson = null;
             boolean resend = true;
+            boolean interrupted = false;
             int requestCode = requestType;
 
             @Override
             public void run() {
                 do {
                     try {
-                        objJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&idQuestion=" + question.getId()}).get();
-
-                        //Vérification si le JSON contient les informations désirées
-                        if (objJson != null)
-                            if (objJson.has("Question") || objJson.has("Reponse"))
-                                resend = false;
 
                         //Attendre 500ms avant le renvoie d'une autre requête
                         try {
@@ -287,13 +282,20 @@ public class GameActivity extends Activity implements View.OnClickListener
                             e.printStackTrace();
                         }
 
+                        objJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&idQuestion=" + question.getId()}).get();
+
+                        //Vérification si le JSON contient les informations désirées
+                        if (objJson != null)
+                            if (objJson.has("Question") || objJson.has("Reponse"))
+                                resend = false;
+
                     } catch (Exception ex) {
                         Log.e("ERROR", ex.getMessage());
                     }
-                } while (resend && !this.isInterrupted());
+                } while (resend && !interrupted);
 
                 //Exécution de la méthode en lien avec la réponse
-                if(!this.isInterrupted())
+                if(!interrupted)
                 {
                     try {
                         switch (requestCode) {
@@ -320,6 +322,12 @@ public class GameActivity extends Activity implements View.OnClickListener
                         e.printStackTrace();
                     }
                 }
+            }
+
+            @Override
+            public void interrupt(){
+                interrupted = true;
+                super.interrupt();
             }
         };
         requestThread.start();

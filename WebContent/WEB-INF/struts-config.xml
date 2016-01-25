@@ -66,7 +66,7 @@
          <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/SupprimerQuestion" name="" type="fr.esigelec.quiz.controleur.SupprimerQuestionAction" input="/">
-         <forward name="succes" path="/VueQuizAdmin.do" redirect="true"/>
+         <forward name="succes" path="/VueQuestionQuizAdmin.do" redirect="true"/>
          <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EditerQuestion" name="" type="fr.esigelec.quiz.controleur.EditerQuestionAction" input="/">
@@ -75,7 +75,7 @@
          <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EnregistrerQuestion" name="" type="fr.esigelec.quiz.controleur.EnregistrerQuestionAction" input="/">
-         <forward name="succes" path="/questionQuizAdmin.jsp"/>
+         <forward name="succes" path="/VueQuestionQuizAdmin.do" redirect="true"/>
          <forward name="erreur" path="/VueQuestionAdmin.do"/>
       </action>
       <action scope="request" path="/LancerPartie"  type="fr.esigelec.quiz.controleur.LancerPartieAction" input="/">

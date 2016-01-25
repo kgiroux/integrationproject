@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.struts.action.Action;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 import fr.esigelec.quiz.dao.IPropositionDAO;
 import fr.esigelec.quiz.dao.IQuestionDAO;
@@ -45,74 +47,145 @@ public class EnregistrerQuestionAction extends Action {
 		String bonneReponse = request.getParameter("bonneReponse");
 		String p1, p2, p3, p4, p5, p6, p7, p8;
 		Personne p = (Personne) request.getSession().getAttribute("personne");
+		ActionErrors errors = new ActionErrors();
+		
+		// Verify input parameter
+		if (bonneReponse == null || "".equals(bonneReponse)) {
+			errors.add("err.inputs", new ActionMessage("err.inputs.null"));	
+			if (!errors.isEmpty())
+				addErrors(request, errors);
+			return mapping.findForward("erreur");
+		}
 		
 		if (p.getDroits() == Personne.ADMIN) {
 					
 			IQuestionDAO questionDAO = new QuestionDAOImpl();
 			IPropositionDAO propositionDAO = new PropositionDAOImpl();
 			IQuizDAO quizDAO = new QuizDAOImpl(); 
-			
+
+			// enregister la question
 			Question question = new Question(libelleQuestion);
-			
+			questionDAO.createQuestion(question);
+			enregistrerQuestionActionLogger.debug(question.toString());
 			Set<Proposition> listeProposition = new HashSet<Proposition>();
 			
-			Proposition propositionBonneReponse = new Proposition();
-			propositionBonneReponse.setLibelle(bonneReponse);
-			propositionBonneReponse.setEstBonneReponse(true);
 			
-			listeProposition.add(propositionBonneReponse);
+//			Proposition propositionBonneReponse = new Proposition();
+//			propositionBonneReponse.setLibelle(bonneReponse);
+//			propositionBonneReponse.setEstBonneReponse(true);
+//			
+//			listeProposition.add(propositionBonneReponse);
 			
-			if((p1 = request.getParameter("p1")) != null)
+			// enregistrer les propositions
+			p1 = request.getParameter("p1");
+			if(p1 != null && !"".equals(p1))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p1);
+				boolean estBonne = p1.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			if((p2 = request.getParameter("p2")) != null)
+			p2 = request.getParameter("p2");
+			if(p2 != null && !"".equals(p2))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p2);
+				boolean estBonne = p2.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			if((p3 = request.getParameter("p3")) != null)
+			p3 = request.getParameter("p3");
+			if(p3 != null && !"".equals(p3))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p3);
+				boolean estBonne = p3.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			if((p4 = request.getParameter("p4")) != null)
+			p4 = request.getParameter("p4");
+			if(p4 != null && !"".equals(p4))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p4);
+				boolean estBonne = p4.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			if((p5 = request.getParameter("p5")) != null)
+			p5 = request.getParameter("p5");
+			if(p5 != null && !"".equals(p5))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p5);
+				boolean estBonne = p5.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			if((p6 = request.getParameter("p6")) != null)
+			p6 = request.getParameter("p6");
+			if(p6 != null && !"".equals(p6))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p6);
+				boolean estBonne = p6.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			if((p7 = request.getParameter("p7")) != null)
+			p7 = request.getParameter("p7");
+			if(p7 != null && !"".equals(p7))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p7);
+				boolean estBonne = p7.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			if((p8 = request.getParameter("p8")) != null)
+			p8 = request.getParameter("p8");
+			if(p8 != null && !"".equals(p8))
 			{
 				Proposition prop = new Proposition();
 				prop.setLibelle(p8);
+				boolean estBonne = p8.equals(bonneReponse) ? true : false;
+				prop.setEstBonneReponse(estBonne);
+				prop.setQuestion(question);
+				propositionDAO.createProposition(prop);
+				enregistrerQuestionActionLogger.info(prop.toString());
+				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
 			
+			for(Proposition _p: listeProposition) {
+				enregistrerQuestionActionLogger.debug(_p.toString());
+			}
 			question.setPropositions(listeProposition);
-			questionDAO.createQuestion(question);
 			
 			request.setAttribute("listeQuestion", questionDAO.listQuestion());
 		}

@@ -1,85 +1,109 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
-    <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<jsp:include page="/header.jsp"></jsp:include>
-<% if ((String)session.getAttribute("listeQuestions") != null) {
-	session.setAttribute("idQuiz", (int)session.getAttribute("idQuiz"));
-}%>
-<h1>Sauvegarder un quiz</h1>
-	<hr>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<jsp:include page="/header.jsp"/>
 <div class="container">
-	<hr>
-	<form method="POST" action="<%=request.getContextPath()%>/AjouterQuiz.do">
-	<div class="form-group">
-		<label for="libelle" class="col-xs-6 col-sm-2 control-label">Libellé :</label>
-		<div class="col-xs-2 col-sm-4">
-				<% if  ((List<Question>)session.getAttribute("listeQuestions") != null) {
-						String libelleQuiz = (String)session.getAttribute("libelleQuiz");
-						%><input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" value="<%= libelleQuiz%>"><%
-					}
-					else %><input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" placeholder="JEE,Android,etc"><%
-					%>
-		</div> 
-		   
-	</div>
- <a href="<%=request.getContextPath()%>/VueQuestionAdmin.do"><button type="button"  class="btn btn-primary"><span class ="glyphicon glyphicon-plus"> </span> Ajouter une Question</button></a>		    
-<div class="form-center">
-			<table class="table table-bordered table-hover">
-				<thead>
-					<tr>
-						<th>Cocher</th>
-						<th>Question</th>
-						<th>Supprimer</th>
-						<th>Editer</th>
-					</tr>
-				</thead>
-				<tbody>
-				<% 				
-				List<Question> qtotale= null;
-				List<Question> listeQuestionQuiz = null;
-				if  ((List<Question>)session.getAttribute("listeQuestions") != null && (List<Question>)session.getAttribute("listeQuestionsQuiz") == null) {	
-					qtotale = (List<Question>)session.getAttribute("listeQuestions");
-					for(Question q1:qtotale){ %>
-					<tr>
-						<td><input type="checkbox" name="questionId" value="<%=q1.getId()%>"></td>
-						<td><%=q1.getLibelle()%></td>
-						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>" ><span class="glyphicon glyphicon-remove"></span></a></td>
-						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do"><span class="glyphicon glyphicon-edit"></span></a></td>
-					</tr>
-						<%} 
-						}
-				if  ((List<Question>)session.getAttribute("listeQuestions") != null && (List<Question>)session.getAttribute("listeQuestionsQuiz") != null) {	
-					qtotale = (List<Question>)session.getAttribute("listeQuestions");
-					System.out.println(qtotale.toString());
-					listeQuestionQuiz = (List<Question>)session.getAttribute("listeQuestionsQuiz");
-					for(Question q1:qtotale){ %>
-						<tr>
-				
-						<td><input type="checkbox" id="<%=q1.getId()%>" name="questionId11" value="<%=q1.getId()%>"></td>
-						<td><%=q1.getLibelle()%></td>
-						<td><a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=<%= q1.getId()%>" ><span class="glyphicon glyphicon-remove"></span></a></td>
-						<td><a href="<%=request.getContextPath()%>/EditionQuestion.do"><span class="glyphicon glyphicon-edit"></span></a></td>
-					</tr>
-					<%	for (Question qq1:listeQuestionQuiz) {%>
-					<%		if (qq1.equals(q1)) { %>
-						<script>
-							var el=document.getElementById("<%=q1.getId()%>");
-							el.setAttribute("checked", "checked");
-						</script>
-						
-						<% } %>
-						<%} 
-					}
-				}
-						%>
-				</tbody>
-			</table>
-			<button type="submit" class="btn btn-primary">Sauvegarder</button>
-   </form>
-   
-   			<a href="<%=request.getContextPath()%>/VueQuizAdmin.do"><button type="button" class="btn btn-primary">Annuler</button></a>
-   <hr>
-  </div>  
-</div>
+  <div class="page-header">
+    <!--
+        Mode: Editer quiz 
+     -->
+    <c:if test="${quiz.id != null}">
+      <h1>Editer Quiz n° ${quiz.id}</h1>
+    </c:if>
+    <!-- 
+        Mode: Enregistrer quiz
+     -->
+    <c:if test="${quiz.id == null}">
+      <h1>Sauvegarder un quiz</h1>
+    </c:if>
+  </div>
+  <!--
+      Error messages 
+   -->
+  <form method="POST" action="<%=request.getContextPath()%>/AjouterQuiz.do">
+    <div class="form-group">
+      <c:if test="${listeQuestions == null}">
+        <div class="jumbotron">
+          <h1>Ooops!!</h1>
+          <p>Pas de question dans la base de données.<br>Créez la première question.</p>
+          <a href="<%=request.getContextPath()%>/VueQuestionAdmin.do" class="btn btn-primary">
+            <span class ="glyphicon glyphicon-plus"></span> Ajouter une Question
+          </a>
+        </div>
+      </c:if>
+      <c:if test="${listeQuestions != null}">
+        <div class="row">
+          <div class="col-xs-4 col-sm-2">
+            <label for="libelleQuiz" class="control-label">Libellé :</label>
+          </div>
+          <div class="col-xs-12 col-sm-4">
+            <!--  -->
+            <c:if test="${quiz.id == null}">
+              <input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" placeholder="Titre de votre quiz">
+            </c:if>
+            <!-- Edit quiz -->
+            <c:if test="${quiz.id != null}">
+              <input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" value="${quiz.libelle}">
+            </c:if>
+          </div>
+          <div class="col-md-4">
+            <a href="<%=request.getContextPath()%>/VueQuestionAdmin.do" class="btn btn-success">
+              <span class ="glyphicon glyphicon-plus"></span> Ajouter une Question
+            </a>
+          </div>
+          <div class="col-xs-12">
+            <p class="text-danger h4"><html:errors property="err.inputs"/></p>
+            <hr>
+          </div>
+          <div class="col-xs-12">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Cocher</th>
+                  <th>Question</th>
+                  <th><p class="hidden-xs">Supprimer</p></th>
+                  <th><p class="hidden-xs">Editer</p></th>
+                </tr>
+              </thead>
+              <tbody>
+                <c:forEach var="question" items="${listeQuestions}">
+                  <tr class="question">
+                    <c:if test="${listeQuestionsQuiz != null}">
+                      <td><input type="checkbox" name="questionId" value="${question.id}" 
+                        <c:forEach var="existing_q" items="${listeQuestionsQuiz}">
+                          <c:if test="${question.id == existing_q.id}">checked</c:if>
+                        </c:forEach>
+                      ></td>
+                    </c:if>
+                    <c:if test="${listeQuestionsQuiz == null}"> 
+                      <td><input type="checkbox" name="questionId" value="${question.id}"></td>
+                    </c:if>
+                    <td><c:out value="${question.libelle}" /></td>
+                    <td>
+                      <a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=${question.id}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                      </a>
+                    </td>
+                    <td>
+                      <a href="<%=request.getContextPath()%>/EditionQuestion.do?idQuestion=${question.id}">
+                        <span class="glyphicon glyphicon-edit"></span>
+                      </a>
+                    </td>
+                  </tr>
+                </c:forEach>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-6 col-md-3 col-lg-2">
+            <button type="submit" class="btn btn-primary btn-block">Sauvegarder</button>
+          </div>
+          <div class="col-xs-6 col-md-3 col-lg-2">
+            <a href="<%=request.getContextPath()%>/VueQuizAdmin.do" class="btn btn-default btn-block">Annuler</a>
+          </div>
+        </div>
+      </c:if>
+    </div>	    	
+  </form>
+</div>  
 <jsp:include page="/footer.jsp"></jsp:include>

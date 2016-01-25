@@ -46,7 +46,7 @@ q3.setDateDebutQuiz(t);
     </thead>
     <tbody>
       <c:forEach var="quiz" items="${listeQuiz}">
-      <tr class="question">
+      <tr>
         <td><c:out value="${quiz.libelle}" /></td>
         <td><c:out value="${quiz.questions.size()}" /></td>
         <td><c:out value="${quiz.dateDebutQuiz}" /></td>	

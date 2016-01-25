@@ -69,11 +69,9 @@ public class EditerQuizAction extends Action {
 			}
 			List <Question> listeQuestions = questionDAO.listQuestion();
 			
-			session.setAttribute("listeQuestions", listeQuestions);
-			session.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
-			session.setAttribute("libelleQuiz", quiz.getLibelle());
-			session.setAttribute("idQuiz", quiz.getId());
-			
+			request.setAttribute("listeQuestions", listeQuestions);
+			request.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
+			request.setAttribute("quiz", quiz);
 			editerQuizActionLogger.debug("Question �dit�e");
 			return mapping.findForward("succes");	/* Need to map to quizAdmin.jsp */
 			

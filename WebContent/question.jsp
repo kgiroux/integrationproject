@@ -53,7 +53,7 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
   
   <%--DEBUT Barre de progression --%>
   <div class="row">
-    <div class="col-xs-10 col-xs-offset-1">
+    <div class="col-xs-12">
       <div class="progress">
         <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
          style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
@@ -149,35 +149,38 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
 			</tbody>
     </table>
   </div><!-- /.col-lg-12 -->
-  <div class="col-xs-4 col-xs-offset-4">
-    <a href="<%=request.getContextPath() %>/VueQuestion.do" class="btn btn-primary">rafraichir</a>
+  <div class="col-xs-6 col-xs-offset-3 col-md-2 col-md-offset-5">
+    <a href="<%=request.getContextPath() %>/VueQuestion.do" class="btn btn-primary btn-block">rafraichir</a>
   </div>
   <%--afficahge du calssement si etape 3 --%>
   <c:if test="${quiz.etape==3}">
-   <h2 class="question">CLASSEMENT</h2>
-  <hr>
-  <br>
-  <table class="table table-bordered table-hover " style="width:70%">
-    <thead>
-      <tr style="background-color:#D8D8D8">
-        <th class="question">N°</th>
-        <th class="question">Nom</th>
-        <th class="question">Prénom</th>
-		<th class="question">Score</th>
-      </tr>
-    </thead>
-    <tbody>
-    
-	  <c:forEach var="personne" items="${classement}" varStatus="loop">
-        <tr class="question">
-            <td><c:out value="${loop.index + 1}" /></td>
-          <td><c:out value="${personne.nom}" /></td>
-          <td><c:out value="${personne.prenom}" /></td>
-          <td><c:out value="${personne.score}" /></td>
-        </tr>
-	  </c:forEach>
-    </tbody>
-  </table>
+    <div class="col-xs-12">
+      <div class="page-header">
+        <h2 class="question">CLASSEMENT</h2>
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr style="background-color:#D8D8D8">
+            <th class="question">N°</th>
+            <th class="question">Nom</th>
+            <th class="question">Prénom</th>
+    		<th class="question">Score</th>
+          </tr>
+        </thead>
+        <tbody>
+	      <c:forEach var="personne" items="${classement}" varStatus="loop">
+            <tr class="question">
+              <td><c:out value="${loop.index + 1}" /></td>
+              <td><c:out value="${personne.nom}" /></td>
+              <td><c:out value="${personne.prenom}" /></td>
+              <td><c:out value="${personne.score}" /></td>
+            </tr>
+	      </c:forEach>
+        </tbody>
+      </table>
+    </div>
   </c:if>
   
 </div><!-- /.row -->

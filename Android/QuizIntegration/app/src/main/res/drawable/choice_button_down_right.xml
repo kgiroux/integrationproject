@@ -8,14 +8,6 @@
             android:pivotY="50%"
             android:drawable="@drawable/choice_selected" />
     </item>
-    <item android:state_selected="true">
-        <rotate
-            android:fromDegrees="180"
-            android:toDegrees="180"
-            android:pivotX="50%"
-            android:pivotY="50%"
-            android:drawable="@drawable/choice_selected" />
-    </item>
     <item android:state_activated="true">
         <rotate
             android:fromDegrees="180"
@@ -23,6 +15,14 @@
             android:pivotX="50%"
             android:pivotY="50%"
             android:drawable="@drawable/choice_trueanswer" />
+    </item>
+    <item android:state_selected="true">
+        <rotate
+            android:fromDegrees="180"
+            android:toDegrees="180"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:drawable="@drawable/choice_selected" />
     </item>
     <item>
         <rotate

@@ -66,21 +66,11 @@ public class GameActivity extends Activity implements View.OnClickListener
     }
 
     @Override
-    protected void onPause() {
+    protected void onDestroy() {
 
         //Désactivation des threads de la partie jouer
-        //requestThread.interrupt();
-        try
-        {
-            requestThread.join ();
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace ();
-        }
-        requestThread = null;
-
-        super.onPause();
+        requestThread.interrupt();
+        super.onDestroy();
     }
 
     //Méthode d'initialisation des IHMs
@@ -292,7 +282,7 @@ public class GameActivity extends Activity implements View.OnClickListener
 
                         //Attendre 500ms avant le renvoie d'une autre requête
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(5000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

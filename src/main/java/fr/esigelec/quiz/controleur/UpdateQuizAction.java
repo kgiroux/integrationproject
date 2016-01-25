@@ -55,7 +55,7 @@ private final Logger updateQuizActionLogger = Logger.getLogger(UpdateQuizAction.
 				return mapping.findForward("erreur");
 			}
 			
-			/* Verify inputs (parameter `libelleQuez' && attribute `questions') */
+			/* Verify inputs (parameter `quizId') */
 			if (quizId == null || "".equals(quizId)) {
 				errors.add("err.inputs", new ActionMessage("err.inputs.null"));	
 				if (!errors.isEmpty())
@@ -63,21 +63,18 @@ private final Logger updateQuizActionLogger = Logger.getLogger(UpdateQuizAction.
 				return mapping.findForward("erreur");
 			}
 			
+			/* Everything goes well; update quiz */
 			int id = Integer.parseInt(quizId);
 			
-			
-			/* Everything goes well; create quiz */
+			// Get questions from bdd
 			IQuestionDAO questionDAO = new QuestionDAOImpl();
 			List<Question> questions = new ArrayList<Question>();
 			for (String s : questionIds) {
 				int questionId = Integer.parseInt(s);
 				questions.add(questionDAO.getQuestion(questionId));
 			}
-//			
-//			Quiz quiz = new Quiz();
-//			quiz.setLibelle(libelleQuiz);
-//			quiz.setListeQuestions(questions);
-//			// Add to bdd
+			
+			// Update to bdd
 			IQuizDAO quizDAO = new QuizDAOImpl();
 			Quiz quiz = quizDAO.getQuiz(id);
 			quiz.setListeQuestions(questions);

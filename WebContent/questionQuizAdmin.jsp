@@ -5,7 +5,18 @@
 <jsp:include page="/header.jsp"/>
 <div class="container">
   <div class="page-header">
-    <h1>Sauvegarder un quiz</h1>
+    <!--
+        Mode: Editer quiz 
+     -->
+    <c:if test="${quiz.id != null}">
+      <h1>Editer Quiz n° ${quiz.id}</h1>
+    </c:if>
+    <!-- 
+        Mode: Enregistrer quiz
+     -->
+    <c:if test="${quiz.id == null}">
+      <h1>Sauvegarder un quiz</h1>
+    </c:if>
   </div>
   <!--
       Error messages 
@@ -27,7 +38,14 @@
             <label for="libelleQuiz" class="control-label">Libellé :</label>
           </div>
           <div class="col-xs-12 col-sm-4">
-            <input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" placeholder="Titre de votre quiz">
+            <!--  -->
+            <c:if test="${quiz.id == null}">
+              <input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" placeholder="Titre de votre quiz">
+            </c:if>
+            <!-- Edit quiz -->
+            <c:if test="${quiz.id != null}">
+              <input type="text" class="form-control" name="libelleQuiz" id="libelleQuiz" value="${quiz.libelle}">
+            </c:if>
           </div>
           <div class="col-md-4">
             <a href="<%=request.getContextPath()%>/VueQuestionAdmin.do" class="btn btn-success">
@@ -51,7 +69,16 @@
               <tbody>
                 <c:forEach var="question" items="${listeQuestions}">
                   <tr class="question">
-                    <td><input type="checkbox" name="questionId" value="${question.id}"></td>
+                    <c:if test="${listeQuestionsQuiz != null}">
+                      <td><input type="checkbox" name="questionId" value="${question.id}" 
+                        <c:forEach var="existing_q" items="${listeQuestionsQuiz}">
+                          <c:if test="${question.id == existing_q.id}">checked</c:if>
+                        </c:forEach>
+                      ></td>
+                    </c:if>
+                    <c:if test="${listeQuestionsQuiz == null}"> 
+                      <td><input type="checkbox" name="questionId" value="${question.id}"></td>
+                    </c:if>
                     <td><c:out value="${question.libelle}" /></td>
                     <td>
                       <a href="<%=request.getContextPath()%>/SupprimerQuestion.do?idQuestion=${question.id}">

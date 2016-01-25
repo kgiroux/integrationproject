@@ -30,9 +30,7 @@
                 <td>${quiz.dateDebutQuiz}</td>
                 <td><a href="<%=request.getContextPath()%>/SupprimerQuiz.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-remove"></span></a></td>
                 <td>
-                  <!--<c:if test="${quiz.dateFinQuiz != null}"> -->
-                    <a href="<%=request.getContextPath()%>/EditerQuiz.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-edit"></span></a>
-                  <!--</c:if> -->
+                  <a href="<%=request.getContextPath()%>/EditerQuiz.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-edit"></span></a>
                 </td>
                 <td><a href="<%=request.getContextPath()%>/JouerAdmin.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-play"></span></a></td>
               </tr>

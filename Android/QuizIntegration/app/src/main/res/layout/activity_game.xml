@@ -57,7 +57,8 @@
             android:textSize="30sp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/question" />
+            android:background="@drawable/question"
+            android:padding="5dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"

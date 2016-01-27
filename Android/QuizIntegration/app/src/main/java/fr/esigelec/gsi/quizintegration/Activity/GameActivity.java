@@ -92,8 +92,10 @@ public class GameActivity extends Activity implements View.OnClickListener
             buttons[i].setActivated(false);
 
             //Définition du contenu des boutons
-            buttons[i].setText(question.getListePropositions().get(i).getLibelle());
-            buttons[i].setOnClickListener(this);
+            if(i < question.getListePropositions().size()) {
+                buttons[i].setText(question.getListePropositions().get(i).getLibelle());
+                buttons[i].setOnClickListener(this);
+            }
         }
 
         ImageButton quit = (ImageButton) findViewById(R.id.quit);

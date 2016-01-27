@@ -10,6 +10,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.ButtonBarLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -20,12 +21,14 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import fr.esigelec.gsi.quizintegration.objects.Personne;
 import fr.esigelec.gsi.quizintegration.R;
@@ -48,6 +51,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 	private final int REQUEST_CODE_INSCRIPTION = 42;
 	Map<String, List<String>> ItemCollection;
 	private Dialog dialog;
+	private Dialog configuration;
 	private Toolbar toolbar;
 	private Personne pers;
 
@@ -70,6 +74,9 @@ public class MainActivity extends Activity implements View.OnClickListener
 
 		//Création de l'object popUp de connexion
 		dialog = createAndManageDialog();
+
+		// Création de l'objet PopUp de configuration de l'IP;
+		configuration = createAndManageConfigurationDialog();
 
         //Mise en forme des boutons et ajout du listener
 		Button button = (Button) findViewById (R.id.start);
@@ -112,6 +119,10 @@ public class MainActivity extends Activity implements View.OnClickListener
 				switch (groupPosition)
 				{
 					case 0:
+						mDrawerLayout.closeDrawer (mDrawerExpandableList);
+						configuration.show ();
+						break;
+					case 1:
 						// On clique sur connexion
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						// On ouvre une boite de dialogue demande la connexion
@@ -119,7 +130,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 						if(WelcomeActivity.DEBUG)
 							Toast.makeText (getApplicationContext (), R.string.connexion, Toast.LENGTH_LONG).show ();
 						break;
-					case 1:
+					case 2:
 						// On clique sur inscription
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),InscriptionActivity.class);
@@ -130,7 +141,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 							Toast.makeText (getApplicationContext (), R.string.inscription, Toast.LENGTH_LONG).show ();
 						break;
 
-					case 2:
+					case 3:
 						// On clique sur About
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent(getApplicationContext (),AboutActivity.class);
@@ -139,7 +150,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 						// On lance l'activité
 						startActivity (t);
 						break;
-					case 3:
+					case 4:
 						// On clique sur Légales Notices
 						mDrawerLayout.closeDrawer (mDrawerExpandableList);
 						t = new Intent (getApplicationContext (),LegalNoticeActivity.class);
@@ -148,7 +159,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 						// On lance l'activité pour les légales Notices
 						startActivity (t);
 						break;
-					case 4:
+					case 5:
 						// On quite l'application;
 						Toast.makeText (getApplicationContext (), R.string.bye, Toast.LENGTH_LONG).show ();
 						finish ();
@@ -350,6 +361,53 @@ public class MainActivity extends Activity implements View.OnClickListener
 					startActivity (t);
 					finish();
 				}
+			}
+		});
+		return dialog;
+	}
+
+	private Dialog createAndManageConfigurationDialog(){
+		final Dialog dialog = new Dialog (MainActivity.this);
+		SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+		final SharedPreferences.Editor editor = preferences.edit ();
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView (R.layout.configuration_dialog);
+
+		final EditText text = (EditText) dialog.findViewById (R.id.IPserverValue);
+		Button valide = (Button) dialog.findViewById (R.id.Validate);
+		Button cancel = (Button) dialog.findViewById (R.id.cancel);
+
+		valide.setOnClickListener (new View.OnClickListener ()
+		{
+			@Override
+			public void onClick (View v)
+			{
+				String IP = text.getText ().toString ();
+				try
+				{
+					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{IP + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
+					// On teste si on à une erreur afin de verifier que l'IP du serveur est correcte
+					if(perJson.has("err_code")){
+						editor.putString ("IPSERVER",IP);
+						editor.apply ();
+						dialog.cancel ();
+						Toast.makeText (getApplicationContext (),getResources ().getString (R.string.confirmIP), Toast.LENGTH_LONG).show ();
+						Toast.makeText (getApplicationContext (),getResources ().getString (R.string.nextDO), Toast.LENGTH_LONG).show ();
+					}
+				}
+				catch (InterruptedException |ExecutionException e)
+				{
+					e.printStackTrace ();
+				}
+			}
+		});
+
+		cancel.setOnClickListener (new View.OnClickListener ()
+		{
+			@Override
+			public void onClick (View v)
+			{
+				dialog.cancel ();
 			}
 		});
 		return dialog;

@@ -87,4 +87,8 @@
 
     <string name="question">Question : </string>
     <string name="separator">/</string>
+    <string name="configuration">Configuration</string>
+    <string name="IPserver">IP Server :</string>
+    <string name="confirmIP">IP was confirmed</string>
+    <string name="nextDO">Now you can subscribe or connect to the server</string>
 </resources>

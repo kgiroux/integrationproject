@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingTop="15dp"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:background="@drawable/background">
+    <TextView
+        android:id="@+id/titleText"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/configuration"
+        android:textColor="@color/white"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/loginText"
+        android:layout_below="@id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/IPserver"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:inputType="textEmailAddress"
+        android:id="@+id/IPserverValue"
+        android:hint="@string/IPserver"
+        android:layout_below="@id/loginText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    
+    <LinearLayout
+        android:layout_below="@id/password"
+        android:layout_width="match_parent"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:id="@+id/buttonLinear"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/Cancel"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                android:background="@drawable/button_start"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"/>
+
+            <Button
+                android:id="@+id/Validate"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="@string/valid"
+                android:textColor="@color/white"
+                android:background="@drawable/button_start"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_below="@id/buttonLinear"
+        android:id="@+id/errorText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""/>
+
+</RelativeLayout>

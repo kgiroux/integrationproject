@@ -10,6 +10,7 @@
     <string name="about">A propos de </string>
     <string name="mentionlegales">Mentions legales</string>
     <string-array name="listMenu">
+        <item>Configuration</item>
         <item>Connexion</item>
         <item>Inscription</item>
         <item>A propos de </item>

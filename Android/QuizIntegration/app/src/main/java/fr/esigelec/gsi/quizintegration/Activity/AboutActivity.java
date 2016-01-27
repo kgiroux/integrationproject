@@ -1,5 +1,7 @@
 package fr.esigelec.gsi.quizintegration.activity;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -22,12 +24,19 @@ public class AboutActivity extends AppCompatActivity
 		super.onCreate (savedInstanceState);
 		setContentView (R.layout.activity_about);
 		TextView tvAbout = (TextView) findViewById(R.id.textView4);
-		try {
-			JSONObject legalNotice = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "About.do", "GET",null}).get();
-			if(legalNotice != null)
-				tvAbout.setText(legalNotice.toString());
-		} catch (InterruptedException | ExecutionException e) {
-			e.printStackTrace();
+		SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+		String IPSERVER = preferences.getString ("IPSERVER","");
+		if(!"".equals (IPSERVER))
+		{
+			try
+			{
+				JSONObject legalNotice = new AndroidHTTPRequest ().execute (new String[]{WelcomeActivity.generateURL (IPSERVER) + "About.do", "GET", null}).get ();
+				if (legalNotice != null) tvAbout.setText (legalNotice.toString ());
+			}
+			catch (InterruptedException | ExecutionException e)
+			{
+				e.printStackTrace ();
+			}
 		}
 	}
 }

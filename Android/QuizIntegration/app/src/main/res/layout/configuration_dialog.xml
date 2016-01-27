@@ -33,9 +33,9 @@
         android:layout_below="@id/loginText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-    
+
     <LinearLayout
-        android:layout_below="@id/password"
+        android:layout_below="@id/IPserverValue"
         android:layout_width="match_parent"
         android:weightSum="2"
         android:orientation="horizontal"

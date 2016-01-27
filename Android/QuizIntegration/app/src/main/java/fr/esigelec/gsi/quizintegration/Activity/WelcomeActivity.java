@@ -16,7 +16,6 @@ import fr.esigelec.gsi.quizintegration.R;
  */
 public class WelcomeActivity extends AppCompatActivity {
 
-    public static String IPSERVER = "http://10.20.35.2:8080/quiz/";
     public static Typeface quizFont;
     public static boolean DEBUG = false;
     public static boolean DEV = false;
@@ -58,5 +57,12 @@ public class WelcomeActivity extends AppCompatActivity {
                 finish();
             }
         }, SPLASH_LENGTH);
+    }
+
+    public static String generateURL(String IP){
+        String http = "http://";
+        String endOfURL = ":8080/quiz/";
+
+        return (http+IP+endOfURL);
     }
 }

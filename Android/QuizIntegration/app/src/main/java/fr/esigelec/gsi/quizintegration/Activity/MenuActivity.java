@@ -2,9 +2,11 @@ package fr.esigelec.gsi.quizintegration.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -70,7 +72,7 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 		// Définition de la couleur
         toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
 
-		 layout = (SwipeRefreshLayout) findViewById (R.id.swipe_container);
+		layout = (SwipeRefreshLayout) findViewById (R.id.swipe_container);
 		layout.setOnRefreshListener(this);
 
 		layout.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -86,98 +88,102 @@ public class MenuActivity extends Activity implements View.OnClickListener, Swip
 
 	public void initIHM()
 	{
-		try {
+		SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+		String IPSERVER = preferences.getString ("IPSERVER","");
+		if(!"".equals (IPSERVER)){
+			try {
 
-			JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidQuizList.do", "GET", null}).get();
+				JSONObject quizJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.generateURL (IPSERVER) + "AndroidQuizList.do", "GET", null}).get();
 
-			if(quizJson != null) {
-				//Get the list of all finished quiz from request
-				if(quizJson.has("QuizList")) {
-					quizList = new ArrayList<>();
-					JSONArray quizListJson = quizJson.getJSONArray("QuizList");
-					for (int i = 0; i < quizListJson.length(); i++) {
-						JSONObject quiz = quizListJson.getJSONObject(i);
-						Quiz q = new Quiz();
-						q.JSONObjectToQuiz(quiz);
-						quizList.add(q);
+				if(quizJson != null) {
+					//Get the list of all finished quiz from request
+					if(quizJson.has("QuizList")) {
+						quizList = new ArrayList<>();
+						JSONArray quizListJson = quizJson.getJSONArray("QuizList");
+						for (int i = 0; i < quizListJson.length(); i++) {
+							JSONObject quiz = quizListJson.getJSONObject(i);
+							Quiz q = new Quiz();
+							q.JSONObjectToQuiz(quiz);
+							quizList.add(q);
+						}
+					}
+
+					//Save current quizz if exist
+					if(quizJson.has("CurrentQuiz")) {
+						JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
+						currentQuiz = new Quiz();
+						currentQuiz.JSONObjectToQuiz(curQuiz);
+					}else
+						currentQuiz = null;
+				}
+
+			} catch (InterruptedException | ExecutionException | JSONException e) {
+				ErrorManager errorManager = SingletonErrorManager.getInstance().getError();
+				Toast.makeText(getApplicationContext(),errorManager.errorManager(9), Toast.LENGTH_LONG).show();
+				e.printStackTrace();
+			}
+
+			TextView curText = (TextView) findViewById(R.id.current);
+			TextView oldText = (TextView) findViewById(R.id.old);
+			curText.setTypeface(WelcomeActivity.quizFont);
+			oldText.setTypeface(WelcomeActivity.quizFont);
+
+			final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
+			if (currentQuiz != null){
+
+				//Montrer la vue affichant le quiz en cours
+				currentQuizLayout.setVisibility(View.VISIBLE);
+				curText.setVisibility(View.VISIBLE);
+
+				//Remplissage de l'objet affichant le quiz courant
+				TextView titre = (TextView) findViewById(R.id.title);
+				titre.setText(currentQuiz.getLibelle());
+				TextView date = (TextView) findViewById(R.id.date);
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+				date.setText(simpleDateFormat.format(currentQuiz.getDateDebutQuiz()));
+				TextView nbQuest = (TextView) findViewById(R.id.question);
+				String text = getString(R.string.question) + currentQuiz.getNoQuestionCourante() + getString(R.string.separator) + currentQuiz.getNbQuestion();
+				nbQuest.setText(text);
+			} else {
+				//Masquage du champs pour le quiz courant
+				currentQuizLayout.setVisibility(View.GONE);
+				curText.setVisibility(View.GONE);
+			}
+
+			currentQuizLayout.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(v.getContext(), GameActivity.class);
+					intent.putExtra("idQuiz", currentQuiz.getId());
+					startActivity(intent);
+				}
+			});
+
+			LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
+			oldQuiz.removeAllViews();
+
+			if(quizList != null)
+			{
+				if(quizList.size() >= 1) {
+					oldText.setVisibility(View.VISIBLE);
+					for (Quiz quiz : quizList) {
+						LayoutInflater curQuizLayout = this.getLayoutInflater();
+						View view = curQuizLayout.inflate(R.layout.old_quiz, null);
+						view.setId(quiz.getId());
+						TextView title = (TextView) view.findViewById(R.id.title);
+						TextView date = (TextView) view.findViewById(R.id.date);
+
+						title.setText(quiz.getLibelle());
+						SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+						date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
+
+						view.setOnClickListener(this);
+						oldQuiz.addView(view);
 					}
 				}
-
-				//Save current quizz if exist
-				if(quizJson.has("CurrentQuiz")) {
-					JSONObject curQuiz = quizJson.getJSONObject("CurrentQuiz");
-					currentQuiz = new Quiz();
-					currentQuiz.JSONObjectToQuiz(curQuiz);
-				}else
-					currentQuiz = null;
+				else
+					oldText.setVisibility(View.GONE);
 			}
-
-		} catch (InterruptedException | ExecutionException | JSONException e) {
-			ErrorManager errorManager = SingletonErrorManager.getInstance().getError();
-			Toast.makeText(getApplicationContext(),errorManager.errorManager(9), Toast.LENGTH_LONG).show();
-			e.printStackTrace();
-		}
-
-		TextView curText = (TextView) findViewById(R.id.current);
-		TextView oldText = (TextView) findViewById(R.id.old);
-		curText.setTypeface(WelcomeActivity.quizFont);
-		oldText.setTypeface(WelcomeActivity.quizFont);
-
-		final LinearLayout currentQuizLayout = (LinearLayout) findViewById(R.id.current_quiz);
-		if (currentQuiz != null){
-
-			//Montrer la vue affichant le quiz en cours
-			currentQuizLayout.setVisibility(View.VISIBLE);
-			curText.setVisibility(View.VISIBLE);
-
-			//Remplissage de l'objet affichant le quiz courant
-			TextView titre = (TextView) findViewById(R.id.title);
-			titre.setText(currentQuiz.getLibelle());
-			TextView date = (TextView) findViewById(R.id.date);
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			date.setText(simpleDateFormat.format(currentQuiz.getDateDebutQuiz()));
-			TextView nbQuest = (TextView) findViewById(R.id.question);
-			String text = getString(R.string.question) + currentQuiz.getNoQuestionCourante() + getString(R.string.separator) + currentQuiz.getNbQuestion();
-			nbQuest.setText(text);
-		} else {
-			//Masquage du champs pour le quiz courant
-			currentQuizLayout.setVisibility(View.GONE);
-			curText.setVisibility(View.GONE);
-		}
-
-		currentQuizLayout.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(v.getContext(), GameActivity.class);
-				intent.putExtra("idQuiz", currentQuiz.getId());
-				startActivity(intent);
-			}
-		});
-
-		LinearLayout oldQuiz = (LinearLayout) findViewById(R.id.old_quiz);
-		oldQuiz.removeAllViews();
-
-		if(quizList != null)
-		{
-			if(quizList.size() >= 1) {
-				oldText.setVisibility(View.VISIBLE);
-				for (Quiz quiz : quizList) {
-					LayoutInflater curQuizLayout = this.getLayoutInflater();
-					View view = curQuizLayout.inflate(R.layout.old_quiz, null);
-					view.setId(quiz.getId());
-					TextView title = (TextView) view.findViewById(R.id.title);
-					TextView date = (TextView) view.findViewById(R.id.date);
-
-					title.setText(quiz.getLibelle());
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-					date.setText(simpleDateFormat.format(quiz.getDateDebutQuiz()));
-
-					view.setOnClickListener(this);
-					oldQuiz.addView(view);
-				}
-			}
-			else
-				oldText.setVisibility(View.GONE);
 		}
 	}
 

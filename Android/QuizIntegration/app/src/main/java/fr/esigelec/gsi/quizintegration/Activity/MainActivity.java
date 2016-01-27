@@ -54,6 +54,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 	private Dialog configuration;
 	private Toolbar toolbar;
 	private Personne pers;
+	private String IPServer;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState)
@@ -71,6 +72,8 @@ public class MainActivity extends Activity implements View.OnClickListener
 
         //Affichage des items dans le menu
 		create_expandable_list();
+		SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+		IPServer = preferences.getString ("IPSERVER","");
 
 		//Création de l'object popUp de connexion
 		dialog = createAndManageDialog();
@@ -243,7 +246,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 		dialog.setContentView(R.layout.login_dialog);
 
         //Application de la police sur les TextView
-        TextView logText = (TextView) dialog.findViewById(R.id.titleText);
+        final TextView logText = (TextView) dialog.findViewById(R.id.titleText);
         logText.setTypeface(WelcomeActivity.quizFont);
 
 		TextView email = (TextView) dialog.findViewById(R.id.login);
@@ -302,64 +305,71 @@ public class MainActivity extends Activity implements View.OnClickListener
 					isMdpValid = false;
 				}
 
+				SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+				IPServer = preferences.getString ("IPSERVER","");
+
                 //On set les variable du singleton personne avec les variable entrées
                 pers.setMail(loginValue);
 				pers.setMdp(passwordValue);
 				pers.setNoEncryMdp (passwordValue);
+				if(!"".equals(IPServer)){
+					//Envois du singleton personne au serveur via JSON pour vérifier les identifiants
+					try
+					{
 
-                //Envois du singleton personne au serveur via JSON pour vérifier les identifiants
-				try
-				{
-					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
-					if(null != perJson){
-						if(perJson.has("err_code")){
-                            /*
-                            Affichage d'un message d'erreur en cas d'échec de connexion et
-                            passage des variable de connexion à faux
-                            */
-							int err_code = perJson.getInt("err_code");
-							ErrorManager error = SingletonErrorManager.getInstance().getError();
-							Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
-							isMdpValid = false;
-							isEmailValid = false;
+						JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.generateURL(IPServer) + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
+						if(null != perJson){
+							if(perJson.has("err_code")){
+								/*
+								Affichage d'un message d'erreur en cas d'échec de connexion et
+								passage des variable de connexion à faux
+								*/
+								int err_code = perJson.getInt("err_code");
+								ErrorManager error = SingletonErrorManager.getInstance().getError();
+								Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
+								isMdpValid = false;
+								isEmailValid = false;
+							}else{
+								//Affichage d'un message d'erreur un cas de conneion réussie
+								pers.JSONObjectToPersonne(perJson);
+							}
 						}else{
-                            //Affichage d'un message d'erreur un cas de conneion réussie
-							pers.JSONObjectToPersonne(perJson);
-							Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
+							//On affiche un message d'erreue en cas de non réponse du serveur
+							TextView tv = (TextView) dialog.findViewById(R.id.errorText);
+							tv.setText(getString(R.string.error_connection));
 						}
-					}else{
-                        //On affiche un message d'erreue en cas de non réponse du serveur
+					}
+					catch(Exception ex)
+					{
+						Log.e("ERROR",ex.getMessage());
 						TextView tv = (TextView) dialog.findViewById(R.id.errorText);
 						tv.setText(getString(R.string.error_connection));
+						isEmailValid = false;
+						isMdpValid = false;
 					}
+				}else{
+					Toast.makeText (getApplicationContext (),getResources ().getString (R.string.novalidIP), Toast.LENGTH_LONG).show ();
+					dialog.cancel ();
 				}
-				catch(Exception ex)
-				{
-					Log.e("ERROR",ex.getMessage());
-					TextView tv = (TextView) dialog.findViewById(R.id.errorText);
-					tv.setText(getString(R.string.error_connection));
-                    isEmailValid = false;
-                    isMdpValid = false;
-				}
-				if(WelcomeActivity.DEV){
-					isEmailValid = true;
-					isMdpValid = true;
-				}
-
                 /*
                 Si les variables sont restées à true et que l'ide de la personne a été récupéré,
                 on renseigne les variable renvoyé par le serveur dans la personne et on lance le menu
                 */
 				if(isEmailValid && isMdpValid && (pers.getId () != 0)){
-					SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+					preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
 					SharedPreferences.Editor editor = preferences.edit();
 					editor.putString ("mail",pers.getMail());
 					editor.putString("mdp", pers.getNoEncryMdp());
 					editor.apply();
 
-					Intent t = new Intent (getApplicationContext (), MenuActivity.class);
-					startActivity (t);
-					finish();
+					Boolean resultIP = preferences.getBoolean ("valid",false);
+					if(resultIP){
+						Intent t = new Intent (getApplicationContext (), MenuActivity.class);
+						startActivity (t);
+					}else{
+						logText.setText (getResources ().getString (R.string.errorServerIP));
+					}
+					//finish();
 				}
 			}
 		});
@@ -375,7 +385,7 @@ public class MainActivity extends Activity implements View.OnClickListener
 
 		final EditText text = (EditText) dialog.findViewById (R.id.IPserverValue);
 		Button valide = (Button) dialog.findViewById (R.id.Validate);
-		Button cancel = (Button) dialog.findViewById (R.id.cancel);
+		Button cancel = (Button) dialog.findViewById (R.id.Cancel);
 
 		valide.setOnClickListener (new View.OnClickListener ()
 		{
@@ -385,14 +395,19 @@ public class MainActivity extends Activity implements View.OnClickListener
 				String IP = text.getText ().toString ();
 				try
 				{
-					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{IP + "AndroidConnexionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
+
+					JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.generateURL(IP)+"AndroidConnexionPersonne.do", "GET",null}).get();
 					// On teste si on à une erreur afin de verifier que l'IP du serveur est correcte
-					if(perJson.has("err_code")){
-						editor.putString ("IPSERVER",IP);
-						editor.apply ();
-						dialog.cancel ();
-						Toast.makeText (getApplicationContext (),getResources ().getString (R.string.confirmIP), Toast.LENGTH_LONG).show ();
-						Toast.makeText (getApplicationContext (),getResources ().getString (R.string.nextDO), Toast.LENGTH_LONG).show ();
+					if(null != perJson){
+						if(perJson.has("err_code")){
+							editor.putString ("IPSERVER",IP);
+							editor.putBoolean ("valid",true);
+							editor.apply ();
+
+							Toast.makeText (getApplicationContext (),getResources ().getString (R.string.confirmIP), Toast.LENGTH_LONG).show ();
+							Toast.makeText (getApplicationContext (),getResources ().getString (R.string.nextDO), Toast.LENGTH_LONG).show ();
+							dialog.cancel ();
+						}
 					}
 				}
 				catch (InterruptedException |ExecutionException e)

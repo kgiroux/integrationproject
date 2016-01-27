@@ -1,8 +1,10 @@
 package fr.esigelec.gsi.quizintegration.activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +38,7 @@ public class GameActivity extends Activity implements View.OnClickListener
     private Button buttons[] = new Button[4];
 	private TextView timer;
     private final Handler gameHandler = new Handler();
+    private String IPSERVER;
 
     //Thread pour la récupération d'infos
     Thread requestThread;
@@ -55,6 +58,9 @@ public class GameActivity extends Activity implements View.OnClickListener
 
         //Create question
         question = new Question();
+
+        SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+        IPSERVER = preferences.getString ("IPSERVER","");
     }
 
     @Override
@@ -196,26 +202,28 @@ public class GameActivity extends Activity implements View.OnClickListener
             chx.setPersonne(SingletonPersonne.getInstance().getPersonne().getId());
             chx.setQuiz(idQuiz);
             chx.setProposition(idProposition);
+            if(!"".equals (IPSERVER)){
+                //Envoie du choix de l'utilisateur au serveur
+                try {
+                    JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.generateURL (IPSERVER) + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
+                    if (choiceJSON.has("err_code")) {
+                        int err_code = choiceJSON.getInt("err_code");
+                        ErrorManager error = SingletonErrorManager.getInstance().getError();
 
-            //Envoie du choix de l'utilisateur au serveur
-            try {
-                JSONObject choiceJSON = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidChoisir.do", "POST", AndroidHTTPRequest.createParamString(chx.ChoiceToHashMap())}).get();
-                if (choiceJSON.has("err_code")) {
-                    int err_code = choiceJSON.getInt("err_code");
-                    ErrorManager error = SingletonErrorManager.getInstance().getError();
-
-                    //Choix sauvegardé, passage de la variable de succés à true
-                    if ("CHOICE_SAVE".equals(error.errorManager(err_code))) {
-                        Toast.makeText(getApplicationContext(), error.errorManager(err_code), Toast.LENGTH_LONG).show();
+                        //Choix sauvegardé, passage de la variable de succés à true
+                        if ("CHOICE_SAVE".equals(error.errorManager(err_code))) {
+                            Toast.makeText(getApplicationContext(), error.errorManager(err_code), Toast.LENGTH_LONG).show();
+                        }
+                        //Si erreur affichage de celle-ci
+                        else {
+                            Toast.makeText(getApplicationContext(), error.errorManager(err_code), Toast.LENGTH_LONG).show();
+                        }
                     }
-                    //Si erreur affichage de celle-ci
-                    else {
-                        Toast.makeText(getApplicationContext(), error.errorManager(err_code), Toast.LENGTH_LONG).show();
-                    }
+                } catch (Exception ex) {
+                    Log.e("ERROR", ex.getMessage());
                 }
-            } catch (Exception ex) {
-                Log.e("ERROR", ex.getMessage());
             }
+
         }
     }
 
@@ -266,73 +274,76 @@ public class GameActivity extends Activity implements View.OnClickListener
      */
     private void onQuizListener(final int requestType)
     {
-        requestThread = new Thread() {
-            JSONObject objJson = null;
-            boolean resend = true;
-            boolean interrupted = false;
-            int requestCode = requestType;
+        if(!"".equals(IPSERVER)){
+            requestThread = new Thread() {
+                JSONObject objJson = null;
+                boolean resend = true;
+                boolean interrupted = false;
+                int requestCode = requestType;
 
-            @Override
-            public void run() {
-                do {
-                    try {
-
-                        objJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&numQuestion=" + question.getNumQuestion()}).get();
-
-                        //Vérification si le JSON contient les informations désirées
-                        if (objJson != null)
-                            if (objJson.has("Question") || objJson.has("Reponse"))
-                                resend = false;
-
-                        //Attendre 500ms avant le renvoie d'une autre requête
+                @Override
+                public void run() {
+                    do {
                         try {
-                            if(resend)
-                                Thread.sleep(2000);
-                        } catch (InterruptedException e) {
+                            objJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.generateURL (IPSERVER) + "AndroidJouer.do", "POST", "queryType=" + requestCode + "&numQuestion=" + question.getNumQuestion()}).get();
+
+                            //Vérification si le JSON contient les informations désirées
+                            if (objJson != null)
+                                if (objJson.has("Question") || objJson.has("Reponse"))
+                                    resend = false;
+
+                            //Attendre 500ms avant le renvoie d'une autre requête
+                            try {
+                                if(resend)
+                                    Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                        } catch (Exception ex) {
+                            Log.e("ERROR", ex.getMessage());
+                        }
+                    } while (resend && !interrupted);
+
+                    //Exécution de la méthode en lien avec la réponse
+                    if(!interrupted)
+                    {
+                        try {
+                            switch (requestCode) {
+                                case 0: //On veut la question
+                                    final JSONObject qt = objJson.getJSONObject("Question");
+                                    gameHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            createQuestion(qt);
+                                        }
+                                    });
+                                    break;
+                                case 1: //On veut la réponse
+                                    final int rp = objJson.getInt("Reponse");
+                                    gameHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            displayResponse(rp);
+                                        }
+                                    });
+                                    break;
+                            }
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-                    } catch (Exception ex) {
-                        Log.e("ERROR", ex.getMessage());
-                    }
-                } while (resend && !interrupted);
-
-                //Exécution de la méthode en lien avec la réponse
-                if(!interrupted)
-                {
-                    try {
-                        switch (requestCode) {
-                            case 0: //On veut la question
-                                final JSONObject qt = objJson.getJSONObject("Question");
-                                gameHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        createQuestion(qt);
-                                    }
-                                });
-                                break;
-                            case 1: //On veut la réponse
-                                final int rp = objJson.getInt("Reponse");
-                                gameHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        displayResponse(rp);
-                                    }
-                                });
-                                break;
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
                 }
-            }
 
-            @Override
-            public void interrupt(){
-                interrupted = true;
-                super.interrupt();
-            }
-        };
-        requestThread.start();
+                @Override
+                public void interrupt(){
+                    interrupted = true;
+                    super.interrupt();
+                }
+            };
+            requestThread.start();
+        }
+
+
     }
 }

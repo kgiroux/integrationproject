@@ -1,6 +1,8 @@
 package fr.esigelec.gsi.quizintegration.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -37,51 +39,56 @@ public class StatistiqueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistique);
 		int idQuiz = getIntent ().getIntExtra ("idQuiz",0);
+		SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+		String IPSERVER = preferences.getString ("IPSERVER","");
 
 		Quiz q = new Quiz ();
 		q.setId (idQuiz);
-
-        // Si l'ID du QUIZ est 0 => ERROR
-		if(idQuiz == 0){
-            ErrorManager errorManager = SingletonErrorManager.getInstance().getError();
-            Toast.makeText(getApplicationContext(),errorManager.errorManager(8), Toast.LENGTH_LONG).show();
-            // On revient à l'activité précédente, et on affiche un message d'erreur
-            finish();
-		}else{
-			try {
-                // On essaye de récuperer le resultat du test
-				JSONObject quizJson = new AndroidHTTPRequest ().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidStatistique.do", "POST",AndroidHTTPRequest.createParamString (q.QuizToHashMap ()) }).get();
-				// On va parser le resultat
-                JSONArray array = quizJson.getJSONArray ("Scores");
-				personneArrayList = new ArrayList<> ();
-				for(int i =0; i<array.length (); i++)
-				{
-                    //  On ajoute tout les participants aux quiz dans une liste qui va nous permettre de generer le tableau des scores
-					JSONObject j = array.getJSONObject (i);
-					Personne p = new Personne ();
-                    // On renseigne les différents champs
-					p.setId (j.getInt ("id"));
-					p.setNom (j.getString ("nom"));
-					p.setPrenom (j.getString ("prenom"));
-					p.setScore (j.getInt ("score"));
-					personneArrayList.add (p);
+		if(!"".equals (IPSERVER)){
+			// Si l'ID du QUIZ est 0 => ERROR
+			if(idQuiz == 0){
+				ErrorManager errorManager = SingletonErrorManager.getInstance().getError();
+				Toast.makeText(getApplicationContext(),errorManager.errorManager(8), Toast.LENGTH_LONG).show();
+				// On revient à l'activité précédente, et on affiche un message d'erreur
+				finish();
+			}else{
+				try {
+					// On essaye de récuperer le resultat du test
+					JSONObject quizJson = new AndroidHTTPRequest ().execute(new String[]{WelcomeActivity.generateURL (IPSERVER) + "AndroidStatistique.do", "POST",AndroidHTTPRequest.createParamString (q.QuizToHashMap ()) }).get();
+					// On va parser le resultat
+					JSONArray array = quizJson.getJSONArray ("Scores");
+					personneArrayList = new ArrayList<> ();
+					for(int i =0; i<array.length (); i++)
+					{
+						//  On ajoute tout les participants aux quiz dans une liste qui va nous permettre de generer le tableau des scores
+						JSONObject j = array.getJSONObject (i);
+						Personne p = new Personne ();
+						// On renseigne les différents champs
+						p.setId (j.getInt ("id"));
+						p.setNom (j.getString ("nom"));
+						p.setPrenom (j.getString ("prenom"));
+						p.setScore (j.getInt ("score"));
+						personneArrayList.add (p);
+					}
+				} catch (InterruptedException | ExecutionException | JSONException e) {
+					// Si une exeception se produit
+					ErrorManager errorManager = SingletonErrorManager.getInstance().getError();
+					Toast.makeText(getApplicationContext(),errorManager.errorManager(9), Toast.LENGTH_LONG).show();
+					e.printStackTrace();
+					finish();
 				}
-			} catch (InterruptedException | ExecutionException | JSONException e) {
-                // Si une exeception se produit
-                ErrorManager errorManager = SingletonErrorManager.getInstance().getError();
-                Toast.makeText(getApplicationContext(),errorManager.errorManager(9), Toast.LENGTH_LONG).show();
-				e.printStackTrace();
-                finish();
+				Collections.sort(personneArrayList);
+				// On définit un classement
+				int classement = 1;
+				for (Personne p : personneArrayList){
+					p.setClassement (classement);
+					classement++;
+				}
+				initIHM();
 			}
-            Collections.sort(personneArrayList);
-            // On définit un classement
-            int classement = 1;
-            for (Personne p : personneArrayList){
-                p.setClassement (classement);
-                classement++;
-            }
-            initIHM();
 		}
+
+
 
 
     }

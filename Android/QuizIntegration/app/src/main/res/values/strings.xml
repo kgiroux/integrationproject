@@ -14,6 +14,7 @@
 
 
     <string-array name="listMenu">
+        <item>Configuration</item>
         <item>Connection</item>
         <item>Subscribe</item>
         <item>About</item>
@@ -91,4 +92,6 @@
     <string name="IPserver">IP Server :</string>
     <string name="confirmIP">IP was confirmed</string>
     <string name="nextDO">Now you can subscribe or connect to the server</string>
+    <string name="errorServerIP">You didn\'t configure the app or the IP server is wrong</string>
+    <string name="novalidIP">No Valid IP Found</string>
 </resources>

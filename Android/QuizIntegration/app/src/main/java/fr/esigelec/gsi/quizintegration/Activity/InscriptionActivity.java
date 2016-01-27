@@ -1,6 +1,8 @@
 package fr.esigelec.gsi.quizintegration.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -84,35 +86,39 @@ public class InscriptionActivity extends AppCompatActivity implements View.OnCli
 		switch (v.getId()){
 			// Quand l'utilisateur clique sur Valider
 			case R.id.valid :
-				// Création de l'instance de Personne
-				pers = new Personne();
-				// On récupère les informations via l'appel de la méthode getData();
-				int result = getData();
-				// Si résult égale 0, pas d'erreur trouvé
-				if(result == 0){
-					// Méthode envoyant un requete post pour l'inscription vers le serveur
-					try{
+				SharedPreferences preferences =  PreferenceManager.getDefaultSharedPreferences(getApplicationContext ());
+				String IPSERVER = preferences.getString ("IPSERVER","");
+				if(!"".equals (IPSERVER)){
+					// Création de l'instance de Personne
+					pers = new Personne();
+					// On récupère les informations via l'appel de la méthode getData();
+					int result = getData();
+					// Si résult égale 0, pas d'erreur trouvé
+					if(result == 0){
+						// Méthode envoyant un requete post pour l'inscription vers le serveur
+						try{
 
-						JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.IPSERVER + "AndroidInscriptionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
-						if(null != perJson)
-						{
-							if (perJson.has ("err_code"))
+							JSONObject perJson = new AndroidHTTPRequest().execute(new String[]{WelcomeActivity.generateURL (IPSERVER) + "AndroidInscriptionPersonne.do", "POST", AndroidHTTPRequest.createParamString(pers.PersonneToHashMap())}).get();
+							if(null != perJson)
 							{
-								// S'il y un code d'erreur
-								int err_code = perJson.getInt("err_code");
-								ErrorManager error = SingletonErrorManager.getInstance().getError();
-								Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
-							}else{
-								pers.JSONObjectToPersonne(perJson);
-								Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
-								setResult(RESULT_OK);
-								finish();
+								if (perJson.has ("err_code"))
+								{
+									// S'il y un code d'erreur
+									int err_code = perJson.getInt("err_code");
+									ErrorManager error = SingletonErrorManager.getInstance().getError();
+									Toast.makeText(getApplicationContext(),error.errorManager(err_code), Toast.LENGTH_LONG).show();
+								}else{
+									pers.JSONObjectToPersonne(perJson);
+									Toast.makeText(getApplicationContext(),pers.toString(),Toast.LENGTH_LONG).show();
+									setResult(RESULT_OK);
+									finish();
+								}
 							}
+						}catch (Exception ex){
+							// Erreur en cas de problème d'inscription
+							Log.e("ERROR", ex.getMessage());
+							Toast.makeText(getApplicationContext(),getString(R.string.error_occur_sub),Toast.LENGTH_LONG).show();
 						}
-					}catch (Exception ex){
-						// Erreur en cas de problème d'inscription
-						Log.e("ERROR", ex.getMessage());
-						Toast.makeText(getApplicationContext(),getString(R.string.error_occur_sub),Toast.LENGTH_LONG).show();
 					}
 				}
 				break;

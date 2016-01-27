@@ -10,6 +10,7 @@ package fr.esigelec.quiz.dao.hibernate;
  * */
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -20,6 +21,7 @@ import fr.esigelec.quiz.controleur.TestLogger;
 import fr.esigelec.quiz.dao.IPropositionDAO;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
+import fr.esigelec.quiz.dto.Quiz;
 
 public class PropositionDAOImpl implements IPropositionDAO {
 	
@@ -27,17 +29,45 @@ public class PropositionDAOImpl implements IPropositionDAO {
 
 	@Override
 	public boolean createProposition(Proposition p) {
+		
+		logger.info("createProposition proposition");
+		
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.save(p);
 		session.getTransaction().commit();
 		session.close();
 		logger.info("createProposition : " + p.toString());
+		Cache.viderCacheListeQuiz();
 		return (p.getId() != 0);
 	}
 
 	@Override
 	public Proposition getProposition(int id) {
+		
+		logger.info("getProposition id");
+		
+		
+		//si cache à jour on cherche dans le cache
+		if(Cache.getCacheListeQuiz()!=null){
+			
+					for(Quiz q:Cache.getCacheListeQuiz())
+						for(Question question:q.getListeQuestions())
+							for(Proposition proposition:question.getListePropositions())
+								if(proposition.getId()==id)
+									return proposition;
+							
+					//proposition pas trouvé
+					return null;
+		
+		}
+
+		
+		
+		
+		
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Proposition retour = (Proposition) session.get(Proposition.class, id);
@@ -48,11 +78,39 @@ public class PropositionDAOImpl implements IPropositionDAO {
 	}
 
 	public List<Proposition> listProposition() {
+		
+		
+		logger.info("listProposition");
+		
+		
+		List<Proposition> retour=null;
+		//si cache à jour on cherche dans le cache
+				if(Cache.getCacheListeQuiz()!=null){
+							retour=new ArrayList<Proposition>();
+							for(Quiz q:Cache.getCacheListeQuiz())
+								for(Question question:q.getListeQuestions())
+									for(Proposition proposition:question.getListePropositions())
+										retour.add(proposition);
+											
+									
+							
+							return retour;
+				
+				}
+
+		
+		
+		
+		
+		
+		
+		
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "from Proposition";
-		@SuppressWarnings("unchecked")
-		List<Proposition> retour = (List<Proposition>) session.createQuery(hql).list();
+	
+		 retour = (List<Proposition>) session.createQuery(hql).list();
 		session.getTransaction().commit();
 		session.close();
 		logger.info("get listProposition: " + retour.toString());
@@ -61,6 +119,10 @@ public class PropositionDAOImpl implements IPropositionDAO {
 
 	@Override
 	public boolean updateProposition(Proposition p) {
+		
+		
+		logger.info("updateProposition proposition");
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.update(p);
@@ -68,22 +130,57 @@ public class PropositionDAOImpl implements IPropositionDAO {
 		session.getTransaction().commit();
 		session.close();
 		logger.info("updateProposition: " + newPro.toString());
+		Cache.viderCacheListeQuiz();
 		return (p.equals(newPro));
 	}
 
 	@Override
 	public boolean deleteProposition(Proposition p) {
+		
+		logger.info("deleteProposition proposition");
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(p);
 		session.getTransaction().commit();
 		session.close();
 		logger.info("deleteProposition: " + p);
+		Cache.viderCacheListeQuiz();
 		return (p == null);
 	}
 
 	@Override
 	public Proposition getBonneReponse(Question q) {
+		
+		logger.info("getBonneReponse question");
+		
+		
+		//si cache à jour on cherche dans le cache
+		if(Cache.getCacheListeQuiz()!=null){
+			
+				Question questionConcernee=null;
+					//recherche de la question
+					for(Quiz quiz:Cache.getCacheListeQuiz())
+						for(Question question:quiz.getListeQuestions())
+							if(question.getId()==q.getId()){
+								questionConcernee=question;
+									break;
+							}
+				
+									
+									
+				for(Proposition proposition:questionConcernee.getListePropositions())
+					if(proposition.isEstBonneReponse())
+							return proposition;
+									
+							
+				return null;
+		
+		}
+		
+			
+		
+		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		String hql = "From Proposition where estBonneReponse = 1 AND id_question = " + q.getId();

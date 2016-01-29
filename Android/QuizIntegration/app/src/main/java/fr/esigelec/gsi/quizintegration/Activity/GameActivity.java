@@ -28,7 +28,7 @@ import fr.esigelec.gsi.quizintegration.utils.SingletonPersonne;
 
 /**
  * Created by Cyril Lefebvre on 11/01/2016. Package : fr.esigelec.gsi.quizintegration.activity Project Name : QuizIntegration
- * Edited by Kévin PACE  on 18/01/2016
+ * Edited by Kévin PACE  on 29/01/2016
  * Edited by Kévin GIROUX  on 24/01/2016
  */
 public class GameActivity extends Activity implements View.OnClickListener
@@ -164,34 +164,31 @@ public class GameActivity extends Activity implements View.OnClickListener
             //Changement de la couleur du bouton sélectionné et désactivation des autres boutons
             switch (v.getId()) {
                 case R.id.choice_one:
-                    buttons[0].setClickable(false);
                     buttons[0].setSelected(true);
-                    buttons[1].setEnabled(false);
-                    buttons[2].setEnabled(false);
-                    buttons[3].setEnabled(false);
+                    buttons[1].setSelected(false);
+                    buttons[2].setSelected(false);
+                    buttons[3].setSelected(false);
                     idProposition = question.getListePropositions().get(0).getId();
                     break;
                 case R.id.choice_two:
-                    buttons[0].setEnabled(false);
+                    buttons[0].setSelected(false);
                     buttons[1].setSelected(true);
-                    buttons[1].setClickable(false);
-                    buttons[2].setEnabled(false);
-                    buttons[3].setEnabled(false);
+                    buttons[2].setSelected(false);
+                    buttons[3].setSelected(false);
                     idProposition = question.getListePropositions().get(1).getId();
                     break;
                 case R.id.choice_three:
-                    buttons[0].setEnabled(false);
-                    buttons[1].setEnabled(false);
+
+                    buttons[0].setSelected(false);
+                    buttons[1].setSelected(false);
                     buttons[2].setSelected(true);
-                    buttons[2].setClickable(false);
-                    buttons[3].setEnabled(false);
+                    buttons[3].setSelected(false);
                     idProposition = question.getListePropositions().get(2).getId();
                     break;
                 case R.id.choice_four:
-                    buttons[0].setEnabled(false);
-                    buttons[1].setEnabled(false);
-                    buttons[2].setEnabled(false);
-                    buttons[3].setClickable(false);
+                    buttons[0].setSelected(false);
+                    buttons[1].setSelected(false);
+                    buttons[2].setSelected(false);
                     buttons[3].setSelected(true);
                     idProposition = question.getListePropositions().get(3).getId();
                     break;

@@ -26,53 +26,48 @@
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p1">Proposition 1 : </label>  
+				  <label class="col-md-2 control-label" for="p1">Mauvaise Proposition 1 : </label>  
 				  <div class="col-md-8">
 				  <input id="p1" name="p1" placeholder="proposition 1" class="form-control input-md" required="" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p2">Proposition 2 : </label>  
+				  <label class="col-md-2 control-label" for="p2">Mauvaise Proposition 2 : </label>  
 				  <div class="col-md-8">
-				  <input id="p2" name="p2" placeholder="propostion 2" class="form-control input-md" required="" type="text">    
+				  <input id="p2" name="p2" placeholder="propostion 2" class="form-control input-md"  type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p3">Proposition 3 : </label>  
+				  <label class="col-md-2 control-label" for="p3">Mauvaise Proposition 3 : </label>  
 				  <div class="col-md-8">
-				  <input id="p3" name="p3" placeholder="proposition 3" class="form-control input-md" required="" type="text">    
+				  <input id="p3" name="p3" placeholder="proposition 3" class="form-control input-md"  type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p4">Proposition 4 : </label>  
+				  <label class="col-md-2 control-label" for="p4">Mauvaise Proposition 4 : </label>  
 				  <div class="col-md-8">
-				  <input id="p4" name="p4" placeholder="proposition 4" class="form-control input-md" required="" type="text">    
+				  <input id="p4" name="p4" placeholder="proposition 4" class="form-control input-md"  type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p5">Proposition 5 : </label>  
+				  <label class="col-md-2 control-label" for="p5">Mauvaise Proposition 5 : </label>  
 				  <div class="col-md-8">
 				  <input id="p5" name="p5" placeholder="proposition 5" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p6">Proposition 6 : </label>  
+				  <label class="col-md-2 control-label" for="p6">Mauvaise Proposition 6 : </label>  
 				  <div class="col-md-8">
 				  <input id="p6" name="p6" placeholder="proposition 6" class="form-control input-md" type="text">    
 				  </div>
 				</div>
 				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p7">Proposition 7 : </label>  
+				  <label class="col-md-2 control-label" for="p7">Mauvaise Proposition 7 : </label>  
 				  <div class="col-md-8">
 				  <input id="p7" name="p7" placeholder="proposition 7" class="form-control input-md" type="text">    
 				  </div>
 				</div>
-				<div class="form-group">
-				  <label class="col-md-2 control-label" for="p8">Proposition 8 : </label>  
-				  <div class="col-md-8">
-				  <input id="p8" name="p8" placeholder="proposition 8" class="form-control input-md" type="text">    
-				  </div>
-				</div>
+				
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for=""></label>
 				  <div class="col-md-6">

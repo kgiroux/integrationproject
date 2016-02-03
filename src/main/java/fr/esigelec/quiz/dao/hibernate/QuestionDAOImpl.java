@@ -59,7 +59,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 		logger.info("getQuestion id");
 
 		// si cache à jour on cherche dans le cache
-		if (Cache.getCacheListeQuiz() != null) {
+		/*if (Cache.getCacheListeQuiz() != null) {
 
 			for (Quiz q : Cache.getCacheListeQuiz())
 				for (Question question : q.getListeQuestions())
@@ -68,7 +68,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 			// quiz pas trouvé
 			return null;
 
-		}
+		}*/
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
@@ -91,17 +91,7 @@ public class QuestionDAOImpl implements IQuestionDAO {
 
 		List<Question> listeQuestions = null;
 
-		// si cache à jour on cherche dans le cache
-		if (Cache.getCacheListeQuiz() != null) {
-			listeQuestions = new ArrayList<Question>();
-			for (Quiz q : Cache.getCacheListeQuiz())
-				for (Question question : q.getListeQuestions())
-					listeQuestions.add(question);
-
-			// quiz pas trouvé
-			return listeQuestions;
-
-		}
+		
 
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();

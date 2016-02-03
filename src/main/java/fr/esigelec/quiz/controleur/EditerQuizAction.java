@@ -68,7 +68,7 @@ public class EditerQuizAction extends Action {
 				editerQuizActionLogger.info("Question :" + q);
 			}
 			List <Question> listeQuestions = questionDAO.listQuestion();
-			
+			editerQuizActionLogger.info(listeQuestions.size()+" questions dans la bdd");
 			request.setAttribute("listeQuestions", listeQuestions);
 			request.setAttribute("listeQuestionsQuiz", listeQuestionsQuiz);
 			request.setAttribute("quiz", quiz);

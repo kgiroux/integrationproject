@@ -48,7 +48,7 @@ private final Logger updateQuizActionLogger = Logger.getLogger(UpdateQuizAction.
 			}
 			
 			/* Verify inputs (parameter `libelleQuez' && attribute `questions') */
-			if (libelleQuiz == null || "".equals(libelleQuiz) || questionIds.length == 0) {
+			if (libelleQuiz == null || "".equals(libelleQuiz) || questionIds==null ||questionIds.length == 0) {
 				errors.add("err.inputs", new ActionMessage("err.inputs.null"));	
 				if (!errors.isEmpty())
 					addErrors(request, errors);
@@ -78,6 +78,9 @@ private final Logger updateQuizActionLogger = Logger.getLogger(UpdateQuizAction.
 			IQuizDAO quizDAO = new QuizDAOImpl();
 			Quiz quiz = quizDAO.getQuiz(id);
 			quiz.setListeQuestions(questions);
+			
+			
+			
 			
 			updateQuizActionLogger.debug(quiz.toString());
 			quizDAO.updateQuiz(quiz);

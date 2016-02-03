@@ -101,7 +101,6 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
   
   
  
-
 <div class="row">
   <div class="col-xs-12">
     <table class="table table-bordered table-hover ">

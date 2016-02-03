@@ -76,11 +76,23 @@ public class EnregistrerQuestionAction extends Action {
 //			
 //			listeProposition.add(propositionBonneReponse);
 			
+			//enregistrer bonne reponse
+			Proposition prop = new Proposition();
+			prop.setLibelle(bonneReponse);
+			prop.setEstBonneReponse(true);
+			prop.setQuestion(question);
+			propositionDAO.createProposition(prop);
+			enregistrerQuestionActionLogger.info(prop.toString());
+			enregistrerQuestionActionLogger.info(listeProposition.size());
+			listeProposition.add(prop);
+			
+			
+			
 			// enregistrer les propositions
 			p1 = request.getParameter("p1");
 			if(p1 != null && !"".equals(p1))
 			{
-				Proposition prop = new Proposition();
+				prop = new Proposition();
 				prop.setLibelle(p1);
 				boolean estBonne = p1.equals(bonneReponse) ? true : false;
 				prop.setEstBonneReponse(estBonne);
@@ -93,7 +105,7 @@ public class EnregistrerQuestionAction extends Action {
 			p2 = request.getParameter("p2");
 			if(p2 != null && !"".equals(p2))
 			{
-				Proposition prop = new Proposition();
+				prop = new Proposition();
 				prop.setLibelle(p2);
 				boolean estBonne = p2.equals(bonneReponse) ? true : false;
 				prop.setEstBonneReponse(estBonne);
@@ -106,7 +118,7 @@ public class EnregistrerQuestionAction extends Action {
 			p3 = request.getParameter("p3");
 			if(p3 != null && !"".equals(p3))
 			{
-				Proposition prop = new Proposition();
+				prop = new Proposition();
 				prop.setLibelle(p3);
 				boolean estBonne = p3.equals(bonneReponse) ? true : false;
 				prop.setEstBonneReponse(estBonne);
@@ -119,7 +131,7 @@ public class EnregistrerQuestionAction extends Action {
 			p4 = request.getParameter("p4");
 			if(p4 != null && !"".equals(p4))
 			{
-				Proposition prop = new Proposition();
+				prop = new Proposition();
 				prop.setLibelle(p4);
 				boolean estBonne = p4.equals(bonneReponse) ? true : false;
 				prop.setEstBonneReponse(estBonne);
@@ -132,7 +144,7 @@ public class EnregistrerQuestionAction extends Action {
 			p5 = request.getParameter("p5");
 			if(p5 != null && !"".equals(p5))
 			{
-				Proposition prop = new Proposition();
+				prop = new Proposition();
 				prop.setLibelle(p5);
 				boolean estBonne = p5.equals(bonneReponse) ? true : false;
 				prop.setEstBonneReponse(estBonne);
@@ -145,7 +157,7 @@ public class EnregistrerQuestionAction extends Action {
 			p6 = request.getParameter("p6");
 			if(p6 != null && !"".equals(p6))
 			{
-				Proposition prop = new Proposition();
+				prop = new Proposition();
 				prop.setLibelle(p6);
 				boolean estBonne = p6.equals(bonneReponse) ? true : false;
 				prop.setEstBonneReponse(estBonne);
@@ -158,7 +170,7 @@ public class EnregistrerQuestionAction extends Action {
 			p7 = request.getParameter("p7");
 			if(p7 != null && !"".equals(p7))
 			{
-				Proposition prop = new Proposition();
+				prop = new Proposition();
 				prop.setLibelle(p7);
 				boolean estBonne = p7.equals(bonneReponse) ? true : false;
 				prop.setEstBonneReponse(estBonne);
@@ -168,19 +180,7 @@ public class EnregistrerQuestionAction extends Action {
 				enregistrerQuestionActionLogger.info(listeProposition.size());
 				listeProposition.add(prop);
 			}
-			p8 = request.getParameter("p8");
-			if(p8 != null && !"".equals(p8))
-			{
-				Proposition prop = new Proposition();
-				prop.setLibelle(p8);
-				boolean estBonne = p8.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
-				prop.setQuestion(question);
-				propositionDAO.createProposition(prop);
-				enregistrerQuestionActionLogger.info(prop.toString());
-				enregistrerQuestionActionLogger.info(listeProposition.size());
-				listeProposition.add(prop);
-			}
+			
 			
 			for(Proposition _p: listeProposition) {
 				enregistrerQuestionActionLogger.debug(_p.toString());

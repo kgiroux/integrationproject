@@ -293,13 +293,13 @@ public class QuizDAOImpl implements IQuizDAO {
 		session.update(q);
 		session.getTransaction().commit();
 		session.close();
-		Quiz newQuiz = getQuiz(q.getId());
-		logger.info("updateQuiz: " + newQuiz.toString());
+		//Quiz newQuiz = getQuiz(q.getId());
+		logger.info("updateQuiz: ");
 
 		// on vide le cache pour forcer son rechargement
 		Cache.viderCacheListeQuiz();
 
-		return (newQuiz.equals(q));
+		return (true);
 	}
 
 	@Override

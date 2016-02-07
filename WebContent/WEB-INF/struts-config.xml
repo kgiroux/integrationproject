@@ -75,8 +75,8 @@
          <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EditerQuestion" name="" type="fr.esigelec.quiz.controleur.EditerQuestionAction" input="/">
-         <forward name="succes" path="/questionQuizAdmin.jsp"/>
-         <forward name="erreur" path="/questionQuizAdmin.jsp"/>
+         <forward name="succes" path="/questionQuizAdmin.jsp" redirect="true"/>
+         <forward name="erreur" path="/questionQuizAdmin.jsp" redirect="true"/>
          <forward name="login" path="/index.jsp"/>
       </action>
       <action scope="request" path="/EnregistrerQuestion" name="" type="fr.esigelec.quiz.controleur.EnregistrerQuestionAction" input="/">

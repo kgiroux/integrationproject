@@ -2,7 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<!DOCTYPE html>
+<head>
 <jsp:include page="/header.jsp"/>
+</head>
+<body>
 <div class="container">
   <div class="page-header">
 	<h1>Administrer les quiz</h1>
@@ -24,6 +28,7 @@
             </tr>
           </thead>
           <tbody>
+         
             <c:forEach var="quiz" items="${listeQuiz}">
               <tr>
                 <td>${quiz.libelle}</td>
@@ -41,4 +46,6 @@
     </c:if>
   </div>
 </div>
-<jsp:include page="/footer.jsp"></jsp:include>
+<jsp:include page="footer.jsp"></jsp:include>
+</body>
+</html>

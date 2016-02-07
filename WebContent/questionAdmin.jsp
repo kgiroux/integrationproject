@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<jsp:include page="/header.jsp"/>
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="header.jsp"/>
+</head>
+<body>
 <div class="container">
   <div class="page-header">
 	<h1>Sauvegarder une question</h1>
@@ -79,4 +84,6 @@
 			</fieldset>
 		</form>
 </div>
-<jsp:include page="/footer.jsp"/>
+<jsp:include page="footer.jsp"/>
+</body>
+</html>

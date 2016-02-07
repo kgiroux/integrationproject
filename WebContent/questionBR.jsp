@@ -5,7 +5,12 @@
 <%@ page import="java.util.*" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<!DOCTYPE html>
+<html>
+<head>
 <jsp:include page="/header.jsp" />
+</head>
+<body>
 <div >
   <h2 class="question">CONSULTER LES QUIZ</h2>
  <hr><br> 
@@ -113,3 +118,5 @@
   <a href="${pageContext.request.contextPath}/Jouer.do" class="btn btn-primary">question suivante</a>
 </div>
 <jsp:include page="/footer.jsp" />
+</body>
+</html>

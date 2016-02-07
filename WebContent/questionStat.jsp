@@ -4,8 +4,14 @@
 <%@ page import="fr.esigelec.quiz.dto.*" %>   
 <%@ page import="java.util.*" %>   
     <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+    <!DOCTYPE html>
+    <html>
+    
+    <head>
 <jsp:include page="/header.jsp"></jsp:include>
-<div >
+</head>
+<body>
+<div>
   <h2 class="question">CONSULTER LES QUIZ</h2>
  <hr><br> 
  <p class="question"><strong>Classement </strong> : 1 er / 50 joueurs</p> 
@@ -31,3 +37,6 @@
     </tbody>
   </table>
 <jsp:include page="/footer.jsp"></jsp:include>
+</div>
+</body>
+</html>

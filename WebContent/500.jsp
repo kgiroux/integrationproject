@@ -18,8 +18,8 @@
 <%-- Début de la partie Erreurs 500 --%>
 <div class="container" style="text-align:center; padding:50px;">
 <img src="Ressources/images/webmain.png" alt="image_maintenance" title="image_maintenance">
-<h1>Site en maintenance</h1>
-<p>Please, try to reconnect later</p>
+<h1>Un problème a eu lieu</h1>
+<p>Essayez de vous reconnecter : <a href="<%=request.getContextPath()%>">connexion</a></p>
 </div>
 <%-- Fin de la partie Erreurs 500 --%>
 

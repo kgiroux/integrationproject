@@ -1,20 +1,11 @@
-<!-- Projet d'intégration GSI IR -->
-<!-- @uthor TIDJANI ENRIFATH -->
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8" %>
  <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Quiz Game</title>
-<link href="Ressources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type ="text/css">
-<link href="Ressources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" type ="text/css">
-<!-- <link href="Ressources/bootstrap/css/style.css" rel="stylesheet" type ="text/css"> -->
-<link href="Ressources/fonts/font-awesome.min.css" rel="stylesheet" type ="text/css">
-<script src="Ressources/Jquery/jquery.min.js"></script>
-<script src="Ressources/bootstrap/js/bootstrap.min.js"></script>
+<jsp:include page="header.jsp" />
+
 </head>
 <body style="background-color: #03A9F4;">
 <div class="container">
@@ -60,11 +51,12 @@
     </form>
   </div>
 </div>
-</body>
+
   <footer>
     <div class="container">
       <hr>
       <p class="text-center" style="color: white;"> Projet d'intégration, GSI-IR &#169; 2016 ESIGELEC</p>
     </div>
   </footer>
+  </body>
 </html>

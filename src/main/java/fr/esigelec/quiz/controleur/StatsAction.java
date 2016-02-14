@@ -45,7 +45,7 @@ public class StatsAction extends Action {
 		Personne personne = (Personne) session.getAttribute("personne");
 
 		// un peu de securité quand même ;)
-		if (personne.getDroits() == Personne.ADMIN) {
+		if (personne!=null && (personne.getDroits() == Personne.ADMIN)) {
 
 			// recuperation quiz courant
 			Quiz quiz = (Quiz) session.getAttribute("quiz");

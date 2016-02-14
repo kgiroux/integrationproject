@@ -1,5 +1,7 @@
 package fr.esigelec.quiz.dto;
 
+import java.io.Serializable;
+
 /**Projet d'integration
  * Le jeu de TF8
  * @author GSI-IR
@@ -7,11 +9,16 @@ package fr.esigelec.quiz.dto;
  * Classe Question
  * */
 
-public class Proposition implements Comparable<Proposition> {
+public class Proposition implements Comparable<Proposition> , Serializable {
 
 
 	/**Attributs de la classe Proposition*/
 
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * identifiant de la proposition
@@ -149,15 +156,11 @@ public class Proposition implements Comparable<Proposition> {
 		if (getClass() != obj.getClass())
 			return false;
 		Proposition other = (Proposition) obj;
-		if (estBonneReponse != other.estBonneReponse)
-			return false;
+		
 		if (id != other.id)
 			return false;
-		if (libelle == null) {
-			if (other.libelle != null)
-				return false;
-		} else if (!libelle.equals(other.libelle))
-			return false;
+		
+		
 		return true;
 	}
 

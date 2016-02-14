@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,9 +15,14 @@ import fr.esigelec.quiz.util.SetToListConverter;
  * Classe Question
  * */
 
-public class Question implements  Comparable<Question>  {
+public class Question implements  Comparable<Question>, Serializable  {
 
 	/*Attributs de la classe Question*/
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 *identfiant de la question 
@@ -153,4 +159,9 @@ public class Question implements  Comparable<Question>  {
 		else 
 			return 1;
 	}
+	
+	
+	
+	
+	
 }

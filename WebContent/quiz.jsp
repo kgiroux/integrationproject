@@ -15,6 +15,7 @@
   <div class="page-header">
     <h2 class="question">CONSULTER LES QUIZ</h2>
   </div>
+  <div><span id="messageWebSockets"></span></div>
  
  <%-- 
  //Simulation de données
@@ -72,6 +73,20 @@ q3.setDateDebutQuiz(t);
   </table>
   <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Quit</button></a>
 </div>
+
+
+
+<%-- DEBUT PARTIE POUR GERER LES WEBSOCKETS (utilise un div messageWebSockets pour les messages) --%>
+  <script>
+ var wsUri = "ws://<%=request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/echo";
+ </script>
+ <script src="http://<%=request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/Ressources/js/websockets.js" ></script>
+ <script>
+  window.addEventListener("load", init, false);
+ </script>
+   
+<%-- FIN PARTIE POUR GERER LES WEBSOCKETS --%>
+
 <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package fr.esigelec.quiz.dto;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,7 +18,12 @@ import fr.esigelec.quiz.util.SetToListConverter;
  * @author NGANE Pascale Classe Quiz
  */
 
-public class Quiz {
+public class Quiz implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/** Attributs de la classe Quiz */
 

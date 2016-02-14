@@ -65,12 +65,20 @@ public class JouerAdminAction extends Action {
 			// mise à jour du quiz en BDD
 			quizDAO.updateQuiz(quiz);
 
+			
+			//on force le refresh de tous les clients connectes via les websockets
+			WebSocket.rafraichirTousLesClients();
+			
+			
 			// recuperation question courante
 			question = ActionService.getQuestionByQuizId(idQuiz);
 
 			// on efface tous les anciens votes associés à ce quiz
 			IChoisirDAO choixDAO = new ChoisirDAOImpl();
 			choixDAO.deleteChoix(quiz);
+			
+			
+			
 
 			// SORTIE
 			session.setAttribute("quiz", quiz);

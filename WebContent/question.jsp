@@ -40,6 +40,9 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
     <p class="h1">
       Question n°<c:out value="${quiz.noQuestionCourante+1}"/>&nbsp;/&nbsp;<c:out value="${quiz.questions.size()}"/>
     </p>
+    
+    <div><span id="messageWebSockets"></span></div>
+    
   </div>
   
   
@@ -62,14 +65,18 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
 	
 	List<Personne> personnes = (List<Personne>) session.getAttribute("classement");
 	Personne joueur = (Personne) session.getAttribute("personne");
+	int rank=-1;
+	int size=0;
+	if(personnes!=null && joueur!=null){
 	// cherche joueur's rank
-	int rank = -1;
-	int size = personnes.size();
+	
+	size = personnes.size();
 	for(int i = 0; i < size; i++) {
 	    if (personnes.get(i).getId() == joueur.getId()) {
 	        int index = i;    // index starts at 0
 	        rank = index + 1; // rank starts at 1
 	    }
+	}
 	}
 	
  %>
@@ -90,8 +97,9 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
  </div>
  </c:if>
   <%--FIN compteur --%>
-  
-  
+ 
+ <%--si le quiz est lancé on peut afficher question --%> 
+ <c:if test="${quiz.etape>0}"> 
  
 <div class="row">
   <div class="col-xs-12">
@@ -175,8 +183,25 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
   </c:if>
   
 </div><!-- /.row -->
+
+</c:if>
  <%-- <a id="btn-stats" href="<%=request.getContextPath()%>/VueQuestion.do" class="btn btn-success hidden">Confirmer et voir résultat</a> --%>
 </div>
+
+
+
+<%-- DEBUT PARTIE POUR GERER LES WEBSOCKETS (utilise un div messageWebSockets pour les messages) --%>
+
+  <script>
+ var wsUri = "ws://<%=request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/echo";
+ </script>
+ <script src="http://<%=request.getServerName()%>:<%=request.getServerPort()%><%=request.getContextPath()%>/Ressources/js/websockets.js" ></script>
+ <script>
+  window.addEventListener("load", init, false);
+ </script>
+<%-- FIN PARTIE POUR GERER LES WEBSOCKETS --%>
+
+
 <jsp:include page="footer.jsp"/>
 </body>
 </html>

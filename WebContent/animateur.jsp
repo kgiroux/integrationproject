@@ -21,7 +21,7 @@
      *
      */
     var debut = ${quiz.dateDebutQuestion.time};
-    var now = ${currentTimestamp};
+    var now = <%=System.currentTimeMillis()%>;
   </script>
   <script src="Ressources/compteur.js"></script>
 </c:if>
@@ -74,7 +74,9 @@ session.setAttribute("questioncurrente",questioncur);
        <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
       </div>
     </div>
+     
     <%--FIN Barre de progression --%>
+    <div><span id="messageWebSockets"></span></div>
   </div><!-- /.row -->
 
   <div class="row">
@@ -177,6 +179,9 @@ session.setAttribute("questioncurrente",questioncur);
     </c:if>
   </div>
 </div>
+
+
+
 <jsp:include page="/footer.jsp"/>
 </body>
 </html>

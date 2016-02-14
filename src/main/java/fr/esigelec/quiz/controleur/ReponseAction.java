@@ -29,10 +29,15 @@ public class ReponseAction extends Action{
 		
 		// recuperation du classement en etape 3 uniquement
 		List<Personne> classement = ActionService.getClassement(quiz);
-		
+				
 		//OUT 
 		quiz.setEtape(3);
 		quizdaoimpl.updateQuiz(quiz);
+		
+		
+		//on force le refresh de tous les clients connectes via les websockets
+		WebSocket.rafraichirTousLesClients();
+		
 		Quiz q = quizdaoimpl.getQuizAvecQuestions(quiz.getId());
 		session.setAttribute("quiz", q);
 		session.setAttribute("classement", classement);

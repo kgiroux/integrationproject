@@ -1,4 +1,6 @@
 package fr.esigelec.quiz.dto;
+import java.io.Serializable;
+
 import org.json.JSONObject;
 
 
@@ -14,10 +16,14 @@ import org.json.JSONObject;
  * Classe Personne
  * */
 
-public class Personne implements Comparable<Personne>{
+public class Personne implements Comparable<Personne>, Serializable{
 
 	
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**Attributs de la classe Personne
 	/**
 	 * id de la personne

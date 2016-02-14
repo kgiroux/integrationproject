@@ -27,6 +27,7 @@ import fr.esigelec.quiz.dto.Personne;
 import fr.esigelec.quiz.dto.Proposition;
 import fr.esigelec.quiz.dto.Question;
 import fr.esigelec.quiz.dto.Quiz;
+
 /**
  * l'Action Choisir correspon au clic du joueur sur une proposition
  * 
@@ -37,7 +38,7 @@ public class ChoisirAction extends Action {
 			.getLogger(ChoisirAction.class);
 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
+	public synchronized ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
 		choisirActionLogger.debug("Execute");
@@ -78,33 +79,42 @@ public class ChoisirAction extends Action {
 					.getChoixPersonneParQuizPersonneEtQuestion(personne, quiz,
 							question);
 
-			// si la personne avait deja choisi , on remplace son choix par le
-			// nouveau
-			if (listeChoix.size() > 0) {
-				Choisir choisir = new Choisir(listeChoix.get(0).getId(),
-						new Timestamp(System.currentTimeMillis()), proposition,
-						quiz, personne);
-				choisirDAO.updateChoix(choisir);
-			}
-			// sinon on cree le nouveau choix et on l'ajoute
-			else {
+			// si la proposition cliquée fait bien partie de la liste des
+			// propositions de la question courante alors on peut valider
+			if (!question.getPropositions().contains(proposition)) {
+				choisirActionLogger
+						.debug("Choix d'une proposition ne faisant pas partie des propositions de la question courante");
+			} else {
 
-				Choisir choisir = new Choisir(new Timestamp(
-						System.currentTimeMillis()), proposition, quiz,
-						personne);
-				// on l'ajoute
-				choisirDAO.createChoix(choisir);
-			}
-			choisirActionLogger.debug("Action terminee avec succes");
+				// si la personne avait deja choisi , on remplace son choix par
+				// le
+				// nouveau
+				if (listeChoix.size() > 0) {
+					Choisir choisir = new Choisir(listeChoix.get(0).getId(),
+							new Timestamp(System.currentTimeMillis()),
+							proposition, quiz, personne);
 
+					choisirDAO.updateChoix(choisir);
+				}
+				// sinon on cree le nouveau choix et on l'ajoute
+				else {
+
+					Choisir choisir = new Choisir(new Timestamp(
+							System.currentTimeMillis()), proposition, quiz,
+							personne);
+					// on l'ajoute
+					choisirDAO.createChoix(choisir);
+				}
+				choisirActionLogger.debug("Action terminee avec succes");
+			}
 			// envoi de l'id pour la vue qui mettra en avant le choix
 			// selectionné
 			session.setAttribute("idProposition", idProposition);
-			//on envoie la date actuelle
+			// on envoie la date actuelle
 			request.setAttribute("currentTimestamp", System.currentTimeMillis());
 			return mapping.findForward("succes");
 		} else {
-			//on envoie la date actuelle
+			// on envoie la date actuelle
 			request.setAttribute("currentTimestamp", System.currentTimeMillis());
 			// le temps est depassï¿½
 			choisirActionLogger.debug("vote apres les 30s");

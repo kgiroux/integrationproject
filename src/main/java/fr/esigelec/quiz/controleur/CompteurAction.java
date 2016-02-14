@@ -1,8 +1,11 @@
 package fr.esigelec.quiz.controleur;
 
 import java.sql.Timestamp;
+
 import javax.servlet.http.*;
+
 import org.apache.struts.action.*;
+
 import fr.esigelec.quiz.business.ActionService;
 import fr.esigelec.quiz.dao.hibernate.QuizDAOImpl;
 import fr.esigelec.quiz.dto.*;
@@ -56,6 +59,11 @@ public class CompteurAction extends Action {
 			// mise à jour dans la BDD
 			quizdaoimpl.updateQuiz(quiz);
 
+			
+			//on force le refresh de tous les clients connectes via les websockets
+			WebSocket.rafraichirTousLesClients();
+			
+			
 			// SORTIE
 			// on met le noquestioncourante en session
 			session.setAttribute("compteur", noQuestionCourante);

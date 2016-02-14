@@ -68,6 +68,11 @@ public class StatsAction extends Action {
 			quiz.setEtape(2);
 			// mise à jour du quiz dans la BDD
 			quizDAO.updateQuiz(quiz);
+			
+			
+			
+			//on force le refresh de tous les clients connectes via les websockets
+			WebSocket.rafraichirTousLesClients();
 
 			// inutile ?
 			// Quiz q = quizDAO.getQuizAvecQuestions(quiz.getId());

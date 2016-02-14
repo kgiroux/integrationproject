@@ -3,6 +3,7 @@
 <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
 <!DOCTYPE html>
+<html>
 <head>
 <jsp:include page="/header.jsp"/>
 </head>
@@ -10,6 +11,7 @@
 <div class="container">
   <div class="page-header">
 	<h1>Administrer les quiz</h1>
+	 <div><span id="messageWebSockets"></span></div>
   </div>
   <a href="<%=request.getContextPath()%>/VueQuestionQuizAdmin.do"><button class="btn btn-success"><span class ="glyphicon glyphicon-plus"> </span> Ajouter un Quiz</button></a>
   <a href="<%=request.getContextPath()%>/"><button class="btn btn-primary pull-right"> Déconnexion</button></a>
@@ -38,6 +40,9 @@
                   <a href="<%=request.getContextPath()%>/EditerQuiz.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-edit"></span></a>
                 </td>
                 <td><a href="<%=request.getContextPath()%>/JouerAdmin.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-play"></span></a></td>
+                <td><a href="<%=request.getContextPath()%>/ArreterQuiz.do?idQuiz=${quiz.id}">
+                
+                <c:if test="${quiz.etape != 0}">STOP</c:if></a></td>
               </tr>
             </c:forEach>
           </tbody>
@@ -46,6 +51,9 @@
     </c:if>
   </div>
 </div>
+
+
+
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

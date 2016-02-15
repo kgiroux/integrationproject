@@ -73,9 +73,7 @@ public class JouerAdminAction extends Action {
 			// recuperation question courante
 			question = ActionService.getQuestionByQuizId(idQuiz);
 
-			// on efface tous les anciens votes associés à ce quiz
-			IChoisirDAO choixDAO = new ChoisirDAOImpl();
-			choixDAO.deleteChoix(quiz);
+			
 			
 			
 			

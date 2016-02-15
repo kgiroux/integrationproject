@@ -150,6 +150,7 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
   </div><!-- /.col-lg-12 -->
   <div class="col-xs-6 col-xs-offset-3 col-md-2 col-md-offset-5">
     <a href="<%=request.getContextPath() %>/VueQuestion.do" class="btn btn-primary btn-block">rafraichir</a>
+    
   </div>
   <%--afficahge du calssement si etape 3 --%>
   <c:if test="${quiz.etape==3}">

@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
 <%@ page import="fr.esigelec.quiz.dto.*,java.util.*" %>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+
+<jsp:useBean id="mapNbVotes" type="java.util.Map" scope="request"></jsp:useBean>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,10 +25,14 @@
           <thead>
             <tr>
  	          <th>Libellé</th>
-              <th>Date</th>
- 	          <th>Supprimer</th>
- 	          <th>Editer</th>
+             
+ 	         
+ 	          
  	          <th>(Re)Lancer</th>
+ 	          <th>Arrêter</th>
+ 	          <th>Votes</th>
+ 	          <th>Editer</th>
+ 	           <th>Supprimer</th>
             </tr>
           </thead>
           <tbody>
@@ -34,15 +40,19 @@
             <c:forEach var="quiz" items="${listeQuiz}">
               <tr>
                 <td>${quiz.libelle}</td>
-                <td>${quiz.dateDebutQuiz}</td>
-                <td><a href="<%=request.getContextPath()%>/SupprimerQuiz.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-remove"></span></a></td>
+               
+                
+               
+                <td><a href="<%=request.getContextPath()%>/JouerAdmin.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-play"></span></a></td>
                 <td>
+                
+                <c:if test="${quiz.etape != 0}"><a href="<%=request.getContextPath()%>/ArreterQuiz.do?idQuiz=${quiz.id}">STOP</a></c:if></td>
+                
+                <td>${mapNbVotes[quiz.id]} vote(s)<br><a href="<%=request.getContextPath()%>/EffacerVotes.do?idQuiz=${quiz.id}">Effacer tous les votes</a></td>
+                 <td>
                   <a href="<%=request.getContextPath()%>/EditerQuiz.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-edit"></span></a>
                 </td>
-                <td><a href="<%=request.getContextPath()%>/JouerAdmin.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-play"></span></a></td>
-                <td><a href="<%=request.getContextPath()%>/ArreterQuiz.do?idQuiz=${quiz.id}">
-                
-                <c:if test="${quiz.etape != 0}">STOP</c:if></a></td>
+                <td><a href="<%=request.getContextPath()%>/SupprimerQuiz.do?idQuiz=${quiz.id}"><span class="glyphicon glyphicon-remove"></span></a></td>
               </tr>
             </c:forEach>
           </tbody>

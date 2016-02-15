@@ -139,16 +139,12 @@ public class Proposition implements Comparable<Proposition> , Serializable {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (estBonneReponse ? 1231 : 1237);
-		result = prime * result + id;
-		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
-		return result;
+		return id;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
+	
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -178,4 +174,8 @@ public class Proposition implements Comparable<Proposition> , Serializable {
 		else 
 			return 1;
 	}
+	
+	
+	
+	
 }

@@ -52,6 +52,10 @@
          <forward name="succes" path="/VueQuizAdmin.do"/>
           <forward name="login"  path="/index.jsp"/>
       </action>
+       <action scope="request" path="/EffacerVotes" name="" type="fr.esigelec.quiz.controleur.EffacerVotesAction" input="/">
+         <forward name="succes" path="/VueQuizAdmin.do"/>
+          <forward name="login"  path="/index.jsp"/>
+      </action>
       <action scope="request" path="/Choisir" name="" type="fr.esigelec.quiz.controleur.ChoisirAction" input="/">
          <forward name="succes" path="/question.jsp"/>
          <forward name="time-out" path="/VueQuestion.do"/>

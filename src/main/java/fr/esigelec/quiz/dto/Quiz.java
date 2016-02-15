@@ -280,6 +280,8 @@ public class Quiz implements Serializable {
 
 	@Override
 	public int hashCode() {
+		return id;
+		/*
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dateDebutQuestion == null) ? 0 : dateDebutQuestion.hashCode());
@@ -290,7 +292,7 @@ public class Quiz implements Serializable {
 		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
 		result = prime * result + noQuestionCourante;
 		result = prime * result + ((questions == null) ? 0 : questions.hashCode());
-		return result;
+		return result;*/
 	}
 
 	@Override

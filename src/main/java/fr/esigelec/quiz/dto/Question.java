@@ -116,12 +116,13 @@ public class Question implements  Comparable<Question>, Serializable  {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		return id;
+		/*final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
 		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
 		result = prime * result + ((propositions == null) ? 0 : propositions.hashCode());
-		return result;
+		return result;*/
 	}
 
 

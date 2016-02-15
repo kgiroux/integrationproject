@@ -204,7 +204,8 @@ public class Personne implements Comparable<Personne>, Serializable{
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		return id;
+		/*final int prime = 31;
 		int result = 1;
 		result = prime * result + droits;
 		result = prime * result + id;
@@ -213,7 +214,7 @@ public class Personne implements Comparable<Personne>, Serializable{
 		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
 		result = prime * result + ((prenom == null) ? 0 : prenom.hashCode());
 		result = prime * result + score;
-		return result;
+		return result;*/
 	}
 
 	@Override

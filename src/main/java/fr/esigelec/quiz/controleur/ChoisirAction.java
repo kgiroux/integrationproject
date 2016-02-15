@@ -84,12 +84,16 @@ public class ChoisirAction extends Action {
 			if (!question.getPropositions().contains(proposition)) {
 				choisirActionLogger
 						.debug("Choix d'une proposition ne faisant pas partie des propositions de la question courante");
+				System.out.println(question.getPropositions());
+				System.out.println(proposition);
 			} else {
 
 				// si la personne avait deja choisi , on remplace son choix par
 				// le
 				// nouveau
 				if (listeChoix.size() > 0) {
+					choisirActionLogger
+					.debug("mise à jour du choix");
 					Choisir choisir = new Choisir(listeChoix.get(0).getId(),
 							new Timestamp(System.currentTimeMillis()),
 							proposition, quiz, personne);
@@ -98,7 +102,8 @@ public class ChoisirAction extends Action {
 				}
 				// sinon on cree le nouveau choix et on l'ajoute
 				else {
-
+					choisirActionLogger
+					.debug("ajout choix");
 					Choisir choisir = new Choisir(new Timestamp(
 							System.currentTimeMillis()), proposition, quiz,
 							personne);

@@ -61,7 +61,7 @@ public class EnregistrerQuestionAction extends Action {
 					
 			IQuestionDAO questionDAO = new QuestionDAOImpl();
 			IPropositionDAO propositionDAO = new PropositionDAOImpl();
-			IQuizDAO quizDAO = new QuizDAOImpl(); 
+			
 
 			// enregister la question
 			Question question = new Question(libelleQuestion);
@@ -94,8 +94,7 @@ public class EnregistrerQuestionAction extends Action {
 			{
 				prop = new Proposition();
 				prop.setLibelle(p1);
-				boolean estBonne = p1.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
+				prop.setEstBonneReponse("1".equals(bonneReponse));
 				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
 				enregistrerQuestionActionLogger.info(prop.toString());
@@ -107,8 +106,7 @@ public class EnregistrerQuestionAction extends Action {
 			{
 				prop = new Proposition();
 				prop.setLibelle(p2);
-				boolean estBonne = p2.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
+				prop.setEstBonneReponse("2".equals(bonneReponse));
 				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
 				enregistrerQuestionActionLogger.info(prop.toString());
@@ -120,8 +118,7 @@ public class EnregistrerQuestionAction extends Action {
 			{
 				prop = new Proposition();
 				prop.setLibelle(p3);
-				boolean estBonne = p3.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
+				prop.setEstBonneReponse("3".equals(bonneReponse));
 				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
 				enregistrerQuestionActionLogger.info(prop.toString());
@@ -133,8 +130,7 @@ public class EnregistrerQuestionAction extends Action {
 			{
 				prop = new Proposition();
 				prop.setLibelle(p4);
-				boolean estBonne = p4.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
+				prop.setEstBonneReponse("4".equals(bonneReponse));
 				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
 				enregistrerQuestionActionLogger.info(prop.toString());
@@ -146,8 +142,7 @@ public class EnregistrerQuestionAction extends Action {
 			{
 				prop = new Proposition();
 				prop.setLibelle(p5);
-				boolean estBonne = p5.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
+				prop.setEstBonneReponse("5".equals(bonneReponse));
 				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
 				enregistrerQuestionActionLogger.info(prop.toString());
@@ -159,8 +154,7 @@ public class EnregistrerQuestionAction extends Action {
 			{
 				prop = new Proposition();
 				prop.setLibelle(p6);
-				boolean estBonne = p6.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
+				prop.setEstBonneReponse("6".equals(bonneReponse));
 				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
 				enregistrerQuestionActionLogger.info(prop.toString());
@@ -172,8 +166,7 @@ public class EnregistrerQuestionAction extends Action {
 			{
 				prop = new Proposition();
 				prop.setLibelle(p7);
-				boolean estBonne = p7.equals(bonneReponse) ? true : false;
-				prop.setEstBonneReponse(estBonne);
+				prop.setEstBonneReponse("7".equals(bonneReponse));
 				prop.setQuestion(question);
 				propositionDAO.createProposition(prop);
 				enregistrerQuestionActionLogger.info(prop.toString());

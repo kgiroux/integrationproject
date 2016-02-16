@@ -4,7 +4,7 @@
 
 <footer>
 <jsp:include page="/mention_legale.jsp"></jsp:include>
-
+<%--
 SESSION : <br>
 <table>
 <%Enumeration en=session.getAttributeNames();
@@ -17,6 +17,6 @@ while(en.hasMoreElements()){%>
 }
 %>
 </table>
-
+--%>
 
 </footer>

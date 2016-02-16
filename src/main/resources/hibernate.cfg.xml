@@ -17,7 +17,7 @@
         <property name="connection.CharSet">utf8</property>
         
 		<!--JDBC connectionpool (use the built-in) -->
-		<property name="connection.pool_size">1</property>
+		<property name="connection.pool_size">10</property>
 		
 		<!--SQL dialect-->
 		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>

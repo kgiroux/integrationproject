@@ -71,7 +71,7 @@ session.setAttribute("questioncurrente",questioncur);
     <div class="progress">
       <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
        style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
-       <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+       <c:out value="${  ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
       </div>
     </div>
      

@@ -52,8 +52,12 @@ public class JouerAction extends Action {
 			idQuiz = quiz.getId();
 		}
 
-		// on recupere la question courante
-		Question question = ActionService.getQuestionByQuizId(idQuiz);
+		Question question=null;
+		// on recupere la question courante si le quiz est dejà commencé
+		//sinon question =null
+		 if(quiz.getNoQuestionCourante()>-1)
+			question= ActionService.getQuestionByQuizId(idQuiz);
+		
 
 		// SORTIE
 		// on efface lancien vote qui pourrait etre encore en session
@@ -61,6 +65,10 @@ public class JouerAction extends Action {
 
 		// on envoi le quiz et la question
 		session.setAttribute("quiz", quiz);
+		
+		if(question==null)
+		session.removeAttribute("question");
+		else
 		session.setAttribute("question", question);
 		// Utile ???? à priori non
 		request.setAttribute("currentTimestamp", System.currentTimeMillis());

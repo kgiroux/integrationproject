@@ -65,19 +65,35 @@ session.setAttribute("questioncurrente",questioncur);
       </c:if>
     </div>
   </div>
+
+<%--Si une question n'a PAS été recue (ie on est AVANT la premiere question) --%>
+    <c:if test="${question==null}">
+    <div class="row" style="margin-top:10px">
+    <div class="col-xs-12">
+    Etes-vous prêts ? 
+    </div>
+    </div>
+    </c:if>
+
+
+
+
+  <%--Si une question a été recue (ie on est pas avant la premiere question) --%>
+    <c:if test="${question!=null}">
   <div class="page-header">
     <h1>Question n°<%=count+1%>&nbsp;/&nbsp;<%=((Quiz) session.getAttribute("quiz")).getQuestions().size() %></h1>
     <%--DEBUT Barre de progression --%>
     <div class="progress">
       <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
        style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
-       <c:out value="${  ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+       
       </div>
     </div>
      
     <%--FIN Barre de progression --%>
     <div><span id="messageWebSockets"></span></div>
   </div><!-- /.row -->
+  </c:if>
 
   <div class="row">
     <%-- on affiche le compteur que si on est en etape 1 --%>
@@ -90,6 +106,10 @@ session.setAttribute("questioncurrente",questioncur);
         </p>
       </div>
     </c:if>
+    
+    
+    <%--Si une question a été recue (ie on est pas avant la premiere question) --%>
+    <c:if test="${question!=null}">
     <div class="col-xs-12">
       <table class="table table-bordered table-hover">
         <thead>
@@ -134,10 +154,10 @@ session.setAttribute("questioncurrente",questioncur);
                 <td><c:out value="${proposition.libelle}" /></td>
                 <td><c:out value="${proposition.pourcentage}" />%</td>
                 <c:if test="${proposition.estBonneReponse == false}">
-                  <td style="background-color:red"></td>
+                  <td><span style="color:red" class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>   </td>
                 </c:if>
                 <c:if test="${proposition.estBonneReponse == true}">
-                  <td style="background-color:green"></td>
+                  <td><span style="color:green" class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>   </td>
                 </c:if>
               </tr>
             </c:forEach>
@@ -146,7 +166,11 @@ session.setAttribute("questioncurrente",questioncur);
       </tbody>
     </table>
     </div><!-- /.col -->
+    </c:if>
     
+    
+    <%--Si une question a été recue (ie on est pas avant la premiere question) --%>
+    <c:if test="${question!=null}">
     <%--affichage du classement seulement en etape 3 --%>
     <c:if test="${quiz.etape==3}">
       <div class="col-xs-12">
@@ -176,6 +200,7 @@ session.setAttribute("questioncurrente",questioncur);
           </tbody>
         </table>
       </div>
+    </c:if>
     </c:if>
   </div>
 </div>

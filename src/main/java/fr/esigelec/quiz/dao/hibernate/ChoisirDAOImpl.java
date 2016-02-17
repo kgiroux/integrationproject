@@ -153,7 +153,7 @@ public class ChoisirDAOImpl implements IChoisirDAO {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		Choisir retour = (Choisir) session.get(Choisir.class, id);
-		System.out.println(retour.toString());
+		//System.out.println(retour.toString());
 		session.getTransaction().commit();
 		session.close();
 		logger.info("get Choix: " + retour.toString() + " From id : " + id);

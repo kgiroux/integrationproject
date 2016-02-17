@@ -27,7 +27,7 @@ import fr.esigelec.quiz.dto.Quiz;
  *
  */
 @Deprecated
-public class LancerPartieAction extends Action {
+public class LancerPartieAction_old extends Action {
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -55,7 +55,7 @@ public class LancerPartieAction extends Action {
 			// la premiere question du quiz)
 			quiz.setDateDebutQuestion(currentTime);
 			// on fixe la question courante à 0 (premiere question du quiz)
-			quiz.setNoQuestionCourante(0);
+			quiz.setNoQuestionCourante(-1);
 
 			// letape est 1 (etape où les joueurs peuvent repondre)
 			quiz.setEtape(1);

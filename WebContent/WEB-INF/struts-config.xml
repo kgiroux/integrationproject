@@ -32,6 +32,14 @@
          <forward name="erreur" path="/inscription.jsp"></forward>
       </action>
       <action scope="request" path="/ConnexionPersonne" name="connexionForm" type="fr.esigelec.quiz.controleur.ConnexionPersonneAction" input="/">
+         <forward name="succes" path="/VueListeQuiz.do" redirect="true"/>
+         <forward name="succes-admin" path="/VueQuizAdmin.do" redirect="true"/>
+         <forward name="erreur" path="/index.jsp"/>
+      </action>
+      
+       
+      
+      <action scope="request" path="/VueListeQuiz"  type="fr.esigelec.quiz.controleur.VueListeQuizAction" input="/">
          <forward name="succes" path="/quiz.jsp"/>
          <forward name="succes-admin" path="/VueQuizAdmin.do" redirect="true"/>
          <forward name="erreur" path="/index.jsp"/>

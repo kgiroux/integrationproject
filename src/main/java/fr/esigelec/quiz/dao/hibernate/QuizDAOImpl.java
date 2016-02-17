@@ -194,7 +194,7 @@ public class QuizDAOImpl implements IQuizDAO {
 			List<Quiz> retour = session.createQuery(hql).list();
 			// on charge les qestions NE pa SUPPRIMER!
 			for (Quiz q : retour)
-				System.out.println(q.getQuestions());
+				System.out.println(q.getQuestions().size());
 			session.getTransaction().commit();
 			session.close();
 			logger.info("get liste Quiz: " + retour.toString());

@@ -55,7 +55,7 @@
 						<label for="libelleQuiz" class="control-label">Libellé :</label>
 					</div>
 					<div class="col-xs-12 col-sm-4">
-						<!--  -->
+						
 						<c:if test="${quiz.id == null}">
 							<input type="text" class="form-control" name="libelleQuiz"
 								id="libelleQuiz" placeholder="Titre de votre quiz">

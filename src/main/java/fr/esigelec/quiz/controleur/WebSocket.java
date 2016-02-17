@@ -76,15 +76,31 @@ public class WebSocket {
     
     
     /**
-     * on force le refresh de tous les clients connectes pour qu'ils puissent avoir la page suivante
+     * on force le refresh de tous les clients connectes pour qu'ils puissent avoir la page question
      */
     public static  void rafraichirTousLesClients(){
     	System.out.println("websocket . rafraichirTousLesClients : "+userSessions.size());
     	for (Session session : userSessions) {
           
-            session.getAsyncRemote().sendText("rafraichir=");
+            session.getAsyncRemote().sendText("rafraichir=VueQuestion");
         }
     }
+    
+    
+    /**
+     * on previent les clients que l'animateur vient de lancer un quiz
+     */
+    public static  void prevenirQueQuizLance(){
+    	System.out.println("websocket . prevenirQueQuizLance : "+userSessions.size());
+    	for (Session session : userSessions) {
+          
+            session.getAsyncRemote().sendText("prevenirQuizLance");
+        }
+    }
+    
+    
+    
+   
 	
 	
   

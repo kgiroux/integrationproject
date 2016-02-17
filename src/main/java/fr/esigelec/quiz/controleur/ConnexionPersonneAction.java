@@ -47,9 +47,9 @@ public class ConnexionPersonneAction extends Action {
 		String mdp = SecurityHelper.MD5(f.getPassword());
 
 		IPersonneDAO personneDAO = new PersonneDAOImpl();
-		IQuizDAO quizDAO = new QuizDAOImpl();
+		//IQuizDAO quizDAO = new QuizDAOImpl();
 		// recuperation de la liste des quiz avec les questions
-		List<Quiz> listeQuiz = quizDAO.listQuizAvecQuestions();
+		//List<Quiz> listeQuiz = quizDAO.listQuizAvecQuestions();
 
 		// on recupere la personne correspondant au mail dans la BDD
 		Personne personne = personneDAO.getPersonne(mail);
@@ -68,7 +68,7 @@ public class ConnexionPersonneAction extends Action {
 		// si bon mot de passe et droit admin
 		else if (personne.getDroits() == Personne.ADMIN) {
 			// envoi de la liste des quiz à la page suivante
-			request.setAttribute("listeQuiz", listeQuiz);
+			//request.setAttribute("listeQuiz", listeQuiz);
 			// ajout de la personne en session
 			session.setAttribute("personne", personne);
 			connexionPersonneActionLogger.debug("Connexion rï¿½ussie");
@@ -77,7 +77,7 @@ public class ConnexionPersonneAction extends Action {
 		// sinon on est connecté joueur
 		else {
 			// envoi de la liste des quiz à la page suivante
-			request.setAttribute("listeQuiz", listeQuiz);
+			//request.setAttribute("listeQuiz", listeQuiz);
 			// ajout de la personne en session
 			session.setAttribute("personne", personne);
 			connexionPersonneActionLogger.debug("Connexion reussie");

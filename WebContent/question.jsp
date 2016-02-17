@@ -37,9 +37,19 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
 >
 <div class="container">
   <div class="page-header">
+  
+   <%--Si une question a bien été reçue (ie le quiz a commencé) --%>
+    <c:if test="${question!=null}">
     <p class="h1">
       Question n°<c:out value="${quiz.noQuestionCourante+1}"/>&nbsp;/&nbsp;<c:out value="${quiz.questions.size()}"/>
     </p>
+    </c:if>
+     <%--Si une question n'a pas été reçue (ie le quiz n'a pas encore commencé) --%>
+    <c:if test="${question==null}">
+      <p class="h1">
+      Le quiz va bientôt commencer ! Veuillez patienter...
+    </p>
+    </c:if>
     
     <div><span id="messageWebSockets"></span></div>
     
@@ -52,13 +62,16 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
       <div class="progress">
         <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="<c:out value="${quiz.noQuestionCourante}"/>" aria-valuemin="1" aria-valuemax="<c:out value="${quiz.questions.size()}"/>"
          style="width:<c:out value="${((quiz.noQuestionCourante+1) * 100 ) / quiz.questions.size()}"/>%">
-         <c:out value="${ ((quiz.noQuestionCourante + 1) * 100 ) / quiz.questions.size()}" />%
+         
         </div>
       </div>
     </div>
     <%--FIN Barre de progression --%>
   </div>
  
+ 
+  <%--Si une question a bien été reçue (ie le quiz a commencé) --%>
+    <c:if test="${question!=null}">
  <%--affichage de la position du joueur dans le classement seulement en etape 3 --%>
  <c:if test="${quiz.etape==3}">
  <%
@@ -82,6 +95,7 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
  %>
  <p class="question"><strong>Classement </strong> : <%=rank %> / <%=size %> joueurs</p> 
  </c:if>
+ </c:if>
  
  
  
@@ -98,6 +112,13 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
  </c:if>
   <%--FIN compteur --%>
  
+ 
+ 
+
+
+
+ <%--Si une question a bien été reçue (ie le quiz a commencé) --%>
+    <c:if test="${question!=null}">
  <%--si le quiz est lancé on peut afficher question --%> 
  <c:if test="${quiz.etape>0}"> 
  
@@ -130,16 +151,16 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
 				<c:if test="${quiz.etape!=1}">
 					<c:forEach var="proposition" items="${question.listePropositions}">
 						<tr class="question">
-							<td><c:out value="${proposition.libelle}" /></td>
+							<td <c:if test="${idProposition==proposition.id}"> style="color:red;font-weight:bold"</c:if>><c:out value="${proposition.libelle}" /></td>
 							<c:if test="${quiz.etape>=2}">
 								<td><c:out value="${proposition.pourcentage}" />%</td>
 							</c:if>
 							<c:if test="${quiz.etape==3}">
 								<c:if test="${proposition.estBonneReponse == false}">
-									<td style="background-color: red"></td>
+									<td><span style="color:red" class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>   </td>
 								</c:if>
 								<c:if test="${proposition.estBonneReponse == true}">
-									<td style="background-color: green"></td>
+									<td><span style="color:green" class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span>   </td>
 								</c:if>
 							</c:if>
 						</tr>
@@ -148,8 +169,8 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
 			</tbody>
     </table>
   </div><!-- /.col-lg-12 -->
-  <div class="col-xs-6 col-xs-offset-3 col-md-2 col-md-offset-5">
-    <a href="<%=request.getContextPath() %>/VueQuestion.do" class="btn btn-primary btn-block">rafraichir</a>
+  <div class="col-xs-4 col-xs-offset-8 ">
+    <a href="<%=request.getContextPath() %>/VueListeQuiz.do" class="btn btn-danger btn-block">retour</a>
     
   </div>
   <%--afficahge du calssement si etape 3 --%>
@@ -185,6 +206,7 @@ onload="if (!interval) { interval=setInterval(Ecoule, 1000) }"
   
 </div><!-- /.row -->
 
+</c:if>
 </c:if>
  <%-- <a id="btn-stats" href="<%=request.getContextPath()%>/VueQuestion.do" class="btn btn-success hidden">Confirmer et voir résultat</a> --%>
 </div>

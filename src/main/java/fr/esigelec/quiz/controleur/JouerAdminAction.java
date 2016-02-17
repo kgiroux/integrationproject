@@ -32,7 +32,7 @@ public class JouerAdminAction extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 
-		Question question; // question courante
+		Question question=null; // question courante
 
 		// recuperation DAO
 		IQuizDAO quizDAO = new QuizDAOImpl();
@@ -59,19 +59,20 @@ public class JouerAdminAction extends Action {
 			// quiz) devient la date courante
 			quiz.setDateDebutQuestion(new Timestamp(System.currentTimeMillis()));
 			// l'etape de la question est fixée à 1 : les joueurs peuvent voter
-			quiz.setEtape(1);
+			quiz.setEtape(3);
 			// la question courante est la question 0 (les no commencent à 0)
-			quiz.setNoQuestionCourante(0);
+			quiz.setNoQuestionCourante(-1);
 			// mise à jour du quiz en BDD
 			quizDAO.updateQuiz(quiz);
 
 			
-			//on force le refresh de tous les clients connectes via les websockets
-			WebSocket.rafraichirTousLesClients();
+			//on previent les client qu'un quiz vient d'etre lancé
+			WebSocket.prevenirQueQuizLance();
 			
 			
-			// recuperation question courante
-			question = ActionService.getQuestionByQuizId(idQuiz);
+			// recuperation question courante sauf si on n'a pas encore decelncher la partie
+			if(quiz.getNoQuestionCourante()>-1)
+				question = ActionService.getQuestionByQuizId(idQuiz);
 
 			
 			
@@ -80,9 +81,16 @@ public class JouerAdminAction extends Action {
 
 			// SORTIE
 			session.setAttribute("quiz", quiz);
-			session.setAttribute("question", question);
-			// on envoie le no de la question courante (0 car c'est la premiere)
-			session.setAttribute("compteur", 0);
+			
+			//rappel question vaut null si on a pas encore commencé
+			if(question==null)session.removeAttribute("question");
+			else session.setAttribute("question",question);
+			
+			
+			
+			
+			// on envoie le no de la question courante (-1 car c'est avant la premiere)
+			session.setAttribute("compteur", -1);
 			// envoi a la vue de la date courante pour affichage du compteur
 			request.setAttribute("currentTimestamp", System.currentTimeMillis());
 		}

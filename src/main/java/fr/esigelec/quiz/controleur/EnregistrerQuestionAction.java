@@ -76,16 +76,7 @@ public class EnregistrerQuestionAction extends Action {
 //			
 //			listeProposition.add(propositionBonneReponse);
 			
-			//enregistrer bonne reponse
-			Proposition prop = new Proposition();
-			prop.setLibelle(bonneReponse);
-			prop.setEstBonneReponse(true);
-			prop.setQuestion(question);
-			propositionDAO.createProposition(prop);
-			enregistrerQuestionActionLogger.info(prop.toString());
-			enregistrerQuestionActionLogger.info(listeProposition.size());
-			listeProposition.add(prop);
-			
+			Proposition prop;			
 			
 			
 			// enregistrer les propositions
